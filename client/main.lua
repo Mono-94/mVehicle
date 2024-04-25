@@ -9,7 +9,6 @@ RegisterNetEvent('mVehicle:ClientData', function(VehiclesData)
     ServerVehicles = VehiclesData
 end)
 
-
 function AtRound(valor, decimal)
     local start = 10 ^ (decimal or 0)
     return math.floor(valor * start + 0.5) / start
@@ -300,31 +299,41 @@ if Config.KeyMenu then
     lib.addRadialItem({
         {
             id = 'vehicle_keys',
-            label = 'VehicleKeys',
-            icon = 'shield-halved',
+            label = Config.Locales.carkey_menu1,
+            icon = 'key',
             onSelect = function()
                 Vehicles.VehickeKeysMenu()
             end
         }
     })
 end
+
+
 function Vehicles.VehickeKeysMenu(plate, cb)
     local VehicleList = {}
     local VehicleSelected = {}
     local data = VehicleState('getkeys')
-    if #data == 0 then return print('No tienes ningun vehiculo en propiedad') end
+    if #data == 0 then
+        return Notification({
+            title = Config.Locales.carkey_menu1,
+            description = Config.Locales.carkey_menu2,
+            type = data.type or 'warning',
+
+        })
+    end
     for i = 1, #data do
         local row = data[i]
         local props = json.decode(row.vehicle)
         row.vehlabel = VehicleLabel(props.model)
         if plate and row.plate == plate then
             table.insert(VehicleSelected, {
-                title = 'Dar Llave',
+                title = Config.Locales.carkey_menu3,
+                description = Config.Locales.carkey_menu4,
                 iconColor = '#86d975',
                 icon = 'plus',
                 onSelect = function()
-                    local input = lib.inputDialog('Set new key', {
-                        { type = 'number', label = 'Player ID', icon = 'user' },
+                    local input = lib.inputDialog(Config.Locales.carkey_menu3, {
+                        { type = 'number', label = 'ID', icon = 'user' },
 
                     })
                     if input then
@@ -346,8 +355,8 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                     table.insert(VehicleSelected, {
                         title = v,
                         arrow = true,
-                        description = 'Eliminar',
                         icon = 'user',
+                        description = Config.Locales.carkey_menu6,
                         iconColor = '#d97575',
                         onSelect = function()
                             keys[k] = nil
@@ -364,7 +373,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
 
             if not notplayers then
                 table.insert(VehicleSelected, {
-                    title = 'Nadie tiene llaves de este vehículo 😪',
+                    title = Config.Locales.carkey_menu5,
                     icon = 'ban',
                     iconColor = '#d97575',
                     disabled = true,
@@ -381,12 +390,13 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                 onSelect = function()
                     VehicleSelected = {}
                     table.insert(VehicleSelected, {
-                        title = 'Dar Llave',
+                        title = Config.Locales.carkey_menu3,
+                        description = Config.Locales.carkey_menu4,
                         iconColor = '#86d975',
                         icon = 'plus',
                         onSelect = function()
-                            local input = lib.inputDialog('Set new key', {
-                                { type = 'number', label = 'Player ID', icon = 'user' },
+                            local input = lib.inputDialog(Config.Locales.carkey_menu3, {
+                                { type = 'number', label = 'ID', icon = 'user' },
 
                             })
                             if input then
@@ -400,13 +410,13 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                         row.keys = json.decode(row.keys)
                     end
                     local notplayers = true
-                    if row.keys and next(row.keys) ~= nil then -- Verifica si row.keys no está vacío
+                    if row.keys and next(row.keys) ~= nil then
                         local keys = {}
                         for k, v in pairs(row.keys) do
                             table.insert(VehicleSelected, {
                                 title = v,
                                 arrow = true,
-                                description = 'Eliminar',
+                                description = Config.Locales.carkey_menu6,
                                 icon = 'user',
                                 iconColor = '#d97575',
                                 onSelect = function()
@@ -421,7 +431,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                     end
                     if not notplayers then
                         table.insert(VehicleSelected, {
-                            title = 'Nadie tiene llaves de este vehículo 😪',
+                            title = Config.Locales.carkey_menu5,
                             icon = 'ban',
                             iconColor = '#d97575',
                             disabled = true,
@@ -437,33 +447,23 @@ function Vehicles.VehickeKeysMenu(plate, cb)
 
     lib.registerContext({
         id = 'mVehicle:menuKeys',
-        title = 'Vehiculos personales',
+        title = Config.Locales.carkey_menu1,
         options = VehicleList
     })
 
     lib.showContext('mVehicle:menuKeys')
 end
 
----comment
----@param vehicle any
----@param vehlabel any
----@param cb function
 function VehhicleSelected(vehicle, vehlabel, cb)
-    local menu = {}
+    local menu = {
+        id = 'mVehicle:selectedVeh',
+        title = vehlabel,
+        options = vehicle
+    }
     if not cb then
-        menu = {
-            id = 'mVehicle:selectedVeh',
-            title = vehlabel,
-            menu = 'mVehicle:menuKeys',
-            options = vehicle
-        }
+        menu.menu = 'mVehicle:menuKeys'
     else
-        menu = {
-            id = 'mVehicle:selectedVeh',
-            title = vehlabel,
-            onExit = cb,
-            options = vehicle
-        }
+        menu.onExit = cb
     end
 
     lib.registerContext(menu)

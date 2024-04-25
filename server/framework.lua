@@ -3,12 +3,12 @@ ESX, Ox, QBCore = nil, nil, nil
 if Config.Framework == "esx" then
     ESX = exports["es_extended"]:getSharedObject()
 
-    RegisterNetEvent('esx:playerLoaded', function(src, xPlayer, isNew) end)
-    RegisterNetEvent('esx:playerDropped', function(src, reason) end)
+    --RegisterNetEvent('esx:playerLoaded', function(src, xPlayer, isNew) end)
+   -- RegisterNetEvent('esx:playerDropped', function(src, reason) end)
 elseif Config.Framework == "ox" then
     Ox = require '@ox_core.lib.init'
-    AddEventHandler('ox:playerLoaded', function(src, userid, charid) end)
-    AddEventHandler('ox:playerLogout', function(src, userid, charid) end)
+   -- AddEventHandler('ox:playerLoaded', function(src, userid, charid) end)
+  --  AddEventHandler('ox:playerLogout', function(src, userid, charid) end)
 elseif Config.Framework == "qb" then
     QBCore = exports['qb-core']:GetCoreObject()
 end

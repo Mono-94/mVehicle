@@ -1,17 +1,19 @@
 # mVehicles
 
+  *You can use this code simply for the key system.*
+
 ## Features
-- Fully compatible with ESX (100%), standalone (100% - requires database), and partially compatible with OX (some adaptations needed), and QB (not started).
-- All vehicle models are persistent.
+- Fully compatible with ESX , standalone (requires database)
+- Vehicle are persistent.
 - Ability to add metadata to vehicles.
 - Records total kilometers driven by vehicles.
 - Key system via item or database.
-  - Menu for sharing keys.
-- Various administration commands:
-  - `/givecar [source]`
-  - `/setcarowner [source]`
-  - `/saveAllcars true/false`: If true, deletes all vehicles; if false, only saves vehicles.
-  - `/spawnAllcars`: Forces spawning of vehicles outside of garages.
+- Menu for sharing keys.
+- Commands:
+- - `/givecar [source]`
+- - `/setcarowner [source]`
+- - `/saveAllcars true/false`: If true, deletes all vehicles; if false, only saves vehicles.
+- - `/spawnAllcars`: Forces spawning of vehicles outside of garages.
 
 ## Other Features
 - Target for managing the trailer tr2.
@@ -33,12 +35,20 @@ shared_scripts {
 }
 
 ```
+export
+```lua 
+exports.mVehicle:vehicle()
+```
+
 
 <details>
 <summary>Image</summary>
 
 ![GiveCar](https://i.imgur.com/3ja1LQG.png)
 
+![CarKeysMenu](https://i.imgur.com/b3eAY84.png)
+
+![ManageVehicleKeys](https://i.imgur.com/82KfzBc.png)
 </details>
 
 
@@ -69,12 +79,13 @@ end)
 * plate  =  vehicle plate    | string 
 ```lua
   Vehicles.ItemCarKeys(source, action, plate)
+
   -- or ox_inventory export 
   -- add
-  exports.ox_inventory:AddItem(source, 'carkey', 1, { plate = plate })
+  exports.ox_inventory:AddItem(source, 'carkey', 1, { plate = plate, description = plate })
   --remove 
   -- via ox_inventory export 
-  exports.ox_inventory:RemoveItem(source, 'carkey', 1, { plate = plate })
+  exports.ox_inventory:RemoveItem(source, 'carkey', 1, { plate = plate, description = plate })
 ```
 
   **Vehicles.CreateVehicle() Server**
@@ -95,8 +106,7 @@ local CreateVehicleData = {
 
     coords = vector4(1.0, 1.0, 1.0, 1.0),  -- Coords spawn table or vector 4
 
-    -- Vehicle Data
-    -- can set your custom props here or use lib.GetVehicleProps() table...
+    -- Vehicle props
     vehicle = {                            
         model = 'sulta',                  
         plate = Vehicles.GeneratePlate(), 
@@ -132,7 +142,7 @@ Vehicle.GetMetadata(key)
 -- local metadata = Vehicle.GetMetadata('stolen')
 -- print(metadata.stolenBy)   
 --- or client/server State 
--- local metadata = Entity(data.entity).state.metadata
+-- local metadata = Entity(entity).state.metadata
 -- print(metadata.stolenBy)  
 
 Vehicle.AddKey(source) 

@@ -1,7 +1,5 @@
 Vehicles = {}
 Vehicles.Vehicles = {}
-
-local resourceName = GetCurrentResourceName()
 local clientEvent = TriggerClientEvent
 
 
@@ -578,17 +576,18 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
     elseif action == 'savetrailer' then
         return vehicle.CoordsAndProps(data.coords, data.props)
     elseif action == 'addkey' then
+        if data.serverid == source then return end
         local target = Identifier(data.serverid)
         if target then
-            if not data.keys then
-                data.keys = {}
-            end
+            if not data.keys then data.keys = {} end
+            if data.keys[target] then return end
             data.keys[target] = GetName(data.serverid)
-        end
-        MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
-        if vehicle then
-            local State = Entity(vehicle.entity).state
-            State:set('Keys', data.keys, true)
+
+            MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
+            if vehicle then
+                local State = Entity(vehicle.entity).state
+                State:set('Keys', data.keys, true)
+            end
         end
     elseif action == 'deletekey' then
         MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
