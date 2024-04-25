@@ -1,6 +1,7 @@
 # DataBase 
 
-- ESX Original owned_vehicles
+- ESX Original owned_vehicles 
+- - to use it 'standalone' use this same database
 ```sql
 CREATE TABLE `owned_vehicles` (
   `owner` varchar(60) DEFAULT NULL,
