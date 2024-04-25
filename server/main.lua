@@ -156,19 +156,22 @@ function Vehicles.CreateVehicle(data, cb)
         if data.temporary then
             data.metadata.temporary = data.temporary
         end
-        State.id = Vehicles.SetVehicleOwner(data)
+        local setowner = Vehicles.SetVehicleOwner(data)
         data.id = State.id
+        State:set('id', setowner, true)
     end
 
     if data.vin then
         State:set('vin', data.vin, true)
     end
-    
+
     if data.metadata.fakeplate then
         data.vehicle.plate = data.metadata.fakeplate
+    else
+        data.vehicle.plate = data.plate
     end
 
-    State:set('plate ', data.plate, true)
+    State:set('plate', data.plate, true)
     State:set('setVehicleProperties', data.vehicle, true)
     State:set('fuel', data.vehicle.fuelLevel or 100, true)
     State:set('metadata', data.metadata, true)
@@ -221,12 +224,12 @@ function Vehicles.SetCarOwner(src)
     data.coords     = GetCoords(src)
     data.plate      = props.plate
     data.vehicle    = props
-    data.identifier = identifier
+    data.owner = identifier
     data.setOwner   = true
-    data.spawn      = true
 
     Vehicles.CreateVehicle(data)
 end
+
 
 function Vehicles.SetVehicleOwner(data)
     local insert = {}
@@ -253,7 +256,6 @@ function Vehicles.GetVehicle(EntityId)
     ---Save Metadata
     function self.SaveMetaData()
         MySQL.update(Querys.saveMetadata, { json.encode(self.metadata), self.plate })
-        --  State.metadata = self.metadata
         State:set("metadata", self.metadata, true)
     end
 

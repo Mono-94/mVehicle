@@ -15,13 +15,13 @@ CREATE TABLE `owned_vehicles` (
 ) ENGINE=InnoDB;
 ```
 
-To inssert 
+- To inssert new
 ```sql
 ALTER TABLE `owned_vehicles`
 ADD COLUMN `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST,
 ADD COLUMN `mileage` int(11) DEFAULT 0,
 ADD COLUMN `coords` longtext,
-ADD COLUMN `lastparking` longtext,
+ADD COLUMN `lastparking` varchar(100),
 ADD COLUMN `keys` longtext DEFAULT '[]',
 ADD COLUMN `metadata` longtext
 ```

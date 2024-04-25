@@ -82,8 +82,6 @@ lib.onCache('seat', function(value)
     end
 end)
 
-
-
 -- SetVehicle Props
 AddStateBagChangeHandler('setVehicleProperties', nil, function(bagName, key, value)
     if not value or not GetEntityFromStateBagName then return end
@@ -92,7 +90,7 @@ AddStateBagChangeHandler('setVehicleProperties', nil, function(bagName, key, val
 
     local networked = not bagName:find('localEntity')
 
-    if networked and NetworkGetEntityOwner(entity) ~= cache.playerId then return end
+    if networked and NetworkGetEntityOwner(entity) ~= PlayerId() then return end
 
     local fade = { action = 'spawn', entity = entity }
 
