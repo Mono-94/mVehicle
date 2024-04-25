@@ -163,7 +163,10 @@ function Vehicles.CreateVehicle(data, cb)
     if data.vin then
         State:set('vin', data.vin, true)
     end
-
+    
+    if data.metadata.fakeplate then
+        data.vehicle.plate = data.metadata.fakeplate
+    end
 
     State:set('plate ', data.plate, true)
     State:set('setVehicleProperties', data.vehicle, true)
