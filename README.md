@@ -27,18 +27,12 @@
 Recommended latest gameBuild ❗
 [FiveM Server Commands](https://docs.fivem.net/docs/server-manual/server-commands#sv_enforcegamebuild-build)
 
-Call resource via fxManifest:
+for it to work add this in the fxmanifest in the resource that you are going to use it
 ```lua 
 shared_scripts {
   '@mVehicle/import.lua'
 }
-
 ```
-export
-```lua 
-exports.mVehicle:vehicle()
-```
-
 
 <details>
 <summary>Image</summary>
@@ -67,13 +61,13 @@ end)
 
 **Vehicles.ItemCarKeysClient() Client**
 * action = 'remove' or 'add' | string
-* plate  =  vehicle plate    | string 
+* plate  =  vehicle plate    | string *GetVehicleNumberPlateText()*
 ```lua
   Vehicles.ItemCarKeysClient(action, plate)
 ```
 
 **Vehicles.ItemCarKeys() Server**
-*  source = player source    | number 
+* source = player source    | number 
 * action = 'remove' or 'add' | string
 * plate  =  vehicle plate    | string 
 ```lua
