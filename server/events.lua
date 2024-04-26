@@ -20,30 +20,33 @@ AddEventHandler('entityCreated', function(entity)
     end
 end)
 
+local convar = GetConvar("mVehicle:Persistent", "false")
 
--- on Resource ... 
-AddEventHandler("onResourceStart", function(name)
-    if name ~= GetCurrentResourceName() then return end
-    Vehicles.SpawnVehicles()
-end)
+if convar == 'true' then
+    -- on Resource ...
+    AddEventHandler("onResourceStart", function(name)
+        if name ~= GetCurrentResourceName() then return end
+        Vehicles.SpawnVehicles()
+    end)
 
-AddEventHandler('onResourceStop', function(name)
-    if name ~= GetCurrentResourceName() then return end
-    Vehicles.SaveAllVehicles()
-end)
+    AddEventHandler('onResourceStop', function(name)
+        if name ~= GetCurrentResourceName() then return end
+        Vehicles.SaveAllVehicles()
+    end)
 
 
 
--- TxAdmin
-AddEventHandler("txAdmin:events:serverShuttingDown", function()
-    Vehicles.SaveAllVehicles(true)
-end)
+    -- TxAdmin
+    AddEventHandler("txAdmin:events:serverShuttingDown", function()
+        Vehicles.SaveAllVehicles(true)
+    end)
 
-AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
-    if eventData.secondsRemaining == 60 then
-        CreateThread(function()
-            Wait(45000)
-            Vehicles.SaveAllVehicles(true)
-        end)
-    end
-end)
+    AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
+        if eventData.secondsRemaining == 60 then
+            CreateThread(function()
+                Wait(45000)
+                Vehicles.SaveAllVehicles(true)
+            end)
+        end
+    end)
+end

@@ -4,13 +4,11 @@ Config.lang = 'EN' -- ES / EN
 
 Config.Debug = true
 
-Config.Persistent = true    -- Vehicles persistentes? Los vehiculos se generaran en el ultimo lugar donde el servidor se reinicio/apago
+Config.Framework = 'esx'                                      -- esx, ox, standalone
 
-Config.Framework = 'esx'    -- esx, ox, standalone
+Config.Inventory = 'ox'                                       -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
 
-Config.Inventory = 'ox'     -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
-
-Config.TargetTrailer = true -- manage tr2 trailer
+Config.TargetTrailer = true                                   -- manage tr2 trailer
 
 -- Carkeys
 

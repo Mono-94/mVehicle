@@ -468,7 +468,7 @@ lib.callback.register('mVehicle:ChangePlate', function()
     local animDictLockPick = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
     local animLockPick = "machinic_loop_mechandplayer"
     if lib.progressBar({
-            duration = 5000,
+            duration = Config.ChangePlateTime ,
             label = Config.Locales.fakeplate4,
             useWhileDead = false,
             canCancel = true,
