@@ -276,7 +276,7 @@ function Vehicles.GetVehicle(EntityId)
     ---@param key string
     function self.DeleteMetadata(key)
         self.metadata[key] = value
-        self.SaveMetaData()
+        self:SaveMetaData()
     end
 
     ---GetMetadata
@@ -591,10 +591,7 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
             if not data.keys then data.keys = {} end
             if data.keys[target] then return end
             data.keys[target] = GetName(data.serverid)
-
-
             if vehicle then
-
                 vehicle.AddKey(data.serverid)
             else
                 MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
