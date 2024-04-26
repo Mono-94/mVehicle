@@ -8,6 +8,7 @@
 - Records total kilometers driven by vehicles.
 - Key system via item or database.
 - Menu for sharing keys.
+- FakePlate *only works with vehicles spawned by the Vehicles.CreateVehicle() and ox_inventory item*
 - Commands:
 - - `/givecar [source]`
 - - `/setcarowner [source]`
@@ -44,6 +45,21 @@ shared_scripts {
 ![ManageVehicleKeys](https://i.imgur.com/82KfzBc.png)
 </details>
 
+
+# Items 
+```lua
+	['carkey'] = {
+		label = 'Carkey',
+	},
+
+	['fakeplate'] = {
+		label = 'Fake Plate',
+		consume = 0,
+		server = {
+			export = 'mVehicle.fakeplate'
+		}
+	},
+```
 
 
 # Functions
@@ -169,8 +185,13 @@ Vehicle.DeleteVehicleDB()
 local vehicle = Vehicles.GetVehicleId(id) 
 ```
 **Delete All Vehicles** *Server*
+* soruce  = player source
+* VehicleTable = boolean | true get vehicles from table Vehicles false get vehicles from DB
+* haveKeys = boolean  | Have player keys ?
+
 ```lua 
-local AllVechiles = Vehicles.GetAllVehicles(identifier)
+local AllVechiles = Vehicles.GetAllVehicles(source, VehicleTable, haveKeys) 
+
 ```
 
 **Set Vehicle Owner** *Server*

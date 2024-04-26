@@ -29,7 +29,6 @@ LANG = {
         givecar_menu7     = 'Color 1 Vehículo',
         givecar_menu8     = 'Color 2 Vehículo',
 
-
         -- Menú de Llaves de Coche
         carkey_menu1      = 'Vehículos personales',
         carkey_menu2      = 'No tienes vehículos.',
@@ -38,7 +37,11 @@ LANG = {
         carkey_menu5      = 'Nadie tiene llaves de este vehículo 😪',
         carkey_menu6      = 'Eliminar',
 
-
+        --Fake Plate
+        fakeplate1        = 'Matrícula Falsa',
+        fakeplate2        = 'Este vehículo no es de tu propiedad...',
+        fakeplate3        = 'Matrícula Original',
+        fakeplate4        = 'Cambiando matrícula'
 
 
     },
@@ -50,7 +53,7 @@ LANG = {
         up_dow_platform   = 'Raise/Lower Platform',
         attach_vehicle    = 'Attach Vehicle',
         dettach_vehicle   = 'Detach Vehicle',
-        
+
         -- Vehicle doors
         open_door         = 'Open Door',
         close_door        = 'Close Door',
@@ -81,6 +84,12 @@ LANG = {
         carkey_menu4      = 'Add keys to a player by their ID.',
         carkey_menu5      = 'Nobody has keys to this vehicle 😪',
         carkey_menu6      = 'Delete',
+
+        -- Fake Plate
+        fakeplate1        = 'Fake Plate',
+        fakeplate2        = 'This vehicle is not owned by you...',
+        fakeplate3        = 'Original Plate',
+        fakeplate4        = 'Changing plate'
 
     }
 }

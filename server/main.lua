@@ -46,6 +46,8 @@ local function DeleteTemporary(entity, hour, min)
 end
 
 
+
+
 ---@param data table
 ---@param cb function
 function Vehicles.CreateVehicle(data, cb)
@@ -219,17 +221,16 @@ function Vehicles.SetCarOwner(src)
         return
     end
 
-    local props     = lib.callback.await('mVehicle:GetVehicleProps', src)
-    props.plate     = Vehicles.GeneratePlate()
-    data.coords     = GetCoords(src)
-    data.plate      = props.plate
-    data.vehicle    = props
-    data.owner = identifier
-    data.setOwner   = true
+    local props   = lib.callback.await('mVehicle:GetVehicleProps', src)
+    props.plate   = Vehicles.GeneratePlate()
+    data.coords   = GetCoords(src)
+    data.plate    = props.plate
+    data.vehicle  = props
+    data.owner    = identifier
+    data.setOwner = true
 
     Vehicles.CreateVehicle(data)
 end
-
 
 function Vehicles.SetVehicleOwner(data)
     local insert = {}
@@ -423,19 +424,35 @@ function Vehicles.GetVehicleByPlate(plate)
 end
 
 ---GetAllVehicles
----@param identifier? string
----@return table
-function Vehicles.GetAllVehicles(identifier)
-    if identifier then
-        local veh = {}
-        for k, v in pairs(Vehicles.Vehicles) do
-            if v.owner == identifier then
-                veh[v.entity] = v
-                return veh
+function Vehicles.GetAllVehicles(src, VehicleTable, haveKeys)
+    local identifier = Identifier(src)
+    if VehicleTable then
+        if identifier then
+            local veh = {}
+            for k, v in pairs(Vehicles.Vehicles) do
+                if v.owner == identifier then
+                    if haveKeys then
+                        veh[v.entity] = v
+                        return veh
+                    else
+                        return veh
+                    end
+                end
             end
         end
+        return Vehicles.Vehicles
+    else
+        if identifier then
+            local rows = {}
+            if haveKeys then
+                rows = MySQL.query.await(Querys.getVehiclesbyOwnerAndhaveKeys,
+                    { identifier, '%"' .. identifier .. '"%' })
+            else
+                rows = MySQL.query.await(Querys.getVehiclesbyOwner, { identifier, })
+            end
+            return rows
+        end
     end
-    return Vehicles.Vehicles
 end
 
 ---PlateExist
@@ -484,17 +501,6 @@ function Vehicles.RandomVin()
 
     return result
 end
-
-exports.ox_inventory:registerHook('createItem', function(payload)
-    local plate = Vehicles.GeneratePlate()
-    local metadata = payload.metadata
-    metadata.description = plate
-    return metadata
-end, {
-    itemFilter = {
-        [Config.FakePlateItem] = true
-    }
-})
 
 ---SpawnVehicles
 -- - Spawn all vehicles from DB
@@ -652,6 +658,65 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
             end
             Noty()
         end
+    end
+end)
+
+exports.ox_inventory:registerHook('createItem', function(payload)
+    local plate = Vehicles.GeneratePlate()
+    local metadata = payload.metadata
+    metadata.description = plate
+    metadata.fakeplate = plate
+    return metadata
+end, {
+    itemFilter = {
+        [Config.FakePlateItem] = true
+    }
+})
+
+exports('fakeplate', function(event, item, inventory, slot, data)
+    if event == 'usingItem' then
+        local player = GetPlayerPed(inventory.id)
+        local coords = GetEntityCoords(player)
+        local identifier = Identifier(inventory.id)
+        local vehicles = lib.getClosestVehicle(coords, 5.0, true)
+        local vehicle = Vehicles.GetVehicle(vehicles)
+        local itemSlot = exports.ox_inventory:GetSlot(inventory.id, slot)
+        if vehicle then
+            if vehicle.owner == identifier then
+                local metadata = vehicle.GetMetadata('fakeplate')
+                local anim = lib.callback.await('mVehicle:ChangePlate', inventory.id)
+                if not metadata and anim then
+                    exports.ox_inventory:SetMetadata(inventory.id, slot,
+                        {
+                            label = Config.Locales.fakeplate3,
+                            plate = vehicle.plate,
+                            description = vehicle.plate,
+                            fakeplate = itemSlot.metadata.fakeplate
+                        })
+                    SetVehicleNumberPlateText(vehicles, itemSlot.metadata.fakeplate)
+                    vehicle.FakePlate(itemSlot.metadata.fakeplate)
+                    return false
+                elseif anim then
+                    SetVehicleNumberPlateText(vehicles, vehicle.plate)
+                    vehicle.FakePlate()
+                    exports.ox_inventory:SetMetadata(inventory.id, slot,
+                        {
+                            description = vehicle.plate,
+                            fakeplate = itemSlot.metadata.fakeplate
+                        })
+                end
+            else
+                Notification(inventory.id, {
+                    title = Config.Locales.fakeplate1,
+                    description = Config.Locales.fakeplate2,
+                    icon = 'user',
+                })
+            end
+        else
+
+        end
+
+        return
     end
 end)
 

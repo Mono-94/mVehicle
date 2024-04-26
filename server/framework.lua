@@ -134,40 +134,14 @@ local query = {
         saveAllCoords = 'UPDATE `vehicles` SET coords = ?, data = ? WHERE plate = ?',
         saveAllMetada = 'UPDATE `vehicles` SET data = ? WHERE plate = ?',
         saveKeys = 'UPDATE `vehicles` SET `keys` = ? WHERE plate = ?',
+        getVehiclesbyOwner = "SELECT * FROM `owned_vehicles` WHERE `owner` = ?",
+        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `owned_vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?"
     },
 
     ['qb'] = {
 
-        
-
     }
 }
 
--- Función para generar un VIN
-function generateVin(make, name)
-    if not name then
-        error("generateVin recibió datos de vehículo inválidos (modelo inválido)")
-    end
 
-    local arr = {
-        getRandomInt(),
-        make and string.upper(make:sub(1, 2)) or "OX",
-        string.upper(name:sub(1, 2)),
-        nil,
-        nil,
-        os.time()
-    }
-
-    while true do
-        arr[4] = getRandomAlphanumeric()
-        arr[5] = getRandomChar()
-        local vin = table.concat(arr, "")
-
-        if IsVinAvailable(vin) then
-            return vin
-        end
-    end
-end
-
-
-Querys = query[Config.Framework] or query['esx']
+Querys = query[Config.Framework] == 'standalone' and query['esx'] or query[Config.Framework]

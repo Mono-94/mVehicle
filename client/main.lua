@@ -336,9 +336,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                     })
                     if input then
                         VehicleState('addkey', { serverid = input[1], keys = row.keys, plate = row.plate })
-                        if cb then
-                            cb()
-                        end
+                        if cb then cb() end
                     end
                 end
             })
@@ -359,9 +357,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                         onSelect = function()
                             keys[k] = nil
                             VehicleState('deletekey', { keys = keys, plate = row.plate })
-                            if cb then
-                                cb()
-                            end
+                            if cb then cb() end
                         end
                     })
                 end
@@ -467,6 +463,37 @@ function VehhicleSelected(vehicle, vehlabel, cb)
     lib.registerContext(menu)
     lib.showContext('mVehicle:selectedVeh')
 end
+
+lib.callback.register('mVehicle:ChangePlate', function()
+    local animDictLockPick = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
+    local animLockPick = "machinic_loop_mechandplayer"
+    if lib.progressBar({
+            duration = 5000,
+            label = Config.Locales.fakeplate4,
+            useWhileDead = false,
+            canCancel = true,
+            disable = {
+                car = true,
+                move = true,
+            },
+            anim = {
+                dict = animDictLockPick,
+                clip = animLockPick,
+                flag = 1,
+
+            },
+            prop = {
+                model = 'p_num_plate_01',
+                pos = vec3(0.0, 0.2, 0.1),
+                rot = vec3(100, 100.0, 0.0)
+            },
+        }) then
+        return true
+    else
+        return false
+    end
+end)
+
 
 exports('vehicle', function()
     return Vehicles
