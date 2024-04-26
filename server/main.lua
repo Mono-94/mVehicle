@@ -33,11 +33,8 @@ end
 
 local function DeleteTemporary(entity, hour, min)
     local expression = ('%s %s * * *'):format(min, hour)
-
     lib.cron.new(expression, function(task, date)
-        if DoesEntityExist(entity) then
-            DeleteEntity(entity)
-        end
+        if DoesEntityExist(entity) then DeleteEntity(entity) end
         MySQL.execute(Querys.deleteById, { Vehicles.Vehicles[entity].id })
         Vehicles.Vehicles[entity] = nil
         SendClientVehicles()
@@ -73,6 +70,10 @@ function Vehicles.CreateVehicle(data, cb)
         data.owner = data.identifier
     end
 
+    if data.source then
+        data.owner = Identifier(data.sourcd)
+        if not data.owner then return false, lib.print.error('Error CreateVehicle No Player Identifier by source!') end
+    end
     if data.owner then
         data.ownerName = GetName(data.owner)
     end
@@ -91,7 +92,17 @@ function Vehicles.CreateVehicle(data, cb)
         data.entity = CreateVehicleServerSetter(data.vehicle.model, data.type, data.coords.x, data.coords.y,
             data.coords.z,
             data.coords.w)
+        local startTime = GetGameTimer()
+        local ms = 20000
+
+        while not DoesEntityExist(data.entity) do
+            Citizen.Wait(100)
+            if GetGameTimer() - startTime > ms then
+                return false
+            end
+        end
     end
+
     if data.temporary then
         data.metadata.temporary = data.temporary
     end
@@ -129,15 +140,7 @@ function Vehicles.CreateVehicle(data, cb)
         end
     end
 
-    local startTime = GetGameTimer()
-    local ms = 20000
 
-    while not DoesEntityExist(data.entity) do
-        Citizen.Wait(100)
-        if GetGameTimer() - startTime > ms then
-            return false
-        end
-    end
 
     local State                    = Entity(data.entity).state
 
@@ -150,7 +153,7 @@ function Vehicles.CreateVehicle(data, cb)
 
 
     if data.id then
-        State.id = data.id
+        State:set('id', data.id, true)
     end
 
     if data.setOwner then
@@ -291,7 +294,7 @@ function Vehicles.GetVehicle(EntityId)
         local identifier = Identifier(src)
         if identifier then
             self.keys[identifier] = GetName(src)
-            State:set("Keys", self.metadata, true)
+            State:set("Keys", self.keys, true)
             MySQL.update(Querys.saveKeys, { json.encode(self.keys) })
             SendClientVehicles()
         end
@@ -302,12 +305,8 @@ function Vehicles.GetVehicle(EntityId)
         local identifier = Identifier(src)
         if identifier then
             self.keys[identifier] = nil
-            State:set("Keys", self.metadata, true)
-            SendClientVehicles()
+            State:set("Keys", self.keys, true)
             MySQL.update(Querys.saveKeys, { json.encode(self.keys) })
-        else
-            self.keys[src] = nil
-            State.Keys = self.Keys
             SendClientVehicles()
         end
     end
@@ -550,19 +549,19 @@ end
 ---ItemCarKeys
 ---@param src number
 ---@param action string
----@param plate any
+---@param plate string
 function Vehicles.ItemCarKeys(src, action, plate)
     local metadata = {
         description = Config.Locales.key_string:format(plate),
         plate = plate
     }
-    if action == 'add' then
+    if action == 'add' or 'set' then
         if Config.Inventory == 'ox' then
             exports.ox_inventory:AddItem(src, Config.CarKeyItem, 1, metadata)
         elseif Config.Inventory == 'qs' then
             exports['qs-inventory']:AddItem(src, Config.CarKeyItem, 1, nil, metadata)
         end
-    else
+    elseif action == 'delete' or 'remove' then
         if Config.Inventory == 'ox' then
             exports.ox_inventory:RemoveItem(src, Config.CarKeyItem, 1, metadata)
         elseif Config.Inventory == 'qs' then
@@ -580,7 +579,6 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
     if data then
         vehicle = Vehicles.GetVehicleByPlate(data.plate)
     end
-    -- if not vehicle then return end
     if action == 'update' then
         if not data.coords or not data.props then return false end
         vehicle.SaveLeftVehicle(data.coords, data.props, data.updatekmh)
@@ -594,17 +592,18 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
             if data.keys[target] then return end
             data.keys[target] = GetName(data.serverid)
 
-            MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
+
             if vehicle then
-                local State = Entity(vehicle.entity).state
-                State:set('Keys', data.keys, true)
+                vehicle.AddKey(data.serverid)
+            else
+                MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
             end
         end
     elseif action == 'deletekey' then
-        MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
         if vehicle then
-            local State = Entity(vehicle.entity).state
-            State:set('Keys', data.keys, true)
+            vehicle.RemoveKey(data.serverid)
+        else
+            MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
         end
     elseif action == 'getkeys' then
         local identifier = Identifier(source)
