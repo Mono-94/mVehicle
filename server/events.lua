@@ -1,6 +1,8 @@
+-- entityCreated
 AddEventHandler('entityCreated', function(entity)
     local entityType = GetEntityType(entity)
     if entityType == 2 then
+
         if GetEntityPopulationType(entity) > 5 then
             return
         end
@@ -17,12 +19,22 @@ AddEventHandler('entityCreated', function(entity)
         if not motor then
             SetVehicleDoorsLocked(entity, 2)
         end
+
     end
 end)
 
-local convar = GetConvar("mVehicle:Persistent", "false")
+-- Vehicle deleted? send to impound
+AddEventHandler('entityRemoved', function(entity)
+    local vehicle = Vehicles.GetVehicle(entity)
+    if vehicle then
+        local impound = Config.DefaultImpound
+        vehicle.ImpoundVehicle(impound.impoundName, impound.price, impound.note)
+    end
+end)
 
-if convar == 'true' then
+
+
+if GetConvar("mVehicle:Persistent", "false") == 'true' then
     -- on Resource ...
     AddEventHandler("onResourceStart", function(name)
         if name ~= GetCurrentResourceName() then return end
@@ -33,8 +45,6 @@ if convar == 'true' then
         if name ~= GetCurrentResourceName() then return end
         Vehicles.SaveAllVehicles()
     end)
-
-
 
     -- TxAdmin
     AddEventHandler("txAdmin:events:serverShuttingDown", function()

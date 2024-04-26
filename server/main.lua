@@ -724,14 +724,6 @@ exports('fakeplate', function(event, item, inventory, slot, data)
     end
 end)
 
-AddEventHandler('entityRemoved', function(entity)
-    local vehicle = Vehicles.GetVehicle(entity)
-    if vehicle then
-        local impound = Config.DefaultImpound
-        vehicle.ImpoundVehicle(impound.impoundName, impound.price, impound.note)
-    end
-end)
-
 
 exports('vehicle', function()
     return Vehicles

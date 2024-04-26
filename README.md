@@ -47,7 +47,7 @@ shared_scripts { '@mVehicle/import.lua' }
 - set mVehicle:Persistent true/false (Default false) 
 - start the code after the dependencies of ox and your framework
 - update SQL 
-- 
+
 <details>
 <summary>SQL </summary>
 
@@ -262,6 +262,13 @@ Vehicle.DeleteVehicleDB()
 local vehicle = Vehicles.GetVehicleId(id) 
 ```
 **Delete All Vehicles** *Server*
+
+```lua 
+local AllVechiles = Vehicles.GetAllVehicles(source, VehicleTable, haveKeys) 
+
+```
+
+**Vehicles.GetAllVehicles()** *Server*
 * soruce  = player source
 * VehicleTable = boolean | true get vehicles from table Vehicles false get vehicles from DB
 * haveKeys = boolean  | Have player keys ?

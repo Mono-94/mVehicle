@@ -112,6 +112,8 @@ local query = {
         saveAllPropsCoords = 'UPDATE owned_vehicles SET coords = ?, vehicle = ?, metadata = ? WHERE plate = ?',
         saveAllCoords = 'UPDATE owned_vehicles SET coords = ?, metadata = ? WHERE plate = ?',
         saveKeys = 'UPDATE owned_vehicles SET `keys` = ? WHERE plate = ?',
+        getVehiclesbyOwner = "SELECT * FROM `owned_vehicles` WHERE `owner` = ?",
+        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `owned_vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?"
     },
     -- type, coords, vehicle, keys, lastparking, pound, mileage
     ['ox'] = {
@@ -134,8 +136,8 @@ local query = {
         saveAllCoords = 'UPDATE `vehicles` SET coords = ?, data = ? WHERE plate = ?',
         saveAllMetada = 'UPDATE `vehicles` SET data = ? WHERE plate = ?',
         saveKeys = 'UPDATE `vehicles` SET `keys` = ? WHERE plate = ?',
-        getVehiclesbyOwner = "SELECT * FROM `owned_vehicles` WHERE `owner` = ?",
-        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `owned_vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?"
+        getVehiclesbyOwner = "SELECT * FROM `vehicles` WHERE `owner` = ?",
+        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?"
     },
 
     ['qb'] = {
