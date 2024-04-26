@@ -61,6 +61,5 @@ ADD COLUMN `coords` longtext,
 ADD COLUMN `lastparking` varchar(100),
 ADD COLUMN `type` varchar(20) DEFAULT NULL,
 ADD COLUMN `keys` longtext DEFAULT '[]',
-ADD COLUMN `metadata` longtext,
 ADD COLUMN `pound` VARCHAR(60) 
 ```

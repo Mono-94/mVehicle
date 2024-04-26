@@ -6,7 +6,7 @@ Config.Debug = true
 
 Config.Persistent = true    -- Vehicles persistentes? Los vehiculos se generaran en el ultimo lugar donde el servidor se reinicio/apago
 
-Config.Framework = 'esx'    -- esx, ox, standalone 
+Config.Framework = 'esx'    -- esx, ox, standalone
 
 Config.Inventory = 'ox'     -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
 
@@ -34,7 +34,7 @@ Config.FakePlateItem = 'fakeplate'
 -- Put Your Garage names here
 Config.GarageNames = { 'Pillbox Hill' }
 
--- on Vehicles delete
+-- on Vehicles delete or /dv
 Config.DefaultImpound = {
     impoundName = 'Impound',
     price = 0,
