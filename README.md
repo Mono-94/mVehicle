@@ -1,8 +1,8 @@
-# mVehicles
+# mVehicles ** NEW MONO_CARKEYS 
 *This  is not a garage system, it is only to manage vehicles, you can use this code simply for the key system.*
 
 ## Features
-- Fully compatible with ESX , standalone (requires database)
+- Fully compatible with ESX , standalone (requires database), OX Everything works, but the vehicles do not spawn when the server loads, pending.
 - Vehicle are persistent.
 - Ability to add metadata to vehicles.
 - Records total kilometers driven by vehicles.
@@ -14,6 +14,15 @@
 - - `/setcarowner [source]`
 - - `/saveAllcars true/false`: If true, deletes all vehicles; if false, only saves vehicles.
 - - `/spawnAllcars`: Forces spawning of vehicles outside of garages.
+<details>
+<summary>Image</summary>
+
+![GiveCar](https://i.imgur.com/3ja1LQG.png)
+
+![CarKeysMenu](https://i.imgur.com/b3eAY84.png)
+
+![ManageVehicleKeys](https://i.imgur.com/82KfzBc.png)
+</details>
 
 ## Other Features
 - Target for managing the trailer tr2.
@@ -25,15 +34,14 @@
 * [ox_inventory](https://github.com/overextended/ox_inventory) (only keys as item)
 * [ox_target](https://github.com/overextended/ox_target) (target Carkey and Trailer manager)
 
-Recommended latest gameBuild ❗
-[FiveM Server Commands](https://docs.fivem.net/docs/server-manual/server-commands#sv_enforcegamebuild-build)
+Recommended latest 
+[FiveM  GameBuild](https://docs.fivem.net/docs/server-manual/server-commands#sv_enforcegamebuild-build)
 
-for it to work add this in the fxmanifest in the resource that you are going to use it
+## Shared file
 ```lua 
-shared_scripts {
-  '@mVehicle/import.lua'
-}
+shared_scripts { '@mVehicle/import.lua' }
 ```
+
 ## Install 
 -  Server.cfg
 - set mVehicle:Persistent true/false (Default false) 
@@ -112,15 +120,7 @@ ADD COLUMN `pound` VARCHAR(60)
 ## How to use
 - READING IS NOT LAVA
 
-<details>
-<summary>Image</summary>
 
-![GiveCar](https://i.imgur.com/3ja1LQG.png)
-
-![CarKeysMenu](https://i.imgur.com/b3eAY84.png)
-
-![ManageVehicleKeys](https://i.imgur.com/82KfzBc.png)
-</details>
 
 
 # Items 

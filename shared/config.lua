@@ -29,6 +29,8 @@ Config.KeyMenu = true -- Radial menu to manage vehicles
 -- Generate random plate in metadata item, only ox_inventory
 Config.FakePlateItem = 'fakeplate'
 
+Config.ChangePlateTime = 20000 -- in ms
+
 -- Put Your Garage names here
 Config.GarageNames = { 'Pillbox Hill' }
 

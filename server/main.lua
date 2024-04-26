@@ -594,6 +594,7 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
 
 
             if vehicle then
+
                 vehicle.AddKey(data.serverid)
             else
                 MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
@@ -601,7 +602,8 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         end
     elseif action == 'deletekey' then
         if vehicle then
-            vehicle.RemoveKey(data.serverid)
+            local State = Entity(vehicle.entity).state
+            State:set('Keys', data.keys, true)
         else
             MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
         end
