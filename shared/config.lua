@@ -4,11 +4,11 @@ Config.lang = 'EN' -- ES / EN
 
 Config.Debug = true
 
-Config.Framework = 'esx'                                      -- esx, ox, standalone
+Config.Framework = 'esx'    -- esx, ox, standalone
 
-Config.Inventory = 'ox'                                       -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
+Config.Inventory = 'ox'     -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
 
-Config.TargetTrailer = true                                   -- manage tr2 trailer
+Config.TargetTrailer = true -- manage tr2 trailer
 
 -- Carkeys
 
@@ -25,11 +25,6 @@ Config.KeyDelay = 500
 Config.KeyDistance = 20
 
 Config.KeyMenu = true -- Radial menu to manage vehicles
-
--- Generate random plate in metadata item, only ox_inventory
-Config.FakePlateItem = 'fakeplate'
-
-Config.ChangePlateTime = 20000 -- in ms
 
 -- Put Your Garage names here
 Config.GarageNames = { 'Pillbox Hill' }
@@ -48,8 +43,36 @@ Config.Commands = {
     spawnallcars = 'spawnAllcars'
 }
 
-Config.Locales = LANG[Config.lang]
+-- Generate random plate in metadata item, only ox_inventory
+Config.FakePlateItem = {
+    item = 'fakeplate',
+    ChangePlateTime = 20000 -- in ms
+}
 
+Config.LockPickItem = {
+    item = 'lockpick',
+    skillCheck = function()
+        local success = lib.skillCheck({ 'easy', 'easy' })
+        return success
+    end,
+    dispatch = function(playerId, vehicleEntity, coords)
+        print(playerId, vehicleEntity, coords)
+    end
+}
+
+Config.HotWireItem = {
+    item = 'wirecutt',
+    skillCheck = function()
+        local success = lib.skillCheck({ 'easy', 'easy' })
+        return success
+    end,
+    dispatch = function(playerId, vehicleEntity, coords)
+        print(playerId, vehicleEntity, coords)
+    end
+}
+
+
+Config.Locales = LANG[Config.lang]
 
 function Notification(data)
     lib.notify({

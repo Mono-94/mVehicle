@@ -470,13 +470,13 @@ function Vehicles.GeneratePlate()
     local plate = ""
 
     repeat
-        plate = ""
+        plate = " "
         for i = 1, 4 do
             local index = math.random(#letters)
             plate = plate .. string.sub(letters, index, index)
         end
 
-        plate = plate .. " "
+        plate = plate .. "  "
         for i = 1, 3 do
             local index = math.random(#numbers)
             plate = plate .. string.sub(numbers, index, index)
@@ -671,58 +671,7 @@ end, {
     }
 })
 
-exports('fakeplate', function(event, item, inventory, slot, data)
-    if event == 'usingItem' then
-        local player = GetPlayerPed(inventory.id)
-        local coords = GetEntityCoords(player)
-        local identifier = Identifier(inventory.id)
-        local vehicles = lib.getClosestVehicle(coords, 5.0, true)
-        local vehicle = Vehicles.GetVehicle(vehicles)
-        local itemSlot = exports.ox_inventory:GetSlot(inventory.id, slot)
-        if vehicle then
-            if vehicle.owner == identifier then
-                local metadata = vehicle.GetMetadata('fakeplate')
 
-                if not metadata and not itemSlot.metadata.plate then
-                    local anim = lib.callback.await('mVehicle:ChangePlate', inventory.id)
-                    if anim then
-                        exports.ox_inventory:SetMetadata(inventory.id, slot,
-                            {
-                                label = Config.Locales.fakeplate3,
-                                plate = vehicle.plate,
-                                description = vehicle.plate,
-                                fakeplate = itemSlot.metadata.fakeplate
-                            })
-                        SetVehicleNumberPlateText(vehicles, itemSlot.metadata.fakeplate)
-                        vehicle.FakePlate(itemSlot.metadata.fakeplate)
-                        return false
-                    end
-                elseif vehicle.plate == itemSlot.metadata.plate then
-                    local anim = lib.callback.await('mVehicle:ChangePlate', inventory.id)
-                    if anim then
-                        SetVehicleNumberPlateText(vehicles, vehicle.plate)
-                        vehicle.FakePlate()
-                        exports.ox_inventory:SetMetadata(inventory.id, slot,
-                            {
-                                description = vehicle.plate,
-                                fakeplate = itemSlot.metadata.fakeplate
-                            })
-                    end
-                end
-            else
-                Notification(inventory.id, {
-                    title = Config.Locales.fakeplate1,
-                    description = Config.Locales.fakeplate2,
-                    icon = 'user',
-                })
-            end
-        else
-
-        end
-
-        return
-    end
-end)
 
 
 exports('vehicle', function()
