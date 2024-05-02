@@ -186,7 +186,9 @@ else
         name = 'Vehicle_doors_control',
         description = 'Carkeys',
         defaultKey = Config.DoorKeyBind,
-        onPressed = KeyDoors,
+        onPressed = function ()
+            KeyDoors(false)
+        end,
     })
 end
 

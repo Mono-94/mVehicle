@@ -74,6 +74,10 @@ function Vehicles.CreateVehicle(data, cb)
         data.owner = Identifier(data.source)
         if not data.owner then return false, lib.print.error('Error CreateVehicle No Player Identifier by source!') end
     end
+    if data.owner then
+        data.ownerName = GetName(data.owner)
+    end
+
 
     if type(data.keys) == 'string' then
         data.keys = json.decode(data.keys)
@@ -227,7 +231,6 @@ function Vehicles.SetCarOwner(src)
     data.vehicle  = props
     data.owner    = identifier
     data.setOwner = true
-    data.spawn = true
 
     Vehicles.CreateVehicle(data)
 end
@@ -289,10 +292,13 @@ function Vehicles.GetVehicle(EntityId)
     ---@param src number
     function self.AddKey(src)
         local identifier = Identifier(src)
+        if not self.keys then
+            self.keys = {}
+        end
         if identifier then
             self.keys[identifier] = GetName(src)
             State:set("Keys", self.keys, true)
-            MySQL.update(Querys.saveKeys, { json.encode(self.keys) })
+            MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plafe })
             SendClientVehicles()
         end
     end
@@ -303,9 +309,13 @@ function Vehicles.GetVehicle(EntityId)
         if identifier then
             self.keys[identifier] = nil
             State:set("Keys", self.keys, true)
-            MySQL.update(Querys.saveKeys, { json.encode(self.keys) })
+            MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plate })
             SendClientVehicles()
         end
+    end
+
+    function self.GetKeys()
+        return self.keys
     end
 
     ---SaveVehiclePrps
@@ -639,7 +649,15 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
     if not Config.ItemKeys then
         if action == 'doors' then
             local vehicledb = MySQL.single.await(Querys.getVehicleByPlate, { plate })
-            local vehicleKeys = json.decode(vehicledb.keys) or {}
+            local vehicleKeys = {}
+            if vehicledb == nil then
+                vehicledb = {}
+                vehicledb.keys = vehicle.GetKeys()
+                vehicleKeys = vehicle.GetKeys()
+            else
+                vehicleKeys = json.decode(vehicledb.keys) or {}
+            end
+
             local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or
                 Config.ItemKeys
             if carkeys then
