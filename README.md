@@ -9,11 +9,11 @@
 - Key system via item or database.
 - Menu for sharing keys.
 - FakePlate *only works with vehicles spawned by the Vehicles.CreateVehicle() and ox_inventory item*
-- Commands:
-- - `/givecar [source]`
-- - `/setcarowner [source]`
-- - `/saveAllcars true/false`: If true, deletes all vehicles; if false, only saves vehicles.
-- - `/spawnAllcars`: Forces spawning of vehicles outside of garages.
+- ## **Commands**
+ - `/givecar [source]`
+ - `/setcarowner [source]`
+ - `/saveAllcars true/false`: If true, deletes all vehicles; if false, only saves vehicles.
+ - `/spawnAllcars`: Forces spawning of vehicles outside of garages.
 <details>
 <summary>Image</summary>
 
@@ -123,41 +123,42 @@ ADD COLUMN `pound` VARCHAR(60)
 - READING IS NOT LAVA
 
 
-
-
 # Items 
+<details>
+<summary> Items </summary>
+
+
 ```lua
-	['carkey'] = {
-		label = 'Carkey',
-	},
+['carkey'] = {
+	label = 'Carkey',
+},
 
-	['lockpick'] = {
-		label = 'Lockpick',
-		weight = 160,
-		decay = true,
-		server = {
-			export = 'mVehicle.lockpick'
-		}
-	},
+['lockpick'] = {
+	label = 'Lockpick',
+	weight = 160,
+	decay = true,
+	server = {
+		export = 'mVehicle.lockpick'
+	}
+},
 
-	['hotwire'] = {
-		label = 'Cutter',
-		weight = 160,
-		server = {
-			export = 'mVehicle.hotwire'
-		}
-	},
+['hotwire'] = {
+	label = 'Cutter',
+	weight = 160,
+	server = {
+		export = 'mVehicle.hotwire'
+	}
+},
 
-	['fakeplate'] = {
-		label = 'Fake Plate',
-		consume = 0,
-		server = {
-			export = 'mVehicle.fakeplate'
-		}
-	},
-  
+['fakeplate'] = {
+	label = 'Fake Plate',
+	consume = 0,
+	server = {
+		export = 'mVehicle.fakeplate'
+	}
+},
 ```
-
+</details>
 
 # Functions
 

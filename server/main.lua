@@ -468,18 +468,34 @@ function Vehicles.GeneratePlate()
     local letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     local numbers = "0123456789"
     local plate = ""
+    local pattern = Config.PlateGenerate
+
+    if #pattern < 8 then
+        pattern = pattern .. string.rep(" ", 8 - #pattern)
+    end
 
     repeat
-        plate = " "
-        for i = 1, 4 do
-            local index = math.random(#letters)
-            plate = plate .. string.sub(letters, index, index)
-        end
-
-        plate = plate .. "  "
-        for i = 1, 3 do
-            local index = math.random(#numbers)
-            plate = plate .. string.sub(numbers, index, index)
+        plate = ""
+        for i = 1, 8 do
+            local char = string.sub(pattern, i, i)
+            if char == "A" then
+                local index = math.random(#letters)
+                plate = plate .. string.sub(letters, index, index)
+            elseif char == "1" then
+                local index = math.random(#numbers)
+                plate = plate .. string.sub(numbers, index, index)
+            elseif char == "." then
+                local rnd = math.random(1, 2)
+                if rnd == 1 then
+                    local index = math.random(#letters)
+                    plate = plate .. string.sub(letters, index, index)
+                else
+                    local index = math.random(#numbers)
+                    plate = plate .. string.sub(numbers, index, index)
+                end
+            else
+                plate = plate .. char
+            end
         end
     until Vehicles.PlateExist(plate)
 
@@ -667,7 +683,7 @@ exports.ox_inventory:registerHook('createItem', function(payload)
     return metadata
 end, {
     itemFilter = {
-        [Config.FakePlateItem] = true
+        [Config.FakePlateItem.item] = true
     }
 })
 

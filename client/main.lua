@@ -65,9 +65,9 @@ lib.onCache('seat', function(value)
                             Trailer.props = lib.getVehicleProperties(trailerEntity)
                             local saved = VehicleState('savetrailer', Trailer)
                             if saved then
-                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format( Trailer.plate, State.Owner))
+                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
                             else
-                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format( Trailer.plate, State.Owner))
+                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
                             end
                         end
                     end
@@ -169,7 +169,7 @@ if Config.TargetOrKeyBind == 'target' then
             distance = Config.KeyDistance,
             canInteract = function(entity, distance, coords, name, bone)
                 if Config.ItemKeys then
-                    return KeyItem(GetVehicleNumberPlateText(entity), entity)
+                    return KeyItem(GetVehicleNumberPlateText(entity))
                 else
                     return Entity(entity).state.Spawned
                 end
@@ -270,8 +270,8 @@ lib.callback.register('mVehicle:GivecarData', function()
         { type = 'date',   label = Config.Locales.givecar_menu4, icon = { 'far', 'calendar' },    default = true,              format = "DD/MM/YYYY" },
         { type = 'number', label = Config.Locales.givecar_menu5, icon = 'clock',                  default = 0,                 max = 23,             min = 0 },
         { type = 'number', label = Config.Locales.givecar_menu6, icon = 'clock',                  default = 0,                 max = 59,             min = 0 },
-        { type = 'color',  label = Config.Locales.givecar_menu7, format = 'rgb',                  default = 'rgb(252, 186, 3)' },
-        { type = 'color',  label = Config.Locales.givecar_menu8, format = 'rgb',                  default = 'rgb(252, 186, 3)' },
+        { type = 'color',  label = Config.Locales.givecar_menu7, format = 'rgb',                  default = 'rgb(77, 77, 77)' },
+        { type = 'color',  label = Config.Locales.givecar_menu8, format = 'rgb',                  default = 'rgb(77, 77, 77)' },
     })
 
     if not input then return false end
@@ -480,7 +480,7 @@ lib.callback.register('mVehicle:PlayerItems', function(action, entity)
         local animDictLockPick = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
         local animLockPick = "machinic_loop_mechandplayer"
         if lib.progressBar({
-                duration = Config.ChangePlateTime,
+                duration = Config.FakePlateItem.ChangePlateTime,
                 label = Config.Locales.fakeplate4,
                 useWhileDead = false,
                 canCancel = true,

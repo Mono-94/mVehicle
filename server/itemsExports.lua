@@ -10,9 +10,8 @@ exports('fakeplate', function(event, item, inventory, slot, data)
         if vehicle then
             if vehicle.owner == identifier then
                 local metadata = vehicle.GetMetadata('fakeplate')
-
                 if not metadata and not itemSlot.metadata.plate then
-                    local anim = lib.callback.await('mVehicle:PlayerItems', inventory.id, 'changeplat')
+                    local anim = lib.callback.await('mVehicle:PlayerItems', inventory.id, 'changeplate')
                     if anim then
                         exports.ox_inventory:SetMetadata(inventory.id, slot,
                             {
@@ -26,13 +25,13 @@ exports('fakeplate', function(event, item, inventory, slot, data)
                         return false
                     end
                 elseif vehicle.plate == itemSlot.metadata.plate then
-                    local anim = lib.callback.await('mVehicle:PlayerItems', inventory.id)
+                    local anim = lib.callback.await('mVehicle:PlayerItems', inventory.id, 'changeplate')
                     if anim then
                         SetVehicleNumberPlateText(vehicles, vehicle.plate)
                         vehicle.FakePlate()
                         exports.ox_inventory:SetMetadata(inventory.id, slot,
                             {
-                                description = vehicle.plate,
+                                description = itemSlot.metadata.fakeplate,
                                 fakeplate = itemSlot.metadata.fakeplate
                             })
                     end
