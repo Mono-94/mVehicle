@@ -44,7 +44,6 @@ lib.addCommand(Config.Commands.givecar, {
         end
 
         Vehicles.CreateVehicle(data, function(vehicle)
-            print('aaa', vehicle.entity)
             if DoesEntityExist(vehicle.entity) then
                 TaskWarpPedIntoVehicle(ped, vehicle.entity, -1)
                 if Config.ItemKeys then

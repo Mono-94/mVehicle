@@ -94,3 +94,5 @@ function Notification(data)
         showDuration = true,
     })
 end
+
+RegisterNetEvent('mVehicle:Notification', Notification)

@@ -14,7 +14,7 @@ elseif Config.Framework == "qb" then
 end
 
 function Notification(src, data)
-    TriggerClientEvent('ox_lib:notify', src, {
+    TriggerClientEvent('mVehicle:Notification', src, {
         title = data.title,
         description = data.description,
         position = data.position or 'center-left',
