@@ -300,7 +300,7 @@ function VehicleLabel(model)
 end
 
 function Vehicles.ItemCarKeysClient(action, plate)
-    lib.callback('mVehicle:GiveKey', 500, action, plate)
+    lib.callback('mVehicle:GiveKey', false, nil ,action, plate)
 end
 
 if Config.KeyMenu then
