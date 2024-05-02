@@ -21,12 +21,11 @@ lib.addCommand(Config.Commands.givecar, {
         }
         data.identifier = identifier
         data.setOwner = true
-        data.parking = vehicleData[3]
+        data.parking = vehicleData[2]
 
         if vehicleData[3] then
             local timestamp = math.floor(vehicleData[4] / 1000)
             local date = nil
-
             if vehicleData[5] and vehicleData[6] then
                 local hour = tonumber(vehicleData[5])
                 local min = tonumber(vehicleData[6])
@@ -45,6 +44,7 @@ lib.addCommand(Config.Commands.givecar, {
         end
 
         Vehicles.CreateVehicle(data, function(vehicle)
+            print('aaa', vehicle.entity)
             if DoesEntityExist(vehicle.entity) then
                 TaskWarpPedIntoVehicle(ped, vehicle.entity, -1)
                 if Config.ItemKeys then
@@ -107,4 +107,3 @@ lib.addCommand(Config.Commands.spawnallcars, {
 }, function(source, args, raw)
     Vehicles.SpawnVehicles()
 end)
-

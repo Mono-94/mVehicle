@@ -74,10 +74,6 @@ function Vehicles.CreateVehicle(data, cb)
         data.owner = Identifier(data.source)
         if not data.owner then return false, lib.print.error('Error CreateVehicle No Player Identifier by source!') end
     end
-    if data.owner then
-        data.ownerName = GetName(data.owner)
-    end
-
 
     if type(data.keys) == 'string' then
         data.keys = json.decode(data.keys)
@@ -112,8 +108,9 @@ function Vehicles.CreateVehicle(data, cb)
             SetVehicleDoorsLocked(data.entity, tonumber(data.metadata.DoorStatus))
         end
     end
-
+   
     if data.metadata.temporary then
+       
         local datetime = data.metadata.temporary
         local date = datetime:sub(1, 8)
         local time = datetime:sub(10)
@@ -127,7 +124,8 @@ function Vehicles.CreateVehicle(data, cb)
         local metadata_minute = tonumber(time:sub(4))
 
         if current_date == date then
-            if tonumber(current_hour) > metadata_hour or (tonumber(current_hour) == metadata_hour and tonumber(current_minute) >= metadata_minute) then
+            print(current_hour, metadata_hour, current_minute, metadata_minute)
+            if tonumber(current_hour) > metadata_hour and tonumber(current_minute) - 1 > metadata_minute then
                 MySQL.execute(Querys.deleteByPlate, { data.plate })
                 if DoesEntityExist(data.entity) then
                     DeleteEntity(data.entity)
@@ -138,8 +136,8 @@ function Vehicles.CreateVehicle(data, cb)
                 DeleteTemporary(data.entity, metadata_hour, metadata_minute)
             end
         end
+        
     end
-
 
 
     local State                    = Entity(data.entity).state
@@ -176,6 +174,7 @@ function Vehicles.CreateVehicle(data, cb)
         data.vehicle.plate = data.plate
     end
 
+    
     State:set('plate', data.plate, true)
     State:set('setVehicleProperties', data.vehicle, true)
     State:set('fuel', data.vehicle.fuelLevel or 100, true)
@@ -231,6 +230,7 @@ function Vehicles.SetCarOwner(src)
     data.vehicle  = props
     data.owner    = identifier
     data.setOwner = true
+    data.spawn = true
 
     Vehicles.CreateVehicle(data)
 end
