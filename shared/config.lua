@@ -8,7 +8,7 @@ Config.Framework = 'esx'       -- esx, ox, standalone
 
 Config.Inventory = 'ox'        -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
 
-Config.TargetTrailer = true   -- manage tr2 trailer
+Config.TargetTrailer = false   -- manage tr2 trailer
 
 --MAX 8 CHAR
 Config.PlateGenerate = "1111AAAA"
@@ -19,7 +19,7 @@ Config.PlateGenerate = "1111AAAA"
 
 -- Carkeys
 
-Config.ItemKeys = false           -- false = Vehicles DB
+Config.ItemKeys = true           -- false = Vehicles DB
 
 Config.CarKeyItem = 'carkey'      -- item name
 

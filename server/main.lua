@@ -71,13 +71,9 @@ function Vehicles.CreateVehicle(data, cb)
     end
 
     if data.source then
-        data.owner = Identifier(data.sourcd)
+        data.owner = Identifier(data.source)
         if not data.owner then return false, lib.print.error('Error CreateVehicle No Player Identifier by source!') end
     end
-    if data.owner then
-        data.ownerName = GetName(data.owner)
-    end
-
 
     if type(data.keys) == 'string' then
         data.keys = json.decode(data.keys)
@@ -231,6 +227,7 @@ function Vehicles.SetCarOwner(src)
     data.vehicle  = props
     data.owner    = identifier
     data.setOwner = true
+    data.spawn = true
 
     Vehicles.CreateVehicle(data)
 end
@@ -381,7 +378,7 @@ function Vehicles.GetVehicle(EntityId)
     ---@return boolean
     function self.RetryImpound(ToGarage, coords)
         local affectedRows = MySQL.update.await(Querys.retryImpound,
-            { ToGarage, json.encode(coords), self.parking, self.plate })
+            { self.parking, json.encode(coords), ToGarage, self.plate })
         if affectedRows then
             self.DeleteMetadata('pound')
         end
