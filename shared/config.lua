@@ -10,9 +10,8 @@ Config.Inventory = 'ox'        -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- 
 
 Config.TargetTrailer = true   -- manage tr2 trailer
 
-
 --MAX 8 CHAR
-Config.PlateGenerate = "1111AAAA"  
+Config.PlateGenerate = "1111AAAA"
 -- . = random number or letter
 -- 1 = random number
 -- A = random letter

@@ -571,13 +571,13 @@ function Vehicles.ItemCarKeys(src, action, plate)
         description = Config.Locales.key_string:format(plate),
         plate = plate
     }
-    if action == 'add' or 'set' then
+    if action == 'add' then
         if Config.Inventory == 'ox' then
             exports.ox_inventory:AddItem(src, Config.CarKeyItem, 1, metadata)
         elseif Config.Inventory == 'qs' then
             exports['qs-inventory']:AddItem(src, Config.CarKeyItem, 1, nil, metadata)
         end
-    elseif action == 'delete' or 'remove' then
+    elseif action == 'delete' then
         if Config.Inventory == 'ox' then
             exports.ox_inventory:RemoveItem(src, Config.CarKeyItem, 1, metadata)
         elseif Config.Inventory == 'qs' then
