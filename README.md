@@ -42,11 +42,13 @@ Recommended latest
 shared_scripts { '@mVehicle/import.lua' }
 ```
 
+
 ## Install 
--  Server.cfg
-- set mVehicle:Persistent true/false (Default false) 
-- start the code after the dependencies of ox and your framework
-- update SQL 
+1. **update SQL**
+2. **Server.cfg**
+3. **set mVehicle:Persistent true/false** (Default false) 
+4. **start the code after the dependencies of ox and your framework**
+
 
 <details>
 <summary>SQL </summary>
@@ -127,6 +129,23 @@ ADD COLUMN `pound` VARCHAR(60)
 ```lua
 	['carkey'] = {
 		label = 'Carkey',
+	},
+
+	['lockpick'] = {
+		label = 'Lockpick',
+		weight = 160,
+		decay = true,
+		server = {
+			export = 'mVehicle.lockpick'
+		}
+	},
+
+	['hotwire'] = {
+		label = 'Cutter',
+		weight = 160,
+		server = {
+			export = 'mVehicle.hotwire'
+		}
 	},
 
 	['fakeplate'] = {
