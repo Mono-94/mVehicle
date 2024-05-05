@@ -601,7 +601,7 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         vehicle = Vehicles.GetVehicleByPlate(data.plate)
     end
     if action == 'update' then
-        if not data.coords or not data.props then return false end
+        if not data.coords or not data.props or not vehicle then return false end
         vehicle.SaveLeftVehicle(data.coords, data.props, data.updatekmh)
     elseif action == 'savetrailer' then
         return vehicle.CoordsAndProps(data.coords, data.props)
