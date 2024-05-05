@@ -48,7 +48,7 @@ lib.onCache('seat', function(value)
                             oldPos = playerPos
                         end
                     end
-                    Citizen.Wait(200)
+                    Citizen.Wait(100)
                 else
                     data.coords = json.encode(GetVector4(vehicle))
                     data.props = lib.getVehicleProperties(vehicle)
@@ -65,38 +65,24 @@ lib.onCache('seat', function(value)
                             Trailer.props = lib.getVehicleProperties(trailerEntity)
                             local saved = VehicleState('savetrailer', Trailer)
                             if saved then
-                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
+                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(
+                                    Trailer.plate, State.Owner))
                             else
-                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
+                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(
+                                    Trailer.plate, State.Owner))
                             end
                         end
                     end
                     break
                 end
             end
-            --[[        else
-            while true do
-                if seat == -1 then
-                    local isEngineRunning = GetIsVehicleEngineRunning(vehicle)
-
-                    if isEngineRunning then
-                        EnableControlAction(2, 71, true)
-                    else
-                        SetVehicleEngineOn(vehicle, false, false, true)
-                        DisableControlAction(2, 71, true)
-                    end
-                else
-                    break
-                end
-                Wait(0)
-            end]]
         end
     end
 end)
 
 -- SetVehicle Props
 AddStateBagChangeHandler('setVehicleProperties', nil, function(bagName, key, value)
-    if not value or not GetEntityFromStateBagName then return end
+    if not value or not GetEntityFromStateBagName(bagName) then return end
 
     local entity = GetEntityFromStateBagName(bagName)
 
@@ -139,26 +125,34 @@ local KeyDoors = function(entity)
     local vehtonet = VehToNet(entity)
     local plate = GetVehicleNumberPlateText(entity)
     local HaveKey = KeyItem(plate)
+    local ped = cache.ped
+    local inCar = IsPedInAnyVehicle(ped, false)
+
     if entity and HaveKey then
         lib.callback('mVehicle:VehicleControl', Config.KeyDelay, function(owner)
             if not owner then return end
-            local ped = cache.ped
+
             local pedbone = GetPedBoneIndex(ped, 57005)
 
-            lib.requestModel("p_car_keys_01")
-            while not HasModelLoaded("p_car_keys_01") do Wait(1) end
-
-            local prop = CreateObject("p_car_keys_01", 1.0, 1.0, 1.0, true, true, 0)
-            lib.requestAnimDict("anim@mp_player_intmenu@key_fob@")
             PlayVehicleDoorCloseSound(entity, 1)
             local soundEvent = doorstatus == 2 and "Remote_Control_Close" or "Remote_Control_Fob"
 
             PlaySoundFromEntity(-1, soundEvent, entity, "PI_Menu_Sounds", 1, 0)
-            AttachEntityToEntity(prop, ped, pedbone, 0.08, 0.039, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
 
-            TaskPlayAnim(ped, "anim@mp_player_intmenu@key_fob@", "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
-            Citizen.Wait(1000)
-            DeleteObject(prop)
+            if not inCar then
+                lib.requestModel("p_car_keys_01")
+                while not HasModelLoaded("p_car_keys_01") do Wait(1) end
+
+                local prop = CreateObject("p_car_keys_01", 1.0, 1.0, 1.0, true, true, 0)
+                lib.requestAnimDict("anim@mp_player_intmenu@key_fob@")
+                AttachEntityToEntity(prop, ped, pedbone, 0.08, 0.039, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1,
+                    true)
+
+                TaskPlayAnim(ped, "anim@mp_player_intmenu@key_fob@", "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false,
+                    false)
+                Citizen.Wait(1000)
+                DeleteObject(prop)
+            end
         end, 'doors', vehtonet, doorstatus)
     end
 end
@@ -186,7 +180,7 @@ else
         name = 'Vehicle_doors_control',
         description = 'Carkeys',
         defaultKey = Config.DoorKeyBind,
-        onPressed = function ()
+        onPressed = function()
             KeyDoors(false)
         end,
     })
@@ -213,6 +207,53 @@ function KeyItem(plate)
     end
 end
 
+if Config.VehicleEngine.active then
+    lib.onCache('vehicle', function(vehicle)
+        while true do
+            local isEngineRunning = GetIsVehicleEngineRunning(vehicle)
+            if isEngineRunning then
+                if IsControlPressed(2, 75) and isEngineRunning then
+                    Citizen.Wait(50)
+                    if IsControlPressed(2, 75) and isEngineRunning then
+                        Citizen.Wait(50)
+                        SetVehicleEngineOn(vehicle, true, true, false)
+                    end
+                end
+                EnableControlAction(2, 71, true)
+            else
+                SetVehicleEngineOn(vehicle, false, false, true)
+                DisableControlAction(2, 71, true)
+            end
+            if vehicle == false then return end
+            Citizen.Wait(50)
+        end
+    end)
+
+
+    lib.addKeybind({
+        name = 'mVehice_toggle_engine',
+        description = 'Keybin engine',
+        defaultKey = Config.VehicleEngine.KeyBind,
+        onPressed = function()
+            local vehicle = cache.vehicle
+            if vehicle then
+                local isDriver = (GetPedInVehicleSeat(vehicle, -1) == cache.ped)
+                if not isDriver then return end
+                local plate = GetVehicleNumberPlateText(vehicle)
+                local key = not Config.ItemKeys and
+                    lib.callback.await('mVehicle:VehicleControl', 500, 'engine', VehToNet(vehicle)) or KeyItem(plate)
+                if not key then return end
+                local engineStatus = GetIsVehicleEngineRunning(vehicle)
+                if engineStatus then
+                    SetVehicleEngineOn(vehicle, false, true, true)
+                else
+                    SetVehicleEngineOn(vehicle, true, true, true)
+                end
+            end
+        end
+
+    })
+end
 lib.callback.register('mVehicle:GetVehicleProps', function(entity)
     if entity then
         if NetworkDoesNetworkIdExist() then
@@ -267,11 +308,11 @@ lib.callback.register('mVehicle:GivecarData', function()
 
     local input = lib.inputDialog('GiveCar', {
         { type = 'input',  label = Config.Locales.givecar_menu1, required = true },
-        { type = 'select', label = Config.Locales.givecar_menu2, default = Config.GarageNames[1], icon = 'hashtag',            options = options },
-        { type = 'select', label = Config.Locales.givecar_menu3, default = false,                 icon = 'hashtag',            options = yesno },
-        { type = 'date',   label = Config.Locales.givecar_menu4, icon = { 'far', 'calendar' },    default = true,              format = "DD/MM/YYYY" },
-        { type = 'number', label = Config.Locales.givecar_menu5, icon = 'clock',                  default = 0,                 max = 23,             min = 0 },
-        { type = 'number', label = Config.Locales.givecar_menu6, icon = 'clock',                  default = 0,                 max = 59,             min = 0 },
+        { type = 'select', label = Config.Locales.givecar_menu2, default = Config.GarageNames[1], icon = 'hashtag',           options = options },
+        { type = 'select', label = Config.Locales.givecar_menu3, default = false,                 icon = 'hashtag',           options = yesno },
+        { type = 'date',   label = Config.Locales.givecar_menu4, icon = { 'far', 'calendar' },    default = true,             format = "DD/MM/YYYY" },
+        { type = 'number', label = Config.Locales.givecar_menu5, icon = 'clock',                  default = 0,                max = 23,             min = 0 },
+        { type = 'number', label = Config.Locales.givecar_menu6, icon = 'clock',                  default = 0,                max = 59,             min = 0 },
         { type = 'color',  label = Config.Locales.givecar_menu7, format = 'rgb',                  default = 'rgb(77, 77, 77)' },
         { type = 'color',  label = Config.Locales.givecar_menu8, format = 'rgb',                  default = 'rgb(77, 77, 77)' },
     })
@@ -302,7 +343,7 @@ function VehicleLabel(model)
 end
 
 function Vehicles.ItemCarKeysClient(action, plate)
-    lib.callback('mVehicle:GiveKey', false, nil ,action, plate)
+    lib.callback('mVehicle:GiveKey', false, nil, action, plate)
 end
 
 if Config.KeyMenu then
@@ -327,7 +368,6 @@ function Vehicles.VehickeKeysMenu(plate, cb)
         return Notification({
             title = Config.Locales.carkey_menu1,
             description = Config.Locales.carkey_menu2,
-            type = data.type or 'warning',
 
         })
     end
@@ -348,6 +388,9 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                     })
                     if input then
                         VehicleState('addkey', { serverid = input[1], keys = row.keys, plate = row.plate })
+                        if cb then cb() end
+                    else
+                        lib.print.error('Cancel givekey to player')
                         if cb then cb() end
                     end
                 end

@@ -108,9 +108,8 @@ function Vehicles.CreateVehicle(data, cb)
             SetVehicleDoorsLocked(data.entity, tonumber(data.metadata.DoorStatus))
         end
     end
-   
+
     if data.metadata.temporary then
-       
         local datetime = data.metadata.temporary
         local date = datetime:sub(1, 8)
         local time = datetime:sub(10)
@@ -124,7 +123,6 @@ function Vehicles.CreateVehicle(data, cb)
         local metadata_minute = tonumber(time:sub(4))
 
         if current_date == date then
-            print(current_hour, metadata_hour, current_minute, metadata_minute)
             if tonumber(current_hour) > metadata_hour and tonumber(current_minute) - 1 > metadata_minute then
                 MySQL.execute(Querys.deleteByPlate, { data.plate })
                 if DoesEntityExist(data.entity) then
@@ -136,7 +134,6 @@ function Vehicles.CreateVehicle(data, cb)
                 DeleteTemporary(data.entity, metadata_hour, metadata_minute)
             end
         end
-        
     end
 
 
@@ -174,7 +171,7 @@ function Vehicles.CreateVehicle(data, cb)
         data.vehicle.plate = data.plate
     end
 
-    
+
     State:set('plate', data.plate, true)
     State:set('setVehicleProperties', data.vehicle, true)
     State:set('fuel', data.vehicle.fuelLevel or 100, true)
@@ -230,7 +227,7 @@ function Vehicles.SetCarOwner(src)
     data.vehicle  = props
     data.owner    = identifier
     data.setOwner = true
-    data.spawn = true
+    data.spawn    = true
 
     Vehicles.CreateVehicle(data)
 end
@@ -550,7 +547,6 @@ function Vehicles.SaveAllVehicles(delete)
             local props = lib.callback.await('mVehicle:GetVehicleProps', -1, NetworkGetNetworkIdFromEntity(entity))
             local doors = GetVehicleDoorLockStatus(entity)
             veh.metadata.DoorStatus = doors
-            print(coords)
             if props and coords then
                 MySQL.update(Querys.saveAllPropsCoords,
                     { coords, props, json.encode(veh.metadata), veh.plate })
@@ -646,46 +642,50 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
             iconColor = (Status == 2 and '#77e362' or '#e36462'),
         })
     end
-    if not Config.ItemKeys then
-        if action == 'doors' then
+
+    if action == 'doors' or 'engine' then
+        if not Config.ItemKeys then
             local vehicledb = MySQL.single.await(Querys.getVehicleByPlate, { plate })
+
             local vehicleKeys = {}
-            if vehicledb == nil then
+
+            if vehicledb == nil and vehicle then
                 vehicledb = {}
                 vehicledb.keys = vehicle.GetKeys()
                 vehicleKeys = vehicle.GetKeys()
-            else
+            elseif vehicle then
                 vehicleKeys = json.decode(vehicledb.keys) or {}
+            else
+                return false
             end
 
             local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or
                 Config.ItemKeys
             if carkeys then
-                if Status == 2 then
-                    if vehicle then vehicle.SetMetadata('DoorStatus', 0) end
-                    SetVehicleDoorsLocked(entity, 0)
-                else
-                    if vehicle then vehicle.SetMetadata('DoorStatus', 2) end
-                    SetVehicleDoorsLocked(entity, 2)
+                if action == 'doors' then
+                    if Status == 2 then
+                        if vehicle then vehicle.SetMetadata('DoorStatus', 0) end
+                        SetVehicleDoorsLocked(entity, 0)
+                    else
+                        if vehicle then vehicle.SetMetadata('DoorStatus', 2) end
+                        SetVehicleDoorsLocked(entity, 2)
+                    end
+                    Noty()
                 end
-                Noty()
                 return carkeys
             else
                 return false
             end
-        end
-    elseif Config.ItemKeys then
-        if action == 'doors' then
+        elseif Config.ItemKeys then
             if Status == 2 then
                 SetVehicleDoorsLocked(entity, 0)
                 if vehicle then vehicle.SetMetadata('DoorStatus', 0) end
-                return true
             else
                 SetVehicleDoorsLocked(entity, 2)
                 if vehicle then vehicle.SetMetadata('DoorStatus', 2) end
-                return true
             end
             Noty()
+            return true
         end
     end
 end)

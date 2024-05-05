@@ -4,11 +4,11 @@ Config.lang = 'EN' -- ES / EN
 
 Config.Debug = true
 
-Config.Framework = 'esx'       -- esx, ox, standalone
+Config.Framework = 'esx'     -- esx, ox, standalone
 
-Config.Inventory = 'ox'        -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
+Config.Inventory = 'ox'      -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
 
-Config.TargetTrailer = false   -- manage tr2 trailer
+Config.TargetTrailer = false -- manage tr2 trailer
 
 --MAX 8 CHAR
 Config.PlateGenerate = "A1A1 A11"
@@ -19,7 +19,7 @@ Config.PlateGenerate = "A1A1 A11"
 
 -- Carkeys
 
-Config.ItemKeys = false           -- false = Vehicles DB
+Config.ItemKeys = true           -- false = Vehicles DB
 
 Config.CarKeyItem = 'carkey'      -- item name
 
@@ -32,6 +32,14 @@ Config.KeyDelay = 500
 Config.KeyDistance = 20
 
 Config.KeyMenu = true -- Radial menu to manage vehicles
+
+
+-- Engine ignition need keys 
+Config.VehicleEngine = {
+    active = true,
+    KeyBind = 'M',
+
+}
 
 -- Put Your Garage names here
 Config.GarageNames = { 'Pillbox Hill' }
