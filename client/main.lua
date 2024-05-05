@@ -121,6 +121,7 @@ local KeyDoors = function(entity)
     if not entity then
         entity = lib.getClosestVehicle(GetEntityCoords(cache.ped), Config.KeyDistance, true)
     end
+    if not DoesEntityExist(entity) then return end
     local doorstatus = GetVehicleDoorLockStatus(entity)
     local vehtonet = VehToNet(entity)
     local plate = GetVehicleNumberPlateText(entity)
