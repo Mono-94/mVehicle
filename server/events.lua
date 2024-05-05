@@ -1,12 +1,8 @@
 -- entityCreated
 AddEventHandler('entityCreated', function(entity)
     local entityType = GetEntityType(entity)
+
     if entityType == 2 then
-
-        if GetEntityPopulationType(entity) > 5 then
-            return
-        end
-
         local motor = GetIsVehicleEngineRunning(entity)
 
 
@@ -19,7 +15,6 @@ AddEventHandler('entityCreated', function(entity)
         if not motor then
             SetVehicleDoorsLocked(entity, 2)
         end
-
     end
 end)
 
@@ -31,7 +26,6 @@ AddEventHandler('entityRemoved', function(entity)
         vehicle.ImpoundVehicle(impound.impoundName, impound.price, impound.note)
     end
 end)
-
 
 
 if GetConvar("mVehicle:Persistent", "false") == 'true' then
@@ -52,6 +46,7 @@ if GetConvar("mVehicle:Persistent", "false") == 'true' then
     end)
 
     AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
+        print(eventData.secondsRemaining)
         if eventData.secondsRemaining == 60 then
             CreateThread(function()
                 Wait(45000)
