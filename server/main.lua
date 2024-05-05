@@ -322,12 +322,14 @@ function Vehicles.GetVehicle(EntityId)
         MySQL.update(Querys.saveProps, { json.encode(props), self.plate })
     end
 
-    function self.DeleteVehicleDB()
+    function self.DeleteVehicle(fromDatabase)
         if DoesEntityExist(EntityId) then
             Vehicles.Vehicles[EntityId] = nil
             SendClientVehicles()
             Entity(EntityId).state.FadeEntity = { action = 'delete' }
-            MySQL.execute(Querys.deleteById, { self.plate })
+            if fromDatabase then
+                MySQL.execute(Querys.deleteByPlate, { self.plate })
+            end
             Vehicles.Vehicles[EntityId] = nil
             self = nil
         end
@@ -376,7 +378,7 @@ function Vehicles.GetVehicle(EntityId)
     ---@param coords vector4
     ---@return boolean
     function self.RetryVehicle(coords)
-        local affectedRows = MySQL.update.await(Querys.retryGarage, { self.parking, json.encode(coords), self.plate })
+        MySQL.update(Querys.retryGarage, { self.parking, json.encode(coords), self.plate })
         SendClientVehicles()
     end
 

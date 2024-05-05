@@ -267,8 +267,8 @@ Vehicle.SetFakePlate('FAKETAXI')
 -- To remove 
 Vehicle.SetFakePlate(false)
 
--- Delete DataBase vehicle
-Vehicle.DeleteVehicleDB()
+-- Delete vehicle | fromDatabase
+Vehicle.DeleteVehicle(fromDatabase)
 ```
 
 

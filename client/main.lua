@@ -208,27 +208,29 @@ function KeyItem(plate)
 end
 
 if Config.VehicleEngine.active then
-    lib.onCache('vehicle', function(vehicle)
+    Citizen.CreateThread(function()
         while true do
-            local isEngineRunning = GetIsVehicleEngineRunning(vehicle)
-            if isEngineRunning then
-                if IsControlPressed(2, 75) and isEngineRunning then
-                    Citizen.Wait(50)
+            local vehicle = cache.vehicle
+            if vehicle then
+                local isEngineRunning = GetIsVehicleEngineRunning(vehicle)
+                if isEngineRunning then
                     if IsControlPressed(2, 75) and isEngineRunning then
-                        Citizen.Wait(50)
-                        SetVehicleEngineOn(vehicle, true, true, false)
+                        Citizen.Wait(100)
+                        if IsControlPressed(2, 75) and isEngineRunning then
+                            Citizen.Wait(100)
+                            SetVehicleEngineOn(vehicle, true, true, false)
+                        end
                     end
+                    EnableControlAction(2, 71, true)
+                else
+                    SetVehicleEngineOn(vehicle, false, false, true)
+                    DisableControlAction(2, 71, true)
                 end
-                EnableControlAction(2, 71, true)
-            else
-                SetVehicleEngineOn(vehicle, false, false, true)
-                DisableControlAction(2, 71, true)
+         
             end
-            if vehicle == false then return end
             Citizen.Wait(50)
         end
     end)
-
 
     lib.addKeybind({
         name = 'mVehice_toggle_engine',
@@ -254,6 +256,7 @@ if Config.VehicleEngine.active then
 
     })
 end
+
 lib.callback.register('mVehicle:GetVehicleProps', function(entity)
     if entity then
         if NetworkDoesNetworkIdExist() then
@@ -519,11 +522,27 @@ function VehhicleSelected(vehicle, vehlabel, cb)
     lib.showContext('mVehicle:selectedVeh')
 end
 
+--- LockPick target
+--exports.ox_target:addGlobalVehicle({
+--    {
+--        label = 'Lock Pick',
+--        items = Config.LockPickItem.item,
+--        onSelect = function(data)
+--            print(json.encode(data, {indent = true}))
+--        end
+--    }
+--})
+
+
+local animDictLockPick = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
+local animLockPick = "machinic_loop_mechandplayer"
+
+local animDicHotWire = "veh@std@ds@base"
+local animHotWire = "hotwire"
+
 lib.callback.register('mVehicle:PlayerItems', function(action, entity)
     local ped = cache.ped
     if action == 'changeplate' then
-        local animDictLockPick = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
-        local animLockPick = "machinic_loop_mechandplayer"
         if lib.progressBar({
                 duration = Config.FakePlateItem.ChangePlateTime,
                 label = Config.Locales.fakeplate4,
@@ -552,24 +571,10 @@ lib.callback.register('mVehicle:PlayerItems', function(action, entity)
     elseif action == 'lockpick' then
         if not NetworkDoesNetworkIdExist(entity) then return false end
         local vehicle = NetToVeh(entity)
-        local driverDoorCoords = GetWorldPositionOfEntityBone(vehicle, 1)
-        local passengerDoorCoords = GetWorldPositionOfEntityBone(vehicle, 6)
+        local pedInVehicle = IsPedInVehicle(ped, vehicle)
+        if pedInVehicle then return end
 
-        local playerCoords = GetEntityCoords(ped)
 
-        local distanceToDriverDoor = GetDistanceBetweenCoords(playerCoords, driverDoorCoords, true)
-        local distanceToPassengerDoor = GetDistanceBetweenCoords(playerCoords, passengerDoorCoords, true)
-
-        if (distanceToDriverDoor <= 1.8 or distanceToPassengerDoor <= 1.8) then
-            print("Estás lo suficientemente cerca de una puerta para interactuar.", distanceToDriverDoor,
-                distanceToPassengerDoor)
-        else
-            print("Acércate más a una puerta...", distanceToDriverDoor, distanceToPassengerDoor)
-            return
-        end
-
-        local animDictLockPick = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
-        local animLockPick = "machinic_loop_mechandplayer"
         lib.requestAnimDict(animDictLockPick)
         TaskPlayAnim(ped, animDictLockPick, animLockPick, 8.0, 8.0, -1, 48, 1, false, false, false)
 
@@ -585,8 +590,7 @@ lib.callback.register('mVehicle:PlayerItems', function(action, entity)
         if not vehicle then return false end
         local pedInVehicle = IsPedInVehicle(ped, vehicle, -1)
         if not pedInVehicle then return false end
-        local animDicHotWire = "veh@std@ds@base"
-        local animHotWire = "hotwire"
+
         lib.requestAnimDict(animDicHotWire)
         TaskPlayAnim(ped, animDicHotWire, animHotWire, 8.0, 8.0, -1, 48, 1, false, false, false)
         local coords = GetEntityCoords(vehicle)

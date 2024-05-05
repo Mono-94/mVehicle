@@ -93,6 +93,9 @@ exports('lockpick', function(event, item, inventory, slot, data)
         return false
     end
 end)
+
+
+
 --Lock Pick
 exports('hotwire', function(event, item, inventory, slot, data)
     if event == 'usingItem' then
