@@ -243,10 +243,10 @@ if Config.VehicleEngine.active then
                 local isDriver = (GetPedInVehicleSeat(vehicle, -1) == cache.ped)
                 if not isDriver then return end
                 local plate = GetVehicleNumberPlateText(vehicle)
-                local key = not Config.ItemKeys and
-                    lib.callback.await('mVehicle:VehicleControl', 500, 'engine', VehToNet(vehicle)) or KeyItem(plate)
+                local key = not Config.ItemKeys and lib.callback.await('mVehicle:VehicleControl', 500, 'engine', VehToNet(vehicle)) or KeyItem(plate)
                 if not key then return end
                 local engineStatus = GetIsVehicleEngineRunning(vehicle)
+   
                 if engineStatus then
                     SetVehicleEngineOn(vehicle, false, true, true)
                 else
