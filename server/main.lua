@@ -657,9 +657,10 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
                 vehicleKeys = vehicle.GetKeys()
             elseif vehicle then
                 vehicleKeys = json.decode(vehicledb.keys) or {}
-            else
+            elseif not vehicle or not vehicledb then
                 return false
             end
+
 
             local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or
                 Config.ItemKeys

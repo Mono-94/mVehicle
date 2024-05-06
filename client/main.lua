@@ -210,26 +210,29 @@ end
 
 if Config.VehicleEngine.active then
     Citizen.CreateThread(function()
+        local wait = 100
         while true do
             local vehicle = cache.vehicle
             if vehicle then
                 local isEngineRunning = GetIsVehicleEngineRunning(vehicle)
                 if isEngineRunning then
-                    if IsControlPressed(2, 75) and isEngineRunning then
+                    if IsControlPressed(0, 75) and isEngineRunning then
                         Citizen.Wait(100)
-                        if IsControlPressed(2, 75) and isEngineRunning then
+                        if IsControlPressed(0, 75) and isEngineRunning then
                             Citizen.Wait(100)
                             SetVehicleEngineOn(vehicle, true, true, false)
                         end
                     end
-                    EnableControlAction(2, 71, true)
+                    wait = 100
                 else
-                    SetVehicleEngineOn(vehicle, false, false, true)
-                    DisableControlAction(2, 71, true)
+                    wait = 10
+                    SetVehicleEngineOn(vehicle, false, true, true)
+                    DisableControlAction(0, 71, true)
                 end
-         
+            else
+                wait = 100
             end
-            Citizen.Wait(50)
+            Citizen.Wait(wait)
         end
     end)
 
@@ -242,11 +245,17 @@ if Config.VehicleEngine.active then
             if vehicle then
                 local isDriver = (GetPedInVehicleSeat(vehicle, -1) == cache.ped)
                 if not isDriver then return end
-                local plate = GetVehicleNumberPlateText(vehicle)
-                local key = not Config.ItemKeys and lib.callback.await('mVehicle:VehicleControl', 500, 'engine', VehToNet(vehicle)) or KeyItem(plate)
-                if not key then return end
+
+                if not Config.ItemKeys then
+                    local key = lib.callback.await('mVehicle:VehicleControl', 500, 'engine', VehToNet(vehicle))
+                    if not key then return end
+                else
+                    local plate = GetVehicleNumberPlateText(vehicle)
+                    local key = KeyItem(plate)
+                    if not key then return end
+                end
+
                 local engineStatus = GetIsVehicleEngineRunning(vehicle)
-   
                 if engineStatus then
                     SetVehicleEngineOn(vehicle, false, true, true)
                 else
