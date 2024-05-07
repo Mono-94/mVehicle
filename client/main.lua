@@ -217,13 +217,15 @@ if Config.VehicleEngine.active then
                 local isEngineRunning = GetIsVehicleEngineRunning(vehicle)
                 if isEngineRunning then
                     if IsControlPressed(0, 75) and isEngineRunning then
-                        Citizen.Wait(100)
+                        Citizen.Wait(300)
                         if IsControlPressed(0, 75) and isEngineRunning then
-                            Citizen.Wait(100)
-                            SetVehicleEngineOn(vehicle, true, true, false)
+                            SetVehicleKeepEngineOnWhenAbandoned(vehicle, true)
+                        else
+                            SetVehicleEngineOn(vehicle, false, true, false)
+                            SetVehicleKeepEngineOnWhenAbandoned(vehicle, false)
                         end
                     end
-                    wait = 100
+                    wait = 100  
                 else
                     wait = 10
                     SetVehicleEngineOn(vehicle, false, true, true)

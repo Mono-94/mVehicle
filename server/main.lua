@@ -12,20 +12,21 @@ local SendClientVehicles = function()
 end
 
 
-local function getVehicleType(model)
+local function VehicleType(model)
     local tempVehicle = CreateVehicle(model, 0, 0, 0, 0, true, true)
 
-    local startTime = GetGameTimer()
+    local gametime = GetGameTimer()
     local ms = 10000
 
     while not DoesEntityExist(tempVehicle) do
         Citizen.Wait(100)
-        if GetGameTimer() - startTime > ms then
+        if GetGameTimer() - gametime > ms then
             break
         end
     end
 
     local vehicleType = GetVehicleType(tempVehicle)
+
     DeleteEntity(tempVehicle)
 
     return vehicleType
@@ -80,7 +81,7 @@ function Vehicles.CreateVehicle(data, cb)
     end
 
     if not data.type then
-        data.type = getVehicleType(data.vehicle.model)
+        data.type = VehicleType(data.vehicle.model)
     end
 
     if not data.spawn then
