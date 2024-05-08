@@ -32,13 +32,17 @@ local function VehicleType(model)
     return vehicleType
 end
 
-local function DeleteTemporary(entity, hour, min)
+local function DeleteTemporary(plate, entity, hour, min)
     local expression = ('%s %s * * *'):format(min, hour)
     lib.cron.new(expression, function(task, date)
         if DoesEntityExist(entity) then DeleteEntity(entity) end
-        MySQL.execute(Querys.deleteById, { Vehicles.Vehicles[entity].id })
-        Vehicles.Vehicles[entity] = nil
-        SendClientVehicles()
+        if Vehicles.Vehicles[entity] then
+            Vehicles.Vehicles[entity] = nil
+            SendClientVehicles()
+            MySQL.execute(Querys.deleteById, { Vehicles.Vehicles[entity].id })
+        else
+            MySQL.execute(Querys.deleteByPlate, { plate })
+        end
         task:stop()
     end, { debug = Config.Debug })
 end
@@ -132,7 +136,7 @@ function Vehicles.CreateVehicle(data, cb)
                 Vehicles.Vehicles[data.entity] = nil
                 return
             else
-                DeleteTemporary(data.entity, metadata_hour, metadata_minute)
+                DeleteTemporary(data.plate, data.entity, metadata_hour, metadata_minute)
             end
         end
     end
