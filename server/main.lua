@@ -35,14 +35,13 @@ end
 local function DeleteTemporary(plate, entity, hour, min)
     local expression = ('%s %s * * *'):format(min, hour)
     lib.cron.new(expression, function(task, date)
-        if DoesEntityExist(entity) then DeleteEntity(entity) end
+        if DoesEntityExist(entity) then
+            DeleteEntity(entity)
+        end
         if Vehicles.Vehicles[entity] then
             Vehicles.Vehicles[entity] = nil
-            SendClientVehicles()
-            MySQL.execute(Querys.deleteById, { Vehicles.Vehicles[entity].id })
-        else
-            MySQL.execute(Querys.deleteByPlate, { plate })
         end
+        MySQL.execute(Querys.deleteByPlate, { plate })
         task:stop()
     end, { debug = Config.Debug })
 end
