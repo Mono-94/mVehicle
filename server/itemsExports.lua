@@ -56,10 +56,8 @@ exports('lockpick', function(event, item, inventory, slot, data)
     if event == 'usingItem' then
         local player = GetPlayerPed(inventory.id)
         local coords = GetEntityCoords(player)
-        local identifier = Identifier(inventory.id)
         local vehicles = lib.getClosestVehicle(coords, 5.0, true)
         local vehicle = Vehicles.GetVehicle(vehicles)
-        local itemSlot = exports.ox_inventory:GetSlot(inventory.id, slot)
         local doorStatus = GetVehicleDoorLockStatus(vehicles)
         local Noty = function()
             Notification(source, {
@@ -93,7 +91,6 @@ exports('lockpick', function(event, item, inventory, slot, data)
         return false
     end
 end)
-
 
 
 --Lock Pick

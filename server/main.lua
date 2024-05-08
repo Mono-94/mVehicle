@@ -80,7 +80,7 @@ function Vehicles.CreateVehicle(data, cb)
         data.keys = json.decode(data.keys)
     end
 
-    if not data.type then
+    if not data.type or Config.VehicleTypes[data.type] then
         data.type = VehicleType(data.vehicle.model)
     end
 

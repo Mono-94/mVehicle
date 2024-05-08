@@ -81,7 +81,7 @@ end)
 
 
 lib.addCommand(Config.Commands.saveallcars, {
-    help = 'SpwnCar',
+    help = 'Save all vehicles, delete option ',
     params = {
         {
             name = 'delete',
@@ -101,7 +101,7 @@ end)
 
 
 lib.addCommand(Config.Commands.spawnallcars, {
-    help = 'SpwnCar',
+    help = 'Force to spawn all vehicles',
     restricted = 'group.admin'
 }, function(source, args, raw)
     Vehicles.SpawnVehicles()

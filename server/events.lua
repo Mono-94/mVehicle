@@ -18,15 +18,25 @@ AddEventHandler('entityCreated', function(entity)
     end
 end)
 
--- Vehicle deleted? send to impound
-AddEventHandler('entityRemoved', function(entity)
-    local vehicle = Vehicles.GetVehicle(entity)
-    if vehicle then
-        local impound = Config.DefaultImpound
-        vehicle.ImpoundVehicle(impound.impoundName, impound.price, impound.note)
+local vType = function(type)
+    for vehicleType, types in pairs(Config.VehicleTypes) do
+        for _, v in ipairs(types) do
+            if v == type then
+                return Config.DefaultImpound[vehicleType]
+            end
+        end
     end
-end)
+end
 
+-- Vehicle deleted? send to impound
+if Config.ImpoundVehicledelete then
+    AddEventHandler('entityRemoved', function(entity)
+        local vehicle = Vehicles.GetVehicle(entity)
+        if vehicle then
+            vehicle.ImpoundVehicle(vType(vehicle.type), Config.DefaultImpound.price, Config.DefaultImpound.note)
+        end
+    end)
+end
 
 if GetConvar("mVehicle:Persistent", "false") == 'true' then
     -- on Resource ...

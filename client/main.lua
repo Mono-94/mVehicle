@@ -9,7 +9,7 @@ RegisterNetEvent('mVehicle:ClientData', function(VehiclesData)
     ServerVehicles = VehiclesData
 end)
 
-function AtRound(valor, decimal)
+local AtRound = function(valor, decimal)
     local start = 10 ^ (decimal or 0)
     return math.floor(valor * start + 0.5) / start
 end
@@ -18,10 +18,7 @@ local VehicleState = function(action, data, delay)
     return lib.callback.await('mVehicle:VehicleState', delay or false, action, data)
 end
 
-local GetVector4 = function(entity)
-    local c, h = GetEntityCoords(entity), GetEntityHeading(entity)
-    return vec4(c.x, c.y, c.z, h)
-end
+
 
 lib.onCache('seat', function(value)
     local Player = cache.ped
@@ -65,11 +62,9 @@ lib.onCache('seat', function(value)
                             Trailer.props = lib.getVehicleProperties(trailerEntity)
                             local saved = VehicleState('savetrailer', Trailer)
                             if saved then
-                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(
-                                    Trailer.plate, State.Owner))
+                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
                             else
-                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(
-                                    Trailer.plate, State.Owner))
+                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
                             end
                         end
                     end
@@ -80,7 +75,7 @@ lib.onCache('seat', function(value)
     end
 end)
 
--- SetVehicle Props
+
 AddStateBagChangeHandler('setVehicleProperties', nil, function(bagName, key, value)
     if not value or not GetEntityFromStateBagName(bagName) then return end
 
@@ -97,7 +92,7 @@ AddStateBagChangeHandler('setVehicleProperties', nil, function(bagName, key, val
     end
 end)
 
-AddStateBagChangeHandler('FadeEntity', '', function(bagName, key, value)
+AddStateBagChangeHandler('FadeEntity', nil, function(bagName, key, value)
     if not value then return end
     local entity = GetEntityFromStateBagName(bagName)
     if NetworkGetEntityOwner(entity) ~= PlayerId() then return end
@@ -187,26 +182,6 @@ else
     })
 end
 
-function KeyItem(plate)
-    if not Config.ItemKeys then return true end
-    if Config.Inventory == 'ox' then
-        local key = exports.ox_inventory:Search('count', Config.CarKeyItem, { plate = plate })
-        if key >= 1 then
-            return true
-        else
-            return false
-        end
-    elseif Config.Inventory == 'qs' then
-        local items = exports['qs-inventory']:getUserInventory()
-        for item, meta in pairs(items) do
-            if meta.info.plate == plate then
-                return true
-            else
-                return false
-            end
-        end
-    end
-end
 
 if Config.VehicleEngine.active then
     Citizen.CreateThread(function()
@@ -225,7 +200,7 @@ if Config.VehicleEngine.active then
                             SetVehicleKeepEngineOnWhenAbandoned(vehicle, false)
                         end
                     end
-                    wait = 100  
+                    wait = 100
                 else
                     wait = 10
                     SetVehicleEngineOn(vehicle, false, true, true)
@@ -343,19 +318,15 @@ lib.callback.register('mVehicle:GivecarData', function()
 
     local vehiclehash = GetHashKey(input[1])
     local isModelValid = IsModelValid(vehiclehash)
+
     if not isModelValid then return false, lib.print.error('Vehicle model invalid') end
+
+    input[9] = GetVehicleClassFromName(input[1])
 
     return input
 end)
 
 
-function VehicleLabel(model)
-    local makeName = GetMakeNameFromVehicleModel(model)
-    makeName = makeName:sub(1, 1):upper() .. makeName:sub(2):lower()
-    local displayName = GetDisplayNameFromVehicleModel(model)
-    displayName = displayName:sub(1, 1):upper() .. displayName:sub(2):lower()
-    return makeName .. ' ' .. displayName
-end
 
 function Vehicles.ItemCarKeysClient(action, plate)
     lib.callback('mVehicle:GiveKey', false, nil, action, plate)
@@ -373,7 +344,6 @@ if Config.KeyMenu then
         }
     })
 end
-
 
 function Vehicles.VehickeKeysMenu(plate, cb)
     local VehicleList = {}
@@ -533,90 +503,6 @@ function VehhicleSelected(vehicle, vehlabel, cb)
     lib.registerContext(menu)
     lib.showContext('mVehicle:selectedVeh')
 end
-
---- LockPick target
---exports.ox_target:addGlobalVehicle({
---    {
---        label = 'Lock Pick',
---        items = Config.LockPickItem.item,
---        onSelect = function(data)
---            print(json.encode(data, {indent = true}))
---        end
---    }
---})
-
-
-local animDictLockPick = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@"
-local animLockPick = "machinic_loop_mechandplayer"
-
-local animDicHotWire = "veh@std@ds@base"
-local animHotWire = "hotwire"
-
-lib.callback.register('mVehicle:PlayerItems', function(action, entity)
-    local ped = cache.ped
-    if action == 'changeplate' then
-        if lib.progressBar({
-                duration = Config.FakePlateItem.ChangePlateTime,
-                label = Config.Locales.fakeplate4,
-                useWhileDead = false,
-                canCancel = true,
-                disable = {
-                    car = true,
-                    move = true,
-                },
-                anim = {
-                    dict = animDictLockPick,
-                    clip = animLockPick,
-                    flag = 1,
-
-                },
-                prop = {
-                    model = 'p_num_plate_01',
-                    pos = vec3(0.0, 0.2, 0.1),
-                    rot = vec3(100, 100.0, 0.0)
-                },
-            }) then
-            return true
-        else
-            return false
-        end
-    elseif action == 'lockpick' then
-        if not NetworkDoesNetworkIdExist(entity) then return false end
-        local vehicle = NetToVeh(entity)
-        local pedInVehicle = IsPedInVehicle(ped, vehicle)
-        if pedInVehicle then return end
-
-
-        lib.requestAnimDict(animDictLockPick)
-        TaskPlayAnim(ped, animDictLockPick, animLockPick, 8.0, 8.0, -1, 48, 1, false, false, false)
-
-        local coords = GetEntityCoords(vehicle)
-        local skillCheck = Config.LockPickItem.skillCheck()
-        if skillCheck then
-            Config.LockPickItem.dispatch(cache.serverId, vehicle, coords)
-        end
-        ClearPedTasks(ped)
-        return skillCheck
-    elseif action == 'hotwire' then
-        local vehicle = GetVehiclePedIsIn(ped, false)
-        if not vehicle then return false end
-        local pedInVehicle = IsPedInVehicle(ped, vehicle, -1)
-        if not pedInVehicle then return false end
-
-        lib.requestAnimDict(animDicHotWire)
-        TaskPlayAnim(ped, animDicHotWire, animHotWire, 8.0, 8.0, -1, 48, 1, false, false, false)
-        local coords = GetEntityCoords(vehicle)
-        local skillCheck = Config.HotWireItem.skillCheck()
-        if skillCheck then
-            Config.HotWireItem.dispatch(cache.serverId, vehicle, coords)
-            SetVehicleEngineOn(vehicle, true, true, true)
-        end
-        ClearPedTasks(ped)
-        return skillCheck
-    end
-end)
-
-
 
 exports('vehicle', function()
     return Vehicles
