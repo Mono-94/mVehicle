@@ -63,10 +63,10 @@ lib.onCache('seat', function(value)
                             local saved = VehicleState('savetrailer', Trailer)
                             if saved then
                                 lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(
-                                Trailer.plate, State.Owner))
+                                    Trailer.plate, State.Owner))
                             else
                                 lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(
-                                Trailer.plate, State.Owner))
+                                    Trailer.plate, State.Owner))
                             end
                         end
                     end
@@ -87,7 +87,9 @@ AddStateBagChangeHandler('setVehicleProperties', nil, function(bagName, key, val
 
     if networked and NetworkGetEntityOwner(entity) ~= PlayerId() then return end
 
-    DeleteVehicleEntity({ action = 'spawn', entity = entity })
+    SetFadeEntity({ action = 'spawn', entity = entity })
+
+
 
     if lib.setVehicleProperties(entity, value) then
         Entity(entity).state:set('setVehicleProperties', nil, true)
@@ -99,14 +101,27 @@ AddStateBagChangeHandler('FadeEntity', nil, function(bagName, key, value)
     local entity = GetEntityFromStateBagName(bagName)
     if NetworkGetEntityOwner(entity) ~= PlayerId() then return end
     value.entity = entity
-    DeleteVehicleEntity(value)
+    SetFadeEntity(value)
     Entity(entity).state:set('FadeEntity', nil, true)
 end)
 
 
-function DeleteVehicleEntity(data)
+function SetFadeEntity(data)
+    local peds = false
     if data.action == 'spawn' then
         NetworkFadeInEntity(data.entity, true)
+        local seats = GetVehicleMaxNumberOfPassengers(data.entity)
+        for i = -1, seats do
+            local ped = GetPedInVehicleSeat(data.entity, i)
+            local isPlayer = IsPedAPlayer(ped)
+            if not isPlayer  then
+                peds = true
+                DeleteEntity(ped)
+            end
+        end
+        if peds then
+            lib.print.warn('A Ped spawn inside vehicle....')
+        end
     elseif data.action == 'delete' then
         NetworkFadeOutEntity(data.entity, true, true)
         Citizen.Wait(1500)
