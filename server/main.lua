@@ -213,12 +213,13 @@ function Vehicles.GetVehicleId(id)
     return vehicle
 end
 
-function Vehicles.SetCarOwner(src)
+function Vehicles.SetCarOwner(src, entity)
     local data       = {}
     local playerped  = GetPlayerPed(src)
     local identifier = Identifier(src)
-    data.entity      = GetVehiclePedIsIn(playerped, false)
-
+    if not entity then
+        data.entity = GetVehiclePedIsIn(playerped, false)
+    end
     if not data.entity or not identifier or not playerped then
         lib.print.error('SetCarOwner Missing data')
         return
@@ -235,6 +236,24 @@ function Vehicles.SetCarOwner(src)
 
     Vehicles.CreateVehicle(data)
 end
+
+RegisterServerEvent('mVehicle:SetVehicleOwner', function(src, entity)
+    local data       = {}
+    local identifier = Identifier(src)
+    if not DoesEntityExist(entity) then return lib.print.error('Entity Does not exist') end
+    data.entity      = entity
+    data.EntityOwner = NetworkGetEntityOwner(data.entity)
+    data.NetId       = NetworkGetNetworkIdFromEntity(data.entity)
+    local props      = lib.callback.await('mVehicle:GetVehicleProps', data.EntityOwner, data.NetId)
+    props.plate      = Vehicles.GeneratePlate()
+    data.coords      = GetCoords(src)
+    data.plate       = props.plate
+    data.vehicle     = props
+    data.owner       = identifier
+    data.setOwner    = true
+    data.spawn       = true
+    Vehicles.CreateVehicle(data)
+end)
 
 function Vehicles.SetVehicleOwner(data)
     local insert = {}
@@ -352,8 +371,9 @@ function Vehicles.GetVehicle(EntityId)
     function self.StoreVehicle(parking)
         local props = lib.callback.await('mVehicle:GetVehicleProps', self.EntityOwner, self.NetId)
         local store = false
-        
-        local affectedRows = MySQL.update.await(Querys.storeGarage, { parking, props, json.encode(self.metadata), self.plate })
+
+        local affectedRows = MySQL.update.await(Querys.storeGarage,
+            { parking, props, json.encode(self.metadata), self.plate })
         if affectedRows then
             Vehicles.Vehicles[EntityId] = nil
             Entity(EntityId).state.FadeEntity = { action = 'delete' }

@@ -70,7 +70,13 @@ function GetName(src)
             return Player.get('name')
         end
     elseif Config.Framework == "LG" then
-        return GetPlayerName(src)
+        local Data = LegacyFramework.SvPlayerFunctions.GetPlayerData(src)
+        local PlayerData = Data[1]
+        if Data and PlayerData then
+            local firstname = PlayerData.firstName
+            local lastname = PlayerData.lastName
+            return firstname .. ' ' .. lastname
+        end
     end
     return false
 end
@@ -102,7 +108,7 @@ local query = {
         getVehicleById = 'SELECT * FROM `owned_vehicles` WHERE `id` = ? LIMIT 1',
         getVehicleByPlate = 'SELECT * FROM `owned_vehicles` WHERE `plate` = ? LIMIT 1',
         setOwner =
-        'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking, stored) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         deleteByPlate = 'DELETE FROM owned_vehicles WHERE plate = ?',
         deleteById = 'DELETE FROM owned_vehicles WHERE id = ?',
         saveMetadata = 'UPDATE owned_vehicles SET metadata = ? WHERE plate = ?',
