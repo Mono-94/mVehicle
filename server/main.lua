@@ -244,14 +244,14 @@ RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity, plate, model)
     data.entity      = entity
     data.EntityOwner = NetworkGetEntityOwner(data.entity)
     data.NetId       = NetworkGetNetworkIdFromEntity(data.entity)
-
-    data.plate       = plate or Vehicles.GeneratePlate()
-    data.vehicle     = {
-        model = model,
-    }
-    data.owner       = identifier
-    data.setOwner    = false
-    data.spawn       = true
+    local props      = lib.callback.await('mVehicle:GetVehicleProps', data.EntityOwner, data.NetId)
+    props            = json.decode(props)
+    print(props.plate, props.model)
+    data.plate    = props.plate
+    data.vehicle  = props
+    data.owner    = identifier
+    data.setOwner = false
+    data.spawn    = true
     Vehicles.CreateVehicle(data)
 end)
 
