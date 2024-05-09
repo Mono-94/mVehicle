@@ -113,9 +113,7 @@ function SetFadeEntity(data)
         for i = -1, seats do
             local ped = GetPedInVehicleSeat(data.entity, i)
             local isPlayer = IsPedAPlayer(ped)
-
-            if not isPlayer and DoesEntityExist(ped) then
-                print(isPlayer)
+            if not isPlayer and ped > 0 then
                 DeleteEntity(ped)
             end
         end
