@@ -45,11 +45,14 @@ if GetConvar("mVehicle:Persistent", "false") == 'true' then
         Vehicles.SpawnVehicles()
     end)
 
+    -- no work :| 
     AddEventHandler('onResourceStop', function(name)
         if name ~= GetCurrentResourceName() then return end
-        Vehicles.SaveAllVehicles()
+        Vehicles.SaveAllVehicles(true)
     end)
 
+
+    
     -- TxAdmin
     AddEventHandler("txAdmin:events:serverShuttingDown", function()
         Vehicles.SaveAllVehicles(true)

@@ -238,7 +238,6 @@ end
 
 function Vehicles.SetVehicleOwner(data)
     local insert = {}
-
     if Config.Framework == 'esx' then
         insert = { data.owner, data.plate, json.encode(data.vehicle), data.type, data.job, json.encode(data.coords),
             json.encode(data.metadata) }
@@ -262,6 +261,7 @@ function Vehicles.GetVehicle(EntityId)
     function self.SaveMetaData()
         MySQL.update(Querys.saveMetadata, { json.encode(self.metadata), self.plate })
         State:set("metadata", self.metadata, true)
+        SendClientVehicles()
     end
 
     ---SetMetadata
@@ -270,13 +270,22 @@ function Vehicles.GetVehicle(EntityId)
     function self.SetMetadata(key, value)
         self.metadata[key] = value
         self.SaveMetaData()
-        SendClientVehicles()
     end
 
     ---DeleteMetadata
     ---@param key string
-    function self.DeleteMetadata(key)
-        self.metadata[key] = value
+    ---@param data string
+    function self.DeleteMetadata(key, data)
+        if not self.metadata[key] then return lib.print.error(('No key %s in metadata'):format(key)) end
+        if key then
+            self.metadata[key] = nil
+        elseif key and data then
+            if not self.metadata[key][data] then
+                lib.print.error(('No data "%s" in %s'):format(data, key))
+                return
+            end
+            self.metadata[key][data] = nil
+        end
         self:SaveMetaData()
     end
 
@@ -300,18 +309,16 @@ function Vehicles.GetVehicle(EntityId)
             self.keys[identifier] = GetName(src)
             State:set("Keys", self.keys, true)
             MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plafe })
-            SendClientVehicles()
         end
     end
 
     ---RemoveKey
     function self.RemoveKey(src)
         local identifier = Identifier(src)
-        if identifier then
+        if identifier and self.keys[identifier] then
             self.keys[identifier] = nil
             State:set("Keys", self.keys, true)
             MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plate })
-            SendClientVehicles()
         end
     end
 
@@ -341,12 +348,11 @@ function Vehicles.GetVehicle(EntityId)
 
     ---StoreVehicle
     ---@param parking string
-    ---@param props table
     ---@return boolean
-    function self.StoreVehicle(parking, props)
+    function self.StoreVehicle(parking)
+        local props = lib.callback.await('mVehicle:GetVehicleProps', self.EntityOwner, self.NetId)
         local store = false
-        local affectedRows = MySQL.update.await(Querys.storeGarage,
-            { parking, props, json.encode(self.metadata), self.plate })
+        local affectedRows = MySQL.update.await(Querys.storeGarage, { props, json.encode(self.metadata), self.plate })
         if affectedRows then
             Vehicles.Vehicles[EntityId] = nil
             Entity(EntityId).state.FadeEntity = { action = 'delete' }
@@ -358,14 +364,14 @@ function Vehicles.GetVehicle(EntityId)
     end
 
     ---ImpoundVehicle
-    function self.ImpoundVehicle(parking, price, note, date)
+    function self.ImpoundVehicle(parking, price, note, date, endpound)
         self.SetMetadata('pound', {
             price = price or Config.DefaultImpound.price,
             reason = note or Config.DefaultImpound.note,
-            date = date or os.date("%Y/%m/%d %H:%M")
+            date = date or os.date("%Y/%m/%d %H:%M"),
+            endPound = endpound
 
         })
-
         local affectedRows = MySQL.update.await(Querys.setImpound, { parking, json.encode(self.metadata), self.plate })
 
         if affectedRows then
@@ -412,7 +418,6 @@ function Vehicles.GetVehicle(EntityId)
         self.coords = coords
         self.mileage = math.floor(mileages * 100)
         MySQL.update(Querys.saveLeftVehicle, { self.mileage, self.coords, json.encode(props), self.plate })
-        SendClientVehicles()
     end
 
     function self.CoordsAndProps(coords, props)
@@ -430,6 +435,10 @@ function Vehicles.GetVehicleByPlate(plate)
             return Vehicles.GetVehicle(v.entity)
         end
     end
+end
+
+function Vehicles.GetVehicleByPlateDB(plate)
+    return MySQL.single.await(Querys.getVehicleByPlate, { plate })
 end
 
 ---GetAllVehicles
