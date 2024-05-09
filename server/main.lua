@@ -237,20 +237,20 @@ function Vehicles.SetCarOwner(src, entity)
     Vehicles.CreateVehicle(data)
 end
 
-RegisterServerEvent('mVehicle:SetVehicleOwner', function(src, entity)
+RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity, plate, model)
     local data       = {}
     local identifier = Identifier(src)
     if not DoesEntityExist(entity) then return lib.print.error('Entity Does not exist') end
     data.entity      = entity
     data.EntityOwner = NetworkGetEntityOwner(data.entity)
     data.NetId       = NetworkGetNetworkIdFromEntity(data.entity)
-    local props      = lib.callback.await('mVehicle:GetVehicleProps', data.EntityOwner, data.NetId)
-    props.plate      = Vehicles.GeneratePlate()
-    data.coords      = GetCoords(src)
-    data.plate       = props.plate
-    data.vehicle     = props
+
+    data.plate       = plate or Vehicles.GeneratePlate()
+    data.vehicle     = {
+        model = model,
+    }
     data.owner       = identifier
-    data.setOwner    = true
+    data.setOwner    = false
     data.spawn       = true
     Vehicles.CreateVehicle(data)
 end)
