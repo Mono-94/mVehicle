@@ -11,6 +11,20 @@ local SendClientVehicles = function()
     clientEvent('mVehicle:ClientData', -1, SendClient)
 end
 
+local function DeleteTemporary(plate, entity, hour, min)
+    local expression = ('%s %s * * *'):format(min, hour)
+    lib.cron.new(expression, function(task, date)
+        if DoesEntityExist(entity) then
+            DeleteEntity(entity)
+        end
+        if Vehicles.Vehicles[entity] then
+            Vehicles.Vehicles[entity] = nil
+        end
+        MySQL.execute(Querys.deleteByPlate, { plate })
+        task:stop()
+    end, { debug = Config.Debug })
+end
+
 
 local function VehicleType(model)
     local tempVehicle = CreateVehicle(model, 0, 0, 0, 0, true, true)
@@ -31,22 +45,6 @@ local function VehicleType(model)
 
     return vehicleType
 end
-
-local function DeleteTemporary(plate, entity, hour, min)
-    local expression = ('%s %s * * *'):format(min, hour)
-    lib.cron.new(expression, function(task, date)
-        if DoesEntityExist(entity) then
-            DeleteEntity(entity)
-        end
-        if Vehicles.Vehicles[entity] then
-            Vehicles.Vehicles[entity] = nil
-        end
-        MySQL.execute(Querys.deleteByPlate, { plate })
-        task:stop()
-    end, { debug = Config.Debug })
-end
-
-
 
 
 ---@param data table
@@ -83,9 +81,13 @@ function Vehicles.CreateVehicle(data, cb)
         data.keys = json.decode(data.keys)
     end
 
-    if not data.type or Config.VehicleTypes[data.type] then
+    if Config.VehicleTypes[data.type] then
         data.type = VehicleType(data.vehicle.model)
     end
+    if not data.type  then
+        data.type = VehicleType(data.vehicle.model)
+    end
+
 
     if not data.spawn then
         if data.coords == nil then return false end
@@ -225,6 +227,8 @@ function Vehicles.SetCarOwner(src, entity)
         return
     end
 
+   
+
     local props   = lib.callback.await('mVehicle:GetVehicleProps', src)
     props.plate   = Vehicles.GeneratePlate()
     data.coords   = GetCoords(src)
@@ -234,6 +238,10 @@ function Vehicles.SetCarOwner(src, entity)
     data.owner    = identifier
     data.setOwner = true
     data.spawn    = true
+
+    if Config.CarkeysItem then
+        Vehicles.ItemCarKeys(src, 'add', data.plate)
+    end
 
     Vehicles.CreateVehicle(data)
 end
@@ -252,6 +260,11 @@ RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity)
     data.owner       = identifier
     data.setOwner    = false
     data.spawn       = true
+
+    if Config.CarkeysItem then
+        Vehicles.ItemCarKeys(src, 'add', data.plate)
+    end
+
     Vehicles.CreateVehicle(data)
 end)
 
@@ -567,6 +580,10 @@ function Vehicles.SpawnVehicles()
         if row.coords and row.stored == 0 or row.stored == nil and row.pound == nil then
             row.vehicle = json.decode(row.vehicle)
             row.coords  = json.decode(row.coords)
+            if Config.VehicleTypes[row.type] then
+                row.type = 'automobile'
+            end
+
             Vehicles.CreateVehicle(row)
 
             Citizen.Wait(200)

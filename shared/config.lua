@@ -25,7 +25,7 @@ Config.PlateGenerate = "AAAA 111"
 
 -- Carkeys
 
-Config.ItemKeys = false           -- false = Vehicles DB
+Config.ItemKeys = true           -- false = Vehicles DB
 
 Config.CarKeyItem = 'carkey'      -- item name
 
