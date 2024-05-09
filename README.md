@@ -1,4 +1,8 @@
-# mVehicles *NEW MONO_CARKEYS* 
+ [![discord](https://img.shields.io/badge/Join-Discord-blue?logo=discord&logoColor=white)](https://discord.gg/Vk7eY8xYV2)
+ ![Discord](https://img.shields.io/discord/1048630711881568267?style=flat&label=Online%20Users)
+
+
+# mVehicles 
 *This  is not a garage system, it is only to manage vehicles, you can use this code simply for the key system.*
 
 ## Features
@@ -14,9 +18,13 @@
 
 - ## **Commands**
  - `/givecar [source]`
+ - - Establecer a un jugador [source] un vehiculo temporalmente/indefinidamente
  - `/setcarowner [source]`
- - `/saveAllcars true/false`: If true, deletes all vehicles; if false, only saves vehicles.
- - `/spawnAllcars`: Forces spawning of vehicles outside of garages.
+  - - Establecer en propiedad el vehiculo en el que se encuetra el jugador [source]
+ - `/saveAllcars true/false` 
+ - - If true, deletes all vehicles; if false, only saves vehicles.
+ - `/spawnAllcars` 
+ -  Forces spawning of vehicles outside of garages.
 <details>
 <summary>Image</summary>
 
