@@ -107,21 +107,17 @@ end)
 
 
 function SetFadeEntity(data)
-    local peds = false
     if data.action == 'spawn' then
         NetworkFadeInEntity(data.entity, true)
         local seats = GetVehicleMaxNumberOfPassengers(data.entity)
         for i = -1, seats do
             local ped = GetPedInVehicleSeat(data.entity, i)
             local isPlayer = IsPedAPlayer(ped)
-            if not isPlayer  then
-                peds = true
+            if not isPlayer then
                 DeleteEntity(ped)
             end
         end
-        if peds then
-            lib.print.warn('A Ped spawn inside vehicle....')
-        end
+ 
     elseif data.action == 'delete' then
         NetworkFadeOutEntity(data.entity, true, true)
         Citizen.Wait(1500)
