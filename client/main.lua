@@ -113,11 +113,12 @@ function SetFadeEntity(data)
         for i = -1, seats do
             local ped = GetPedInVehicleSeat(data.entity, i)
             local isPlayer = IsPedAPlayer(ped)
-            if not isPlayer then
+
+            if not isPlayer and DoesEntityExist(ped) then
+                print(isPlayer)
                 DeleteEntity(ped)
             end
         end
- 
     elseif data.action == 'delete' then
         NetworkFadeOutEntity(data.entity, true, true)
         Citizen.Wait(1500)
