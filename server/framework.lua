@@ -107,8 +107,7 @@ local query = {
         deleteById = 'DELETE FROM owned_vehicles WHERE id = ?',
         saveMetadata = 'UPDATE owned_vehicles SET metadata = ? WHERE plate = ?',
         saveProps = 'UPDATE owned_vehicles SET vehicle = ? WHERE plate = ?',
-        storeGarage =
-        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
+        storeGarage = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
         retryGarage = 'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE `plate` = ?',
         setImpound =
         'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',

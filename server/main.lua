@@ -352,7 +352,8 @@ function Vehicles.GetVehicle(EntityId)
     function self.StoreVehicle(parking)
         local props = lib.callback.await('mVehicle:GetVehicleProps', self.EntityOwner, self.NetId)
         local store = false
-        local affectedRows = MySQL.update.await(Querys.storeGarage, { props, json.encode(self.metadata), self.plate })
+        
+        local affectedRows = MySQL.update.await(Querys.storeGarage, { parking, props, json.encode(self.metadata), self.plate })
         if affectedRows then
             Vehicles.Vehicles[EntityId] = nil
             Entity(EntityId).state.FadeEntity = { action = 'delete' }
