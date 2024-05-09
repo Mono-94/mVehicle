@@ -62,9 +62,11 @@ lib.onCache('seat', function(value)
                             Trailer.props = lib.getVehicleProperties(trailerEntity)
                             local saved = VehicleState('savetrailer', Trailer)
                             if saved then
-                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
+                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(
+                                Trailer.plate, State.Owner))
                             else
-                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
+                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(
+                                Trailer.plate, State.Owner))
                             end
                         end
                     end
@@ -246,7 +248,7 @@ end
 
 lib.callback.register('mVehicle:GetVehicleProps', function(entity)
     if entity then
-        if NetworkDoesNetworkIdExist() then
+        if NetworkDoesNetworkIdExist(entity) then
             entity = NetToVeh(entity)
             local props = lib.getVehicleProperties(entity)
             return json.encode(props)
@@ -417,7 +419,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
         else
             table.insert(VehicleList, {
                 title = ('%s | %s'):format(row.plate, row.vehlabel),
-                description = ('%s | %s'):format(row.plate, row.vehlabel),
+                description = ('%s | %s \n Parking: %s'):format(row.plate, row.vehlabel, row.parking),
                 icon = 'car',
                 iconColor = row.stored == 1 and '#5bb060' or '#b0645b',
                 arrow = true,
