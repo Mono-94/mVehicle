@@ -137,5 +137,50 @@ LANG = {
         fakeplate2        = 'Questo veicolo non è di tua proprietà...',
         fakeplate3        = 'Targa Originale',
         fakeplate4        = 'Cambio targa'
-    }
+    },    ['FR'] = {
+              -- Remorque
+              flip_trailer      = 'Retourner la Remorque',
+              up_dow_ramp       = 'Monter/Baisser la Rampe',
+              up_dow_platform   = 'Monter/Baisser la Plateforme',
+              attach_vehicle    = 'Attacher le Véhicule',
+              dettach_vehicle   = 'Détacher le Véhicule',
+      
+              -- Portes des Véhicules
+              open_door         = 'Ouvrir la Porte',
+              close_door        = 'Fermer la Porte',
+      
+              -- Clés
+              key_string        = 'Plaque d’immatriculation : %s',
+              key_targetdoors   = 'Ouvrir / Fermer les Portes',
+      
+              -- Don de voiture
+              givecar_noty      = 'Vous êtes maintenant propriétaire de ce véhicule %s',
+              givecar_help      = 'Donner un véhicule à un joueur avec plusieurs options.',
+              givecar_playerveh = 'Définir comme propriété le véhicule dans lequel se trouve un joueur',
+              givecar_yes       = 'Oui',
+              givecar_no        = 'Non',
+              givecar_menu1     = 'Modèle du véhicule',
+              givecar_menu2     = 'Garage',
+              givecar_menu3     = 'Véhicule temporaire ?',
+              givecar_menu4     = 'Date',
+              givecar_menu5     = 'Heure',
+              givecar_menu6     = 'Minutes',
+              givecar_menu7     = 'Couleur 1 du Véhicule',
+              givecar_menu8     = 'Couleur 2 du Véhicule',
+      
+              -- Menu des Clés de Voiture
+              carkey_menu1      = 'Véhicules personnels',
+              carkey_menu2      = 'Vous n’avez pas de véhicules.',
+              carkey_menu3      = 'Donner une Clé',
+              carkey_menu4      = 'Donner une clé à un joueur par son ID.',
+              carkey_menu5      = 'Personne n’a de clés pour ce véhicule 😪',
+              carkey_menu6      = 'Supprimer',
+      
+              -- Plaque d'immatriculation factice
+              fakeplate1        = 'Plaque d’immatriculation Factice',
+              fakeplate2        = 'Ce véhicule ne vous appartient pas...',
+              fakeplate3        = 'Plaque d’immatriculation d’Origine',
+              fakeplate4        = 'Changement de plaque'
+          },
+
 }
