@@ -18,13 +18,13 @@
 
 - ## **Commands**
  - `/givecar [source]`
- - - Establecer a un jugador [source] un vehiculo temporalmente/indefinidamente
+ - - Set a player [source] a vehicle temporarily/indefinitely
  - `/setcarowner [source]`
-  - - Establecer en propiedad el vehiculo en el que se encuetra el jugador [source]
+  - - Establish ownership of the vehicle in which the player is located. [source]
  - `/saveAllcars true/false` 
- - - If true, deletes all vehicles; if false, only saves vehicles.
+ - - If true, deletes all vehicles; if false, only save vehicles.
  - `/spawnAllcars` 
- -  Forces spawning of vehicles outside of garages.
+ -  Forces spawning vehicles outside garages.
 <details>
 <summary>Image</summary>
 
