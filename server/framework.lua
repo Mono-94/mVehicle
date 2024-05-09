@@ -102,7 +102,7 @@ local query = {
         getVehicleById = 'SELECT * FROM `owned_vehicles` WHERE `id` = ? LIMIT 1',
         getVehicleByPlate = 'SELECT * FROM `owned_vehicles` WHERE `plate` = ? LIMIT 1',
         setOwner =
-        'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking, stored) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         deleteByPlate = 'DELETE FROM owned_vehicles WHERE plate = ?',
         deleteById = 'DELETE FROM owned_vehicles WHERE id = ?',
         saveMetadata = 'UPDATE owned_vehicles SET metadata = ? WHERE plate = ?',
@@ -127,7 +127,7 @@ local query = {
     ['ox'] = {
         getVehicleById = 'SELECT * FROM `vehicles` WHERE `id` = ? LIMIT 1',
         setOwner =
-        'INSERT INTO `vehicles` (owner, plate, vehicle, type, `group`, coords, data, vin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO `vehicles` (owner, plate, vehicle, type, `group`, coords, data, vin, parking) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         deleteByPlate = 'DELETE FROM vehicles WHERE plate = ?',
         deleteById = 'DELETE FROM vehicles WHERE id = ?',
         saveMetadata = 'UPDATE vehicles SET data = ? WHERE plate = ?',

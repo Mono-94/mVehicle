@@ -240,10 +240,10 @@ function Vehicles.SetVehicleOwner(data)
     local insert = {}
     if Config.Framework == 'esx' then
         insert = { data.owner, data.plate, json.encode(data.vehicle), data.type, data.job, json.encode(data.coords),
-            json.encode(data.metadata) }
+            json.encode(data.metadata), data.parking }
     elseif Config.Framework == 'ox' then
         insert = { data.owner, data.plate, json.encode(data.vehicle), data.type, data.job, json.encode(data.coords),
-            json.encode(data.metadata), Vehicles.RandomVin() }
+            json.encode(data.metadata), Vehicles.RandomVin(), data.parking }
     end
     local await = MySQL.insert.await(Querys.setOwner, insert)
     return await
