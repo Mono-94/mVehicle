@@ -1,7 +1,7 @@
 Vehicles = {}
 Vehicles.Vehicles = {}
 local clientEvent = TriggerClientEvent
-
+local ox_inv = exports.ox_inventory
 
 local SendClientVehicles = function()
     local SendClient = {}
@@ -62,7 +62,7 @@ function Vehicles.CreateVehicle(data, cb)
         data.metadata = data.data
     end
 
-    
+
 
     data.metadata      = json.decode(data.metadata) or {}
 
@@ -86,7 +86,7 @@ function Vehicles.CreateVehicle(data, cb)
     if Config.VehicleTypes[data.type] then
         data.type = VehicleType(data.vehicle.model)
     end
-    if not data.type  then
+    if not data.type then
         data.type = VehicleType(data.vehicle.model)
     end
 
@@ -239,7 +239,7 @@ function Vehicles.SetCarOwner(src, entity)
     data.setOwner = true
     data.spawn    = true
 
-    if Config.CarkeysItem then
+    if Config.ItemKeys then
         Vehicles.ItemCarKeys(src, 'add', data.plate)
     end
 
@@ -261,7 +261,7 @@ RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity)
     data.setOwner    = false
     data.spawn       = true
 
-    if Config.CarkeysItem then
+    if Config.ItemKeys then
         Vehicles.ItemCarKeys(src, 'add', data.plate)
     end
 
@@ -629,13 +629,13 @@ function Vehicles.ItemCarKeys(src, action, plate)
     }
     if action == 'add' then
         if Config.Inventory == 'ox' then
-            exports.ox_inventory:AddItem(src, Config.CarKeyItem, 1, metadata)
+            ox_inv:AddItem(src, Config.CarKeyItem, 1, metadata)
         elseif Config.Inventory == 'qs' then
             exports['qs-inventory']:AddItem(src, Config.CarKeyItem, 1, nil, metadata)
         end
     elseif action == 'delete' then
         if Config.Inventory == 'ox' then
-            exports.ox_inventory:RemoveItem(src, Config.CarKeyItem, 1, metadata)
+            ox_inv:RemoveItem(src, Config.CarKeyItem, 1, metadata)
         elseif Config.Inventory == 'qs' then
             exports['qs-inventory']:RemoveItem(src, Config.CarKeyItem, 1, nil, metadata)
         end
@@ -715,7 +715,8 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
             end
 
 
-            local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or Config.ItemKeys
+            local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or
+            Config.ItemKeys
             if carkeys then
                 if action == 'doors' then
                     if Status == 2 then
@@ -745,18 +746,19 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
     end
 end)
 
-exports.ox_inventory:registerHook('createItem', function(payload)
-    local plate = Vehicles.GeneratePlate()
-    local metadata = payload.metadata
-    metadata.description = plate
-    metadata.fakeplate = plate
-    return metadata
-end, {
-    itemFilter = {
-        [Config.FakePlateItem.item] = true
-    }
-})
-
+if ox_inv then
+    ox_inv:registerHook('createItem', function(payload)
+        local plate = Vehicles.GeneratePlate()
+        local metadata = payload.metadata
+        metadata.description = plate
+        metadata.fakeplate = plate
+        return metadata
+    end, {
+        itemFilter = {
+            [Config.FakePlateItem.item] = true
+        }
+    })
+end
 
 
 

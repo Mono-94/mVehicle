@@ -138,6 +138,7 @@ local KeyDoors = function(entity)
 
     if entity and HaveKey then
         lib.callback('mVehicle:VehicleControl', Config.KeyDelay, function(owner)
+        
             if not owner then return end
 
             local pedbone = GetPedBoneIndex(ped, 57005)
