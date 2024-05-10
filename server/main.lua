@@ -745,6 +745,7 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
     end
 end)
 
+if Config.Inventory == 'ox' then
 exports.ox_inventory:registerHook('createItem', function(payload)
     local plate = Vehicles.GeneratePlate()
     local metadata = payload.metadata
@@ -756,6 +757,7 @@ end, {
         [Config.FakePlateItem.item] = true
     }
 })
+end
 
 
 
