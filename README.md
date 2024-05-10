@@ -14,7 +14,8 @@
 - Engine ignition by Key item/db
 - Menu for sharing keys.
 - FakePlate *only works with vehicles spawned by the Vehicles.CreateVehicle() and ox_inventory item*
-
+- LockPick, Hotwire + Adapt your skillscheck and dispatch via Config.LockPickItem and  Config.HotWireItem
+ 
 
 - ## **Commands**
  - `/givecar [source]`
@@ -185,101 +186,107 @@ end)
 ``` 
 
 **Vehicles.ItemCarKeysClient() Client**
-* action = 'remove' or 'add' | string
+* action = 'delete' or 'add' | string
 * plate  =  vehicle plate    | string *GetVehicleNumberPlateText()*
 ```lua
+  -- with shared import
   Vehicles.ItemCarKeysClient(action, plate)
+
+    -- or 
+  exports.mVehicle:ItemCarKeys(source, action, plate)
 ```
 
 **Vehicles.ItemCarKeys() Server**
 * source = player source    | number 
-* action = 'remove' or 'add' | string
+* action = 'delete' or 'add' | string
 * plate  =  vehicle plate    | string 
 ```lua
+  -- with shared import
   Vehicles.ItemCarKeys(source, action, plate)
 
   -- or ox_inventory export 
   -- add
   exports.ox_inventory:AddItem(source, 'carkey', 1, { plate = plate, description = plate })
-  --remove 
-  -- via ox_inventory export 
+  -- delete
   exports.ox_inventory:RemoveItem(source, 'carkey', 1, { plate = plate, description = plate })
+ 
+ -- or 
+  exports.mVehicle:ItemCarKeys(source, action, plate)
 ```
 
-  **Vehicles.CreateVehicle() Server**
+**Vehicles.CreateVehicle() Server**
 ```lua
-Vehicles.CreateVehicle(VehicleData, CallBack)
-
 local CreateVehicleData = {
-    -- if vehicle temporary | date format 'YYYYMMDD HH:MM'     example '20240422 03:00'   - or false
-    temporary = ?, 
-     -- string or false, nil ...
-    job = ?,
-    -- Set vehicle Owner? if Temporary date set true
-    setOwner = ?,  
-    -- player identifier
-    owner = ?,    
-    -- same to owner  
-    identifier = ?, 
-
-    coords = vector4(1.0, 1.0, 1.0, 1.0),  -- Coords spawn table or vector 4
-
-    -- Vehicle props
-    vehicle = {                            
-        model = 'sulta',                  
-        plate = Vehicles.GeneratePlate(), 
-        fuelLevel = 100,                  
+    temporary = false, -- if vehicle temporary | date format 'YYYYMMDD HH:MM'     example '20240422 03:00' or false
+    job = nil,  -- string or false, nil ...
+    setOwner = true,    -- Set vehicle Owner? if Temporary date set true
+    owner = 'char:12asd76asd5asdas',    -- player identifier
+    coords = vector4(1.0, 1.0, 1.0, 1.0), --vector4 or table with xyzw
+    -- Vehicle, you can set as many properties as you want
+    vehicle = {                             
+        model = 'sulta',                   -- required
+        plate = Vehicles.GeneratePlate(),  -- required
+        fuelLevel = 100,                   -- required
         color1 = [0,0,0],
-        color2 = [0,0,0],               
-        
+        color2 = [0,0,0],                 
     },
-
-
-Vehicles.CreateVehicle(CreateVehicleData, function(data, action)
-   print(json.encode(data, { indent = true} ))
-end)
 }
-```
 
+Vehicles.CreateVehicle(CreateVehicleData, function(data, Vehicle)
+   print(json.encode(data, { indent = true} ))
+
+ -- Set Metadata
+  Vehicle.SetMetadata('mono', { 
+    smoke = 'seems to be very smoked', 
+    hungry = 'the subject is very hungry'
+  }) 
+  Wait(1000)
+  -- Get Metadata
+  local metadata = Vehicle.GetMetadata('mono',)
+  print(('%s, %s'):format(metadata.smoke, metadata.hungry))
+  Wait(1000)
+  -- delete espeific Metadata
+  Vehicle.DeleteMetadata('mono', 'smoke')
+  Wait(1000)
+  -- Get new metadata
+  local metadataNew = Vehicle.GetMetadata('mono')
+  print(('%s'):format(metadataNew.hungry))
+  Wait(1000)
+  -- delete all metadata from 'mono' return nil 
+  Vehicle.DeleteMetadata('mono')
+  
+
+  --GarageActions
+  -- Store/Retry
+  Vehicle.StoreVehicle('Pillbox Hill')
+
+  Vehicle.RetryVehicle(CreateVehicleData.coords)
+
+  -- impound
+  Vehicle.ImpoundVehicle('Impound Car', 100, 'Vehicle impond', '2024/05/2 15:43')
+
+  Vehicle.RetryImpound('Pillbox Hill', CreateVehicleData.coords)
+end)
+
+```
 **Vehicles.GetVehicle()** *Server*
 
 ```lua
 local Vehicle = Vehicles.GetVehicle(entity) 
 
-Vehicle.SetMetadata(key, value)
--- Example
--- Vehicle.SetMetadata('stolen', { stolenBy = 'Mono Garage'})
-
-Vehicle.DeleteMetadata(key) 
--- Example
--- Vehicle.DeleteMetadata('stolen')
-
+Vehicle.SetMetadata(key, data)
+Vehicle.DeleteMetadata(key, value) 
 Vehicle.GetMetadata(key)     
--- Example
--- by key Vehicle.GetMetadata('stolen')  or  Vehicles.GetMetadata() return all
--- local metadata = Vehicle.GetMetadata('stolen')
--- print(metadata.stolenBy)   
---- or client/server State 
--- local metadata = Entity(entity).state.metadata
--- print(metadata.stolenBy)  
-
 Vehicle.AddKey(source) 
 Vehicle.RemoveKey(source)
 Vehicle.SaveProps(props)
-
--- To use in garage script
-Vehicle.StoreVehicle(parking, props, license)
+Vehicle.StoreVehicle(parking)
 Vehicle.RetryVehicle(coords)
-Vehicle.ImpoundVehicle(parking, price, note, date)
+Vehicle.ImpoundVehicle(parking, price, note, date, endPound)
 Vehicle.RetryImpound(ToGarage, coords)
-
--- Set Fake Plate to vehicle
-Vehicle.SetFakePlate('FAKETAXI')
--- To remove 
-Vehicle.SetFakePlate(false)
-
--- Delete vehicle | fromDatabase
-Vehicle.DeleteVehicle(fromDatabase)
+Vehicle.SetFakePlate(plate)
+Vehicle.SetFakePlate(boolean)
+Vehicle.DeleteVehicle(fromDatabaseBoolean)
 ```
 
 
@@ -297,17 +304,16 @@ local vehicle = Vehicles.GetVehicleId(id)
 
 ```lua 
 local AllVechiles = Vehicles.GetAllVehicles(source, VehicleTable, haveKeys) 
-
 ```
 
 **Vehicles.GetAllVehicles()** *Server*
 * soruce  = player source
-* VehicleTable = boolean | true get vehicles from table Vehicles false get vehicles from DB
+* VehicleTable = boolean | true get vehicles from table mVehicles false get vehicles from DB
 * haveKeys = boolean  | Have player keys ?
+* return all vehicles from source
 
 ```lua 
 local AllVechiles = Vehicles.GetAllVehicles(source, VehicleTable, haveKeys) 
-
 ```
 
 **Set Vehicle Owner** *Server*
@@ -326,7 +332,6 @@ Vehicles.SetVehicleOwner({
 ```lua
 Vehicles.SetCarOwner(src)
 ```
-
 
 **Delete All Vehicles** *Server*
 ```lua 
@@ -350,3 +355,6 @@ return plate string
 ```lua 
 Vehicles.GeneratePlate()
 ```
+
+
+![image](https://cdn.discordapp.com/attachments/1234840062181769378/1238255435358666884/307592b7-b7d1-40b4-b615-a1ac0d26c385.jpg?ex=663e9ebd&is=663d4d3d&hm=133b443e1a18490a0ef8669650068d0c546149d9bda930140539665202112e27&)

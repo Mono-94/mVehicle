@@ -344,6 +344,8 @@ function Vehicles.ItemCarKeysClient(action, plate)
     lib.callback('mVehicle:GiveKey', false, nil, action, plate)
 end
 
+exports('ItemCarKeysClient',Vehicles.ItemCarKeysClient)
+
 if Config.KeyMenu then
     lib.addRadialItem({
         {

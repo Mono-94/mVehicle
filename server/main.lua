@@ -62,6 +62,8 @@ function Vehicles.CreateVehicle(data, cb)
         data.metadata = data.data
     end
 
+    
+
     data.metadata      = json.decode(data.metadata) or {}
 
     data.vehicle.plate = data.plate
@@ -227,8 +229,6 @@ function Vehicles.SetCarOwner(src, entity)
         return
     end
 
-   
-
     local props   = lib.callback.await('mVehicle:GetVehicleProps', src)
     props.plate   = Vehicles.GeneratePlate()
     data.coords   = GetCoords(src)
@@ -306,17 +306,17 @@ function Vehicles.GetVehicle(EntityId)
 
     ---DeleteMetadata
     ---@param key string
-    ---@param data string
-    function self.DeleteMetadata(key, data)
+    ---@param value string
+    function self.DeleteMetadata(key, value)
         if not self.metadata[key] then return lib.print.error(('No key %s in metadata'):format(key)) end
         if key then
             self.metadata[key] = nil
-        elseif key and data then
-            if not self.metadata[key][data] then
-                lib.print.error(('No data "%s" in %s'):format(data, key))
+        elseif key and value then
+            if not self.metadata[key][value] then
+                lib.print.error(('No data "%s" in %s'):format(value, key))
                 return
             end
-            self.metadata[key][data] = nil
+            self.metadata[key][value] = nil
         end
         self:SaveMetaData()
     end
@@ -642,6 +642,8 @@ function Vehicles.ItemCarKeys(src, action, plate)
     end
 end
 
+exports('ItemCarKeys', Vehicles.ItemCarKeys)
+
 lib.callback.register('mVehicle:GiveKey', function(source, action, plate)
     Vehicles.ItemCarKeys(source, action, plate)
 end)
@@ -713,8 +715,7 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
             end
 
 
-            local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or
-                Config.ItemKeys
+            local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or Config.ItemKeys
             if carkeys then
                 if action == 'doors' then
                     if Status == 2 then
