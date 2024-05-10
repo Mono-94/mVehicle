@@ -11,19 +11,34 @@ local SendClientVehicles = function()
     clientEvent('mVehicle:ClientData', -1, SendClient)
 end
 
+local PlateCron = {}
+
 local function DeleteTemporary(plate, entity, hour, min)
+    if PlateCron[plate] then
+        print("Cron already exists for plate:", plate)
+        return
+    end
+
     local expression = ('%s %s * * *'):format(min, hour)
+
     lib.cron.new(expression, function(task, date)
-        if DoesEntityExist(entity) then
-            DeleteEntity(entity)
+        local vehicle = Vehicles.GetVehicleByPlate(plate)
+
+        if DoesEntityExist(vehicle.entity) then
+            DeleteEntity(vehicle.entity)
         end
-        if Vehicles.Vehicles[entity] then
-            Vehicles.Vehicles[entity] = nil
+
+        if Vehicles.Vehicles[vehicle.entity] then
+            Vehicles.Vehicles[vehicle.entity] = nil
         end
+        PlateCron[plate] = false
         MySQL.execute(Querys.deleteByPlate, { plate })
         task:stop()
-    end, { debug = Config.Debug })
+    end, { debug = true })
+
+    PlateCron[plate] = true
 end
+
 
 
 local function VehicleType(model)
