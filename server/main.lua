@@ -716,7 +716,7 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
 
 
             local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or
-            Config.ItemKeys
+                Config.ItemKeys
             if carkeys then
                 if action == 'doors' then
                     if Status == 2 then
@@ -746,8 +746,8 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
     end
 end)
 
-if ox_inv then
-    ox_inv:registerHook('createItem', function(payload)
+if Config.Inventory == 'ox' then
+    exports.ox_inventory:registerHook('createItem', function(payload)
         local plate = Vehicles.GeneratePlate()
         local metadata = payload.metadata
         metadata.description = plate
@@ -759,6 +759,7 @@ if ox_inv then
         }
     })
 end
+
 
 
 
