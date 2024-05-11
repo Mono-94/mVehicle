@@ -65,6 +65,7 @@ end
 ---@param data table
 ---@param cb function
 function Vehicles.CreateVehicle(data, cb)
+
     if Vehicles.Vehicles then
         for entity, vehicle in pairs(Vehicles.Vehicles) do
             if vehicle.plate == data.vehicle.plate then
@@ -76,8 +77,6 @@ function Vehicles.CreateVehicle(data, cb)
     if data.data then
         data.metadata = data.data
     end
-
-
 
     data.metadata      = json.decode(data.metadata) or {}
 
@@ -111,6 +110,7 @@ function Vehicles.CreateVehicle(data, cb)
         data.entity = CreateVehicleServerSetter(data.vehicle.model, data.type, data.coords.x, data.coords.y,
             data.coords.z,
             data.coords.w)
+            
         local startTime = GetGameTimer()
         local ms = 20000
 
@@ -285,7 +285,7 @@ end)
 
 function Vehicles.SetVehicleOwner(data)
     local insert = {}
-    if Config.Framework == 'esx' then
+    if Config.Framework == 'standalone' or 'esx' or 'LG' then
         insert = { data.owner, data.plate, json.encode(data.vehicle), data.type, data.job, json.encode(data.coords),
             json.encode(data.metadata), data.parking }
     elseif Config.Framework == 'ox' then
