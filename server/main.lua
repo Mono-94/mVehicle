@@ -13,11 +13,8 @@ end
 
 local PlateCron = {}
 
-local function DeleteTemporary(plate, entity, hour, min)
-    if PlateCron[plate] then
-        print("Cron already exists for plate:", plate)
-        return
-    end
+local function DeleteTemporary(plate, hour, min)
+    if PlateCron[plate] then return end
 
     local expression = ('%s %s * * *'):format(min, hour)
 
@@ -38,6 +35,7 @@ local function DeleteTemporary(plate, entity, hour, min)
 
     PlateCron[plate] = true
 end
+
 
 
 
@@ -65,6 +63,7 @@ end
 ---@param data table
 ---@param cb function
 function Vehicles.CreateVehicle(data, cb)
+    if not data.vehicle.plate then return false, lib.print.error('Error CreateVehicle vehicle plate is NIL') end
 
     if Vehicles.Vehicles then
         for entity, vehicle in pairs(Vehicles.Vehicles) do
@@ -78,14 +77,20 @@ function Vehicles.CreateVehicle(data, cb)
         data.metadata = data.data
     end
 
-    data.metadata      = json.decode(data.metadata) or {}
+    data.metadata = json.decode(data.metadata) or {}
 
-    data.vehicle.plate = data.plate
+    if not data.plate then
+        data.plate = data.vehicle.plate
+    end
 
-    data.mileage       = data.mileage or 0
+
+    data.mileage = data.mileage or 0
 
     if data.identifier then
         data.owner = data.identifier
+    end
+    if data.license then
+        data.owner = data.license
     end
 
     if data.source then
@@ -110,7 +115,7 @@ function Vehicles.CreateVehicle(data, cb)
         data.entity = CreateVehicleServerSetter(data.vehicle.model, data.type, data.coords.x, data.coords.y,
             data.coords.z,
             data.coords.w)
-            
+
         local startTime = GetGameTimer()
         local ms = 20000
 
@@ -146,15 +151,16 @@ function Vehicles.CreateVehicle(data, cb)
         local metadata_minute = tonumber(time:sub(4))
 
         if current_date == date then
-            if tonumber(current_hour) > metadata_hour and tonumber(current_minute) - 1 > metadata_minute then
+            if tonumber(current_hour) > metadata_hour or tonumber(current_minute) > metadata_minute then
                 MySQL.execute(Querys.deleteByPlate, { data.plate })
                 if DoesEntityExist(data.entity) then
                     DeleteEntity(data.entity)
                 end
                 Vehicles.Vehicles[data.entity] = nil
+
                 return
             else
-                DeleteTemporary(data.plate, data.entity, metadata_hour, metadata_minute)
+                DeleteTemporary(data.plate, metadata_hour, metadata_minute)
             end
         end
     end
@@ -240,8 +246,11 @@ function Vehicles.SetCarOwner(src, entity)
         data.entity = GetVehiclePedIsIn(playerped, false)
     end
     if not data.entity or not identifier or not playerped then
-        lib.print.error('SetCarOwner Missing data')
-        return
+        return false, lib.print.error('SetCarOwner Missing data')
+    end
+
+    if Vehicles.Vehicles[data.entity] then
+        return false, lib.print.error('SetCarOwner This vehicle already has an owner')
     end
 
     local props   = lib.callback.await('mVehicle:GetVehicleProps', src)
@@ -262,9 +271,14 @@ function Vehicles.SetCarOwner(src, entity)
 end
 
 RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity)
+    if not DoesEntityExist(entity) then
+        entity = NetworkGetEntityFromNetworkId(entity)
+        if not DoesEntityExist(entity) then
+            return lib.print.error('Entity Does not exist')
+        end
+    end
     local data       = {}
     local identifier = Identifier(src)
-    if not DoesEntityExist(entity) then return lib.print.error('Entity Does not exist') end
     data.entity      = entity
     data.EntityOwner = NetworkGetEntityOwner(data.entity)
     data.NetId       = NetworkGetNetworkIdFromEntity(data.entity)
@@ -376,6 +390,10 @@ function Vehicles.GetVehicle(EntityId)
     ---SaveVehiclePrps
     ---@param props table
     function self.SaveProps(props)
+        if props == 0 or props == nil or not props then
+            lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
+                self.plate, self.id))
+        end
         self.vehicle = props
         MySQL.update(Querys.saveProps, { json.encode(props), self.plate })
     end
@@ -390,6 +408,7 @@ function Vehicles.GetVehicle(EntityId)
             end
             Vehicles.Vehicles[EntityId] = nil
             self = nil
+            return self
         end
     end
 
@@ -398,15 +417,21 @@ function Vehicles.GetVehicle(EntityId)
     ---@return boolean
     function self.StoreVehicle(parking)
         local props = lib.callback.await('mVehicle:GetVehicleProps', self.EntityOwner, self.NetId)
+
+        if props == 0 or props == nil or not props then
+            lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
+                self.plate, self.id))
+        end
+
         local store = false
 
         local affectedRows = MySQL.update.await(Querys.storeGarage,
             { parking, props, json.encode(self.metadata), self.plate })
-        if affectedRows then
+        if affectedRows > 0 then
             Vehicles.Vehicles[EntityId] = nil
             Entity(EntityId).state.FadeEntity = { action = 'delete' }
             self = nil
-            store = affectedRows
+            store = true
             SendClientVehicles()
         end
         return store
@@ -421,16 +446,15 @@ function Vehicles.GetVehicle(EntityId)
             endPound = endpound
 
         })
-        local affectedRows = MySQL.update.await(Querys.setImpound, { parking, json.encode(self.metadata), self.plate })
 
-        if affectedRows then
-            Vehicles.Vehicles[EntityId] = nil
-            SendClientVehicles()
-            if DoesEntityExist(EntityId) then
-                Entity(EntityId).state.FadeEntity = { action = 'delete' }
-            end
-            self = nil
+        MySQL.update(Querys.setImpound, { parking, json.encode(self.metadata), self.plate })
+
+        Vehicles.Vehicles[EntityId] = nil
+        SendClientVehicles()
+        if DoesEntityExist(EntityId) then
+            Entity(EntityId).state.FadeEntity = { action = 'delete' }
         end
+        self = nil
     end
 
     ---RetryVehicle - The coords are in case the player does not touch the vehicle and has the last coordinates of where it spawned.
@@ -497,7 +521,8 @@ function Vehicles.GetAllVehicles(src, VehicleTable, haveKeys)
         if identifier then
             local veh = {}
             for k, v in pairs(Vehicles.Vehicles) do
-                if v.owner == identifier then
+                print(v.owner == identifier , v.license == identifier , v.license)
+                if v.owner == identifier or v.license == identifier then
                     if haveKeys then
                         veh[v.entity] = v
                         return veh
@@ -588,9 +613,33 @@ end
 ---SpawnVehicles
 -- - Spawn all vehicles from DB
 function Vehicles.SpawnVehicles()
-    local dbvehicles = MySQL.query.await('SELECT * FROM `owned_vehicles`')
+    local dbvehicles = MySQL.query.await(Querys.selectAll)
     for i = 1, #dbvehicles do
         local row = dbvehicles[i]
+        local metadata = json.decode(row.metadata)
+
+        if metadata.temporary then
+            local datetime = metadata.temporary
+            local date = datetime:sub(1, 8)
+            local time = datetime:sub(10)
+            local actualtime = os.time()
+
+            local current_date = os.date('%Y%m%d', actualtime)
+            local current_hour = os.date('%H', actualtime)
+            local current_minute = os.date('%M', actualtime)
+
+            local metadata_hour = tonumber(time:sub(1, 2))
+            local metadata_minute = tonumber(time:sub(4))
+
+            if current_date == date then
+                if tonumber(current_hour) > metadata_hour or tonumber(current_minute) > metadata_minute then
+                    MySQL.execute(Querys.deleteByPlate, { row.plate })
+                    break
+                else
+                    DeleteTemporary(row.plate, metadata_hour, metadata_minute)
+                end
+            end
+        end
 
         if row.coords and row.stored == 0 or row.stored == nil and row.pound == nil then
             row.vehicle = json.decode(row.vehicle)
@@ -695,7 +744,7 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         end
     elseif action == 'getkeys' then
         local identifier = Identifier(source)
-        return MySQL.query.await('SELECT * FROM `owned_vehicles` WHERE `owner` = ?', { identifier })
+        return MySQL.query.await(Querys.getKeys, { identifier })
     end
 end)
 

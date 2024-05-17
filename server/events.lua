@@ -1,5 +1,6 @@
 -- entityCreated
 AddEventHandler('entityCreated', function(entity)
+    if not DoesEntityExist(entity) then return end
     local entityType = GetEntityType(entity)
 
     if entityType == 2 then
@@ -18,6 +19,7 @@ AddEventHandler('entityCreated', function(entity)
     end
 end)
 
+
 local vType = function(type)
     for vehicleType, types in pairs(Config.VehicleTypes) do
         for _, v in ipairs(types) do
@@ -33,7 +35,9 @@ if Config.ImpoundVehicledelete then
     AddEventHandler('entityRemoved', function(entity)
         local vehicle = Vehicles.GetVehicle(entity)
         if vehicle then
-            vehicle.ImpoundVehicle(vType(vehicle.type), Config.DefaultImpound.price, Config.DefaultImpound.note)
+            if DoesEntityExist(vehicle.entity) then
+                vehicle.ImpoundVehicle(vType(vehicle.type), Config.DefaultImpound.price, Config.DefaultImpound.note)
+            end
         end
     end)
 end
@@ -45,7 +49,7 @@ if GetConvar("mVehicle:Persistent", "false") == 'true' then
         Vehicles.SpawnVehicles()
     end)
 
-    -- no work :|
+    -- no work :| ?
     AddEventHandler('onResourceStop', function(name)
         if name ~= GetCurrentResourceName() then return end
         Vehicles.SaveAllVehicles(true)

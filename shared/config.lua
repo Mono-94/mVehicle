@@ -1,10 +1,10 @@
 Config = {}
 
-Config.lang = 'EN' -- ES / EN
+Config.lang = 'EN' -- ES / EN / IT / FR
 
-Config.Debug = true
+Config.Debug = false
 
-Config.Framework = 'esx'     -- esx, ox, standalone
+Config.Framework = 'esx'     -- esx, ox, standalone, qbox
 
 Config.Inventory = 'ox'      -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
 
@@ -25,7 +25,7 @@ Config.PlateGenerate = "AAAA 111"
 
 -- Carkeys
 
-Config.ItemKeys = false           -- false = Vehicles DB
+Config.ItemKeys = true           -- false = Vehicles DB
 
 Config.CarKeyItem = 'carkey'      -- item name
 
@@ -39,9 +39,9 @@ Config.KeyDistance = 5
 
 Config.KeyMenu = true -- Radial menu to manage vehicles
 
--- Engine ignition need keys
+-- Engine ignition need keys or hotwire
 Config.VehicleEngine = {
-    active = true,
+    active = false,
     KeyBind = 'M',
 }
 

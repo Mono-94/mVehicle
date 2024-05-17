@@ -9,6 +9,7 @@ RegisterNetEvent('mVehicle:ClientData', function(VehiclesData)
     ServerVehicles = VehiclesData
 end)
 
+
 local AtRound = function(valor, decimal)
     local start = 10 ^ (decimal or 0)
     return math.floor(valor * start + 0.5) / start
@@ -138,7 +139,6 @@ local KeyDoors = function(entity)
 
     if entity and HaveKey then
         lib.callback('mVehicle:VehicleControl', Config.KeyDelay, function(owner)
-        
             if not owner then return end
 
             local pedbone = GetPedBoneIndex(ped, 57005)
@@ -267,8 +267,13 @@ lib.callback.register('mVehicle:GetVehicleProps', function(entity)
             return false
         end
     else
-        local props = lib.getVehicleProperties(cache.vehicle)
-        return props
+        local vehicle = GetVehiclePedIsIn(cache.ped, false)
+        if DoesEntityExist(vehicle) then
+            local props = lib.getVehicleProperties(vehicle)
+            return props
+        else
+            return false
+        end
     end
 end)
 
@@ -345,7 +350,7 @@ function Vehicles.ItemCarKeysClient(action, plate)
     lib.callback('mVehicle:GiveKey', false, nil, action, plate)
 end
 
-exports('ItemCarKeysClient',Vehicles.ItemCarKeysClient)
+exports('ItemCarKeysClient', Vehicles.ItemCarKeysClient)
 
 if Config.KeyMenu then
     lib.addRadialItem({

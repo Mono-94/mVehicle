@@ -42,6 +42,7 @@ lib.addCommand(Config.Commands.givecar, {
 
             data.temporary = date
         end
+        
 
         Vehicles.CreateVehicle(data, function(vehicle)
             if DoesEntityExist(vehicle.entity) then
@@ -106,3 +107,18 @@ lib.addCommand(Config.Commands.spawnallcars, {
 }, function(source, args, raw)
     Vehicles.SpawnVehicles()
 end)
+
+
+if Config.Debug then
+    RegisterServerEvent('getEntityVehicle', function(netid)
+        local entity = NetworkGetEntityFromNetworkId(netid)
+
+        if DoesEntityExist(entity) then
+            local vehicle = Vehicles.GetVehicle(entity)
+
+            print(vehicle.plate, vehicle.owner)
+        else
+            print('Vehicle Entity does exists')
+        end
+    end)
+end

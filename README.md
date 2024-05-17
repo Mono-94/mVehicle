@@ -45,6 +45,7 @@
 * [ox_lib](https://github.com/overextended/ox_lib)
 * [ox_inventory](https://github.com/overextended/ox_inventory) (only keys as item)
 * [ox_target](https://github.com/overextended/ox_target) (target Carkey and Trailer manager)
+* [ox_fuel] (https://github.com/overextended/ox_fuel)
 
 Recommended latest 
 [FiveM  GameBuild](https://docs.fivem.net/docs/server-manual/server-commands#sv_enforcegamebuild-build)
@@ -92,8 +93,6 @@ ADD COLUMN `lastparking` varchar(100),
 ADD COLUMN `keys` longtext DEFAULT '[]',
 ADD COLUMN `metadata` longtext
 ```
-
-
 
 ## OX 
 - Original table
@@ -193,7 +192,7 @@ end)
   Vehicles.ItemCarKeysClient(action, plate)
 
     -- or 
-  exports.mVehicle:ItemCarKeys(source, action, plate)
+  exports.mVehicle:ItemCarKeysClient(action, plate)
 ```
 
 **Vehicles.ItemCarKeys() Server**
@@ -355,6 +354,7 @@ return plate string
 ```lua 
 Vehicles.GeneratePlate()
 ```
+
 
 
 ![image](https://cdn.discordapp.com/attachments/1234840062181769378/1238255435358666884/307592b7-b7d1-40b4-b615-a1ac0d26c385.jpg?ex=663e9ebd&is=663d4d3d&hm=133b443e1a18490a0ef8669650068d0c546149d9bda930140539665202112e27&)

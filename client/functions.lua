@@ -35,7 +35,7 @@ function GetVector4(entity)
     return vec4(c.x, c.y, c.z, h)
 end
 
--- Notifications 
+-- Notifications
 function Notification(data)
     lib.notify({
         title = data.title,
@@ -49,5 +49,19 @@ function Notification(data)
         showDuration = true,
     })
 end
+
 RegisterNetEvent('mVehicle:Notification', Notification)
 
+if Config.Debug then
+    RegisterCommand('howToGetEntity', function(source, args, raw)
+        local ped = PlayerPedId()
+        local entity = GetVehiclePedIsIn(ped, false)
+
+        if DoesEntityExist(entity) then
+            local netid = VehToNet(entity)
+            TriggerServerEvent('getEntityVehicle', netid)
+        else
+            print('Vehicle Entity does exists')
+        end
+    end)
+end

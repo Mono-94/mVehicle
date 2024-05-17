@@ -1,13 +1,13 @@
-ESX, Ox, QBCore = nil, nil, nil
+Core = nil
 
 if Config.Framework == "esx" then
-    ESX = exports["es_extended"]:getSharedObject()
+    Core = exports["es_extended"]:getSharedObject()
 elseif Config.Framework == "ox" then
-    Ox = require '@ox_core.lib.init'
+    Core = require '@ox_core.lib.init'
 elseif Config.FrameWork == "qb" then
-    QBCore = exports['qb-core']:GetCoreObject()
+    Core = exports['qb-core']:GetCoreObject()
 elseif Config.Framework == "LG" then
-    LegacyFramework = exports.LegacyFramework:ReturnFramework()
+    Core = exports.LegacyFramework:ReturnFramework()
 end
 
 function Notification(src, data)
@@ -26,24 +26,29 @@ end
 
 function Identifier(src)
     if Config.Framework == "esx" then
-        local Player = ESX.GetPlayerFromId(src)
+        local Player = Core.GetPlayerFromId(src)
         if Player then
             return Player.identifier
         end
+    elseif Config.Framework == "qbox" then
+        local Player = exports.qbx_core:GetPlayer(src)
+        if Player then
+            return Player.PlayerData.license
+        end
     elseif Config.Framework == "qb" then
-        local Player = QBCore.Functions.GetPlayer(src)
+        local Player = Core.Functions.GetPlayer(src)
         if Player then
             return Player.PlayerData.citizenid
         end
     elseif Config.Framework == "standalone" then
         return GetPlayerIdentifierByType(src, 'license')
     elseif Config.Framework == "ox" then
-        local player = Ox.GetPlayer(src)
+        local player = Core.GetPlayer(src)
         if player then
             return player.charId
         end
     elseif Config.Framework == "LG" then
-        local playerData = LegacyFramework.SvPlayerFunctions.GetPlayerData(src)[1]
+        local playerData = Core.SvPlayerFunctions.GetPlayerData(src)[1]
         return playerData?.charName
     end
     return false
@@ -51,12 +56,19 @@ end
 
 function GetName(src)
     if Config.Framework == "esx" then
-        local Player = ESX.GetPlayerFromId(src)
+        local Player = Core.GetPlayerFromId(src)
         if Player then
             return Player.getName()
         end
+    elseif Config.Framework == "qbox" then
+        local Player = exports.qbx_core:GetPlayer(src)
+        if Player then
+            local firstname = Player.PlayerData.charinfo.firstname
+            local lastname = Player.PlayerData.charinfo.lastname
+            return firstname .. ' ' .. lastname
+        end
     elseif Config.Framework == "qb" then
-        local Player = QBCore.Functions.GetPlayer(src)
+        local Player = Core.Functions.GetPlayer(src)
         if Player then
             local firstname = Player.PlayerData.charinfo.firstname
             local lastname = Player.PlayerData.charinfo.lastname
@@ -65,12 +77,12 @@ function GetName(src)
     elseif Config.Framework == "standalone" then
         return GetPlayerName(src)
     elseif Config.Framework == "ox" then
-        local Player = Ox.GetPlayer(src)
+        local Player = Core.GetPlayer(src)
         if Player then
             return Player.get('name')
         end
     elseif Config.Framework == "LG" then
-        local Data = LegacyFramework.SvPlayerFunctions.GetPlayerData(src)
+        local Data = Core.SvPlayerFunctions.GetPlayerData(src)
         local PlayerData = Data[1]
         if Data and PlayerData then
             local firstname = PlayerData.firstName
@@ -83,15 +95,17 @@ end
 
 function OnlinePlayers()
     if Config.Framework == "esx" then
-        return ESX.GetPlayers()
+        return Core.GetPlayers()
     elseif Config.Framework == "qb" then
-        return QBCore.Functions.GetPlayers()
+        return Core.Functions.GetPlayers()
     elseif Config.Framework == "standalone" then
         return GetPlayers()
+    elseif Config.Framework == "qbox" then
+        return GetPlayers()
     elseif Config.Framework == "ox" then
-        return Ox.GetPlayers()
+        return Core.GetPlayers()
     elseif Config.Framework == "LG" then
-        return LegacyFramework.SvPlayerFunctions.GetAllPlayers()
+        return Core.SvPlayerFunctions.GetAllPlayers()
     end
 end
 
@@ -102,23 +116,20 @@ function GetCoords(src, veh)
     return { x = coords.x, y = coords.y, z = coords.z, w = heading }
 end
 
--- StandAlone uses the same table as ESX
+-- StandAlone uses the same table as Core
 local query = {
     ['esx'] = {
         getVehicleById = 'SELECT * FROM `owned_vehicles` WHERE `id` = ? LIMIT 1',
         getVehicleByPlate = 'SELECT * FROM `owned_vehicles` WHERE `plate` = ? LIMIT 1',
-        setOwner =
-        'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        setOwner ='INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         deleteByPlate = 'DELETE FROM owned_vehicles WHERE plate = ?',
         deleteById = 'DELETE FROM owned_vehicles WHERE id = ?',
         saveMetadata = 'UPDATE owned_vehicles SET metadata = ? WHERE plate = ?',
         saveProps = 'UPDATE owned_vehicles SET vehicle = ? WHERE plate = ?',
         storeGarage = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
         retryGarage = 'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE `plate` = ?',
-        setImpound =
-        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
-        retryImpound =
-        'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
+        setImpound ='UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
+        retryImpound = 'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
         getMileage = 'SELECT `mileage` FROM owned_vehicles WHERE plate = ? LIMIT 1',
         saveLeftVehicle = 'UPDATE owned_vehicles SET mileage = ?, coords = ?, vehicle = ? WHERE plate = ?',
         updateTrailer = 'UPDATE owned_vehicles SET coords = ?, vehicle = ? WHERE plate = ?',
@@ -127,7 +138,9 @@ local query = {
         saveAllCoords = 'UPDATE owned_vehicles SET coords = ?, metadata = ? WHERE plate = ?',
         saveKeys = 'UPDATE owned_vehicles SET `keys` = ? WHERE plate = ?',
         getVehiclesbyOwner = "SELECT * FROM `owned_vehicles` WHERE `owner` = ?",
-        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `owned_vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?"
+        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `owned_vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?",
+        selectAll = 'SELECT * FROM `owned_vehicles`',
+        getKeys = 'SELECT * FROM `owned_vehicles` WHERE `owner` = ?',
     },
     -- type, coords, vehicle, keys, lastparking, pound, mileage
     ['ox'] = {
@@ -160,8 +173,34 @@ local query = {
 
     ['qb'] = {
 
-    }
+    },
+
+    -- type, job, coords, metadata, lastparking, pound, stored, mileage
+    ['qbox'] = {
+        getVehicleById = 'SELECT * FROM `player_vehicles` WHERE `id` = ? LIMIT 1',
+        getVehicleByPlate = 'SELECT * FROM `player_vehicles` WHERE `plate` = ? LIMIT 1',
+        setOwner = 'INSERT INTO `player_vehicles` (license, plate, vehicle, type, job, coords, metadata, garage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        deleteByPlate = 'DELETE FROM player_vehicles WHERE plate = ?',
+        deleteById = 'DELETE FROM player_vehicles WHERE id = ?',
+        saveMetadata = 'UPDATE player_vehicles SET metadata = ? WHERE plate = ?',
+        saveProps = 'UPDATE player_vehicles SET vehicle = ? WHERE plate = ?',
+        storeGarage = 'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
+        retryGarage = 'UPDATE `player_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE `plate` = ?',
+        setImpound = 'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
+        retryImpound = 'UPDATE `player_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
+        getMileage = 'SELECT `mileage` FROM player_vehicles WHERE plate = ? LIMIT 1',
+        saveLeftVehicle = 'UPDATE player_vehicles SET mileage = ?, coords = ?, vehicle = ? WHERE plate = ?',
+        updateTrailer = 'UPDATE player_vehicles SET coords = ?, vehicle = ? WHERE plate = ?',
+        plateExist = 'SELECT 1 FROM `player_vehicles` WHERE `plate` = ?',
+        saveAllPropsCoords = 'UPDATE player_vehicles SET coords = ?, vehicle = ?, metadata = ? WHERE plate = ?',
+        saveAllCoords = 'UPDATE player_vehicles SET coords = ?, metadata = ? WHERE plate = ?',
+        saveKeys = 'UPDATE player_vehicles SET `keys` = ? WHERE plate = ?',
+        getVehiclesbyOwner = "SELECT * FROM `player_vehicles` WHERE `license` = ?",
+        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `player_vehicles` WHERE `license` = ? OR JSON_KEYS(`keys`) LIKE ?",
+        selectAll = 'SELECT * FROM `player_vehicles`',
+        getKeys = 'SELECT * FROM `player_vehicles` WHERE `license` = ?',
+    },
 }
 
 
-Querys = Config.Framework == 'standalone' or 'LG' and query['esx'] or query[Config.Framework]
+Querys = query[Config.Framework]

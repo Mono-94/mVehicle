@@ -2,7 +2,7 @@ fx_version 'cerulean'
 
 game 'gta5'
 
-name "mVehicles"
+name "mVehicle"
 
 description "Vehicle API - https://discord.gg/Vk7eY8xYV2"
 
