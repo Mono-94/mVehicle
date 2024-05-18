@@ -521,7 +521,6 @@ function Vehicles.GetAllVehicles(src, VehicleTable, haveKeys)
         if identifier then
             local veh = {}
             for k, v in pairs(Vehicles.Vehicles) do
-                print(v.owner == identifier , v.license == identifier , v.license)
                 if v.owner == identifier or v.license == identifier then
                     if haveKeys then
                         veh[v.entity] = v
@@ -618,6 +617,10 @@ function Vehicles.SpawnVehicles()
         local row = dbvehicles[i]
         local metadata = json.decode(row.metadata)
 
+        if Config.VehicleTypes[row.type] then
+            row.type = 'automobile'
+        end
+
         if metadata and metadata.temporary then
             local datetime = metadata.temporary
             local date = datetime:sub(1, 8)
@@ -634,7 +637,7 @@ function Vehicles.SpawnVehicles()
             if current_date == date then
                 if tonumber(current_hour) > metadata_hour or tonumber(current_minute) > metadata_minute then
                     MySQL.execute(Querys.deleteByPlate, { row.plate })
-                    break
+                    row.coords = nil
                 else
                     DeleteTemporary(row.plate, metadata_hour, metadata_minute)
                 end
@@ -644,10 +647,6 @@ function Vehicles.SpawnVehicles()
         if row.coords and row.stored == 0 or row.stored == nil and row.pound == nil then
             row.vehicle = json.decode(row.vehicle)
             row.coords  = json.decode(row.coords)
-            if Config.VehicleTypes[row.type] then
-                row.type = 'automobile'
-            end
-
             Vehicles.CreateVehicle(row)
 
             Citizen.Wait(200)
@@ -665,14 +664,11 @@ function Vehicles.SaveAllVehicles(delete)
             local doors = GetVehicleDoorLockStatus(entity)
             veh.metadata.DoorStatus = doors
             if props and coords then
-                MySQL.update(Querys.saveAllPropsCoords,
-                    { coords, props, json.encode(veh.metadata), veh.plate })
+                MySQL.update(Querys.saveAllPropsCoords, { coords, props, json.encode(veh.metadata), veh.plate })
             elseif coords then
-                MySQL.update(Querys.saveAllCoords,
-                    { coords, json.encode(veh.metadata), veh.plate })
+                MySQL.update(Querys.saveAllCoords, { coords, json.encode(veh.metadata), veh.plate })
             else
-                MySQL.update(Querys.saveAllMetada,
-                    { json.encode(veh.metadata), veh.plate })
+                MySQL.update(Querys.saveAllMetada, { json.encode(veh.metadata), veh.plate })
             end
             if delete then
                 DeleteEntity(entity)
