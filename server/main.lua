@@ -618,7 +618,7 @@ function Vehicles.SpawnVehicles()
         local row = dbvehicles[i]
         local metadata = json.decode(row.metadata)
 
-        if metadata.temporary then
+        if metadata and metadata.temporary then
             local datetime = metadata.temporary
             local date = datetime:sub(1, 8)
             local time = datetime:sub(10)
