@@ -4,16 +4,16 @@ AddEventHandler('entityCreated', function(entity)
     local entityType = GetEntityType(entity)
 
     if entityType == 2 then
-        local motor = GetIsVehicleEngineRunning(entity)
+        local engine = GetIsVehicleEngineRunning(entity)
 
 
-        if motor then
+        if engine then
             if math.random() <= 0.1 then
                 SetVehicleDoorsLocked(entity, 2)
             end
         end
 
-        if not motor then
+        if not engine then
             SetVehicleDoorsLocked(entity, 2)
         end
     end
@@ -49,12 +49,10 @@ if GetConvar("mVehicle:Persistent", "false") == 'true' then
         Vehicles.SpawnVehicles()
     end)
 
-    -- no work :| ?
     AddEventHandler('onResourceStop', function(name)
         if name ~= GetCurrentResourceName() then return end
         Vehicles.SaveAllVehicles(true)
     end)
-
 
 
     -- TxAdmin

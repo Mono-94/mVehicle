@@ -391,8 +391,9 @@ function Vehicles.GetVehicle(EntityId)
     ---@param props table
     function self.SaveProps(props)
         if props == 0 or props == nil or not props then
-            lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
-                self.plate, self.id))
+            return false,
+                lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
+                    self.plate, self.id))
         end
         self.vehicle = props
         MySQL.update(Querys.saveProps, { json.encode(props), self.plate })
@@ -420,7 +421,8 @@ function Vehicles.GetVehicle(EntityId)
 
         if props == 0 or props == nil or not props then
             lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
-                self.plate, self.id))
+            self.plate, self.id))
+            return false
         end
 
         local store = false
@@ -663,7 +665,7 @@ function Vehicles.SaveAllVehicles(delete)
             local props = lib.callback.await('mVehicle:GetVehicleProps', -1, NetworkGetNetworkIdFromEntity(entity))
             local doors = GetVehicleDoorLockStatus(entity)
             veh.metadata.DoorStatus = doors
-            if props and coords then
+            if props and coords and not props == 0 then
                 MySQL.update(Querys.saveAllPropsCoords, { coords, props, json.encode(veh.metadata), veh.plate })
             elseif coords then
                 MySQL.update(Querys.saveAllCoords, { coords, json.encode(veh.metadata), veh.plate })
@@ -714,7 +716,7 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         vehicle = Vehicles.GetVehicleByPlate(data.plate)
     end
     if action == 'update' then
-        if not data.coords or not data.props or not vehicle then return false end
+        if not data.coords or not data.props or not vehicle or data.props == 0 then return false end
         vehicle.SaveLeftVehicle(data.coords, data.props, data.updatekmh)
     elseif action == 'savetrailer' then
         return vehicle.CoordsAndProps(data.coords, data.props)
