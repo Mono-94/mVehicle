@@ -416,19 +416,22 @@ function Vehicles.GetVehicle(EntityId)
     ---StoreVehicle
     ---@param parking string
     ---@return boolean
-    function self.StoreVehicle(parking)
-        local props = lib.callback.await('mVehicle:GetVehicleProps', self.EntityOwner, self.NetId)
+    function self.StoreVehicle(parking, mods)
 
-        if props == 0 or props == nil or not props then
-            lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
-            self.plate, self.id))
-            return false
+        if not mods then
+            mods = lib.callback.await('mVehicle:GetVehicleProps', self.EntityOwner, self.NetId)
+
+            if mods == 0 or mods == nil or not mods then
+                lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
+                    self.plate, self.id))
+                return false
+            end
         end
 
         local store = false
 
         local affectedRows = MySQL.update.await(Querys.storeGarage,
-            { parking, props, json.encode(self.metadata), self.plate })
+            { parking, mods, json.encode(self.metadata), self.plate })
         if affectedRows > 0 then
             Vehicles.Vehicles[EntityId] = nil
             Entity(EntityId).state.FadeEntity = { action = 'delete' }
