@@ -90,8 +90,6 @@ AddStateBagChangeHandler('setVehicleProperties', nil, function(bagName, key, val
 
     SetFadeEntity({ action = 'spawn', entity = entity })
 
-
-
     if lib.setVehicleProperties(entity, value) then
         Entity(entity).state:set('setVehicleProperties', nil, true)
     end
@@ -321,17 +319,17 @@ lib.callback.register('mVehicle:GivecarData', function()
         { type = 'date',   label = Config.Locales.givecar_menu4, icon = { 'far', 'calendar' },    default = true,             format = "DD/MM/YYYY" },
         { type = 'number', label = Config.Locales.givecar_menu5, icon = 'clock',                  default = 0,                max = 23,             min = 0 },
         { type = 'number', label = Config.Locales.givecar_menu6, icon = 'clock',                  default = 0,                max = 59,             min = 0 },
-        { type = 'color',  label = Config.Locales.givecar_menu7, format = 'rgb',                  default = 'rgb(77, 77, 77)' },
-        { type = 'color',  label = Config.Locales.givecar_menu8, format = 'rgb',                  default = 'rgb(77, 77, 77)' },
+        { type = 'color',  label = Config.Locales.givecar_menu7, format = 'hex',                  default = '#565755' },
+        { type = 'color',  label = Config.Locales.givecar_menu8, format = 'hex',                  default = '#262626' },
     })
 
     if not input then return false end
 
-    local color1 = lib.math.torgba(input[7])
-    local color2 = lib.math.torgba(input[8])
+    local r1, g1, b1 = lib.math.hextorgb(input[7])
+    local r2, g2, b2 = lib.math.hextorgb(input[8])
 
-    input[7] = { color1.r, color1.g, color1.b }
-    input[8] = { color2.r, color2.g, color2.b }
+    input[7] = { r1, g1, b1 }
+    input[8] = { r2, g2, b2 }
 
 
     local vehiclehash = GetHashKey(input[1])
