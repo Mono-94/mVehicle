@@ -375,7 +375,7 @@ function Vehicles.GetVehicle(EntityId)
         if identifier then
             self.keys[identifier] = GetName(src)
             State:set("Keys", self.keys, true)
-            MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plafe })
+            MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plate })
         end
     end
 
