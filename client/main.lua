@@ -63,11 +63,9 @@ lib.onCache('seat', function(value)
                             Trailer.props = lib.getVehicleProperties(trailerEntity)
                             local saved = VehicleState('savetrailer', Trailer)
                             if saved then
-                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(
-                                    Trailer.plate, State.Owner))
+                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
                             else
-                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(
-                                    Trailer.plate, State.Owner))
+                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
                             end
                         end
                     end
@@ -152,11 +150,9 @@ local KeyDoors = function(entity)
 
                 local prop = CreateObject("p_car_keys_01", 1.0, 1.0, 1.0, true, true, 0)
                 lib.requestAnimDict("anim@mp_player_intmenu@key_fob@")
-                AttachEntityToEntity(prop, ped, pedbone, 0.08, 0.039, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1,
-                    true)
+                AttachEntityToEntity(prop, ped, pedbone, 0.08, 0.039, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
 
-                TaskPlayAnim(ped, "anim@mp_player_intmenu@key_fob@", "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false,
-                    false)
+                TaskPlayAnim(ped, "anim@mp_player_intmenu@key_fob@", "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
                 Citizen.Wait(1000)
                 DeleteObject(prop)
             end
@@ -254,6 +250,28 @@ if Config.VehicleEngine.active then
 
     })
 end
+
+RegisterNetEvent('mVehicles:RequestProps', function(requestId, entity)
+    local props
+
+    if entity then
+        if NetworkDoesNetworkIdExist(entity) then
+            entity = NetToVeh(entity)
+            props = lib.getVehicleProperties(entity)
+        else
+            props = false
+        end
+    else
+        local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+        if DoesEntityExist(vehicle) then
+            props = lib.getVehicleProperties(vehicle)
+        else
+            props = false
+        end
+    end
+
+    TriggerServerEvent('mVehicle:ReceiveProps', requestId, json.encode(props))
+end)
 
 lib.callback.register('mVehicle:GetVehicleProps', function(entity)
     if entity then

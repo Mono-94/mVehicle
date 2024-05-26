@@ -203,6 +203,7 @@ function Vehicles.CreateVehicle(data, cb)
 
     State:set('plate', data.plate, true)
     State:set('setVehicleProperties', data.vehicle, true)
+    -- TriggerClientEvent('ox_lib:setVehicleProperties', data.EntityOwner, data.NetId, data.vehicle)
     State:set('fuel', data.vehicle.fuelLevel or 100, true)
     State:set('metadata', data.metadata, true)
     State:set('type', data.type, true)
@@ -253,7 +254,7 @@ function Vehicles.SetCarOwner(src, entity)
         return false, lib.print.error('SetCarOwner This vehicle already has an owner')
     end
 
-    local props   = lib.callback.await('mVehicle:GetVehicleProps', src)
+    local props   = Vehicles.GetClientProps(src)
     props.plate   = Vehicles.GeneratePlate()
     data.coords   = GetCoords(src)
     data.parking  = Config.GarageNames[1]
@@ -282,17 +283,19 @@ RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity)
     data.entity      = entity
     data.EntityOwner = NetworkGetEntityOwner(data.entity)
     data.NetId       = NetworkGetNetworkIdFromEntity(data.entity)
-    local props      = lib.callback.await('mVehicle:GetVehicleProps', data.EntityOwner, data.NetId)
+    local props      = Vehicles.GetClientProps(src, data.NetId) 
     props            = json.decode(props)
     data.plate       = props.plate
     data.vehicle     = props
     data.owner       = identifier
+    data.keys        = { [identifier] = GetName() }
     data.setOwner    = false
     data.spawn       = true
 
     if Config.ItemKeys then
         Vehicles.ItemCarKeys(src, 'add', data.plate)
     end
+
 
     Vehicles.CreateVehicle(data)
 end)
@@ -303,6 +306,9 @@ function Vehicles.SetVehicleOwner(data)
         insert = { data.owner, data.plate, json.encode(data.vehicle), data.type, data.job, json.encode(data.coords),
             json.encode(data.metadata), data.parking }
     elseif Config.Framework == 'ox' then
+        insert = { data.owner, data.plate, json.encode(data.vehicle), data.type, data.job, json.encode(data.coords),
+            json.encode(data.metadata), Vehicles.RandomVin(), data.parking }
+    elseif Config.Framework == 'qbox' then
         insert = { data.owner, data.plate, json.encode(data.vehicle), data.type, data.job, json.encode(data.coords),
             json.encode(data.metadata), Vehicles.RandomVin(), data.parking }
     end
@@ -417,9 +423,8 @@ function Vehicles.GetVehicle(EntityId)
     ---@param parking string
     ---@return boolean
     function self.StoreVehicle(parking, mods)
-
         if not mods then
-            mods = lib.callback.await('mVehicle:GetVehicleProps', self.EntityOwner, self.NetId)
+            mods = Vehicles.GetClientProps(self.EntityOwner, self.NetId) 
 
             if mods == 0 or mods == nil or not mods then
                 lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
@@ -659,13 +664,37 @@ function Vehicles.SpawnVehicles()
     end
 end
 
+local GetVehicleProps = {}
+
+RegisterNetEvent('mVehicle:ReceiveProps', function(requestId, data)
+    local props = json.decode(data)
+    if GetVehicleProps[requestId] then
+        GetVehicleProps[requestId](props)
+        GetVehicleProps[requestId] = nil
+    end
+end)
+
+function Vehicles.GetClientProps(playerId, entity)
+    local requestId = math.random(100000, 999999)
+    local promise = promise.new()
+
+    GetVehicleProps[requestId] = function(props)
+        promise:resolve(props)
+    end
+
+    TriggerClientEvent('mVehicles:RequestProps', playerId, requestId, entity)
+    local result = Citizen.Await(promise)
+
+    return result
+end
+
 ---SaveAllVehicles
 ---@param delete boolean Delete Entitys?
 function Vehicles.SaveAllVehicles(delete)
     for entity, veh in pairs(Vehicles.Vehicles) do
         if DoesEntityExist(entity) then
             local coords = json.encode(GetCoords(false, entity))
-            local props = lib.callback.await('mVehicle:GetVehicleProps', -1, NetworkGetNetworkIdFromEntity(entity))
+            local props = Vehicles.GetClientProps(veh.EntityOwner, veh.NetId)
             local doors = GetVehicleDoorLockStatus(entity)
             veh.metadata.DoorStatus = doors
             if props and coords and not props == 0 then
@@ -778,10 +807,13 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
             elseif not vehicle or not vehicledb then
                 return false
             end
-
+            if not vehicleKeys then
+                return false
+            end
 
             local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or
                 Config.ItemKeys
+
             if carkeys then
                 if action == 'doors' then
                     if Status == 2 then
@@ -805,6 +837,7 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
                 SetVehicleDoorsLocked(entity, 2)
                 if vehicle then vehicle.SetMetadata('DoorStatus', 2) end
             end
+
             Noty()
             return true
         end
