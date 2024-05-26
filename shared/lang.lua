@@ -184,5 +184,51 @@ LANG = {
         fakeplate3        = 'Plaque d’immatriculation d’Origine',
         fakeplate4        = 'Changement de plaque'
     },
+    ['CS'] = {
+        -- Trailer
+        flip_trailer      = 'Převrátit přívěs',
+        up_dow_ramp       = 'Zvednout/Snížit rampu',
+        up_dow_platform   = 'Zvednout/Snížit plošinu',
+        attach_vehicle    = 'Připojit vozidlo',
+        dettach_vehicle   = 'Odpojit vozidlo',
+
+        -- Dveře vozidla
+        open_door         = 'Otevřít dveře',
+        close_door        = 'Zavřít dveře',
+
+        -- Klíče
+        key_string        = 'Registrační značka: %s',
+        key_targetdoors   = 'Otevřít / Zavřít dveře',
+
+        -- Dát auto
+        givecar_noty      = 'Nyní jste vlastníkem tohoto vozidla %s',
+        givecar_help      = 'Dát vozidlo hráči s více možnostmi.',
+        givecar_playerveh = 'Nastavit vozidlo, ve kterém je hráč, jako vlastněné',
+        givecar_yes       = 'Ano',
+        givecar_no        = 'Ne',
+        givecar_menu1     = 'Model vozidla',
+        givecar_menu2     = 'Garáž',
+        givecar_menu3     = 'Dočasné vozidlo?',
+        givecar_menu4     = 'Datum',
+        givecar_menu5     = 'Hodina',
+        givecar_menu6     = 'Minuty',
+        givecar_menu7     = 'Barva vozidla 1',
+        givecar_menu8     = 'Barva vozidla 2',
+
+        -- Menu s klíči od auta
+        carkey_menu1      = 'Osobní vozidla',
+        carkey_menu2      = 'Nemáte žádná vozidla.',
+        carkey_menu3      = 'Dát klíč',
+        carkey_menu4      = 'Přidat klíče hráči podle jeho ID.',
+        carkey_menu5      = 'Nikdo nemá klíče k tomuto vozidlu 😪',
+        carkey_menu6      = 'Smazat',
+
+        -- Falešná značka
+        fakeplate1        = 'Falešná značka',
+        fakeplate2        = 'Toto vozidlo není vaše...',
+        fakeplate3        = 'Původní značka',
+        fakeplate4        = 'Mění se značka'
+    },
+}
 
 }
