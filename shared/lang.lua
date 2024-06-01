@@ -185,4 +185,52 @@ LANG = {
         fakeplate4        = 'Changement de plaque'
     },
 
+    ['HU'] = {
+
+        -- Trailer
+        flip_trailer      = 'Trailer Felborítása',
+        up_dow_ramp       = 'Raise/Lower Ramp',
+        up_dow_platform   = 'Raise/Lower Platform',
+        attach_vehicle    = 'Attach Vehicle',
+        dettach_vehicle   = 'Detach Vehicle',
+
+        -- Vehicle doors
+        open_door         = 'Ájtó kinyitva',
+        close_door        = 'Ajtó Zárva',
+
+        -- Keys
+        key_string        = 'Rendszám: %s',
+        key_targetdoors   = 'Nyitás / Zárás',
+
+        -- Givecar
+        givecar_noty      = 'Ön mostantól ennek a járműnek a tulajdonosa: %s',
+        givecar_help      = 'Adjon egy járművet egy játékosnak több lehetőséggel.',
+        givecar_playerveh = 'Állítsa be a járművet, amelyben a játékos van, tulajdonosként',
+        givecar_yes       = 'Igen',
+        givecar_no        = 'Nem',
+        givecar_menu1     = 'Jármű Modell',
+        givecar_menu2     = 'Garázs',
+        givecar_menu3     = 'Ideiglenes Jármű?',
+        givecar_menu4     = 'Dátum',
+        givecar_menu5     = 'Óra',
+        givecar_menu6     = 'Percek',
+        givecar_menu7     = 'Jármű Színe 1',
+        givecar_menu8     = 'Jármű Színe 2',
+
+        -- Carkeys Menu
+        carkey_menu1      = 'Személyes Járművek',
+        carkey_menu2      = 'Nincs járműve.',
+        carkey_menu3      = 'Kulcs Átadása',
+        carkey_menu4      = 'Adjon kulcsokat egy játékosnak az ID-ja alapján.',
+        carkey_menu5      = 'Senki nem rendelkezik kulccsal ehhez a járműhöz 😪',
+        carkey_menu6      = 'Törlés',
+
+        -- Fake Plate
+        fakeplate1        = 'Hamis Rendszám',
+        fakeplate2        = 'Ez a jármű nem az ön tulajdona...',
+        fakeplate3        = 'Eredeti Rendszám',
+        fakeplate4        = 'Rendszám cseréje'
+
+
+    },
 }
