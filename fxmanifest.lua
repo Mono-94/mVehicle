@@ -8,7 +8,7 @@ description "Vehicle API - https://discord.gg/Vk7eY8xYV2"
 
 author "aka_mono & .rawpaper"
 
-version "1.0.0"
+version "1.1.0"
 
 lua54 'yes'
 
