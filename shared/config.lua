@@ -92,4 +92,3 @@ Config.HotWireItem = {
     end
 }
 
-Config.Locales = LANG[Config.lang]
