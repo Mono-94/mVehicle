@@ -2,7 +2,7 @@ if Config.TargetTrailer then
     local trailer = nil
     local dist = 10.0
     local trailerModel = 2078290630 -- spawn name 'tr2'
-   
+
 
     exports.ox_target:addGlobalVehicle({
         {
@@ -97,21 +97,21 @@ if Config.TargetTrailer then
                 DetachEntity(data.entity, true, false)
             end
         },
-        {
-            distance = 10,
-            label = 'metadata',
-            icon = 'fa-solid fa-database',
-            canInteract = function(entity, distance, coords, name, bone)
-                return Config.Debug and Entity(entity).state.metadata
-            end,
-            onSelect = function(data)
-                local metadata = Entity(data.entity).state.metadata
-                local keys = Entity(data.entity).state.Keys
-                if keys then
-                    print(json.encode(keys, { indent = true }))
-                end
-                print(json.encode(metadata, { indent = true }))
-            end
-        },
+        -- {
+        --     distance = 10,
+        --     label = 'metadata',
+        --     icon = 'fa-solid fa-database',
+        --     canInteract = function(entity, distance, coords, name, bone)
+        --         return Config.Debug and Entity(entity).state.metadata
+        --     end,
+        --     onSelect = function(data)
+        --         local metadata = Entity(data.entity).state.metadata
+        --         local keys = Entity(data.entity).state.Keys
+        --         if keys then
+        --             print(json.encode(keys, { indent = true }))
+        --         end
+        --         print(json.encode(metadata, { indent = true }))
+        --     end
+        -- },
     })
 end

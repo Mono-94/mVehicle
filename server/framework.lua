@@ -117,10 +117,12 @@ function GetCoords(src, veh)
 end
 
 -- StandAlone uses the same table as Core
+
 local query = {
     ['esx'] = {
         getVehicleById = 'SELECT * FROM `owned_vehicles` WHERE `id` = ? LIMIT 1',
         getVehicleByPlate = 'SELECT * FROM `owned_vehicles` WHERE `plate` = ? LIMIT 1',
+        getVehicleByPlateOrFakeplate = "SELECT * FROM `owned_vehicles` WHERE `plate` = ? OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = ? LIMIT 1",
         setOwner ='INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         deleteByPlate = 'DELETE FROM owned_vehicles WHERE plate = ?',
         deleteById = 'DELETE FROM owned_vehicles WHERE id = ?',
@@ -171,14 +173,11 @@ local query = {
         getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?"
     },
 
-    ['qb'] = {
-
-    },
-
     -- type, job, coords, metadata, lastparking, pound, stored, mileage
     ['qbox'] = {
         getVehicleById = 'SELECT * FROM `player_vehicles` WHERE `id` = ? LIMIT 1',
         getVehicleByPlate = 'SELECT * FROM `player_vehicles` WHERE `plate` = ? LIMIT 1',
+        getVehicleByPlateOrFakeplate = "SELECT * FROM `player_vehicles` WHERE `plate` = ? OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = ? LIMIT 1",
         setOwner = 'INSERT INTO `player_vehicles` (license, plate, vehicle, type, job, coords, metadata, garage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         deleteByPlate = 'DELETE FROM player_vehicles WHERE plate = ?',
         deleteById = 'DELETE FROM player_vehicles WHERE id = ?',

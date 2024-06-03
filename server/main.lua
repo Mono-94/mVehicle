@@ -279,7 +279,7 @@ function Vehicles.SetCarOwner(src, entity)
     Vehicles.CreateVehicle(data)
 end
 
-RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity)
+function Vehicles.GetControlVehicle(src, entity)
     if not DoesEntityExist(entity) then
         entity = NetworkGetEntityFromNetworkId(entity)
         if not DoesEntityExist(entity) then
@@ -305,7 +305,10 @@ RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity)
     end
 
     Vehicles.CreateVehicle(data)
-end)
+end
+
+RegisterServerEvent('mVehicle:OnBuyVehicle', Vehicles.GetControlVehicle)
+RegisterServerEvent('mVehicle:GetVehicleControl', Vehicles.GetControlVehicle)
 
 
 function Vehicles.SetVehicleOwner(data)
@@ -515,7 +518,7 @@ function Vehicles.GetVehicle(EntityId)
     end
 
     if Config.Debug then
-        -- Engine Sound
+        -- Engine Sound | Not finish
         self.SetEngineSound = function(name)
             self.SetMetadata('engineSound', name)
             State:set('engineSound', name, true)
@@ -524,16 +527,16 @@ function Vehicles.GetVehicle(EntityId)
     return self
 end
 
-RegisterServerEvent('mVehicle:SetEngineSound', function(NetId, soundName)
-    if Config.Debug then
+-- Engine Sound | Not finish
+if Config.Debug then
+    RegisterServerEvent('mVehicle:SetEngineSound', function(NetId, soundName)
         local entity = NetworkGetEntityFromNetworkId(NetId)
         local vehicle = Vehicles.GetVehicle(entity)
         vehicle.SetEngineSound(soundName)
 
-
         lib.print.warn('Engine Sounds BETA')
-    end
-end)
+    end)
+end
 
 function Vehicles.GetVehicleByPlate(plate)
     for k, v in pairs(Vehicles.Vehicles) do
@@ -804,7 +807,7 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
 
     if action == 'doors' or action == 'engine' then
         if not Config.ItemKeys then
-            local vehicledb = MySQL.single.await(Querys.getVehicleByPlate, { plate })
+            local vehicledb = MySQL.single.await(Querys.getVehicleByPlateOrFakeplate, { plate, plate })
 
             local vehicleKeys = {}
 
@@ -847,7 +850,7 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
                     SetVehicleDoorsLocked(entity, 2)
                     if vehicle then vehicle.SetMetadata('DoorStatus', 2) end
                 end
-                
+
                 sendNotification()
             end
             return true
