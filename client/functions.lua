@@ -1,4 +1,5 @@
 -- Get label from vehicle model like 'Karin Sulta'
+
 function VehicleLabel(model)
     local makeName = GetMakeNameFromVehicleModel(model)
     makeName = makeName:sub(1, 1):upper() .. makeName:sub(2):lower()
@@ -52,16 +53,3 @@ end
 
 RegisterNetEvent('mVehicle:Notification', Notification)
 
-if Config.Debug then
-    RegisterCommand('howToGetEntity', function(source, args, raw)
-        local ped = PlayerPedId()
-        local entity = GetVehiclePedIsIn(ped, false)
-
-        if DoesEntityExist(entity) then
-            local netid = VehToNet(entity)
-            TriggerServerEvent('getEntityVehicle', netid)
-        else
-            print('Vehicle Entity does exists')
-        end
-    end)
-end

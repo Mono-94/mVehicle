@@ -1,14 +1,12 @@
 Config = {}
 
-Config.lang = 'EN' -- ES / EN / IT / FR
-
-Config.Debug = false
+Config.Debug = true
 
 Config.Framework = 'esx'     -- esx, ox, standalone, qbox
 
 Config.Inventory = 'ox'      -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
 
-Config.TargetTrailer = false -- manage tr2 trailer
+Config.TargetTrailer = true -- manage tr2 trailer
 
 Config.VehicleTypes = {
     ['car'] = { 'automobile', 'bicycle', 'bike', 'quadbike', 'trailer', 'amphibious_quadbike', 'amphibious_automobile' },
@@ -17,7 +15,7 @@ Config.VehicleTypes = {
 }
 
 --MAX 8 CHAR
-Config.PlateGenerate = "AAAA 111"
+Config.PlateGenerate = "1A1A 1A1"
 -- . = random number or letter
 -- 1 = random number
 -- A = random letter
@@ -25,7 +23,7 @@ Config.PlateGenerate = "AAAA 111"
 
 -- Carkeys
 
-Config.ItemKeys = true           -- false = Vehicles DB
+Config.ItemKeys = false           -- false = Vehicles DB
 
 Config.CarKeyItem = 'carkey'      -- item name
 

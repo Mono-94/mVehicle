@@ -63,9 +63,11 @@ lib.onCache('seat', function(value)
                             Trailer.props = lib.getVehicleProperties(trailerEntity)
                             local saved = VehicleState('savetrailer', Trailer)
                             if saved then
-                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
+                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(
+                                    Trailer.plate, State.Owner))
                             else
-                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(Trailer.plate, State.Owner))
+                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(
+                                    Trailer.plate, State.Owner))
                             end
                         end
                     end
@@ -126,6 +128,7 @@ local KeyDoors = function(entity)
         entity = lib.getClosestVehicle(GetEntityCoords(cache.ped), Config.KeyDistance, true)
     end
     if not DoesEntityExist(entity) then return end
+    local modelName = VehicleLabel(GetEntityModel(entity))
     local doorstatus = GetVehicleDoorLockStatus(entity)
     local vehtonet = VehToNet(entity)
     local plate = GetVehicleNumberPlateText(entity)
@@ -150,13 +153,15 @@ local KeyDoors = function(entity)
 
                 local prop = CreateObject("p_car_keys_01", 1.0, 1.0, 1.0, true, true, 0)
                 lib.requestAnimDict("anim@mp_player_intmenu@key_fob@")
-                AttachEntityToEntity(prop, ped, pedbone, 0.08, 0.039, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
+                AttachEntityToEntity(prop, ped, pedbone, 0.08, 0.039, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1,
+                    true)
 
-                TaskPlayAnim(ped, "anim@mp_player_intmenu@key_fob@", "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
+                TaskPlayAnim(ped, "anim@mp_player_intmenu@key_fob@", "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false,
+                    false)
                 Citizen.Wait(1000)
                 DeleteObject(prop)
             end
-        end, 'doors', vehtonet, doorstatus)
+        end, 'doors', vehtonet, doorstatus, modelName)
     end
 end
 
@@ -171,7 +176,7 @@ if Config.TargetOrKeyBind == 'target' then
                     return Entity(entity).state.Spawned
                 end
             end,
-            label = Config.Locales.key_targetdoors,
+            label = locale('key_targetdoors'),
             icon = 'fa-solid fa-trailer',
             onSelect = function(veh)
                 KeyDoors(veh.entity)
@@ -273,25 +278,6 @@ RegisterNetEvent('mVehicles:RequestProps', function(requestId, entity)
     TriggerServerEvent('mVehicle:ReceiveProps', requestId, json.encode(props))
 end)
 
-lib.callback.register('mVehicle:GetVehicleProps', function(entity)
-    if entity then
-        if NetworkDoesNetworkIdExist(entity) then
-            entity = NetToVeh(entity)
-            local props = lib.getVehicleProperties(entity)
-            return json.encode(props)
-        else
-            return false
-        end
-    else
-        local vehicle = GetVehiclePedIsIn(cache.ped, false)
-        if DoesEntityExist(vehicle) then
-            local props = lib.getVehicleProperties(vehicle)
-            return props
-        else
-            return false
-        end
-    end
-end)
 
 local StopBreakinCar = function(entity)
     if not entity then
@@ -319,6 +305,14 @@ else
     end)
 end
 
+function RandomColor()
+    local r = math.random(0, 255)
+    local g = math.random(0, 255)
+    local b = math.random(0, 255)
+    local hexColor = string.format("#%02X%02X%02X", r, g, b)
+    return hexColor
+end
+
 lib.callback.register('mVehicle:GivecarData', function()
     local options = {}
     for _, garage in ipairs(Config.GarageNames) do
@@ -326,28 +320,40 @@ lib.callback.register('mVehicle:GivecarData', function()
     end
 
     local yesno = {
-        { value = true,  label = Config.Locales.givecar_yes },
-        { value = false, label = Config.Locales.givecar_no }
+        { value = true,  label = locale('givecar_yes') },
+        { value = false, label = locale('givecar_no') }
     }
 
-    local input = lib.inputDialog('GiveCar', {
-        { type = 'input',  label = Config.Locales.givecar_menu1, required = true },
-        { type = 'select', label = Config.Locales.givecar_menu2, default = Config.GarageNames[1], icon = 'hashtag',           options = options },
-        { type = 'select', label = Config.Locales.givecar_menu3, default = false,                 icon = 'hashtag',           options = yesno },
-        { type = 'date',   label = Config.Locales.givecar_menu4, icon = { 'far', 'calendar' },    default = true,             format = "DD/MM/YYYY" },
-        { type = 'number', label = Config.Locales.givecar_menu5, icon = 'clock',                  default = 0,                max = 23,             min = 0 },
-        { type = 'number', label = Config.Locales.givecar_menu6, icon = 'clock',                  default = 0,                max = 59,             min = 0 },
-        { type = 'color',  label = Config.Locales.givecar_menu7, format = 'hex',                  default = '#565755' },
-        { type = 'color',  label = Config.Locales.givecar_menu8, format = 'hex',                  default = '#262626' },
-    })
 
+    local input = lib.inputDialog('GiveCar', {
+        { type = 'input',  label = locale('givecar_menu1'), required = true },
+        { type = 'input',  label = locale('givecar_menu9'), description = locale('givecar_menu10'), required = false },
+        { type = 'select', label = locale('givecar_menu2'), default = Config.GarageNames[1],        icon = 'hashtag',   options = options },
+        { type = 'select', label = locale('givecar_menu3'), default = false,                        icon = 'hashtag',   options = yesno },
+        { type = 'date',   label = locale('givecar_menu4'), icon = { 'far', 'calendar' },           default = true,     format = "DD/MM/YYYY" },
+        { type = 'time',   label = locale('givecar_menu5'), icon = { 'far', 'calendar' },           format = "24" },
+        { type = 'color',  label = locale('givecar_menu7'), format = 'hex',                         default = '#565755' },
+        { type = 'color',  label = locale('givecar_menu8'), format = 'hex',                         default = '#262626' },
+
+    })
     if not input then return false end
 
     local r1, g1, b1 = lib.math.hextorgb(input[7])
     local r2, g2, b2 = lib.math.hextorgb(input[8])
 
-    input[7] = { r1, g1, b1 }
-    input[8] = { r2, g2, b2 }
+    input[9] = GetVehicleClassFromName(input[1])
+
+    local GiveCar = {
+        model = input[1],
+        job = input[2],
+        parking = input[3],
+        isTemporary = input[4],
+        date = input[5],
+        hour = input[6],
+        color1 = { r1, g1, b1 },
+        color2 = { r2, g2, b2 },
+        vehicleClass = GetVehicleClassFromName(input[1])
+    }
 
 
     local vehiclehash = GetHashKey(input[1])
@@ -355,9 +361,7 @@ lib.callback.register('mVehicle:GivecarData', function()
 
     if not isModelValid then return false, lib.print.error('Vehicle model invalid') end
 
-    input[9] = GetVehicleClassFromName(input[1])
-
-    return input
+    return GiveCar
 end)
 
 
@@ -372,7 +376,7 @@ if Config.KeyMenu then
     lib.addRadialItem({
         {
             id = 'vehicle_keys',
-            label = Config.Locales.carkey_menu1,
+            label = locale('carkey_menu1'),
             icon = 'key',
             onSelect = function()
                 Vehicles.VehickeKeysMenu()
@@ -387,8 +391,8 @@ function Vehicles.VehickeKeysMenu(plate, cb)
     local data = VehicleState('getkeys')
     if #data == 0 then
         return Notification({
-            title = Config.Locales.carkey_menu1,
-            description = Config.Locales.carkey_menu2,
+            title = locale('carkey_menu1'),
+            description = locale('carkey_menu2'),
 
         })
     end
@@ -398,12 +402,12 @@ function Vehicles.VehickeKeysMenu(plate, cb)
         row.vehlabel = VehicleLabel(props.model)
         if plate and row.plate == plate then
             table.insert(VehicleSelected, {
-                title = Config.Locales.carkey_menu3,
-                description = Config.Locales.carkey_menu4,
+                title = locale('carkey_menu3'),
+                description = locale('carkey_menu4'),
                 iconColor = '#86d975',
                 icon = 'plus',
                 onSelect = function()
-                    local input = lib.inputDialog(Config.Locales.carkey_menu3, {
+                    local input = lib.inputDialog(locale('carkey_menu3'), {
                         { type = 'number', label = 'ID', icon = 'user' },
 
                     })
@@ -428,7 +432,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                         title = v,
                         arrow = true,
                         icon = 'user',
-                        description = Config.Locales.carkey_menu6,
+                        description = locale('carkey_menu6'),
                         iconColor = '#d97575',
                         onSelect = function()
                             keys[k] = nil
@@ -443,7 +447,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
 
             if not notplayers then
                 table.insert(VehicleSelected, {
-                    title = Config.Locales.carkey_menu5,
+                    title = locale('carkey_menu5'),
                     icon = 'ban',
                     iconColor = '#d97575',
                     disabled = true,
@@ -460,12 +464,12 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                 onSelect = function()
                     VehicleSelected = {}
                     table.insert(VehicleSelected, {
-                        title = Config.Locales.carkey_menu3,
-                        description = Config.Locales.carkey_menu4,
+                        title = locale('carkey_menu3'),
+                        description = locale('carkey_menu4'),
                         iconColor = '#86d975',
                         icon = 'plus',
                         onSelect = function()
-                            local input = lib.inputDialog(Config.Locales.carkey_menu3, {
+                            local input = lib.inputDialog(locale('carkey_menu3'), {
                                 { type = 'number', label = 'ID', icon = 'user' },
 
                             })
@@ -486,7 +490,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                             table.insert(VehicleSelected, {
                                 title = v,
                                 arrow = true,
-                                description = Config.Locales.carkey_menu6,
+                                description = locale('carkey_menu6'),
                                 icon = 'user',
                                 iconColor = '#d97575',
                                 onSelect = function()
@@ -501,7 +505,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                     end
                     if not notplayers then
                         table.insert(VehicleSelected, {
-                            title = Config.Locales.carkey_menu5,
+                            title = locale('carkey_menu5'),
                             icon = 'ban',
                             iconColor = '#d97575',
                             disabled = true,
@@ -517,7 +521,7 @@ function Vehicles.VehickeKeysMenu(plate, cb)
 
     lib.registerContext({
         id = 'mVehicle:menuKeys',
-        title = Config.Locales.carkey_menu1,
+        title = locale('carkey_menu1'),
         options = VehicleList
     })
 

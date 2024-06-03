@@ -15,7 +15,7 @@ exports('fakeplate', function(event, item, inventory, slot, data)
                     if anim then
                         exports.ox_inventory:SetMetadata(inventory.id, slot,
                             {
-                                label = Config.Locales.fakeplate3,
+                                label = locale('fakeplate3'),
                                 plate = vehicle.plate,
                                 description = vehicle.plate,
                                 fakeplate = itemSlot.metadata.fakeplate
@@ -38,8 +38,8 @@ exports('fakeplate', function(event, item, inventory, slot, data)
                 end
             else
                 Notification(inventory.id, {
-                    title = Config.Locales.fakeplate1,
-                    description = Config.Locales.fakeplate2,
+                    title = locale('fakeplate1'),
+                    description = locale('fakeplate2'),
                     icon = 'user',
                 })
             end
@@ -62,7 +62,7 @@ exports('lockpick', function(event, item, inventory, slot, data)
         local Noty = function()
             Notification(source, {
                 title = 'Vehiculo',
-                description = (doorStatus == 2 and Config.Locales.open_door or Config.Locales.close_door),
+                description = (doorStatus == 2 and locale('open_door') or locale('close_door')),
                 icon = (doorStatus == 2 and 'lock-open' or 'lock'),
                 iconColor = (doorStatus == 2 and '#77e362' or '#e36462'),
             })

@@ -31,7 +31,7 @@ local function DeleteTemporary(plate, hour, min)
         PlateCron[plate] = false
         MySQL.execute(Querys.deleteByPlate, { plate })
         task:stop()
-    end, { debug = true })
+    end, { debug = Config.Debug })
 
     PlateCron[plate] = true
 end
@@ -83,7 +83,6 @@ function Vehicles.CreateVehicle(data, cb)
         data.plate = data.vehicle.plate
     end
 
-
     data.mileage = data.mileage or 0
 
     if data.identifier then
@@ -105,6 +104,7 @@ function Vehicles.CreateVehicle(data, cb)
     if Config.VehicleTypes[data.type] then
         data.type = VehicleType(data.vehicle.model)
     end
+
     if not data.type then
         data.type = VehicleType(data.vehicle.model)
     end
@@ -200,16 +200,24 @@ function Vehicles.CreateVehicle(data, cb)
         data.vehicle.plate = data.plate
     end
 
+    if data.group then
+        data.job = data.group
+    end
+
+    if Config.Debug then
+        if data.metadata.engineSound then
+            State:set('engineSound', data.metadata.engineSound, true)
+        end
+    end
 
     State:set('plate', data.plate, true)
     State:set('setVehicleProperties', data.vehicle, true)
-    -- TriggerClientEvent('ox_lib:setVehicleProperties', data.EntityOwner, data.NetId, data.vehicle)
     State:set('fuel', data.vehicle.fuelLevel or 100, true)
     State:set('metadata', data.metadata, true)
     State:set('type', data.type, true)
     State:set('Spawned', true, true)
     State:set('Owner', data.owner, true)
-    State:set('job', data.job or data.group, true)
+    State:set('job', data.job, true)
 
     Vehicles.Vehicles[data.entity] = data
 
@@ -283,8 +291,8 @@ RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity)
     data.entity      = entity
     data.EntityOwner = NetworkGetEntityOwner(data.entity)
     data.NetId       = NetworkGetNetworkIdFromEntity(data.entity)
-    local props      = Vehicles.GetClientProps(src, data.NetId) 
-    props            = json.decode(props)
+    local props      = Vehicles.GetClientProps(src, data.NetId)
+    props            = props
     data.plate       = props.plate
     data.vehicle     = props
     data.owner       = identifier
@@ -296,9 +304,9 @@ RegisterServerEvent('mVehicle:OnBuyVehicle', function(src, entity)
         Vehicles.ItemCarKeys(src, 'add', data.plate)
     end
 
-
     Vehicles.CreateVehicle(data)
 end)
+
 
 function Vehicles.SetVehicleOwner(data)
     local insert = {}
@@ -324,50 +332,61 @@ function Vehicles.GetVehicle(EntityId)
     local State = Entity(EntityId).state
     local self  = Vehicles.Vehicles[EntityId]
 
+
     ---Save Metadata
-    function self.SaveMetaData()
+    self.SaveMetaData = function()
         MySQL.update(Querys.saveMetadata, { json.encode(self.metadata), self.plate })
         State:set("metadata", self.metadata, true)
         SendClientVehicles()
     end
 
-    ---SetMetadata
+    --- SetMetadata
     ---@param key string
     ---@param value any
-    function self.SetMetadata(key, value)
+    self.SetMetadata = function(key, value)
         self.metadata[key] = value
         self.SaveMetaData()
     end
 
-    ---DeleteMetadata
+    --- DeleteMetadata
     ---@param key string
-    ---@param value string
-    function self.DeleteMetadata(key, value)
-        if not self.metadata[key] then return lib.print.error(('No key %s in metadata'):format(key)) end
-        if key then
-            self.metadata[key] = nil
-        elseif key and value then
-            if not self.metadata[key][value] then
+    ---@param value string|nil
+    self.DeleteMetadata = function(key, value)
+        if not self.metadata[key] then
+            lib.print.error(('No key %s in metadata'):format(key))
+            return
+        end
+        if value then
+            if type(self.metadata[key]) ~= "table" or not self.metadata[key][value] then
                 lib.print.error(('No data "%s" in %s'):format(value, key))
                 return
             end
             self.metadata[key][value] = nil
+            if next(self.metadata[key]) == nil then
+                self.metadata[key] = nil
+            end
+        else
+            self.metadata[key] = nil
         end
-        self:SaveMetaData()
+
+        self.SaveMetaData()
     end
 
-    ---GetMetadata
-    ---@param key string
-    ---@return table
-    function self.GetMetadata(key)
-        if not key then return self.metadata end
-        return self.metadata[key]
+    --- GetMetadata
+    ---@param key string|nil
+    ---@return any
+    self.GetMetadata = function(key)
+        if key == nil then
+            return self.metadata
+        else
+            return self.metadata[key]
+        end
     end
 
     ---AddKeys
     ---comment
     ---@param src number
-    function self.AddKey(src)
+    self.AddKey = function(src)
         local identifier = Identifier(src)
         if not self.keys then
             self.keys = {}
@@ -380,7 +399,7 @@ function Vehicles.GetVehicle(EntityId)
     end
 
     ---RemoveKey
-    function self.RemoveKey(src)
+    self.RemoveKey = function(src)
         local identifier = Identifier(src)
         if identifier and self.keys[identifier] then
             self.keys[identifier] = nil
@@ -389,54 +408,38 @@ function Vehicles.GetVehicle(EntityId)
         end
     end
 
-    function self.GetKeys()
+    self.GetKeys = function()
         return self.keys
     end
 
     ---SaveVehiclePrps
     ---@param props table
-    function self.SaveProps(props)
-        if props == 0 or props == nil or not props then
-            return false,
-                lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
-                    self.plate, self.id))
-        end
+    self.SaveProps = function(props)
         self.vehicle = props
         MySQL.update(Querys.saveProps, { json.encode(props), self.plate })
     end
 
-    function self.DeleteVehicle(fromDatabase)
+    self.DeleteVehicle = function(fromDatabase)
         if DoesEntityExist(EntityId) then
-            Vehicles.Vehicles[EntityId] = nil
-            SendClientVehicles()
             Entity(EntityId).state.FadeEntity = { action = 'delete' }
-            if fromDatabase then
-                MySQL.execute(Querys.deleteByPlate, { self.plate })
-            end
-            Vehicles.Vehicles[EntityId] = nil
-            self = nil
-            return self
         end
+        if fromDatabase then
+            MySQL.execute(Querys.deleteByPlate, { self.plate })
+        end
+        Vehicles.Vehicles[EntityId] = nil
+        SendClientVehicles()
+        self = nil
+        return self
     end
 
     ---StoreVehicle
     ---@param parking string
     ---@return boolean
-    function self.StoreVehicle(parking, mods)
-        if not mods then
-            mods = Vehicles.GetClientProps(self.EntityOwner, self.NetId) 
-
-            if mods == 0 or mods == nil or not mods then
-                lib.print.warn(('[ PROPS NIL OR 0 ] Plate: %s, Vehicle ID: %s | Contact an administrator.'):format(
-                    self.plate, self.id))
-                return false
-            end
-        end
-
+    self.StoreVehicle = function(parking)
+        local mods = Vehicles.GetClientProps(self.EntityOwner, self.NetId)
         local store = false
-
         local affectedRows = MySQL.update.await(Querys.storeGarage,
-            { parking, mods, json.encode(self.metadata), self.plate })
+            { parking, json.encode(mods), json.encode(self.metadata), self.plate })
         if affectedRows > 0 then
             Vehicles.Vehicles[EntityId] = nil
             Entity(EntityId).state.FadeEntity = { action = 'delete' }
@@ -448,7 +451,7 @@ function Vehicles.GetVehicle(EntityId)
     end
 
     ---ImpoundVehicle
-    function self.ImpoundVehicle(parking, price, note, date, endpound)
+    self.ImpoundVehicle = function(impound, price, note, date, endpound)
         self.SetMetadata('pound', {
             price = price or Config.DefaultImpound.price,
             reason = note or Config.DefaultImpound.note,
@@ -457,28 +460,30 @@ function Vehicles.GetVehicle(EntityId)
 
         })
 
-        MySQL.update(Querys.setImpound, { parking, json.encode(self.metadata), self.plate })
+        MySQL.update(Querys.setImpound, { impound, json.encode(self.metadata), self.plate })
 
-        Vehicles.Vehicles[EntityId] = nil
-        SendClientVehicles()
         if DoesEntityExist(EntityId) then
             Entity(EntityId).state.FadeEntity = { action = 'delete' }
         end
+
+        SendClientVehicles()
+        Vehicles.Vehicles[EntityId] = nil
         self = nil
     end
 
-    ---RetryVehicle - The coords are in case the player does not touch the vehicle and has the last coordinates of where it spawned.
+    ---RetryVehicle
     ---@param coords vector4
     ---@return boolean
-    function self.RetryVehicle(coords)
+    self.RetryVehicle = function(coords)
         MySQL.update(Querys.retryGarage, { self.parking, json.encode(coords), self.plate })
         SendClientVehicles()
     end
 
-    ---RetryVehicle - The coords are in case the player does not touch the vehicle and has the last coordinates of where it spawned.
+    ---RetryVehicle
+    ---@param ToGarage string Garage name
     ---@param coords vector4
     ---@return boolean
-    function self.RetryImpound(ToGarage, coords)
+    self.RetryImpound = function(ToGarage, coords)
         local affectedRows = MySQL.update.await(Querys.retryImpound,
             { self.parking, json.encode(coords), ToGarage, self.plate })
         if affectedRows then
@@ -488,7 +493,7 @@ function Vehicles.GetVehicle(EntityId)
 
     --- Set Fake plate
     ---@param fakeplate string
-    function self.FakePlate(fakeplate)
+    self.FakePlate = function(fakeplate)
         if type(fakeplate) == 'string' then
             self.SetMetadata('fakeplate', fakeplate)
         else
@@ -497,20 +502,38 @@ function Vehicles.GetVehicle(EntityId)
     end
 
     -- Save Coords
-    function self.SaveLeftVehicle(coords, props, mileages)
+    self.SaveLeftVehicle = function(coords, props, mileages)
         self.coords = coords
         self.mileage = math.floor(mileages * 100)
         MySQL.update(Querys.saveLeftVehicle, { self.mileage, self.coords, json.encode(props), self.plate })
     end
 
-    function self.CoordsAndProps(coords, props)
+    self.CoordsAndProps = function(coords, props)
         self.coords = coords
         SendClientVehicles()
         return MySQL.update.await(Querys.updateTrailer, { self.coords, json.encode(props), self.plate })
     end
 
+    if Config.Debug then
+        -- Engine Sound
+        self.SetEngineSound = function(name)
+            self.SetMetadata('engineSound', name)
+            State:set('engineSound', name, true)
+        end
+    end
     return self
 end
+
+RegisterServerEvent('mVehicle:SetEngineSound', function(NetId, soundName)
+    if Config.Debug then
+        local entity = NetworkGetEntityFromNetworkId(NetId)
+        local vehicle = Vehicles.GetVehicle(entity)
+        vehicle.SetEngineSound(soundName)
+
+
+        lib.print.warn('Engine Sounds BETA')
+    end
+end)
 
 function Vehicles.GetVehicleByPlate(plate)
     for k, v in pairs(Vehicles.Vehicles) do
@@ -546,8 +569,7 @@ function Vehicles.GetAllVehicles(src, VehicleTable, haveKeys)
         if identifier then
             local rows = {}
             if haveKeys then
-                rows = MySQL.query.await(Querys.getVehiclesbyOwnerAndhaveKeys,
-                    { identifier, '%"' .. identifier .. '"%' })
+                rows = MySQL.query.await(Querys.getVehiclesbyOwnerAndhaveKeys, { identifier, '%"' .. identifier .. '"%' })
             else
                 rows = MySQL.query.await(Querys.getVehiclesbyOwner, { identifier, })
             end
@@ -556,20 +578,18 @@ function Vehicles.GetAllVehicles(src, VehicleTable, haveKeys)
     end
 end
 
----PlateExist
+--- PlateExist
 ---@param plate any
 ---@return boolean
 function Vehicles.PlateExist(plate)
     return not MySQL.scalar.await(Querys.plateExist, { plate })
 end
 
----GeneratePlate
+--- GeneratePlate
 -- - Return a plate
 ---@return string
 function Vehicles.GeneratePlate()
-    local letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    local numbers = "0123456789"
-    local plate = ""
+    local plate
     local pattern = Config.PlateGenerate
 
     if #pattern < 8 then
@@ -578,22 +598,17 @@ function Vehicles.GeneratePlate()
 
     repeat
         plate = ""
-        for i = 1, 8 do
-            local char = string.sub(pattern, i, i)
+        for i = 1, #pattern do
+            local char = pattern:sub(i, i)
             if char == "A" then
-                local index = math.random(#letters)
-                plate = plate .. string.sub(letters, index, index)
+                plate = plate .. string.char(math.random(65, 90))
             elseif char == "1" then
-                local index = math.random(#numbers)
-                plate = plate .. string.sub(numbers, index, index)
+                plate = plate .. tostring(math.random(0, 9))
             elseif char == "." then
-                local rnd = math.random(1, 2)
-                if rnd == 1 then
-                    local index = math.random(#letters)
-                    plate = plate .. string.sub(letters, index, index)
+                if math.random(2) == 1 then
+                    plate = plate .. string.char(math.random(65, 90))
                 else
-                    local index = math.random(#numbers)
-                    plate = plate .. string.sub(numbers, index, index)
+                    plate = plate .. tostring(math.random(0, 9))
                 end
             else
                 plate = plate .. char
@@ -666,23 +681,23 @@ end
 
 local GetVehicleProps = {}
 
-RegisterNetEvent('mVehicle:ReceiveProps', function(requestId, data)
+RegisterNetEvent('mVehicle:ReceiveProps', function(id, data)
     local props = json.decode(data)
-    if GetVehicleProps[requestId] then
-        GetVehicleProps[requestId](props)
-        GetVehicleProps[requestId] = nil
+    if GetVehicleProps[id] then
+        GetVehicleProps[id](props)
+        GetVehicleProps[id] = nil
     end
 end)
 
-function Vehicles.GetClientProps(playerId, entity)
-    local requestId = math.random(100000, 999999)
+function Vehicles.GetClientProps(PlayerID, NetworkID)
+    local id = math.random(100000, 999999) .. PlayerID
     local promise = promise.new()
 
-    GetVehicleProps[requestId] = function(props)
+    GetVehicleProps[id] = function(props)
         promise:resolve(props)
     end
 
-    TriggerClientEvent('mVehicles:RequestProps', playerId, requestId, entity)
+    TriggerClientEvent('mVehicles:RequestProps', PlayerID, id, NetworkID)
     local result = Citizen.Await(promise)
 
     return result
@@ -697,13 +712,7 @@ function Vehicles.SaveAllVehicles(delete)
             local props = Vehicles.GetClientProps(veh.EntityOwner, veh.NetId)
             local doors = GetVehicleDoorLockStatus(entity)
             veh.metadata.DoorStatus = doors
-            if props and coords and not props == 0 then
-                MySQL.update(Querys.saveAllPropsCoords, { coords, props, json.encode(veh.metadata), veh.plate })
-            elseif coords then
-                MySQL.update(Querys.saveAllCoords, { coords, json.encode(veh.metadata), veh.plate })
-            else
-                MySQL.update(Querys.saveAllMetada, { json.encode(veh.metadata), veh.plate })
-            end
+            MySQL.update(Querys.saveAllPropsCoords, { coords, json.encode(props), json.encode(veh.metadata), veh.plate })
             if delete then
                 DeleteEntity(entity)
                 Vehicles.Vehicles[entity] = nil
@@ -718,7 +727,7 @@ end
 ---@param plate string
 function Vehicles.ItemCarKeys(src, action, plate)
     local metadata = {
-        description = Config.Locales.key_string:format(plate),
+        description = locale('key_string', plate),
         plate = plate
     }
     if action == 'add' then
@@ -778,43 +787,43 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
     end
 end)
 
-lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId, Status)
-    local Identifier = Identifier(source)
+lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId, Status, modelName)
+    local identifier = Identifier(source)
     local entity = NetworkGetEntityFromNetworkId(NetId)
     local vehicle = Vehicles.GetVehicle(entity)
     local plate = GetVehicleNumberPlateText(entity)
-    local Noty = function()
+
+    local function sendNotification()
         Notification(source, {
-            title = 'Vehiculo',
-            description = (Status == 2 and Config.Locales.open_door or Config.Locales.close_door),
+            title = modelName,
+            description = (Status == 2 and locale('open_door') or locale('close_door')),
             icon = (Status == 2 and 'lock-open' or 'lock'),
             iconColor = (Status == 2 and '#77e362' or '#e36462'),
         })
     end
 
-    if action == 'doors' or 'engine' then
+    if action == 'doors' or action == 'engine' then
         if not Config.ItemKeys then
             local vehicledb = MySQL.single.await(Querys.getVehicleByPlate, { plate })
 
             local vehicleKeys = {}
 
-            if vehicledb == nil and vehicle then
-                vehicledb = {}
-                vehicledb.keys = vehicle.GetKeys()
+            if not vehicledb and vehicle then
+                vehicledb = { keys = vehicle.GetKeys() }
                 vehicleKeys = vehicle.GetKeys()
-            elseif vehicle then
+            elseif vehicledb then
                 vehicleKeys = json.decode(vehicledb.keys) or {}
-            elseif not vehicle or not vehicledb then
+            else
                 return false
             end
+
             if not vehicleKeys then
                 return false
             end
 
-            local carkeys = (not Config.ItemKeys and Identifier == vehicledb.owner or vehicleKeys[Identifier] ~= nil) or
-                Config.ItemKeys
+            local hasKeys = (not Config.ItemKeys and identifier == vehicledb.owner) or vehicleKeys[identifier] ~= nil
 
-            if carkeys then
+            if hasKeys then
                 if action == 'doors' then
                     if Status == 2 then
                         if vehicle then vehicle.SetMetadata('DoorStatus', 0) end
@@ -823,26 +832,30 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
                         if vehicle then vehicle.SetMetadata('DoorStatus', 2) end
                         SetVehicleDoorsLocked(entity, 2)
                     end
-                    Noty()
+                    sendNotification()
                 end
-                return carkeys
+                return true
             else
                 return false
             end
-        elseif Config.ItemKeys then
-            if Status == 2 then
-                SetVehicleDoorsLocked(entity, 0)
-                if vehicle then vehicle.SetMetadata('DoorStatus', 0) end
-            else
-                SetVehicleDoorsLocked(entity, 2)
-                if vehicle then vehicle.SetMetadata('DoorStatus', 2) end
+        else
+            if action == 'doors' then
+                if Status == 2 then
+                    SetVehicleDoorsLocked(entity, 0)
+                    if vehicle then vehicle.SetMetadata('DoorStatus', 0) end
+                else
+                    SetVehicleDoorsLocked(entity, 2)
+                    if vehicle then vehicle.SetMetadata('DoorStatus', 2) end
+                end
+                
+                sendNotification()
             end
-
-            Noty()
             return true
         end
     end
+    return false
 end)
+
 
 if Config.Inventory == 'ox' then
     exports.ox_inventory:registerHook('createItem', function(payload)

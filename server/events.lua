@@ -43,12 +43,14 @@ if Config.ImpoundVehicledelete then
 end
 
 if GetConvar("mVehicle:Persistent", "false") == 'true' then
-    -- on Resource ...
+    -- on Resource
+
     AddEventHandler("onResourceStart", function(name)
         if name ~= GetCurrentResourceName() then return end
         Vehicles.SpawnVehicles()
     end)
 
+    --
     AddEventHandler('onResourceStop', function(name)
         if name ~= GetCurrentResourceName() then return end
         Vehicles.SaveAllVehicles(true)
@@ -61,7 +63,6 @@ if GetConvar("mVehicle:Persistent", "false") == 'true' then
     end)
 
     AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
-        print(eventData.secondsRemaining)
         if eventData.secondsRemaining == 60 then
             CreateThread(function()
                 Wait(45000)

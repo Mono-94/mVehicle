@@ -1,0 +1,48 @@
+{
+    "Rimorchio Target": "",
+    "flip_trailer": "Capovolgi Rimorchio",
+    "up_dow_ramp": "Alza/Abbassa Rampe",
+    "up_dow_platform": "Alza/Abbassa Piattaforma",
+    "attach_vehicle": "Attacca Veicolo",
+    "dettach_vehicle": "Stacca Veicolo",
+
+    "Porte del veicolo": "",
+    "open_door": "Apri Porta",
+    "close_door": "Chiudi Porta",
+
+    "Chiavi": "",
+    "key_string": "Targa: %s",
+    "key_targetdoors": "Apri / Chiudi Portiere",
+
+    "Dare veicolo": "",
+    "givecar_noty": "Ora sei il proprietario di questo veicolo %s",
+    "givecar_help": "Dai un veicolo a un giocatore con molte opzioni.",
+    "givecar_playerveh": "Imposta il veicolo in cui il giocatore si trova come di proprietà",
+    "givecar_yes": "Sì",
+    "givecar_no": "No",
+    "givecar_menu1": "Modello Veicolo",
+    "givecar_menu2": "Garage",
+    "givecar_menu3": "Veicolo Temporaneo?",
+    "givecar_menu4": "Data",
+    "givecar_menu5": "Ora",
+    "givecar_menu6": "Minuti",
+    "givecar_menu7": "Colore Veicolo 1",
+    "givecar_menu8": "Colore Veicolo 2",
+    "givecar_menu9": "Vehicle Job",
+    "givecar_menu810": "Leave blank for no JOB",
+
+    
+    "Menu Chiavi Auto": "",
+    "carkey_menu1": "Veicoli Personali",
+    "carkey_menu2": "Non hai veicoli.",
+    "carkey_menu3": "Dai Chiave",
+    "carkey_menu4": "Aggiungi chiavi a un giocatore tramite il suo ID.",
+    "carkey_menu5": "Nessuno ha le chiavi di questo veicolo 😪",
+    "carkey_menu6": "Elimina",
+
+    "Targa Falsa": "",
+    "fakeplate1": "Targa Contraffatta",
+    "fakeplate2": "Questo veicolo non è di tua proprietà...",
+    "fakeplate3": "Targa Originale",
+    "fakeplate4": "Cambio targa"
+}

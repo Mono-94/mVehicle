@@ -2,6 +2,7 @@ if Config.TargetTrailer then
     local trailer = nil
     local dist = 10.0
     local trailerModel = 2078290630 -- spawn name 'tr2'
+   
 
     exports.ox_target:addGlobalVehicle({
         {
@@ -11,7 +12,7 @@ if Config.TargetTrailer then
                     return true
                 end
             end,
-            label = Config.Locales.flip_trailer,
+            label = locale('flip_trailer'),
             icon = 'fa-solid fa-trailer',
             onSelect = function(data)
                 local carCoords = GetEntityRotation(data.entity, 2)
@@ -27,7 +28,7 @@ if Config.TargetTrailer then
                     return true
                 end
             end,
-            label = Config.Locales.up_dow_ramp,
+            label = locale('up_dow_ramp'),
             onSelect = function(data)
                 if GetVehicleDoorAngleRatio(data.entity, 5) > 0.0 then
                     SetVehicleDoorShut(data.entity, 5, true, true)
@@ -45,7 +46,7 @@ if Config.TargetTrailer then
                     return true
                 end
             end,
-            label = Config.Locales.up_dow_platform,
+            label = locale('up_dow_platform'),
             onSelect = function(data)
                 if GetVehicleDoorAngleRatio(data.entity, 4) > 0.2 then
                     SetVehicleDoorShut(data.entity, 4, false, true)
@@ -57,7 +58,7 @@ if Config.TargetTrailer then
 
         {
             distance = dist,
-            label = Config.Locales.attach_vehicle,
+            label = locale('attach_vehicle'),
             icon = 'fa-solid fa-lock',
             canInteract = function(entity, distance, coords, name, bone)
                 local retval = IsEntityAttachedToAnyVehicle(entity)
@@ -85,7 +86,7 @@ if Config.TargetTrailer then
 
         {
             distance = dist,
-            label = Config.Locales.dettach_vehicle,
+            label = locale('dettach_vehicle'),
             icon = 'fa-solid fa-lock-open',
             canInteract = function(entity, distance, coords, name, bone)
                 if GetVehicleClass(entity) == 11 and GetEntityModel(entity) == trailerModel or GetEntityModel(entity) == ForkModel then return false end

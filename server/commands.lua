@@ -1,58 +1,57 @@
 lib.addCommand(Config.Commands.givecar, {
-    help = Config.Locales.givecar_help,
+    help = locale('givecar_help'),
     params = { { name = 'target', type = 'number', help = 'Target Player' } },
     restricted = 'group.admin'
 }, function(source, args, raw)
     local identifier = Identifier(args.target)
+
     if identifier then
         local vehicleData = lib.callback.await('mVehicle:GivecarData', source)
         if not vehicleData then return lib.print.info('Command "givecar" action cancelled') end
-        local data = {}
+        local CreateData = {}
         local ped = GetPlayerPed(args.target)
 
-        data.coords = GetCoords(args.target)
-        data.plate = Vehicles.GeneratePlate()
-        data.vehicle = {
-            plate = data.plate,
+        CreateData.coords = GetCoords(args.target)
+        CreateData.plate = Vehicles.GeneratePlate()
+        CreateData.vehicle = {
+            plate = CreateData.plate,
             fuelLevel = 100,
-            model = vehicleData[1],
-            color1 = vehicleData[7],
-            color2 = vehicleData[8]
+            model = vehicleData.model,
+            color1 = vehicleData.color1,
+            color2 = vehicleData.color2
         }
-        data.identifier = identifier
-        data.setOwner = true
-        data.parking = vehicleData[2]
-
-        if vehicleData[3] then
-            local timestamp = math.floor(vehicleData[4] / 1000)
-            local date = nil
-            if vehicleData[5] and vehicleData[6] then
-                local hour = tonumber(vehicleData[5])
-                local min = tonumber(vehicleData[6])
-
-                date = os.date('%Y%m%d %H:%M', timestamp)
-                date = date:gsub('%d%d:%d%d$', ('%02d:%02d'):format(hour, min))
-            elseif vehicleData[5] then
-                local hour = tonumber(vehicleData[5])
-                date = os.date('%Y%m%d %H:%M', timestamp)
-                date = date:gsub('%d%d:%d%d$', ('%02d:00'):format(hour))
-            else
-                date = os.date('%Y%m%d %H:00', timestamp)
-            end
-
-            data.temporary = date
-        end
+        CreateData.identifier = identifier
+        CreateData.setOwner = true
+        CreateData.parking = vehicleData.parking
         
+        if vehicleData.job == '' then
+            CreateData.job = nil
+        else
+            CreateData.job = vehicleData.job
+        end
 
-        Vehicles.CreateVehicle(data, function(vehicle)
+
+        if vehicleData.isTemporary then
+            local date = math.floor(vehicleData.date / 1000)
+            date = os.date('%Y%m%d', date)
+
+            local hour = math.floor(vehicleData.hour / 1000)
+            hour = os.date('%H:%M', hour)
+
+            local time = date .. ' ' .. hour
+            CreateData.temporary = time
+        end
+
+
+        Vehicles.CreateVehicle(CreateData, function(vehicle)
             if DoesEntityExist(vehicle.entity) then
                 TaskWarpPedIntoVehicle(ped, vehicle.entity, -1)
                 if Config.ItemKeys then
-                    Vehicles.ItemCarKeys(args.target, 'add', data.plate)
+                    Vehicles.ItemCarKeys(args.target, 'add', CreateData.plate)
                 end
                 Notification(args.target, {
                     title = 'GiveCar',
-                    description = Config.Locales.givecar_noty:format(args.target),
+                    description = locale('givecar_noty'):format(args.target),
                     type = 'success',
                     icon = 'database',
                     iconColor = 'green'
@@ -66,7 +65,7 @@ end)
 
 
 lib.addCommand(Config.Commands.setcarowner, {
-    help = Config.Locales.givecar_playerveh,
+    help = locale('givecar_playerveh'),
     params = {
         {
             name = 'target',

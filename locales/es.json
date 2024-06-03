@@ -1,0 +1,48 @@
+{
+    "Trailer Target": "",
+    "flip_trailer": "Voltear Remolque",
+    "up_dow_ramp": "Subir/Bajar Rampa",
+    "up_dow_platform": "Subir/Bajar Plataforma",
+    "attach_vehicle": "Acoplar Vehículo",
+    "dettach_vehicle": "Desacoplar Vehículo",
+
+    "Vehicle doors": "",
+    "open_door": "Abrir Puerta",
+    "close_door": "Cerrar Puerta",
+
+    "Keys": "",
+    "key_string": "Matrícula: %s",
+    "key_targetdoors": "Abrir / Cerrar Puertas",
+
+    "GiveCar Command": "",
+    "givecar_noty": "Ahora eres propietario de este vehículo %s",
+    "givecar_help": "Dar un vehículo a un jugador con múltiples opciones.",
+    "givecar_playerveh": "Establecer como propiedad el vehículo en el que se encuentra un jugador",
+    "givecar_yes": "Sí",
+    "givecar_no": "No",
+    "givecar_menu1": "Modelo del vehículo",
+    "givecar_menu2": "Garaje",
+    "givecar_menu3": "¿Vehículo temporal?",
+    "givecar_menu4": "Fecha",
+    "givecar_menu5": "Hora",
+    "givecar_menu6": "Minutos",
+    "givecar_menu7": "Color 1 Vehículo",
+    "givecar_menu8": "Color 2 Vehículo",
+    "givecar_menu9": "Trabajo",
+    "givecar_menu810": "Deja en blanco para ningun trabajo",
+
+
+    "carkeyMenu": "",
+    "carkey_menu1": "Vehículos personales",
+    "carkey_menu2": "No tienes vehículos.",
+    "carkey_menu3": "Dar Llave",
+    "carkey_menu4": "Agrega las llaves a un jugador mediante su ID.",
+    "carkey_menu5": "Nadie tiene llaves de este vehículo 😪",
+    "carkey_menu6": "Eliminar",
+
+    "Fake Plate": "",
+    "fakeplate1": "Matrícula Falsa",
+    "fakeplate2": "Este vehículo no es de tu propiedad...",
+    "fakeplate3": "Matrícula Original",
+    "fakeplate4": "Cambiando matrícula"
+}

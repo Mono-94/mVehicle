@@ -18,4 +18,8 @@ client_script 'client/*.lua'
 
 server_scripts { '@oxmysql/lib/MySQL.lua', 'server/*.lua' }
 
+files { 'locales/*.json' }
+
+ox_libs { 'locale' }
+
 file 'import.lua'

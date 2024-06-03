@@ -11,7 +11,7 @@ lib.callback.register('mVehicle:PlayerItems', function(action, entity)
     if action == 'changeplate' then
         if lib.progressBar({
                 duration = Config.FakePlateItem.ChangePlateTime,
-                label = Config.Locales.fakeplate4,
+                label = locale('fakeplate4'),
                 useWhileDead = false,
                 canCancel = true,
                 disable = {
