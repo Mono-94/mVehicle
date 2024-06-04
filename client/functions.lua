@@ -14,10 +14,8 @@ end
 --Get Player keys
 function KeyItem(plate)
     if not Config.ItemKeys then return true end
-
-
+    local havekey = false
     if Config.Inventory == 'ox' then
-        local havekey = false
         local carkeys = exports.ox_inventory:Search('slots', Config.CarKeyItem)
         for _, v in pairs(carkeys) do
             if v.metadata.plate:gsub("%s+", "") == plate:gsub("%s+", "") then
@@ -31,15 +29,18 @@ function KeyItem(plate)
         else
             return false
         end
-
     elseif Config.Inventory == 'qs' then
         local items = exports['qs-inventory']:getUserInventory()
         for item, meta in pairs(items) do
             if meta.info.plate:gsub("%s+", "") == plate:gsub("%s+", "") then
-                return true
-            else
-                return false
+                havekey = true
+                break
             end
+        end
+        if havekey then
+            return true
+        else
+            return false
         end
     end
 end
