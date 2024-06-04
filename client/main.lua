@@ -367,7 +367,9 @@ end)
 
 
 function Vehicles.ItemCarKeysClient(action, plate)
-    lib.callback('mVehicle:GiveKey', false, nil, action, plate)
+    lib.callback('mVehicle:GiveKey', false, function ()
+        
+    end, action, plate)
 end
 
 exports('ItemCarKeysClient', Vehicles.ItemCarKeysClient)
