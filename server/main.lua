@@ -218,7 +218,7 @@ function Vehicles.CreateVehicle(data, cb)
     State:set('Spawned', true, true)
     State:set('Owner', data.owner, true)
     State:set('job', data.job, true)
-
+    State:set('props', data.vehicle, true)
     Vehicles.Vehicles[data.entity] = data
 
     if data.intocar then
@@ -419,6 +419,7 @@ function Vehicles.GetVehicle(EntityId)
     ---@param props table
     self.SaveProps = function(props)
         self.vehicle = props
+        State:set('props', props, true)
         MySQL.update(Querys.saveProps, { json.encode(props), self.plate })
     end
 
@@ -460,7 +461,6 @@ function Vehicles.GetVehicle(EntityId)
             reason = note or Config.DefaultImpound.note,
             date = date or os.date("%Y/%m/%d %H:%M"),
             endPound = endpound
-
         })
 
         MySQL.update(Querys.setImpound, { impound, json.encode(self.metadata), self.plate })
@@ -508,12 +508,14 @@ function Vehicles.GetVehicle(EntityId)
     self.SaveLeftVehicle = function(coords, props, mileages)
         self.coords = coords
         self.mileage = math.floor(mileages * 100)
+        State:set('props', props, true)
         MySQL.update(Querys.saveLeftVehicle, { self.mileage, self.coords, json.encode(props), self.plate })
     end
 
     self.CoordsAndProps = function(coords, props)
         self.coords = coords
         SendClientVehicles()
+        State:set('props', props, true)
         return MySQL.update.await(Querys.updateTrailer, { self.coords, json.encode(props), self.plate })
     end
 
@@ -715,6 +717,9 @@ function Vehicles.SaveAllVehicles(delete)
             local props = Vehicles.GetClientProps(veh.EntityOwner, veh.NetId)
             local doors = GetVehicleDoorLockStatus(entity)
             veh.metadata.DoorStatus = doors
+            if not props then
+                props = Entity(entity).state.props
+            end
             MySQL.update(Querys.saveAllPropsCoords, { coords, json.encode(props), json.encode(veh.metadata), veh.plate })
             if delete then
                 DeleteEntity(entity)

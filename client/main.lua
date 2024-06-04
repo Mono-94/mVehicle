@@ -258,7 +258,6 @@ end
 
 RegisterNetEvent('mVehicles:RequestProps', function(requestId, entity)
     local props
-
     if entity then
         if NetworkDoesNetworkIdExist(entity) then
             entity = NetToVeh(entity)
@@ -367,8 +366,8 @@ end)
 
 
 function Vehicles.ItemCarKeysClient(action, plate)
-    lib.callback('mVehicle:GiveKey', false, function ()
-        
+    lib.callback('mVehicle:GiveKey', false, function()
+
     end, action, plate)
 end
 
