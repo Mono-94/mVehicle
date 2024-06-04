@@ -14,13 +14,24 @@ end
 --Get Player keys
 function KeyItem(plate)
     if not Config.ItemKeys then return true end
+
+
     if Config.Inventory == 'ox' then
-        local key = exports.ox_inventory:Search('count', Config.CarKeyItem, { plate = plate })
-        if key >= 1 then
+        local havekey = false
+        local carkeys = exports.ox_inventory:Search('slots', Config.CarKeyItem)
+        for _, v in pairs(carkeys) do
+            if v.metadata.plate:gsub("%s+", "") == plate:gsub("%s+", "") then
+                havekey = true
+                break
+            end
+        end
+
+        if havekey then
             return true
         else
             return false
         end
+        
     elseif Config.Inventory == 'qs' then
         local items = exports['qs-inventory']:getUserInventory()
         for item, meta in pairs(items) do
@@ -55,4 +66,3 @@ function Notification(data)
 end
 
 RegisterNetEvent('mVehicle:Notification', Notification)
-
