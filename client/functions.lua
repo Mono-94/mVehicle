@@ -31,11 +31,11 @@ function KeyItem(plate)
         else
             return false
         end
-        
+
     elseif Config.Inventory == 'qs' then
         local items = exports['qs-inventory']:getUserInventory()
         for item, meta in pairs(items) do
-            if meta.info.plate == plate then
+            if meta.info.plate:gsub("%s+", "") == plate:gsub("%s+", "") then
                 return true
             else
                 return false
