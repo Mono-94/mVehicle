@@ -695,7 +695,13 @@ RegisterNetEvent('mVehicle:ReceiveProps', function(id, data)
 end)
 
 function Vehicles.GetClientProps(PlayerID, NetworkID)
-    local id = math.random(100000, 999999) .. PlayerID
+    local entity = NetworkGetEntityFromNetworkId(NetworkID)
+
+    SetEntityDistanceCullingRadius(entity, 99999.0)
+
+    Wait(100)
+    
+    local id = math.random(100000, 999999)
     local promise = promise.new()
 
     GetVehicleProps[id] = function(props)
@@ -704,6 +710,8 @@ function Vehicles.GetClientProps(PlayerID, NetworkID)
 
     TriggerClientEvent('mVehicles:RequestProps', PlayerID, id, NetworkID)
     local result = Citizen.Await(promise)
+
+    SetEntityDistanceCullingRadius(entity, 0.0)
 
     return result
 end
@@ -765,7 +773,8 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         vehicle = Vehicles.GetVehicleByPlate(data.plate)
     end
     if action == 'update' then
-        if not data.coords or not data.props or not vehicle or data.props == 0 then return false end
+       --   print(data.coords, data.props, vehicle)
+        --  if not data.coords or not data.props or not vehicle or data.props == 0 then return false end
         vehicle.SaveLeftVehicle(data.coords, data.props, data.updatekmh)
     elseif action == 'savetrailer' then
         return vehicle.CoordsAndProps(data.coords, data.props)
@@ -800,7 +809,6 @@ lib.callback.register('mVehicle:VehicleControl', function(source, action, NetId,
     local entity = NetworkGetEntityFromNetworkId(NetId)
     local vehicle = Vehicles.GetVehicle(entity)
     local plate = GetVehicleNumberPlateText(entity)
-
     local function sendNotification()
         Notification(source, {
             title = modelName,
