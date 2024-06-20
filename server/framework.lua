@@ -133,7 +133,7 @@ local query = {
         setImpound ='UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
         retryImpound = 'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
         getMileage = 'SELECT `mileage` FROM owned_vehicles WHERE plate = ? LIMIT 1',
-        saveLeftVehicle = 'UPDATE owned_vehicles SET mileage = ?, coords = ?, vehicle = ? WHERE plate = ?',
+        saveLeftVehicle = 'UPDATE owned_vehicles SET mileage = ?, coords = ?, vehicle = ? WHERE plate = ? ',
         updateTrailer = 'UPDATE owned_vehicles SET coords = ?, vehicle = ? WHERE plate = ?',
         plateExist = 'SELECT 1 FROM `owned_vehicles` WHERE `plate` = ?',
         saveAllPropsCoords = 'UPDATE owned_vehicles SET coords = ?, vehicle = ?, metadata = ? WHERE plate = ?',

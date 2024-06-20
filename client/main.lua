@@ -9,7 +9,6 @@ RegisterNetEvent('mVehicle:ClientData', function(VehiclesData)
     ServerVehicles = VehiclesData
 end)
 
-
 local AtRound = function(valor, decimal)
     local start = 10 ^ (decimal or 0)
     return math.floor(valor * start + 0.5) / start
@@ -18,8 +17,6 @@ end
 local VehicleState = function(action, data, delay)
     return lib.callback.await('mVehicle:VehicleState', delay or false, action, data)
 end
-
-
 
 lib.onCache('seat', function(value)
     local Player = cache.ped
@@ -256,6 +253,7 @@ if Config.VehicleEngine.active then
     })
 end
 
+
 RegisterNetEvent('mVehicles:RequestProps', function(requestId, entity)
     local props
     if entity then
@@ -314,6 +312,7 @@ end
 
 lib.callback.register('mVehicle:GivecarData', function()
     local options = {}
+    
     for _, garage in ipairs(Config.GarageNames) do
         table.insert(options, { value = garage, label = garage })
     end
@@ -323,7 +322,6 @@ lib.callback.register('mVehicle:GivecarData', function()
         { value = false, label = locale('givecar_no') }
     }
 
-
     local input = lib.inputDialog('GiveCar', {
         { type = 'input',  label = locale('givecar_menu1'), required = true },
         { type = 'input',  label = locale('givecar_menu9'), description = locale('givecar_menu10'), required = false },
@@ -331,8 +329,8 @@ lib.callback.register('mVehicle:GivecarData', function()
         { type = 'select', label = locale('givecar_menu3'), default = false,                        icon = 'hashtag',   options = yesno },
         { type = 'date',   label = locale('givecar_menu4'), icon = { 'far', 'calendar' },           default = true,     format = "DD/MM/YYYY" },
         { type = 'time',   label = locale('givecar_menu5'), icon = { 'far', 'calendar' },           format = "24" },
-        { type = 'color',  label = locale('givecar_menu7'), format = 'hex',                         default = '#565755' },
-        { type = 'color',  label = locale('givecar_menu8'), format = 'hex',                         default = '#262626' },
+        { type = 'color',  label = locale('givecar_menu7'), format = 'hex',                         default = RandomColor() },
+        { type = 'color',  label = locale('givecar_menu8'), format = 'hex',                         default = RandomColor() },
 
     })
     if not input then return false end

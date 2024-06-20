@@ -200,6 +200,10 @@ function Vehicles.CreateVehicle(data, cb)
         data.vehicle.plate = data.plate
     end
 
+    if data.metadata.RoutingBucket then
+        SetEntityRoutingBucket(data.entity, data.metadata.RoutingBucket)
+    end
+
     if data.group then
         data.job = data.group
     end
@@ -504,18 +508,34 @@ function Vehicles.GetVehicle(EntityId)
         end
     end
 
+    --- Set Vehicle in Routing Bucket
+    ---@param bucket number
+    self.Private = function(bucket, coords)
+        if bucket then
+            SetEntityRoutingBucket(self.entity, bucket)
+            self.SetMetadata('RoutingBucket', bucket)
+            MySQL.update('UPDATE owned_vehicles SET private = 1, coords = ? WHERE plate = ?', { json.encode(coords), self.plate })
+        else
+            SetEntityRoutingBucket(self.entity, 0)
+            self.DeleteMetadata('RoutingBucket')
+            MySQL.update('UPDATE owned_vehicles SET private = 0 WHERE plate = ?', { self.plate })
+        end
+    end
+
     -- Save Coords
     self.SaveLeftVehicle = function(coords, props, mileages)
+        local inBucket = self.GetMetadata('RoutingBucket')
+        State:set('props', props, true)
+        if inBucket then return end
         self.coords = coords
         self.mileage = math.floor(mileages * 100)
-        State:set('props', props, true)
         MySQL.update(Querys.saveLeftVehicle, { self.mileage, self.coords, json.encode(props), self.plate })
     end
 
     self.CoordsAndProps = function(coords, props)
+        State:set('props', props, true)
         self.coords = coords
         SendClientVehicles()
-        State:set('props', props, true)
         return MySQL.update.await(Querys.updateTrailer, { self.coords, json.encode(props), self.plate })
     end
 
@@ -696,19 +716,18 @@ end)
 
 function Vehicles.GetClientProps(PlayerID, NetworkID)
     local entity = NetworkGetEntityFromNetworkId(NetworkID)
-
     SetEntityDistanceCullingRadius(entity, 99999.0)
 
     Wait(100)
-    
-    local id = math.random(100000, 999999)
+
     local promise = promise.new()
 
-    GetVehicleProps[id] = function(props)
+    GetVehicleProps[entity] = function(props)
         promise:resolve(props)
     end
 
-    TriggerClientEvent('mVehicles:RequestProps', PlayerID, id, NetworkID)
+    TriggerClientEvent('mVehicles:RequestProps', PlayerID, entity, NetworkID)
+
     local result = Citizen.Await(promise)
 
     SetEntityDistanceCullingRadius(entity, 0.0)
@@ -720,19 +739,26 @@ end
 ---@param delete boolean Delete Entitys?
 function Vehicles.SaveAllVehicles(delete)
     for entity, veh in pairs(Vehicles.Vehicles) do
-        if DoesEntityExist(entity) then
+        if DoesEntityExist(entity) and not veh.private then
+           
             local coords = json.encode(GetCoords(false, entity))
+
             local props = Vehicles.GetClientProps(veh.EntityOwner, veh.NetId)
+
             local doors = GetVehicleDoorLockStatus(entity)
             veh.metadata.DoorStatus = doors
+
             if not props then
                 props = Entity(entity).state.props
             end
+
             MySQL.update(Querys.saveAllPropsCoords, { coords, json.encode(props), json.encode(veh.metadata), veh.plate })
+
             if delete then
                 DeleteEntity(entity)
                 Vehicles.Vehicles[entity] = nil
             end
+            Wait(50)
         end
     end
 end
@@ -773,8 +799,6 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         vehicle = Vehicles.GetVehicleByPlate(data.plate)
     end
     if action == 'update' then
-       --   print(data.coords, data.props, vehicle)
-        --  if not data.coords or not data.props or not vehicle or data.props == 0 then return false end
         vehicle.SaveLeftVehicle(data.coords, data.props, data.updatekmh)
     elseif action == 'savetrailer' then
         return vehicle.CoordsAndProps(data.coords, data.props)

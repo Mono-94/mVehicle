@@ -5,15 +5,15 @@ AddEventHandler('entityCreated', function(entity)
 
     if entityType == 2 then
         local engine = GetIsVehicleEngineRunning(entity)
+        local ped = GetPedInVehicleSeat(entity, -1)
 
-
-        if engine then
+        if engine and ped > 0 then
             if math.random() <= 0.1 then
                 SetVehicleDoorsLocked(entity, 2)
             end
         end
 
-        if not engine then
+        if not engine and ped > 0 then
             SetVehicleDoorsLocked(entity, 2)
         end
     end
@@ -31,16 +31,21 @@ local vType = function(type)
 end
 
 -- Vehicle deleted? send to impound
-if Config.ImpoundVehicledelete then
-    AddEventHandler('entityRemoved', function(entity)
+
+AddEventHandler('entityRemoved', function(entity)
+    if Config.ImpoundVehicledelete then
         local vehicle = Vehicles.GetVehicle(entity)
         if vehicle then
             if DoesEntityExist(vehicle.entity) then
-                vehicle.ImpoundVehicle(vType(vehicle.type), Config.DefaultImpound.price, Config.DefaultImpound.note)
+                local isInBucket = vehicle.GetMetadata('RoutingBucket')
+                if not isInBucket then
+                    vehicle.ImpoundVehicle(vType(vehicle.type), Config.DefaultImpound.price, Config.DefaultImpound.note)
+                end
             end
         end
-    end)
-end
+    end
+end)
+
 
 if GetConvar("mVehicle:Persistent", "false") == 'true' then
     -- on Resource
@@ -50,12 +55,10 @@ if GetConvar("mVehicle:Persistent", "false") == 'true' then
         Vehicles.SpawnVehicles()
     end)
 
-    --
     AddEventHandler('onResourceStop', function(name)
         if name ~= GetCurrentResourceName() then return end
         Vehicles.SaveAllVehicles(true)
     end)
-
 
     -- TxAdmin
     AddEventHandler("txAdmin:events:serverShuttingDown", function()
