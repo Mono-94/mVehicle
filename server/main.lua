@@ -283,15 +283,17 @@ function Vehicles.SetCarOwner(src, entity)
     Vehicles.CreateVehicle(data)
 end
 
-function Vehicles.GetControlVehicle(src, entity)
+function Vehicles.GetControlVehicle(src, entity, identifier)
     if not DoesEntityExist(entity) then
         entity = NetworkGetEntityFromNetworkId(entity)
         if not DoesEntityExist(entity) then
             return lib.print.error('Entity Does not exist')
         end
     end
-    local data       = {}
-    local identifier = Identifier(src)
+    local data = {}
+    if not identifier then
+        identifier = Identifier(src)
+    end
     data.entity      = entity
     data.EntityOwner = NetworkGetEntityOwner(data.entity)
     data.NetId       = NetworkGetNetworkIdFromEntity(data.entity)
@@ -514,7 +516,8 @@ function Vehicles.GetVehicle(EntityId)
         if bucket then
             SetEntityRoutingBucket(self.entity, bucket)
             self.SetMetadata('RoutingBucket', bucket)
-            MySQL.update('UPDATE owned_vehicles SET private = 1, coords = ? WHERE plate = ?', { json.encode(coords), self.plate })
+            MySQL.update('UPDATE owned_vehicles SET private = 1, coords = ? WHERE plate = ?',
+                { json.encode(coords), self.plate })
         else
             SetEntityRoutingBucket(self.entity, 0)
             self.DeleteMetadata('RoutingBucket')
@@ -740,7 +743,6 @@ end
 function Vehicles.SaveAllVehicles(delete)
     for entity, veh in pairs(Vehicles.Vehicles) do
         if DoesEntityExist(entity) and not veh.private then
-           
             local coords = json.encode(GetCoords(false, entity))
 
             local props = Vehicles.GetClientProps(veh.EntityOwner, veh.NetId)
