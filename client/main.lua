@@ -312,7 +312,7 @@ end
 
 lib.callback.register('mVehicle:GivecarData', function()
     local options = {}
-    
+
     for _, garage in ipairs(Config.GarageNames) do
         table.insert(options, { value = garage, label = garage })
     end
@@ -325,9 +325,9 @@ lib.callback.register('mVehicle:GivecarData', function()
     local input = lib.inputDialog('GiveCar', {
         { type = 'input',  label = locale('givecar_menu1'), required = true },
         { type = 'input',  label = locale('givecar_menu9'), description = locale('givecar_menu10'), required = false },
-        { type = 'select', label = locale('givecar_menu2'), default = Config.GarageNames[1],        icon = 'hashtag',   options = options },
-        { type = 'select', label = locale('givecar_menu3'), default = false,                        icon = 'hashtag',   options = yesno },
-        { type = 'date',   label = locale('givecar_menu4'), icon = { 'far', 'calendar' },           default = true,     format = "DD/MM/YYYY" },
+        { type = 'select', label = locale('givecar_menu2'), default = Config.GarageNames[1],        icon = 'hashtag',       options = options },
+        { type = 'select', label = locale('givecar_menu3'), default = false,                        icon = 'hashtag',       options = yesno },
+        { type = 'date',   label = locale('givecar_menu4'), icon = { 'far', 'calendar' },           default = true,         format = "DD/MM/YYYY" },
         { type = 'time',   label = locale('givecar_menu5'), icon = { 'far', 'calendar' },           format = "24" },
         { type = 'color',  label = locale('givecar_menu7'), format = 'hex',                         default = RandomColor() },
         { type = 'color',  label = locale('givecar_menu8'), format = 'hex',                         default = RandomColor() },
@@ -494,7 +494,8 @@ function Vehicles.VehickeKeysMenu(plate, cb)
                                 iconColor = '#d97575',
                                 onSelect = function()
                                     keys[k] = nil
-                                    VehicleState('deletekey', { keys = keys, plate = row.plate })
+                                    VehicleState('deletekey', { keys = keys, plate = row.plate, identifier = k })
+
                                     Vehicles.VehickeKeysMenu()
                                 end
                             })

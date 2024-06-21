@@ -408,9 +408,9 @@ function Vehicles.GetVehicle(EntityId)
     end
 
     ---RemoveKey
-    self.RemoveKey = function(src)
-        local identifier = Identifier(src)
-        if identifier and self.keys[identifier] then
+    self.RemoveKey = function(identifier)
+        -- local identifier = Identifier(src)
+        if self.keys[identifier] then
             self.keys[identifier] = nil
             State:set("Keys", self.keys, true)
             MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plate })
@@ -835,9 +835,8 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
             end
         end
     elseif action == 'deletekey' then
-        if vehicle then
-            local State = Entity(vehicle.entity).state
-            State:set('Keys', data.keys, true)
+        if vehicle and data.identifier then
+            vehicle.RemoveKey(data.identifier)
         else
             MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
         end
