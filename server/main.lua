@@ -445,17 +445,32 @@ function Vehicles.GetVehicle(EntityId)
     ---StoreVehicle
     ---@param parking string
     ---@return boolean
-    self.StoreVehicle = function(parking)
-        local mods = Vehicles.GetClientProps(self.EntityOwner, self.NetId)
+    self.StoreVehicle = function(parking, mods)
         local store = false
-        local affectedRows = MySQL.update.await(Querys.storeGarage,
-            { parking, json.encode(mods), json.encode(self.metadata), self.plate })
-        if affectedRows > 0 then
-            Vehicles.Vehicles[EntityId] = nil
-            Entity(EntityId).state.FadeEntity = { action = 'delete' }
-            self = nil
-            store = true
-            SendClientVehicles()
+        if not mods then
+            mods = Vehicles.GetClientProps(self.EntityOwner, self.NetId)
+            mods = json.encode(mods)
+        end
+        if not mods then
+            local affectedRows = MySQL.update.await(Querys.storeGarageNoProps,
+                { parking, json.encode(self.metadata), self.plate })
+            if affectedRows > 0 then
+                Entity(EntityId).state.FadeEntity = { action = 'delete' }
+                Vehicles.Vehicles[EntityId] = nil
+                self = nil
+                store = true
+                SendClientVehicles()
+            end
+        else
+            local affectedRows = MySQL.update.await(Querys.storeGarage,
+                { parking, mods, json.encode(self.metadata), self.plate })
+            if affectedRows > 0 then
+                Entity(EntityId).state.FadeEntity = { action = 'delete' }
+                Vehicles.Vehicles[EntityId] = nil
+                self = nil
+                store = true
+                SendClientVehicles()
+            end
         end
         return store
     end
@@ -516,11 +531,13 @@ function Vehicles.GetVehicle(EntityId)
         if bucket then
             SetEntityRoutingBucket(self.entity, bucket)
             self.SetMetadata('RoutingBucket', bucket)
+            self.private = 1
             MySQL.update('UPDATE owned_vehicles SET private = 1, coords = ? WHERE plate = ?',
                 { json.encode(coords), self.plate })
         else
             SetEntityRoutingBucket(self.entity, 0)
             self.DeleteMetadata('RoutingBucket')
+            self.private = nil
             MySQL.update('UPDATE owned_vehicles SET private = 0 WHERE plate = ?', { self.plate })
         end
     end

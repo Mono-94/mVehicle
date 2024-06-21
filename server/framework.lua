@@ -129,6 +129,7 @@ local query = {
         saveMetadata = 'UPDATE owned_vehicles SET metadata = ? WHERE plate = ?',
         saveProps = 'UPDATE owned_vehicles SET vehicle = ? WHERE plate = ?',
         storeGarage = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
+        storeGarageNoProps = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, metadata = ?  WHERE `plate` = ?',
         retryGarage = 'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE `plate` = ?',
         setImpound ='UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
         retryImpound = 'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
@@ -155,6 +156,7 @@ local query = {
         saveProps = 'UPDATE vehicles SET vehicle = ? WHERE plate = ?',
         storeGarage =
         'UPDATE `vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, data = ?  WHERE `plate` = ?',
+        storeGarageNoProps = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, data = ?  WHERE `plate` = ?',
         retryGarage = 'UPDATE `vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE `plate` = ?',
         setImpound =
         'UPDATE `vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, data = ? WHERE `plate` = ?',
@@ -184,6 +186,7 @@ local query = {
         saveMetadata = 'UPDATE player_vehicles SET metadata = ? WHERE plate = ?',
         saveProps = 'UPDATE player_vehicles SET vehicle = ? WHERE plate = ?',
         storeGarage = 'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
+        storeGarageNoProps = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, metadata = ?  WHERE `plate` = ?',
         retryGarage = 'UPDATE `player_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE `plate` = ?',
         setImpound = 'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
         retryImpound = 'UPDATE `player_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
