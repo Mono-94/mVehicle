@@ -225,12 +225,24 @@ function Vehicles.CreateVehicle(data, cb)
     State:set('props', data.vehicle, true)
     Vehicles.Vehicles[data.entity] = data
 
+    SendClientVehicles()
+
     if data.intocar then
         local ped = GetPlayerPed(data.intocar)
         TaskWarpPedIntoVehicle(ped, data.entity, -1)
     end
 
-    SendClientVehicles()
+    if data.metadata and data.metadata.fakeplate then
+        while GetVehicleNumberPlateText(data.entity) ~= data.metadata.fakeplate do
+            SetVehicleNumberPlateText(data.entity, data.metadata.fakeplate)
+            Wait(0)
+        end
+    else
+        while GetVehicleNumberPlateText(data.entity) ~= data.plate do
+            SetVehicleNumberPlateText(data.entity, data.plate)
+            Wait(0)
+        end
+    end
 
     if cb then
         cb(data, Vehicles.GetVehicle(data.entity))
@@ -527,13 +539,13 @@ function Vehicles.GetVehicle(EntityId)
 
     --- Set Vehicle in Routing Bucket
     ---@param bucket number
-    self.Private = function(bucket, coords)
+    self.Private = function(bucket, coords, parking)
         if bucket then
             SetEntityRoutingBucket(self.entity, bucket)
             self.SetMetadata('RoutingBucket', bucket)
             self.private = 1
-            MySQL.update('UPDATE owned_vehicles SET private = 1, coords = ? WHERE plate = ?',
-                { json.encode(coords), self.plate })
+            MySQL.update('UPDATE owned_vehicles SET private = 1, coords = ?, parking = ?  WHERE plate = ?',
+                { json.encode(coords), parking, self.plate })
         else
             SetEntityRoutingBucket(self.entity, 0)
             self.DeleteMetadata('RoutingBucket')
@@ -818,7 +830,9 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         vehicle = Vehicles.GetVehicleByPlate(data.plate)
     end
     if action == 'update' then
-        vehicle.SaveLeftVehicle(data.coords, data.props, data.updatekmh)
+        if vehicle then
+            vehicle.SaveLeftVehicle(data.coords, data.props, data.updatekmh)
+        end
     elseif action == 'savetrailer' then
         return vehicle.CoordsAndProps(data.coords, data.props)
     elseif action == 'addkey' then
