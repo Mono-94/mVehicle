@@ -399,6 +399,11 @@ function Vehicles.VehickeKeysMenu(plate, cb)
         local row = data[i]
         local props = json.decode(row.vehicle)
         row.vehlabel = VehicleLabel(props.model)
+        local metadata = json.decode(row.metadata)
+
+        if metadata and metadata.vehname then
+            row.vehlabel = metadata.vehname
+        end
         if plate and row.plate == plate then
             table.insert(VehicleSelected, {
                 title = locale('carkey_menu3'),
