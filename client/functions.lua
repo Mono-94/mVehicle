@@ -1,18 +1,20 @@
 -- Get label from vehicle model like 'Karin Sulta'
 function VehicleLabel(model)
     if not IsModelValid(model) then
-        lib.print.error(model .. ' - Model invalid')
-        return model
-    end
-    local makeName = GetMakeNameFromVehicleModel(model)
-
-    if not makeName then
-        lib.print.error(model .. ' - No Make Name')
+        lib.print.warn(model .. ' - Model invalid')
         return 'Unknown'
     end
 
+    local makeName = GetMakeNameFromVehicleModel(model)
+
+    if not makeName then
+        lib.print.warn(model .. ' - No Make Name')
+        return 'Unknown'
+    end
     makeName = makeName:sub(1, 1):upper() .. makeName:sub(2):lower()
+
     local displayName = GetDisplayNameFromVehicleModel(model)
+
     displayName = displayName:sub(1, 1):upper() .. displayName:sub(2):lower()
     return makeName .. ' ' .. displayName
 end

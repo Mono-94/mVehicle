@@ -232,17 +232,17 @@ function Vehicles.CreateVehicle(data, cb)
         TaskWarpPedIntoVehicle(ped, data.entity, -1)
     end
 
-    if data.metadata and data.metadata.fakeplate then
-        while GetVehicleNumberPlateText(data.entity) ~= data.metadata.fakeplate do
-            SetVehicleNumberPlateText(data.entity, data.metadata.fakeplate)
-            Wait(0)
-        end
-    else
-        while GetVehicleNumberPlateText(data.entity) ~= data.plate do
-            SetVehicleNumberPlateText(data.entity, data.plate)
-            Wait(0)
-        end
-    end
+    -- if data.metadata and data.metadata.fakeplate then
+    --     while GetVehicleNumberPlateText(data.entity) ~= data.metadata.fakeplate do
+    --         SetVehicleNumberPlateText(data.entity, data.metadata.fakeplate)
+    --         Wait(0)
+    --     end
+    -- else
+    --   while GetVehicleNumberPlateText(data.entity) ~= data.plate do
+    SetVehicleNumberPlateText(data.entity, data.vehicle.plate)
+    --        Wait(0)
+    --     end
+    -- end
 
     if cb then
         cb(data, Vehicles.GetVehicle(data.entity))
