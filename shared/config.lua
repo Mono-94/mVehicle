@@ -2,11 +2,11 @@ Config = {}
 
 Config.Debug = false
 
-Config.Framework = 'esx'     -- esx, ox, standalone, qbox
+Config.Framework = 'esx'    -- esx, standalone, qbox 50%
 
-Config.Inventory = 'ox'      -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
+Config.Inventory = 'ox'     -- ox_inventory = 'ox' | qs-inventory = 'qs'  -- To give carkey item
 
-Config.TargetTrailer = true -- manage tr2 trailer
+Config.TargetTrailer = false -- manage tr2 trailer
 
 Config.VehicleTypes = {
     ['car'] = { 'automobile', 'bicycle', 'bike', 'quadbike', 'trailer', 'amphibious_quadbike', 'amphibious_automobile' },
@@ -91,4 +91,3 @@ Config.HotWireItem = {
         --print(playerId, vehicleEntity, coords)
     end
 }
-

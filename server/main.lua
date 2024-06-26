@@ -223,6 +223,7 @@ function Vehicles.CreateVehicle(data, cb)
     State:set('Owner', data.owner, true)
     State:set('job', data.job, true)
     State:set('props', data.vehicle, true)
+
     Vehicles.Vehicles[data.entity] = data
 
     SendClientVehicles()
@@ -232,17 +233,8 @@ function Vehicles.CreateVehicle(data, cb)
         TaskWarpPedIntoVehicle(ped, data.entity, -1)
     end
 
-    -- if data.metadata and data.metadata.fakeplate then
-    --     while GetVehicleNumberPlateText(data.entity) ~= data.metadata.fakeplate do
-    --         SetVehicleNumberPlateText(data.entity, data.metadata.fakeplate)
-    --         Wait(0)
-    --     end
-    -- else
-    --   while GetVehicleNumberPlateText(data.entity) ~= data.plate do
+
     SetVehicleNumberPlateText(data.entity, data.vehicle.plate)
-    --        Wait(0)
-    --     end
-    -- end
 
     if cb then
         cb(data, Vehicles.GetVehicle(data.entity))
@@ -459,11 +451,14 @@ function Vehicles.GetVehicle(EntityId)
     ---@return boolean
     self.StoreVehicle = function(parking, mods)
         local store = false
+        print(1, mods)
         if not mods then
             mods = Vehicles.GetClientProps(self.EntityOwner, self.NetId)
             mods = json.encode(mods)
+            print(2, mods)
         end
         if not mods then
+            print(3, mods)
             local affectedRows = MySQL.update.await(Querys.storeGarageNoProps,
                 { parking, json.encode(self.metadata), self.plate })
             if affectedRows > 0 then
@@ -474,6 +469,7 @@ function Vehicles.GetVehicle(EntityId)
                 SendClientVehicles()
             end
         else
+            print(4, mods)
             local affectedRows = MySQL.update.await(Querys.storeGarage,
                 { parking, mods, json.encode(self.metadata), self.plate })
             if affectedRows > 0 then
@@ -780,10 +776,12 @@ function Vehicles.SaveAllVehicles(delete)
             veh.metadata.DoorStatus = doors
 
             if not props then
-                props = Entity(entity).state.props
+                MySQL.update(Querys.saveAllCoords, { coords, json.encode(veh.metadata), veh.plate })
+            else
+                MySQL.update(Querys.saveAllPropsCoords,
+                    { coords, json.encode(props), json.encode(veh.metadata), veh.plate })
             end
 
-            MySQL.update(Querys.saveAllPropsCoords, { coords, json.encode(props), json.encode(veh.metadata), veh.plate })
 
             if delete then
                 DeleteEntity(entity)
