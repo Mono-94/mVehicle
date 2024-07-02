@@ -1,15 +1,9 @@
 Vehicles = {}
-Vehicles.Vehicles = {}
-local clientEvent = TriggerClientEvent
-local ox_inv = exports.ox_inventory
 
-local SendClientVehicles = function()
-    local SendClient = {}
-    for _, vehicle in pairs(Vehicles.Vehicles) do
-        SendClient[vehicle.plate] = vehicle
-    end
-    clientEvent('mVehicle:ClientData', -1, SendClient)
-end
+Vehicles.Vehicles = {}
+
+
+local ox_inv = exports.ox_inventory
 
 local PlateCron = {}
 
@@ -25,19 +19,18 @@ local function DeleteTemporary(plate, hour, min)
             DeleteEntity(vehicle.entity)
         end
 
+        PlateCron[plate] = false
+
+        MySQL.execute(Querys.deleteByPlate, { plate })
+
         if Vehicles.Vehicles[vehicle.entity] then
             Vehicles.Vehicles[vehicle.entity] = nil
         end
-        PlateCron[plate] = false
-        MySQL.execute(Querys.deleteByPlate, { plate })
         task:stop()
     end, { debug = Config.Debug })
 
     PlateCron[plate] = true
 end
-
-
-
 
 local function VehicleType(model)
     local tempVehicle = CreateVehicle(model, 0, 0, 0, 0, true, true)
@@ -223,10 +216,11 @@ function Vehicles.CreateVehicle(data, cb)
     State:set('Owner', data.owner, true)
     State:set('job', data.job, true)
     State:set('props', data.vehicle, true)
+    State:set('mileage', data.mileage, true)
 
     Vehicles.Vehicles[data.entity] = data
 
-    SendClientVehicles()
+    
 
     if data.intocar then
         local ped = GetPlayerPed(data.intocar)
@@ -350,7 +344,7 @@ function Vehicles.GetVehicle(EntityId)
     self.SaveMetaData = function()
         MySQL.update(Querys.saveMetadata, { json.encode(self.metadata), self.plate })
         State:set("metadata", self.metadata, true)
-        SendClientVehicles()
+        --  SendClientVehicles()
     end
 
     --- SetMetadata
@@ -441,7 +435,7 @@ function Vehicles.GetVehicle(EntityId)
             MySQL.execute(Querys.deleteByPlate, { self.plate })
         end
         Vehicles.Vehicles[EntityId] = nil
-        SendClientVehicles()
+        
         self = nil
         return self
     end
@@ -451,14 +445,12 @@ function Vehicles.GetVehicle(EntityId)
     ---@return boolean
     self.StoreVehicle = function(parking, mods)
         local store = false
-        print(1, mods)
         if not mods then
             mods = Vehicles.GetClientProps(self.EntityOwner, self.NetId)
             mods = json.encode(mods)
             print(2, mods)
         end
         if not mods then
-            print(3, mods)
             local affectedRows = MySQL.update.await(Querys.storeGarageNoProps,
                 { parking, json.encode(self.metadata), self.plate })
             if affectedRows > 0 then
@@ -466,10 +458,8 @@ function Vehicles.GetVehicle(EntityId)
                 Vehicles.Vehicles[EntityId] = nil
                 self = nil
                 store = true
-                SendClientVehicles()
             end
         else
-            print(4, mods)
             local affectedRows = MySQL.update.await(Querys.storeGarage,
                 { parking, mods, json.encode(self.metadata), self.plate })
             if affectedRows > 0 then
@@ -477,7 +467,6 @@ function Vehicles.GetVehicle(EntityId)
                 Vehicles.Vehicles[EntityId] = nil
                 self = nil
                 store = true
-                SendClientVehicles()
             end
         end
         return store
@@ -498,7 +487,7 @@ function Vehicles.GetVehicle(EntityId)
             Entity(EntityId).state.FadeEntity = { action = 'delete' }
         end
 
-        SendClientVehicles()
+        --  SendClientVehicles()
         Vehicles.Vehicles[EntityId] = nil
         self = nil
     end
@@ -508,7 +497,7 @@ function Vehicles.GetVehicle(EntityId)
     ---@return boolean
     self.RetryVehicle = function(coords)
         MySQL.update(Querys.retryGarage, { self.parking, json.encode(coords), self.plate })
-        SendClientVehicles()
+        
     end
 
     ---RetryVehicle
@@ -557,13 +546,14 @@ function Vehicles.GetVehicle(EntityId)
         if inBucket then return end
         self.coords = coords
         self.mileage = math.floor(mileages * 100)
+        print(mileages)
         MySQL.update(Querys.saveLeftVehicle, { self.mileage, self.coords, json.encode(props), self.plate })
     end
 
     self.CoordsAndProps = function(coords, props)
         State:set('props', props, true)
         self.coords = coords
-        SendClientVehicles()
+        --  SendClientVehicles()
         return MySQL.update.await(Querys.updateTrailer, { self.coords, json.encode(props), self.plate })
     end
 
@@ -797,10 +787,13 @@ end
 ---@param action string
 ---@param plate string
 function Vehicles.ItemCarKeys(src, action, plate)
+    local cleanedPlate = plate:gsub("%s+", "")
+
     local metadata = {
-        description = locale('key_string', plate),
-        plate = plate
+        description = locale('key_string', cleanedPlate),
+        plate = cleanedPlate
     }
+    
     if action == 'add' then
         if Config.Inventory == 'ox' then
             ox_inv:AddItem(src, Config.CarKeyItem, 1, metadata)
@@ -827,9 +820,12 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
     if data then
         vehicle = Vehicles.GetVehicleByPlate(data.plate)
     end
+
     if action == 'update' then
         if vehicle then
-            vehicle.SaveLeftVehicle(data.coords, data.props, data.updatekmh)
+            vehicle.SaveLeftVehicle(data.coords, data.props, data.mileage)
+        else
+            MySQL.update(Querys.saveLeftVehicle, { math.floor(data.mileage * 100), data.coords, json.encode(data.props), data.plate })
         end
     elseif action == 'savetrailer' then
         return vehicle.CoordsAndProps(data.coords, data.props)
@@ -855,6 +851,14 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
     elseif action == 'getkeys' then
         local identifier = Identifier(source)
         return MySQL.query.await(Querys.getKeys, { identifier })
+    elseif action == 'getVeh' then
+        local vehicle = Vehicles.GetVehicleByPlateDB(data)
+      
+        if vehicle then
+            return { vehicle = true, mileage = vehicle.mileage }
+        else
+            return false
+        end
     end
 end)
 

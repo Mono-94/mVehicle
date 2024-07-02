@@ -2,12 +2,8 @@ local data = {}
 local playerPos
 local seat = nil
 local saveKHM = false
-local ServerVehicles = {}
-Vehicles = {}
 
-RegisterNetEvent('mVehicle:ClientData', function(VehiclesData)
-    ServerVehicles = VehiclesData
-end)
+Vehicles = {}
 
 local AtRound = function(valor, decimal)
     local start = 10 ^ (decimal or 0)
@@ -18,6 +14,7 @@ local VehicleState = function(action, data, delay)
     return lib.callback.await('mVehicle:VehicleState', delay or false, action, data)
 end
 
+
 lib.onCache('seat', function(value)
     local Player = cache.ped
     local vehicle = cache.vehicle
@@ -26,8 +23,12 @@ lib.onCache('seat', function(value)
     if seat == -1 then
         saveKHM = true
         data.plate = GetVehicleNumberPlateText(vehicle)
-        if ServerVehicles[data.plate] then
-            data.updatekmh = ServerVehicles[data.plate].mileage / 100
+        local vehicleDb = VehicleState('getVeh', data.plate)
+
+        if vehicleDb and vehicleDb.vehicle then
+            print(vehicleDb.vehicle,vehicleDb.mileage)
+
+            data.mileage = vehicleDb.mileage / 100
             while true do
                 if seat == -1 and saveKHM then
                     if IsVehicleOnAllWheels(vehicle) then
@@ -35,8 +36,8 @@ lib.onCache('seat', function(value)
                         if oldPos then
                             local distance = #(oldPos - playerPos)
                             if distance >= 10 then
-                                data.updatekmh = data.updatekmh + distance / 1000
-                                data.updatekmh = AtRound(data.updatekmh, 2)
+                                data.mileage = data.mileage + distance / 1000
+                                data.mileage = AtRound(data.mileage, 2)
                                 oldPos = playerPos
                             end
                         else

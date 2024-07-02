@@ -2,8 +2,6 @@ Core = nil
 
 if Config.Framework == "esx" then
     Core = exports["es_extended"]:getSharedObject()
-elseif Config.Framework == "LG" then
-    Core = exports.LegacyFramework:ReturnFramework()
 end
 
 function Notification(src, data)
@@ -33,9 +31,6 @@ function Identifier(src)
         end
     elseif Config.Framework == "standalone" then
         return GetPlayerIdentifierByType(src, 'license')
-    elseif Config.Framework == "LG" then
-        local playerData = Core.SvPlayerFunctions.GetPlayerData(src)[1]
-        return playerData?.charName
     end
     return false
 end
@@ -55,14 +50,6 @@ function GetName(src)
         end
     elseif Config.Framework == "standalone" then
         return GetPlayerName(src)
-    elseif Config.Framework == "LG" then
-        local Data = Core.SvPlayerFunctions.GetPlayerData(src)
-        local PlayerData = Data[1]
-        if Data and PlayerData then
-            local firstname = PlayerData.firstName
-            local lastname = PlayerData.lastName
-            return firstname .. ' ' .. lastname
-        end
     end
     return false
 end
@@ -74,8 +61,6 @@ function OnlinePlayers()
         return Core.Functions.GetPlayers()
     elseif Config.Framework == "standalone" then
         return GetPlayers()
-    elseif Config.Framework == "LG" then
-        return Core.SvPlayerFunctions.GetAllPlayers()
     end
 end
 
@@ -91,25 +76,34 @@ end
 local query = {
     ['esx'] = {
         getVehicleById = 'SELECT * FROM `owned_vehicles` WHERE `id` = ? LIMIT 1',
-        getVehicleByPlate = 'SELECT * FROM `owned_vehicles` WHERE `plate` = ? LIMIT 1',
-        getVehicleByPlateOrFakeplate = "SELECT * FROM `owned_vehicles` WHERE `plate` = ? OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = ? LIMIT 1",
-        setOwner ='INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        deleteByPlate = 'DELETE FROM owned_vehicles WHERE plate = ?',
-        deleteById = 'DELETE FROM owned_vehicles WHERE id = ?',
-        saveMetadata = 'UPDATE owned_vehicles SET metadata = ? WHERE plate = ?',
-        saveProps = 'UPDATE owned_vehicles SET vehicle = ? WHERE plate = ?',
-        storeGarage = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
-        storeGarageNoProps = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, metadata = ?  WHERE `plate` = ?',
-        retryGarage = 'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE `plate` = ?',
-        setImpound ='UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
-        retryImpound = 'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
-        getMileage = 'SELECT `mileage` FROM owned_vehicles WHERE plate = ? LIMIT 1',
-        saveLeftVehicle = 'UPDATE owned_vehicles SET mileage = ?, coords = ?, vehicle = ? WHERE plate = ? ',
-        updateTrailer = 'UPDATE owned_vehicles SET coords = ?, vehicle = ? WHERE plate = ?',
-        plateExist = 'SELECT 1 FROM `owned_vehicles` WHERE `plate` = ?',
-        saveAllPropsCoords = 'UPDATE owned_vehicles SET coords = ?, vehicle = ?, metadata = ? WHERE plate = ?',
-        saveAllCoords = 'UPDATE owned_vehicles SET coords = ?, metadata = ? WHERE plate = ?',
-        saveKeys = 'UPDATE owned_vehicles SET `keys` = ? WHERE plate = ?',
+        getVehicleByPlate = 'SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) LIMIT 1',
+        getVehicleByPlateOrFakeplate =
+        "SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = TRIM(?) LIMIT 1",
+        setOwner =
+        'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        deleteByPlate = 'DELETE FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?)',
+        deleteById = 'DELETE FROM `owned_vehicles` WHERE `id` = ?',
+        saveMetadata = 'UPDATE `owned_vehicles` SET `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        saveProps = 'UPDATE `owned_vehicles` SET `vehicle` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        storeGarage =
+        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1, `coords` = NULL, `vehicle` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        storeGarageNoProps =
+        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1, `coords` = NULL, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        retryGarage =
+        'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE TRIM(`plate`) = TRIM(?)',
+        setImpound =
+        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        retryImpound =
+        'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, `pound` = NULL WHERE TRIM(`plate`) = TRIM(?)',
+        getMileage = 'SELECT `mileage` FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) LIMIT 1',
+        saveLeftVehicle =
+        'UPDATE `owned_vehicles` SET `mileage` = ?, `coords` = ?, `vehicle` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        updateTrailer = 'UPDATE `owned_vehicles` SET `coords` = ?, `vehicle` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        plateExist = 'SELECT 1 FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?)',
+        saveAllPropsCoords =
+        'UPDATE `owned_vehicles` SET `coords` = ?, `vehicle` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        saveAllCoords = 'UPDATE `owned_vehicles` SET `coords` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        saveKeys = 'UPDATE `owned_vehicles` SET `keys` = ? WHERE TRIM(`plate`) = TRIM(?)',
         getVehiclesbyOwner = "SELECT * FROM `owned_vehicles` WHERE `owner` = ?",
         getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `owned_vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?",
         selectAll = 'SELECT * FROM `owned_vehicles`',
@@ -119,17 +113,23 @@ local query = {
     ['qbox'] = {
         getVehicleById = 'SELECT * FROM `player_vehicles` WHERE `id` = ? LIMIT 1',
         getVehicleByPlate = 'SELECT * FROM `player_vehicles` WHERE `plate` = ? LIMIT 1',
-        getVehicleByPlateOrFakeplate = "SELECT * FROM `player_vehicles` WHERE `plate` = ? OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = ? LIMIT 1",
-        setOwner = 'INSERT INTO `player_vehicles` (license, plate, vehicle, type, job, coords, metadata, garage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        getVehicleByPlateOrFakeplate =
+        "SELECT * FROM `player_vehicles` WHERE `plate` = ? OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = ? LIMIT 1",
+        setOwner =
+        'INSERT INTO `player_vehicles` (license, plate, vehicle, type, job, coords, metadata, garage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         deleteByPlate = 'DELETE FROM player_vehicles WHERE plate = ?',
         deleteById = 'DELETE FROM player_vehicles WHERE id = ?',
         saveMetadata = 'UPDATE player_vehicles SET metadata = ? WHERE plate = ?',
         saveProps = 'UPDATE player_vehicles SET vehicle = ? WHERE plate = ?',
-        storeGarage = 'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
-        storeGarageNoProps = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, metadata = ?  WHERE `plate` = ?',
+        storeGarage =
+        'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
+        storeGarageNoProps =
+        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, metadata = ?  WHERE `plate` = ?',
         retryGarage = 'UPDATE `player_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE `plate` = ?',
-        setImpound = 'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
-        retryImpound = 'UPDATE `player_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
+        setImpound =
+        'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
+        retryImpound =
+        'UPDATE `player_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
         getMileage = 'SELECT `mileage` FROM player_vehicles WHERE plate = ? LIMIT 1',
         saveLeftVehicle = 'UPDATE player_vehicles SET mileage = ?, coords = ?, vehicle = ? WHERE plate = ?',
         updateTrailer = 'UPDATE player_vehicles SET coords = ?, vehicle = ? WHERE plate = ?',
