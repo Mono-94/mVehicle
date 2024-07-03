@@ -786,14 +786,26 @@ end
 ---@param src number
 ---@param action string
 ---@param plate string
-function Vehicles.ItemCarKeys(src, action, plate)
+---@param vehicleid number
+function Vehicles.ItemCarKeys(src, action, plate, vehicleid)
+    local xPlayer  = ESX.GetPlayerFromId(src)
+    local metadata = {}
     local cleanedPlate = plate:gsub("%s+", "")
+    local items = GetMetadata(xPlayer)
 
-    local metadata = {
-        description = locale('key_string', cleanedPlate),
-        plate = cleanedPlate
-    }
-    
+    if Config.Inventory == 'ox' then
+        metadata = {
+            plate       = cleanedPlate,
+            id          = vehicleid,
+            description = vehicleid .. ' ' .. cleanedPlate,
+        }
+    elseif Config.Inventory == 'qs' then
+        metadata = {
+            plate       = cleanedPlate,
+            description = vehicleid
+        }
+    end
+
     if action == 'add' then
         if Config.Inventory == 'ox' then
             ox_inv:AddItem(src, Config.CarKeyItem, 1, metadata)
@@ -801,15 +813,47 @@ function Vehicles.ItemCarKeys(src, action, plate)
             exports['qs-inventory']:AddItem(src, Config.CarKeyItem, 1, nil, metadata)
         end
     elseif action == 'delete' then
-        if Config.Inventory == 'ox' then
-            ox_inv:RemoveItem(src, Config.CarKeyItem, 1, metadata)
-        elseif Config.Inventory == 'qs' then
-            exports['qs-inventory']:RemoveItem(src, Config.CarKeyItem, 1, nil, metadata)
+        for _, object in pairs(items) do
+            if object.name == Config.CarKeyItem then
+                if Config.Inventory == 'ox' then
+                    RemoveItemMetadata(xPlayer, Config.CarKeyItem, 1, metadata)
+                else
+                    if object.info.plate == cleanedPlate and object.info.description == vehicleid then
+                        RemoveItemMetadata(xPlayer, object.name, object.slot, object)
+                            if Config.Debug then
+                                print('The vehicle key was deleted with plate: [' .. cleanedPlate.. ']')
+                            end
+                        return
+                    end
+                end
+            end
         end
     end
 end
 
 exports('ItemCarKeys', Vehicles.ItemCarKeys)
+
+function RemoveItemMetadata(player, item, slot, metadata)
+    if not player then return end
+    if Config.Inventory == 'qs' then
+        exports['qs-inventory']:RemoveItem(player.source, item, 1, slot, metadata)
+    elseif Config.Inventory == 'ox' then
+        ox_inv:RemoveItem(player.source, item, 1, metadata, slot)
+    else
+        error('Inventory bad configured')
+    end
+end
+
+function GetMetadata(player, item, slot, metadata)
+    if not player then return end
+    if Config.Inventory == 'qs' then
+        return exports['qs-inventory']:GetInventory(player.source)
+    elseif Config.Inventory == 'ox' then
+        return ox_inv:GetInventoryItems(player.source)
+    else
+        error('Inventory bad configured')
+    end
+end
 
 lib.callback.register('mVehicle:GiveKey', function(source, action, plate)
     Vehicles.ItemCarKeys(source, action, plate)
