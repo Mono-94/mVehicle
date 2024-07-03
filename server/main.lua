@@ -788,7 +788,7 @@ end
 ---@param plate string
 ---@param vehicleid number
 function Vehicles.ItemCarKeys(src, action, plate, vehicleid)
-    local xPlayer  = ESX.GetPlayerFromId(src)
+    local xPlayer  = Core.GetPlayerFromId(src)
     local metadata = {}
     local cleanedPlate = plate:gsub("%s+", "")
     local items = GetMetadata(xPlayer)
