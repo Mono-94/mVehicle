@@ -26,8 +26,6 @@ lib.onCache('seat', function(value)
         local vehicleDb = VehicleState('getVeh', data.plate)
 
         if vehicleDb and vehicleDb.vehicle then
-            print(vehicleDb.vehicle,vehicleDb.mileage)
-
             data.mileage = vehicleDb.mileage / 100
             while true do
                 if seat == -1 and saveKHM then
@@ -50,7 +48,9 @@ lib.onCache('seat', function(value)
                     data.props = lib.getVehicleProperties(vehicle)
                     saveKHM = false
                     seat = nil
-                    VehicleState('update', data)
+                    if type(data.props) == 'table' then
+                        VehicleState('update', data)
+                    end
                     local IsTrailer, trailerEntity = GetVehicleTrailerVehicle(vehicle)
                     if IsTrailer and trailerEntity then
                         local State = Entity(trailerEntity).state
@@ -59,13 +59,16 @@ lib.onCache('seat', function(value)
                             Trailer.plate = GetVehicleNumberPlateText(trailerEntity)
                             Trailer.coords = json.encode(GetVector4(trailerEntity))
                             Trailer.props = lib.getVehicleProperties(trailerEntity)
-                            local saved = VehicleState('savetrailer', Trailer)
-                            if saved then
-                                lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(
-                                    Trailer.plate, State.Owner))
-                            else
-                                lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(
-                                    Trailer.plate, State.Owner))
+                            if type(Trailer.props) == 'table' then
+                                local saved = VehicleState('savetrailer', Trailer)
+                                if saved then
+                                    lib.print.info(('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(
+                                        Trailer.plate, State.Owner))
+                                else
+                                    lib.print.error(('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s')
+                                        :format(
+                                            Trailer.plate, State.Owner))
+                                end
                             end
                         end
                     end
