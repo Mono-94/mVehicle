@@ -1,0 +1,49 @@
+{
+    "Trailer Target": "",
+    "flip_trailer": "Anhänger umdrehen",
+    "up_dow_ramp": "Raise/Lower Ramp",
+    "up_dow_platform": "Raise/Lower Platform",
+    "attach_vehicle": "Hänger An-Kuppeln",
+    "dettach_vehicle": "Hänger Ab-Kuppeln",
+
+    "Vehicle doors": "",
+    "open_door": "Auf-Geschlossen",
+    "close_door": "Zu-Geschlossen",
+
+    "Keys": "",
+    "key_string": "Kennzeichen: %s",
+    "key_targetdoors": "Auf/Ab Kuppeln",
+
+    "GiveCar Command": "",
+    "givecar_noty": "Sie sind jetzt Eigentümer dieses Fahrzeugs %s",
+    "givecar_help": "Geben Sie einem Spieler ein Fahrzeug mit mehreren Optionen.",
+    "givecar_playerveh ": "Legen Sie das Fahrzeug, in dem sich der Spieler befindet, als Eigentum fest",
+    "givecar_yes": "Ja",
+    "givecar_no": "Nein",
+    "givecar_menu1": "Spawn name",
+    "givecar_menu2": "Garage",
+    "givecar_menu3": "Temporäre Fahrzeuge?",
+    "givecar_menu4": "Datum",
+    "givecar_menu5": "Uhrzeit",
+    "givecar_menu6": "Minuten",
+    "givecar_menu7": "Fahrzeug Farbe 1",
+    "givecar_menu8": "Fahrzeug Farbe 2",
+    "givecar_menu9": "Fahrzeug Job",
+    "givecar_menu810": "Leer lassen für kein Job",
+
+    "carkeyMenu": "",
+    "carkey_menu1": "Perönliches Fahrzeug",
+    "carkey_menu2": "Du hast keine Fahrzeuge.",
+    "carkey_menu3": "Schlüssel Geben",
+    "carkey_menu4": "Schlüssel einem Spieler anhand seiner ID hinzufügen.",
+    "carkey_menu5": "Keiner hat einen Schlüssel zu diesem Fahrzeug 😪",
+    "carkey_menu6": "Löschen",
+
+
+
+    "Fake Plate": "",
+    "fakeplate1": "Falsche Kennzeichen",
+    "fakeplate2": "dieses Fahrzeug gehört dir Nicht...",
+    "fakeplate3": "Orginales Kennzeichen",
+    "fakeplate4": "Ändere Kennzeichen"
+}
