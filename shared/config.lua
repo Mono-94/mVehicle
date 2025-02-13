@@ -9,9 +9,6 @@ Config                     = {}
 --- Prints | Some extra dev tools
 Config.Debug               = false
 
---- esx, standalone
-Config.Framework           = 'esx'
-
 --- ox_inventory = 'ox' | qs-inventory = 'qs' not sure if it works
 Config.Inventory           = 'ox'
 
