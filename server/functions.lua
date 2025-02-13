@@ -679,7 +679,8 @@ function Vehicles.ItemCarKeys(src, action, plate)
         end
     elseif action == 'delete' then
         if Config.Inventory == 'ox' then
-            exports.ox_inventory:RemoveItem(src, Config.CarKeyItem, 1, metadata)
+            local Count = exports.ox_inventory:GetItem(src, Config.CarKeyItem, metadata, true)
+            exports.ox_inventory:RemoveItem(src, Config.CarKeyItem, Count, metadata)
         elseif Config.Inventory == 'qs' then
             exports['qs-inventory']:RemoveItem(src, Config.CarKeyItem, 1, nil, metadata)
         end

@@ -18,7 +18,6 @@ lib.callback.register('mVehicle:PlayerItems', function(action, entity)
                     dict = animDictLockPick,
                     clip = animLockPick,
                     flag = 1,
-
                 },
                 prop = {
                     model = 'p_num_plate_01',
