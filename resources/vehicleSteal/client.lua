@@ -43,6 +43,8 @@ lib.callback.register('mVehicle:PlayerItems', function(action, entity)
             Config.LockPickItem.dispatch(cache.serverId, vehicle, coords)
         end
 
+        SetVehicleNeedsToBeHotwired(vehicle, false)
+
         return skillCheck
     elseif action == 'hotwire' then
         local vehicle = GetVehiclePedIsIn(ped, false)
