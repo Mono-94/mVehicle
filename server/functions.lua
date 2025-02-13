@@ -670,7 +670,10 @@ function Vehicles.ItemCarKeys(src, action, plate)
 
     if action == 'add' then
         if Config.Inventory == 'ox' then
-            exports.ox_inventory:AddItem(src, Config.CarKeyItem, 1, metadata)
+            local havekey = exports.ox_inventory:GetItem(src, Config.CarKeyItem, metadata, true)
+            if havekey == 0 then
+                exports.ox_inventory:AddItem(src, Config.CarKeyItem, 1, metadata)
+            end
         elseif Config.Inventory == 'qs' then
             exports['qs-inventory']:AddItem(src, Config.CarKeyItem, 1, nil, metadata)
         end
