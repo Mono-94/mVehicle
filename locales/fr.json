@@ -29,8 +29,9 @@
     "givecar_menu7": "Couleur 1 du Véhicule",
     "givecar_menu8": "Couleur 2 du Véhicule",
     "givecar_menu9": "Vehicle Job",
-    "givecar_menu810": "Leave blank for no JOB",
-
+    "givecar_menu10": "Leave blank for no JOB",
+    "givecar_menu11": "Temporal",
+    
     
     "Car Key Menu": "",
     "carkey_menu1": "Véhicules personnels",

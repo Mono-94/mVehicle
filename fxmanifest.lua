@@ -1,25 +1,45 @@
 fx_version 'cerulean'
-
+lua54 'yes'
+use_experimental_fxv2_oal 'yes'
 game 'gta5'
 
 name "mVehicle"
-
-description "Vehicle API - https://discord.gg/Vk7eY8xYV2"
-
+description "Manage vehicles with ease functions | Vehicles persistent"
 author "aka_mono & .rawpaper"
 
-version "1.1.0"
 
-lua54 'yes'
+version "2.0.0"
 
-shared_scripts { 'shared/*.lua', '@ox_lib/init.lua' }
 
-client_script 'client/*.lua'
+shared_scripts {
+    'shared/*',
+    'resources/**/config.lua',
+    '@ox_lib/init.lua'
+}
 
-server_scripts { '@oxmysql/lib/MySQL.lua', 'server/*.lua' }
+client_scripts {
+    'client/**/*.lua',
+    'resources/**/client.lua'
+}
 
-files { 'locales/*.json' }
+server_scripts {
+    '@oxmysql/lib/MySQL.lua',
+    'server/**/*.lua',
+    'resources/**/server.lua'
+}
 
-ox_libs { 'locale' }
+ox_libs {
+    'locale',
+    'math',
+    'table',
+}
 
-file 'import.lua'
+files {
+    'import.lua',
+    'locales/*.json',
+    'web/build/index.html',
+    'web/build/**/*',
+}
+
+
+ui_page 'web/build/index.html'

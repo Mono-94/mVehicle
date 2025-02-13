@@ -1,0 +1,113 @@
+local getVehicles = function()
+
+    local cars = {}
+
+    local data = lib.callback.await('mVehicle:VehicleState', false, 'getkeys')
+
+    if #data == 0 then
+        return Utils.Notification({
+            title = locale('carkey_menu1'),
+            description = locale('carkey_menu2'),
+
+        })
+    end
+
+    for i = 1, #data do
+        local row = data[i]
+        local props = json.decode(row.vehicle)
+
+        row.vehlabel = Vehicles.GetVehicleLabel(props.model)
+        row.model = GetDisplayNameFromVehicleModel(props.model)
+
+        row.mileage = row.mileage / 100
+
+        if props.bodyHealth and props.engineHealth then
+            row.engineHealth = props.bodyHealth / 10
+            row.bodyHealth = props.engineHealth / 10
+        else
+            row.engineHealth = 100
+            row.bodyHealth = 100
+        end
+
+        local metadata = json.decode(row.metadata)
+
+        row.metadata = metadata
+
+        cars[row.plate] = row
+    end
+
+    -- lib.setClipboard(json.encode(cars, { indent = true }))
+
+    return cars
+end
+
+
+--- Personal vehicles menu
+local aPromise = nil
+local keysmenu = false
+---@param plate? string
+---@param cb? function
+function Vehicles.VehicleKeysMenu(plate, cb)
+    keysmenu = false
+
+    local cars = getVehicles()
+
+    if not cars then return false end
+
+
+    if plate then
+        OpenKeyModal(cars[plate])
+
+
+        if cb then
+            aPromise = promise:new()
+            Citizen.Await(aPromise)
+            cb()
+        end
+    else
+        keysmenu = true
+        SendNUI('vehicleKeys', cars)
+        ShowNui('setVisibleMenu', true)
+    end
+end
+
+RegisterNuiCallback('ui:Close', function(data, cb)
+    ShowNui(data.name, false)
+    if data.name == 'setVisibleMenu' then
+        keysmenu = false
+    elseif data.name == 'setVisibleModal' then
+        if keysmenu then Vehicles.VehicleKeysMenu() end
+        if aPromise then
+            aPromise:resolve()
+        end
+    end
+    cb(true)
+end)
+
+function OpenKeyModal(vehicle)
+    SendNUI('manageKey', vehicle)
+    ShowNui('setVisibleModal', true)
+end
+
+RegisterNuiCallback('show:VehicleKeys', function(data, cb)
+    OpenKeyModal(data)
+    cb(true)
+end)
+
+RegisterNuiCallback('mVehicle:VehicleMenu_ui', function(data, cb)
+    local ret = lib.callback.await('mVehicle:VehicleMenu', false, data.action, data.data, data.key)
+    cb(ret)
+end)
+
+exports('VehicleKeysMenu', Vehicles.VehicleKeysMenu)
+
+if Config.PersonalVehicleMenu then
+    lib.addRadialItem({
+        {
+            id = 'vehicle_keys_menu',
+            label = 'Your Vehicles',
+            icon = 'car',
+            onSelect = Vehicles.VehicleKeysMenu
+        }
+    })
+end

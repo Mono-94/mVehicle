@@ -1,7 +1,7 @@
-Core = nil
+ESX = nil
 
 if Config.Framework == "esx" then
-    Core = exports["es_extended"]:getSharedObject()
+    ESX = exports["es_extended"]:getSharedObject()
 end
 
 function Notification(src, data)
@@ -20,45 +20,29 @@ end
 
 function Identifier(src)
     if Config.Framework == "esx" then
-        local Player = Core.GetPlayerFromId(src)
+        local Player = ESX.GetPlayerFromId(src)
         if Player then
             return Player.identifier
         end
-    elseif Config.Framework == "qbox" then
-        local Player = exports.qbx_core:GetPlayer(src)
-        if Player then
-            return Player.PlayerData.license
-        end
     elseif Config.Framework == "standalone" then
-        return GetPlayerIdentifierByType(src, 'license')
+        return GetPlayerIdentifier(src, 'identifier')
     end
-    return false
 end
 
 function GetName(src)
     if Config.Framework == "esx" then
-        local Player = Core.GetPlayerFromId(src)
-        if Player then
-            return Player.getName()
-        end
-    elseif Config.Framework == "qbox" then
-        local Player = exports.qbx_core:GetPlayer(src)
-        if Player then
-            local firstname = Player.PlayerData.charinfo.firstname
-            local lastname = Player.PlayerData.charinfo.lastname
-            return firstname .. ' ' .. lastname
+        local xPlayer = ESX.GetPlayerFromId(src)
+        if xPlayer then
+            return xPlayer.getName()
         end
     elseif Config.Framework == "standalone" then
         return GetPlayerName(src)
     end
-    return false
 end
 
 function OnlinePlayers()
     if Config.Framework == "esx" then
-        return Core.GetPlayers()
-    elseif Config.Framework == "qb" then
-        return Core.Functions.GetPlayers()
+        return ESX.GetPlayers()
     elseif Config.Framework == "standalone" then
         return GetPlayers()
     end
@@ -66,20 +50,21 @@ end
 
 function GetCoords(src, veh)
     local entity = src and GetPlayerPed(src) or veh
-    if not entity then return end
+    if not DoesEntityExist(entity) then return end
     local coords, heading = GetEntityCoords(entity), GetEntityHeading(entity)
     return { x = coords.x, y = coords.y, z = coords.z, w = heading }
 end
 
--- StandAlone uses the same table as Core
-
-local query = {
+-- StandAlone uses the same table as esx
+local db = {
     ['esx'] = {
         getVehicleById = 'SELECT * FROM `owned_vehicles` WHERE `id` = ? LIMIT 1',
         getVehicleByPlate = 'SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) LIMIT 1',
         getVehicleByPlateOrFakeplate =
         "SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = TRIM(?) LIMIT 1",
         setOwner =
+        'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        setOwnerParking =
         'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         deleteByPlate = 'DELETE FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?)',
         deleteById = 'DELETE FROM `owned_vehicles` WHERE `id` = ?',
@@ -108,41 +93,10 @@ local query = {
         getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `owned_vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?",
         selectAll = 'SELECT * FROM `owned_vehicles`',
         getKeys = 'SELECT * FROM `owned_vehicles` WHERE `owner` = ?',
-    },
-    -- type, job, coords, metadata, lastparking, pound, stored, mileage
-    ['qbox'] = {
-        getVehicleById = 'SELECT * FROM `player_vehicles` WHERE `id` = ? LIMIT 1',
-        getVehicleByPlate = 'SELECT * FROM `player_vehicles` WHERE `plate` = ? LIMIT 1',
-        getVehicleByPlateOrFakeplate =
-        "SELECT * FROM `player_vehicles` WHERE `plate` = ? OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = ? LIMIT 1",
-        setOwner =
-        'INSERT INTO `player_vehicles` (license, plate, vehicle, type, job, coords, metadata, garage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        deleteByPlate = 'DELETE FROM player_vehicles WHERE plate = ?',
-        deleteById = 'DELETE FROM player_vehicles WHERE id = ?',
-        saveMetadata = 'UPDATE player_vehicles SET metadata = ? WHERE plate = ?',
-        saveProps = 'UPDATE player_vehicles SET vehicle = ? WHERE plate = ?',
-        storeGarage =
-        'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, `vehicle` = ?, metadata = ?  WHERE `plate` = ?',
-        storeGarageNoProps =
-        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1,  `coords` = NULL, metadata = ?  WHERE `plate` = ?',
-        retryGarage = 'UPDATE `player_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE `plate` = ?',
-        setImpound =
-        'UPDATE `player_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, metadata = ? WHERE `plate` = ?',
-        retryImpound =
-        'UPDATE `player_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, pound = NULL WHERE `plate` = ?',
-        getMileage = 'SELECT `mileage` FROM player_vehicles WHERE plate = ? LIMIT 1',
-        saveLeftVehicle = 'UPDATE player_vehicles SET mileage = ?, coords = ?, vehicle = ? WHERE plate = ?',
-        updateTrailer = 'UPDATE player_vehicles SET coords = ?, vehicle = ? WHERE plate = ?',
-        plateExist = 'SELECT 1 FROM `player_vehicles` WHERE `plate` = ?',
-        saveAllPropsCoords = 'UPDATE player_vehicles SET coords = ?, vehicle = ?, metadata = ? WHERE plate = ?',
-        saveAllCoords = 'UPDATE player_vehicles SET coords = ?, metadata = ? WHERE plate = ?',
-        saveKeys = 'UPDATE player_vehicles SET `keys` = ? WHERE plate = ?',
-        getVehiclesbyOwner = "SELECT * FROM `player_vehicles` WHERE `license` = ?",
-        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `player_vehicles` WHERE `license` = ? OR JSON_KEYS(`keys`) LIKE ?",
-        selectAll = 'SELECT * FROM `player_vehicles`',
-        getKeys = 'SELECT * FROM `player_vehicles` WHERE `license` = ?',
+        selectMetadataPlata = 'SELECT `metadata` FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) LIMIT 1',
+        setVehicleJob = 'UPDATE `owned_vehicles` SET `job` = ? WHERE TRIM(`plate`) = TRIM(?)',
     },
 }
 
 
-Querys = query[Config.Framework]
+Querys = db[Config.Framework]
