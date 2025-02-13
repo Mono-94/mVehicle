@@ -1,6 +1,14 @@
-ESX = nil
+local FrameWorks = {
+    esx = (GetResourceState("es_extended") == "started" and 'esx'),
+    ox = (GetResourceState("ox_core") == "started" and 'ox')
+}
 
-if Config.Framework == "esx" then
+local FrameWork = FrameWorks.esx or FrameWorks.ox or 'standalone'
+
+
+ESX, OX = nil, nil
+
+if FrameWork == "esx" then
     ESX = exports["es_extended"]:getSharedObject()
 end
 
@@ -19,31 +27,31 @@ function Notification(src, data)
 end
 
 function Identifier(src)
-    if Config.Framework == "esx" then
+    if FrameWork == "esx" then
         local Player = ESX.GetPlayerFromId(src)
         if Player then
             return Player.identifier
         end
-    elseif Config.Framework == "standalone" then
+    elseif FrameWork == "standalone" then
         return GetPlayerIdentifier(src, 'identifier')
     end
 end
 
 function GetName(src)
-    if Config.Framework == "esx" then
+    if FrameWork == "esx" then
         local xPlayer = ESX.GetPlayerFromId(src)
         if xPlayer then
             return xPlayer.getName()
         end
-    elseif Config.Framework == "standalone" then
+    elseif FrameWork == "standalone" then
         return GetPlayerName(src)
     end
 end
 
 function OnlinePlayers()
-    if Config.Framework == "esx" then
+    if FrameWork == "esx" then
         return ESX.GetPlayers()
-    elseif Config.Framework == "standalone" then
+    elseif FrameWork == "standalone" then
         return GetPlayers()
     end
 end
@@ -99,4 +107,4 @@ local db = {
 }
 
 
-Querys = db[Config.Framework]
+Querys = db[FrameWork]
