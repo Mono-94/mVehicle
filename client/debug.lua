@@ -50,6 +50,9 @@ exports.ox_target:addGlobalVehicle({
                 if VehicleState.metadata then
                     print(("Metadata: %s"):format(json.encode(VehicleState.metadata, { indent = true })))
                 end
+                if VehicleState.keys then
+                    print(("Keys: %s"):format(json.encode(VehicleState.keys, { indent = true })))
+                end
             end
         end
     },

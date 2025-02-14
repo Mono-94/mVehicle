@@ -126,7 +126,7 @@ function Vehicles.CreateVehicle(data, cb)
 
     State:set('Spawned', true, true)
 
-
+    State:set('keys', data.keys, true)
 
     if data.job then
         State:set('job', data.job, true)
@@ -339,7 +339,7 @@ function Vehicles.GetVehicle(entity)
         if not self.keys then self.keys = {} end
         if identifier then
             self.keys[identifier] = GetName(src)
-            State:set("Keys", self.keys, true)
+            State:set('keys', self.keys, true)
             MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plate })
             return true
         end
@@ -350,7 +350,7 @@ function Vehicles.GetVehicle(entity)
     self.RemoveKey      = function(identifier)
         if self.keys[identifier] then
             self.keys[identifier] = nil
-            State:set("Keys", self.keys, true)
+            State:set('keys', self.keys, true)
             MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plate })
             return true
         end
@@ -617,13 +617,14 @@ end
 ---@param coords vector4|{x:number, y:number, z:number, w:number}
 ---@param source_intocar number|boolean
 ---@param callback? function
-function Vehicles.SpawnVehicleId(id, coords,callback, source_intocar)
+function Vehicles.SpawnVehicleId(id, coords, callback, source_intocar)
     local dbvehicles = MySQL.single.await(Querys.getVehicleById, { id })
     if not dbvehicles then
         if callback then
-            callback(false)
+            callback(false, false)
+        else
+            return false, false
         end
-        return
     end
     if source_intocar then
         dbvehicles.intocar = true
@@ -633,6 +634,8 @@ function Vehicles.SpawnVehicleId(id, coords,callback, source_intocar)
     local vehicleData, vehicle = Vehicles.CreateVehicle(dbvehicles)
     if callback then
         callback(vehicleData, vehicle)
+    else
+        return vehicleData, vehicle
     end
 end
 
