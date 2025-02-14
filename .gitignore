@@ -1,0 +1,4 @@
+/web/*
+
+!web/build/
+!web/build/**
