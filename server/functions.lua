@@ -604,24 +604,36 @@ end
 -- - Spawn all vehicles from DB
 function Vehicles.SpawnVehicles()
     local dbvehicles = MySQL.query.await(Querys.selectAll)
-    for i = 1, #dbvehicles do
-        local row = dbvehicles[i]
-        if row.stored == 0 and row.pound == nil then
-            Vehicles.CreateVehicle(row)
+    lib.array.forEach(dbvehicles, function(vehicle)
+        if vehicle.stored == 0 and vehicle.pound == nil then
+            Vehicles.CreateVehicle(vehicle)
             Citizen.Wait(200)
         end
-    end
+    end)
 end
 
 --- Spawn specific id
 ---@param id number
 ---@param coords vector4|{x:number, y:number, z:number, w:number}
+---@param source_intocar number|boolean
 ---@param callback? function
-function Vehicles.SpawnVehicleId(id, coords, callback)
+function Vehicles.SpawnVehicleId(id, coords, source_intocar, callback)
     local dbvehicles = MySQL.single.await(Querys.getVehicleById, { id })
-    if not dbvehicles then return end
+    if not dbvehicles then
+        if callback then
+            callback(false)
+        end
+        return
+    end
+    if source_intocar then
+        dbvehicles.intocar = true
+        dbvehicles.source = source_intocar
+    end
     dbvehicles.coords = coords
-    Vehicles.CreateVehicle(dbvehicles, callback)
+    local vehicleData, vehicle = Vehicles.CreateVehicle(dbvehicles)
+    if callback then
+        callback(vehicleData, vehicle)
+    end
 end
 
 ---SaveAllVehicles
