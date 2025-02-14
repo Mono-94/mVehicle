@@ -617,7 +617,7 @@ end
 ---@param coords vector4|{x:number, y:number, z:number, w:number}
 ---@param source_intocar number|boolean
 ---@param callback? function
-function Vehicles.SpawnVehicleId(id, coords, source_intocar, callback)
+function Vehicles.SpawnVehicleId(id, coords,callback, source_intocar)
     local dbvehicles = MySQL.single.await(Querys.getVehicleById, { id })
     if not dbvehicles then
         if callback then
