@@ -187,8 +187,7 @@ end
 ---@return table | boolean
 function Vehicles.GetVehicleByID(id)
     local vehicle = MySQL.single.await(Querys.getVehicleById, { id })
-    return type(vehicle) == 'table' and vehicle or
-        (Utils.Debug('error', 'No Vehicle by ID [ %s ] in Vehicles Table', id) or false)
+    return type(vehicle) == 'table' and vehicle or (Utils.Debug('error', 'No Vehicle by ID [ %s ] in Vehicles Table', id) or false)
 end
 
 ---Set Car owner

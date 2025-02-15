@@ -212,6 +212,8 @@ lib.onCache('seat', function(value)
 end)
 
 
+
+
 function SetFadeEntity(data)
     if data.action == 'spawn' then
         NetworkFadeInEntity(data.entity, true)

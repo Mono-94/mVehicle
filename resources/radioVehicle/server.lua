@@ -2,24 +2,59 @@ if GetResourceState('xsound') ~= 'started' then return end
 
 
 RegisterNetEvent("mVehicle:SoundStatus", function(action, data)
-   
     TriggerClientEvent("mVehicle:VehicleRadio", -1, action, data)
 end)
 
 lib.callback.register('mVehicle:radio:PlayList', function(source, action, data)
+    local entity = NetworkGetEntityFromNetworkId(data.networkId)
 
-    local vehicle = Vehicles.GetVehicle(data.entity)
-
-    print(json.encode(data), json.encode(vehicle))
+    local vehicle = Vehicles.GetVehicle(entity)
+    print(json.encode(data, { indent = true }))
 
     if action == 'saveSong' then
+        if vehicle then
+            local metadata = vehicle.GetMetadata('radio')
 
+
+            table.insert(metadata.playlist, {
+                name = data.songName,
+                link = data.songLink,
+                fav = false,
+            })
+
+            vehicle.SetMetadata('radio', metadata)
+
+            return metadata.playlist
+        end
     elseif action == 'deleteSong' then
+        if vehicle then
+            local metadata = vehicle.GetMetadata('radio')
 
+            for i, song in ipairs(metadata.playlist) do
+                if song.link == data.songLink then
+                    table.remove(metadata.playlist, i)
+                    break
+                end
+            end
+            vehicle.SetMetadata('radio', metadata)
+
+            return metadata.playlist
+        end
+    elseif action == 'favSong' then
+        if vehicle then
+            local metadata = vehicle.GetMetadata('radio')
+
+            for i, song in ipairs(metadata.playlist) do
+                if song.link == data.songLink then
+                    song.fav = not song.fav
+                    break
+                end
+            end
+
+            vehicle.SetMetadata('radio', metadata)
+            return metadata.playlist
+        end
     end
-
-
-
 end)
 
 
@@ -43,6 +78,10 @@ exports('mradio', function(event, item, inventory, slot, data)
             vehicle.SetMetadata('radio', { install = true, playlist = {} })
         else
             vehicle = Vehicles.GetVehicleByPlate(plate, true)
+
+            if vehicle then
+                local metadata = json.encode(vehicle.metadata)
+            end
         end
     end
 

@@ -2,27 +2,31 @@ if GetResourceState('xsound') ~= 'started' then return end
 
 local xSound = exports.xsound
 local radioOpen = false
+local Radio = {}
+local radios = {}
 
-local test = {
-    [1] = {
-        name = 'FOYONE - EL DUEÑO DEL ATICO',
-        link = 'https://youtu.be/Qn0HrsH7D7I',
-    },
-    [2] = {
-        name = 'FOYONE - PSICOTICO',
-        link = 'https://youtu.be/18fbPU_4rbQ',
-    },
-    [3] = {
-        name = 'SFDK - PHANTOM',
-        link = 'https://youtu.be/NFFYQTjjaD4',
-    },
 
-}
+function Radio:PlayList(playlist)
+    SendNUIMessage({ action = 'playList', data = playlist })
+end
 
+function Radio:Data(data)
+    SendNUIMessage({ action = 'radioData', data = data })
+end
+
+function Radio:Visible(visible)
+    SetNuiFocus(visible, visible)
+    radioOpen = visible
+    SendNUIMessage({ action = 'radio', data = visible })
+end
+
+function Radio:Vehicle(vehicle)
+    SendNUIMessage({ action = 'radioVehicle', data = vehicle })
+end
 
 RegisterNetEvent("mVehicle:VehicleRadio", function(action, data)
     local exist = xSound:soundExists(data.plate)
-
+    table.insert(radios, data.plate)
     if action == "play" then
         local Vehicle = NetToVeh(data.networkId)
         local coords = GetEntityCoords(Vehicle)
@@ -32,15 +36,16 @@ RegisterNetEvent("mVehicle:VehicleRadio", function(action, data)
         xSound:onPlayStart(data.plate, function()
             Citizen.CreateThread(function()
                 while true do
+                    Citizen.Wait(0)
                     if xSound:soundExists(data.plate) then
                         coords = GetEntityCoords(Vehicle)
                         xSound:Position(data.plate, vec3(coords.xyz))
                     end
                     if not DoesEntityExist(Vehicle) then
+                        print('destroi')
                         xSound:Destroy(data.plate)
                         break
                     end
-                    Citizen.Wait(0)
                 end
             end)
         end)
@@ -58,12 +63,10 @@ RegisterNetEvent("mVehicle:VehicleRadio", function(action, data)
 end)
 
 
-
-
-
 function OpenRadio()
     local data = {}
-    data.entity = GetVehiclePedIsIn(cache.ped, false)
+
+    data.entity = cache.vehicle
 
     if not DoesEntityExist(data.entity) then
         return Utils.Debug('info', 'no Vehicle Entity to play Sound')
@@ -78,35 +81,45 @@ function OpenRadio()
     local haveRadio = metadata.radio
 
     if haveRadio and haveRadio.install then
-        Utils.Debug('info', json.encode(metadata.radio.install))
+        Radio:Vehicle({ entity = data.entity, networkId = data.networkId, plate = data.plate })
 
-        if Config.Debug then
-            Utils.Debug('info', 'Open Radio with debug')
+        local current = xSound:getInfo(data.plate)
+
+        if current then
+            data.url = current.url
+            data.timeStamp = current.timeStamp
+            data.id = current.id
+            data.soundExists = current.soundExists
+            data.playing = current.playlist
+            data.paused = current.paused
+            data.maxDuration = current.maxDuration
         end
 
-        data.playlist = test
+        print(data.url)
 
         data.id = data.plate
 
-        SetNuiFocus(true, true)
-        SendNUIMessage({ action = 'radio', data = data })
-        SendNUIMessage({ action = 'radioData', data = data, })
-        radioOpen = true
+        Radio:Data(data)
 
-        RadioOpen(data.plate)
+        Radio:PlayList(haveRadio.playlist)
+
+        Radio:Visible(true)
+
+
+        if current then
+            RadioOpen(data.plate)
+        end
     end
 end
 
 function RadioOpen(plate)
     local current = xSound:getInfo(plate)
 
-    current.entity = GetVehiclePedIsIn(cache.ped, false)
-
     while current do
         current = xSound:getInfo(plate)
-        current.playlist = test
+
         SendNUIMessage({ action = 'radioData', data = current })
-        Citizen.Wait(500)
+        Citizen.Wait(999)
         if not radioOpen then
             break
         end
@@ -114,12 +127,15 @@ function RadioOpen(plate)
 end
 
 RegisterNuiCallback('radioNui', function(data, cb)
-
-    if data.action == 'saveSong' or data.action == 'deleteSong' then
+    if data.action == 'saveSong' or data.action == 'deleteSong' or data.action == 'favSong' then
         if data.entity then
-           
+            print(json.encode(data, { indent = true }))
         end
-        local song = lib.callback.await('mVehicle:radio:PlayList', nil, data.action, data)
+        local song = lib.callback.await('mVehicle:radio:PlayList', 500, data.action, data)
+        if song then
+            local metadata = Entity(data.entity).state.metadata
+            Radio:PlayList(metadata.radio.playlist)
+        end
         cb(song)
         return
     end
@@ -131,7 +147,7 @@ RegisterNuiCallback('radioNui', function(data, cb)
 
         data.entity = GetVehiclePedIsIn(cache.ped, false)
 
-        if not DoesEntityExist(entity) then
+        if not DoesEntityExist(data.entity) then
             print("No entity to play sound.")
             return
         end
@@ -166,4 +182,43 @@ if Config.Debug then
     RegisterCommand('radio', function(source, args, raw)
         OpenRadio()
     end)
+
+    lib.onCache('seat', function(value)
+        if value == -1 then
+            local metadata = Entity(cache.vehicle).state.metadata
+
+            local haveRadio = metadata.radio
+
+            if haveRadio and haveRadio.install then
+                lib.addRadialItem({
+                    {
+                        id = 'vehicle_radio',
+                        label = 'Radio',
+                        icon = 'radio',
+                        onSelect = OpenRadio
+                    },
+                    {
+                        id = 'vehicle_radio_stolen',
+                        label = 'Steal radio',
+                        icon = 'user-ninja',
+                        onSelect = function()
+                            print("jijij")
+                        end
+                    }
+                })
+            end
+        else
+            lib.removeRadialItem('vehicle_radio')
+            lib.removeRadialItem('vehicle_radio_stolen')
+        end
+    end)
+
+    lib.addKeybind({
+        name = 'mRadio',
+        description = 'press X to open radio',
+        defaultKey = 'X',
+        onPressed = function(self)
+            OpenRadio()
+        end
+    })
 end
