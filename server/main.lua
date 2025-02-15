@@ -128,24 +128,6 @@ AddEventHandler('onResourceStop', function(Resource)
     end
 end)
 
-AddEventHandler('onServerResourceStop', function(rsc)
-    if rsc == 'mVehicle' and Config.Persistent and Config.Debug then
-        for k, v in pairs(GetAllVehicles()) do
-            local plate = GetVehicleNumberPlateText(v)
-            local row = MySQL.single.await(
-            'SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) AND `coords` IS NOT NULL AND `coords` != ? LIMIT 1',
-                { plate, '[]' })
-
-            if row then
-                local coords = Utils.GetVector4(v, true)
-                MySQL.update.await('UPDATE owned_vehicles SET coords = ? WHERE TRIM(`plate`) = TRIM(?)',
-                    { coords, plate })
-                DeleteEntity(v)
-            end
-        end
-    end
-end)
-
 -- TxAdmin
 AddEventHandler("txAdmin:events:serverShuttingDown", function()
     if Config.Persistent then Vehicles.SaveAllVehicles() end

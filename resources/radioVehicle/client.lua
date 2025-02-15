@@ -42,7 +42,6 @@ RegisterNetEvent("mVehicle:VehicleRadio", function(action, data)
                         xSound:Position(data.plate, vec3(coords.xyz))
                     end
                     if not DoesEntityExist(Vehicle) then
-                        print('destroi')
                         xSound:Destroy(data.plate)
                         break
                     end
@@ -186,7 +185,7 @@ if Config.Debug then
     lib.onCache('seat', function(value)
         if value == -1 then
             local metadata = Entity(cache.vehicle).state.metadata
-
+            if not metadata then return end
             local haveRadio = metadata.radio
 
             if haveRadio and haveRadio.install then
@@ -197,19 +196,11 @@ if Config.Debug then
                         icon = 'radio',
                         onSelect = OpenRadio
                     },
-                    {
-                        id = 'vehicle_radio_stolen',
-                        label = 'Steal radio',
-                        icon = 'user-ninja',
-                        onSelect = function()
-                            print("jijij")
-                        end
-                    }
+
                 })
             end
         else
             lib.removeRadialItem('vehicle_radio')
-            lib.removeRadialItem('vehicle_radio_stolen')
         end
     end)
 

@@ -187,7 +187,8 @@ end
 ---@return table | boolean
 function Vehicles.GetVehicleByID(id)
     local vehicle = MySQL.single.await(Querys.getVehicleById, { id })
-    return type(vehicle) == 'table' and vehicle or (Utils.Debug('error', 'No Vehicle by ID [ %s ] in Vehicles Table', id) or false)
+    return type(vehicle) == 'table' and vehicle or
+        (Utils.Debug('error', 'No Vehicle by ID [ %s ] in Vehicles Table', id) or false)
 end
 
 ---Set Car owner
@@ -612,12 +613,9 @@ function Vehicles.SpawnVehicles()
 end
 
 --- Spawn specific id
----@param id number
----@param coords vector4|{x:number, y:number, z:number, w:number}
----@param source_intocar number|boolean
 ---@param callback? function
-function Vehicles.SpawnVehicleId(id, coords, callback, source_intocar)
-    local dbvehicles = MySQL.single.await(Querys.getVehicleById, { id })
+function Vehicles.SpawnVehicleId(data, callback)
+    local dbvehicles = MySQL.single.await(Querys.getVehicleById, { data.id })
     if not dbvehicles then
         if callback then
             callback(false, false)
@@ -625,12 +623,15 @@ function Vehicles.SpawnVehicleId(id, coords, callback, source_intocar)
             return false, false
         end
     end
-    if source_intocar then
-        dbvehicles.intocar = true
-        dbvehicles.source = source_intocar
+
+    if dbvehicles.intocar then
+        dbvehicles.source = data.source
     end
-    dbvehicles.coords = coords
+
+    dbvehicles.coords = data.coords
+
     local vehicleData, vehicle = Vehicles.CreateVehicle(dbvehicles)
+
     if callback then
         callback(vehicleData, vehicle)
     else
@@ -736,6 +737,24 @@ function Vehicles.GetClientProps(src, NetID)
 
     return result
 end
+
+AddEventHandler('onServerResourceStop', function(rsc)
+    if rsc == 'mVehicle' and Config.Persistent and Config.Debug then
+        for k, v in pairs(GetAllVehicles()) do
+            local plate = GetVehicleNumberPlateText(v)
+            local row = MySQL.single.await(
+                'SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) AND `coords` IS NOT NULL AND `coords` != ? LIMIT 1',
+                { plate, '[]' })
+
+            if row then
+                local coords = Utils.GetVector4(v, true)
+                MySQL.update.await('UPDATE owned_vehicles SET coords = ? WHERE TRIM(`plate`) = TRIM(?)',
+                    { coords, plate })
+                DeleteEntity(v)
+            end
+        end
+    end
+end)
 
 exports('PlateExist', Vehicles.PlateExist)
 exports('GeneratePlate', Vehicles.GeneratePlate)

@@ -7,7 +7,7 @@
 Config                     = {}
 
 --- Prints | Some extra dev tools
-Config.Debug               = false
+Config.Debug               = true
 
 --- ox_inventory = 'ox' | qs-inventory = 'qs' not sure if it works
 Config.Inventory           = 'ox'
@@ -43,7 +43,7 @@ Config.TargetTrailer       = true
 
 ----------------------------------------------------------------------
 --- Carkeys
-Config.ItemKeys            = true     -- false = Vehicles DB
+Config.ItemKeys            = false     -- false = Vehicles DB
 
 Config.CarKeyItem          = 'carkey'  -- item name
 
@@ -55,7 +55,7 @@ Config.KeyDistance         = 5
 
 --- Engine ignition need keys or hotwire
 Config.VehicleEngine       = {
-    ToggleEngine = true,
+    ToggleEngine = false,
     KeyBind = 'M',
 }
 ----------------------------------------------------------------------
