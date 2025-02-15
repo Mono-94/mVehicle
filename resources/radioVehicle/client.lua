@@ -65,7 +65,7 @@ end)
 function OpenRadio()
     local data = {}
 
-    data.entity = cache.vehicle
+    data.entity = GetVehiclePedIsIn(cache.ped, false)
 
     if not DoesEntityExist(data.entity) then
         return Utils.Debug('info', 'no Vehicle Entity to play Sound')
@@ -78,6 +78,7 @@ function OpenRadio()
     local metadata = Entity(data.entity).state.metadata
 
     local haveRadio = metadata.radio
+    data.id = data.plate
 
     if haveRadio and haveRadio.install then
         Radio:Vehicle({ entity = data.entity, networkId = data.networkId, plate = data.plate })
@@ -92,18 +93,15 @@ function OpenRadio()
             data.playing = current.playlist
             data.paused = current.paused
             data.maxDuration = current.maxDuration
+            data.volume = current.volume
         end
 
-        print(data.url)
 
-        data.id = data.plate
 
         Radio:Data(data)
-
+        Wait(200)
         Radio:PlayList(haveRadio.playlist)
-
         Radio:Visible(true)
-
 
         if current then
             RadioOpen(data.plate)
@@ -116,10 +114,10 @@ function RadioOpen(plate)
 
     while current do
         current = xSound:getInfo(plate)
-
-        SendNUIMessage({ action = 'radioData', data = current })
+        Radio:Data(current)
         Citizen.Wait(999)
         if not radioOpen then
+            Radio:Data(false)
             break
         end
     end
@@ -160,9 +158,7 @@ RegisterNuiCallback('radioNui', function(data, cb)
             RadioOpen(plate)
         end
     elseif data.action == 'close' then
-        radioOpen = false
-        SetNuiFocus(false, false)
-        SendNUIMessage({ action = 'radio', data = false })
+        Radio:Visible(false)
     else
         if xSound:soundExists(data.plate) then
             if data.volume then
