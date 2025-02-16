@@ -12,10 +12,9 @@ function DeleteTemporary(plate, hour, min)
 
         local vehicle = Vehicles.GetVehicleByPlate(plate)
 
-        if vehicle then  vehicle.DeleteVehicle(false) end
+        if vehicle then vehicle.DeleteVehicle(false) end
 
         task:stop()
-        
     end, { debug = Config.Debug })
 
     PlateCron[plate] = true
@@ -51,7 +50,6 @@ function CheckTemporary(data)
     end
     return false
 end
-
 
 lib.callback.register('mVehicle:VehicleState', function(source, action, data)
     local vehicle = nil
@@ -116,9 +114,13 @@ AddEventHandler('entityCreated', function(entity)
 end)
 
 AddEventHandler("onResourceStart", function(Resource)
-    if Resource == 'mVehicle' and Config.Persistent then
+    if Resource == 'mVehicle' then
         Citizen.Wait(2000)
-        Vehicles.SpawnVehicles()
+        if Config.Persistent then
+            Vehicles.SpawnVehicles()
+        else
+            MySQL.update('UPDATE owned_vehicles SET stored = 1 WHERE stored = 0 AND (pound IS NULL OR pound = 0)')
+        end
     end
 end)
 
@@ -135,7 +137,7 @@ end)
 
 AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
     if eventData.secondsRemaining == 60 and Config.Persistent then
-        Citizen.CreateThread(function ()
+        Citizen.CreateThread(function()
             Citizen.Wait(50000)
             Vehicles.SaveAllVehicles(true)
         end)
