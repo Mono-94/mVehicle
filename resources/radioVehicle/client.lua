@@ -5,6 +5,11 @@ local radioOpen = false
 local Radio = {}
 local radios = {}
 
+AddEventHandler('onResourceStop', function(rsc)
+    if rsc == GetCurrentResourceName() then
+        LocalPlayer.state.invBusy = false
+    end
+end)
 
 function Radio:PlayList(playlist)
     SendNUIMessage({ action = 'playList', data = playlist })
@@ -16,8 +21,9 @@ end
 
 function Radio:Visible(visible)
     SetNuiFocus(visible, visible)
-    radioOpen = visible
     SendNUIMessage({ action = 'radio', data = visible })
+    radioOpen = visible
+    LocalPlayer.state.invBusy = visible
 end
 
 function Radio:Vehicle(vehicle)
@@ -97,29 +103,37 @@ function OpenRadio()
         end
 
 
-
         Radio:Data(data)
         Wait(200)
         Radio:PlayList(haveRadio.playlist)
         Radio:Visible(true)
 
-        if current then
-            RadioOpen(data.plate)
-        end
+        RadioOpen(data.plate)
     end
 end
 
 function RadioOpen(plate)
     local current = xSound:getInfo(plate)
 
-    while current do
+    SetNuiFocusKeepInput(true)
+
+    while radioOpen do
         current = xSound:getInfo(plate)
-        Radio:Data(current)
-        Citizen.Wait(999)
+        if current then
+            Radio:Data(current)
+        end
+
+        DisableControlAction(0, 1, true)
+        DisableControlAction(0, 2, true)
+        DisableFrontendThisFrame()
+
         if not radioOpen then
             Radio:Data(false)
+            SetNuiFocusKeepInput(false)
+
             break
         end
+        Citizen.Wait(0)
     end
 end
 
@@ -173,13 +187,13 @@ RegisterNuiCallback('radioNui', function(data, cb)
 end)
 
 
-if Config.Debug then
-    RegisterCommand('radio', function(source, args, raw)
-        OpenRadio()
-    end)
+if Config.Radio.command then
+    RegisterCommand(Config.Radio.command, OpenRadio)
+end
 
-    lib.onCache('seat', function(value)
-        if value == -1 then
+lib.onCache('seat', function(value)
+    if value == -1 then
+        if Config.Radio.radial then
             local metadata = Entity(cache.vehicle).state.metadata
             if not metadata then return end
             local haveRadio = metadata.radio
@@ -195,15 +209,23 @@ if Config.Debug then
 
                 })
             end
-        else
+        end
+    else
+        if radioOpen then
+            Radio:Visible(false)
+            Radio:Vehicle(false)
+        end
+        if Config.Radio.radial then
             lib.removeRadialItem('vehicle_radio')
         end
-    end)
+    end
+end)
 
+if Config.Radio.KeyBind then
     lib.addKeybind({
         name = 'mRadio',
         description = 'press X to open radio',
-        defaultKey = 'X',
+        defaultKey = Config.Radio.KeyBind,
         onPressed = function(self)
             OpenRadio()
         end

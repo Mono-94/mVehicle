@@ -43,9 +43,9 @@ Config.TargetTrailer       = true
 
 ----------------------------------------------------------------------
 --- Carkeys
-Config.ItemKeys            = false     -- false = Vehicles DB
+Config.ItemKeys            = false    -- false = Vehicles DB
 
-Config.CarKeyItem          = 'carkey'  -- item name
+Config.CarKeyItem          = 'carkey' -- item name
 
 Config.DoorKeyBind         = 'U'
 
@@ -64,13 +64,13 @@ Config.SeatShuffle         = true
 
 ----------------------------------------------------------------------
 --- Vehicle Radio
---- xSound Dependency | https://github.com/Xogy/xsound ❗ Is not finished ❗
+--- xSound Dependency | https://github.com/Xogy/xsound 
 Config.Radio               = {
-    active = true,
-    command = 'mradio', -- To Open
-    KeyBind = 'r',
-    item = 'mradio',    -- To install on a vehicle
-    distance = 5,
+    item = 'mradio', -- To install on a vehicle
+    command = false, -- false or string like key
+    KeyBind = false, -- false or string like key
+    radial = true,   -- true/false
+    distance = 5,    -- distance sound
 }
 
 ----------------------------------------------------------------------

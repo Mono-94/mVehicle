@@ -3,7 +3,7 @@ local FrameWorks = {
     ox = (GetResourceState("ox_core") == "started" and 'ox')
 }
 
-local FrameWork = FrameWorks.esx or FrameWorks.ox or 'standalone'
+FrameWork = FrameWorks.esx or FrameWorks.ox or 'standalone'
 
 
 ESX, OX = nil, nil
