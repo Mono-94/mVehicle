@@ -139,9 +139,6 @@ end
 
 RegisterNuiCallback('radioNui', function(data, cb)
     if data.action == 'saveSong' or data.action == 'deleteSong' or data.action == 'favSong' then
-        if data.entity then
-            print(json.encode(data, { indent = true }))
-        end
         local song = lib.callback.await('mVehicle:radio:PlayList', 500, data.action, data)
         if song then
             local metadata = Entity(data.entity).state.metadata
@@ -159,7 +156,6 @@ RegisterNuiCallback('radioNui', function(data, cb)
         data.entity = GetVehiclePedIsIn(cache.ped, false)
 
         if not DoesEntityExist(data.entity) then
-            print("No entity to play sound.")
             return
         end
 
