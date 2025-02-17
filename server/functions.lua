@@ -98,7 +98,7 @@ function Vehicles.CreateVehicle(data, cb)
     if CheckTemporary(data) then
         return false
     end
-
+    
     if data.metadata.DoorStatus then
         SetVehicleDoorsLocked(data.entity, data.metadata.DoorStatus)
     end
@@ -619,6 +619,7 @@ function Vehicles.SpawnVehicleId(data, callback)
     if not dbvehicles then
         if callback then
             callback(false, false)
+            return
         else
             return false, false
         end
