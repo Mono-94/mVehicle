@@ -28,7 +28,7 @@ Config.VehicleDensity      = {
 
 --- Persistent
 --- Vehicle persistents in world
-Config.Persistent          = true
+Config.Persistent          = false
 
 --- Commands
 Config.Commands            = {
@@ -55,7 +55,8 @@ Config.KeyDistance         = 5
 
 --- Engine ignition need keys or hotwire
 Config.VehicleEngine       = {
-    ToggleEngine = false,
+    keepEngineOnWhenLeave = true,
+    ToggleEngine = true,
     KeyBind = 'M',
 }
 ----------------------------------------------------------------------
