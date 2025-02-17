@@ -1,26 +1,29 @@
-if not Config.VehicleEngine.ToggleEngine then return end
-
 local vehicle = nil
 local engineStatus = false
 
 lib.onCache('vehicle', function(value)
     vehicle = value
+
+    if vehicle then
+        SetVehicleKeepEngineOnWhenAbandoned(vehicle, true)
+    end
+
     while true do
         if not vehicle then break end
 
         engineStatus = GetIsVehicleEngineRunning(vehicle)
 
-        if engineStatus then
-            if IsControlPressed(0, 75) then
-                Citizen.Wait(200)
-                if IsControlPressed(0, 75) then
-                    SetVehicleKeepEngineOnWhenAbandoned(vehicle, true)
-                else
-                    SetVehicleEngineOn(vehicle, false, true, false)
-                    SetVehicleKeepEngineOnWhenAbandoned(vehicle, false)
-                end
-            end
-        else
+        if not engineStatus then
+            --    if IsControlPressed(0, 75) then
+            --        Citizen.Wait(200)
+            --        if IsControlPressed(0, 75) then
+            --            SetVehicleKeepEngineOnWhenAbandoned(vehicle, true)
+            --        else
+            --            SetVehicleEngineOn(vehicle, false, true, false)
+            --            SetVehicleKeepEngineOnWhenAbandoned(vehicle, false)
+            --        end
+            --    end
+            --else
             SetVehicleEngineOn(vehicle, false, true, true)
             DisableControlAction(0, 71, true)
         end
@@ -29,6 +32,7 @@ lib.onCache('vehicle', function(value)
     end
 end)
 
+if not Config.VehicleEngine.ToggleEngine then return end
 
 
 lib.addKeybind({
