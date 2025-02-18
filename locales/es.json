@@ -45,5 +45,8 @@
     "fakeplate1": "Matrícula Falsa",
     "fakeplate2": "Este vehículo no es de tu propiedad...",
     "fakeplate3": "Matrícula Original",
-    "fakeplate4": "Cambiando matrícula"
+    "fakeplate4": "Cambiando matrícula",
+
+
+    "setBlip": "Vehicle marked on the map"
 }

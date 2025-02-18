@@ -46,5 +46,8 @@
     "fakeplate1": "Fake Plate",
     "fakeplate2": "This vehicle is not owned by you...",
     "fakeplate3": "Original Plate",
-    "fakeplate4": "Changing plate"
+    "fakeplate4": "Changing plate",
+
+
+    "setBlip": "Vehicle marked on the map"
 }

@@ -25,9 +25,10 @@ lib.callback.register('mVehicle:VehicleMenu', function(source, action, data, tar
         keys = json.decode(keys)
     end
 
-    local target = Identifier(targetPlayer)
+
 
     if action == 'addkey' then
+        local target = Identifier(targetPlayer)
         if target then
             if not spawned then
                 if keys[target] then
@@ -55,7 +56,11 @@ lib.callback.register('mVehicle:VehicleMenu', function(source, action, data, tar
         end
 
         return true
+    elseif action == 'setBlip' then
+        if Vehicle then
+            return Vehicle.GetCoords()
+        end
     end
 
-    return true
+    return false
 end)

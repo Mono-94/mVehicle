@@ -45,5 +45,8 @@
     "fakeplate1": "Plaque d’immatriculation Factice",
     "fakeplate2": "Ce véhicule ne vous appartient pas...",
     "fakeplate3": "Plaque d’immatriculation d’Origine",
-    "fakeplate4": "Changement de plaque"
+    "fakeplate4": "Changement de plaque",
+
+
+    "setBlip": "Vehicle marked on the map"
 }

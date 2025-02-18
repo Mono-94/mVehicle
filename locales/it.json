@@ -44,5 +44,8 @@
     "fakeplate1": "Targa Contraffatta",
     "fakeplate2": "Questo veicolo non è di tua proprietà...",
     "fakeplate3": "Targa Originale",
-    "fakeplate4": "Cambio targa"
+    "fakeplate4": "Cambio targa",
+
+
+    "setBlip": "Vehicle marked on the map"
 }

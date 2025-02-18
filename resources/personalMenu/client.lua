@@ -1,5 +1,4 @@
 local getVehicles = function()
-
     local cars = {}
 
     local data = lib.callback.await('mVehicle:VehicleState', false, 'getkeys')
@@ -96,8 +95,18 @@ end)
 
 RegisterNuiCallback('mVehicle:VehicleMenu_ui', function(data, cb)
     local ret = lib.callback.await('mVehicle:VehicleMenu', false, data.action, data.data, data.key)
+
     cb(ret)
 end)
+
+RegisterNuiCallback('mVehicle:VehicleMenu_ui:setGPS', function(plate, cb)
+    local ret = lib.callback.await('mVehicle:VehicleMenu', false, 'setBlip', { plate = plate })
+    if ret then
+        blipcar(ret, plate)
+        cb(ret)
+    end
+end)
+
 
 exports('VehicleKeysMenu', Vehicles.VehicleKeysMenu)
 
@@ -110,4 +119,41 @@ if Config.PersonalVehicleMenu then
             onSelect = Vehicles.VehicleKeysMenu
         }
     })
+end
+
+
+local blip = nil
+local timer
+
+function blipcar(coords, plate)
+    if blip and DoesBlipExist(blip) then
+        RemoveBlip(blip)
+        SetBlipRoute(blip, false)
+        timer:forceEnd(false)
+    end
+
+    blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+
+    SetBlipSprite(blip, 523)
+    SetBlipDisplay(blip, 2)
+    SetBlipScale(blip, 1.0)
+    SetBlipColour(blip, 49)
+    SetBlipAsShortRange(blip, false)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString('Vehicle - ' .. plate)
+    EndTextCommandSetBlipName(blip)
+    SetBlipRoute(blip, true)
+
+    timer = lib.timer(60000 * 2, function()
+        SetBlipRoute(blip, false)
+        RemoveBlip(blip)
+    end, true)
+
+    if blip then
+        Utils.Notification({
+            title = 'Garage',
+            description = locale('setBlip'),
+        })
+        return true
+    end
 end
