@@ -3,6 +3,10 @@ Vehicles.Vehicles = {}
 Vehicles.Save = false
 Vehicles.Config = Config
 
+
+-- temporary
+local WIP = false
+
 function Vehicles.save()
     return Vehicles.Save
 end
@@ -85,11 +89,6 @@ function Vehicles.CreateVehicle(data, cb)
 
     data.mileage = data.mileage or 0
 
-    if data.identifier or data.license or data.citizenid then
-        data.owner = data.identifier or data.license or data.citizenid
-    end
-
-
 
     if data.temporary then
         data.metadata.temporary = data.temporary
@@ -98,7 +97,7 @@ function Vehicles.CreateVehicle(data, cb)
     if CheckTemporary(data) then
         return false
     end
-    
+
     if data.metadata.DoorStatus then
         SetVehicleDoorsLocked(data.entity, data.metadata.DoorStatus)
     end
@@ -188,7 +187,7 @@ end
 function Vehicles.GetVehicleByID(id)
     local vehicle = MySQL.single.await(Querys.getVehicleById, { id })
     return type(vehicle) == 'table' and vehicle or
-    (Utils.Debug('error', 'No Vehicle by ID [ %s ] in Vehicles Table', id) or false)
+        (Utils.Debug('error', 'No Vehicle by ID [ %s ] in Vehicles Table', id) or false)
 end
 
 ---Set Car owner
@@ -264,30 +263,36 @@ function Vehicles.GetVehicle(entity)
         return
     end
 
-    local State         = Entity(entity).state
+    local State       = Entity(entity).state
 
-    local self          = Vehicles.Vehicles[entity]
+    local self        = Vehicles.Vehicles[entity]
 
-    self.GetCoords      = function()
+    self.GetCoords    = function()
         local c, h = GetEntityCoords(self.entity), GetEntityHeading(self.entity)
         return { x = c.x, y = c.y, z = c.z, w = h }
     end
 
     ---Save Metadata
-    self.SaveMetaData   = function()
+    self.SaveMetaData = function()
         MySQL.update(Querys.saveMetadata, { json.encode(self.metadata), self.plate })
         State:set("metadata", self.metadata, true)
     end
 
     --- SetMetadata
-    ---@param key string
+    ---@param key string|table
     ---@param value any
-    self.SetMetadata    = function(key, value)
-        self.metadata[key] = value
+    self.SetMetadata  = function(key, value)
+        if type(key) == "table" then
+            for k, v in pairs(key) do
+                self.metadata[k] = v
+            end
+        else
+            self.metadata[key] = value
+        end
         self.SaveMetaData()
-
-        return self.metadata[key]
+        return self.metadata
     end
+
 
     --- DeleteMetadata
     ---@param key string
@@ -341,6 +346,11 @@ function Vehicles.GetVehicle(entity)
             self.keys[identifier] = GetName(src)
             State:set('keys', self.keys, true)
             MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plate })
+
+            --- moving keys to metadata
+            if WIP then
+                self.SetMetadata('keys', self.keys)
+            end
             return true
         end
         return false
@@ -352,6 +362,10 @@ function Vehicles.GetVehicle(entity)
             self.keys[identifier] = nil
             State:set('keys', self.keys, true)
             MySQL.update(Querys.saveKeys, { json.encode(self.keys), self.plate })
+
+            if WIP then
+                self.SetMetadata('keys', self.keys)
+            end
             return true
         end
         return false
@@ -363,8 +377,11 @@ function Vehicles.GetVehicle(entity)
     ---@param props table
     self.SaveProps      = function(props)
         self.vehicle = props
-        State:set('props', props, true)
+        --State:set('props', props, true)
         MySQL.update(Querys.saveProps, { json.encode(props), self.plate })
+        if WIP then
+            self.SetMetadata('properties', props)
+        end
     end
 
     self.DeleteVehicle  = function(fromDatabase)
@@ -416,6 +433,11 @@ function Vehicles.GetVehicle(entity)
     end
 
     ---ImpoundVehicle
+    ---@param impound string
+    ---@param price number
+    ---@param note string
+    ---@param date string
+    ---@param endpound string
     self.ImpoundVehicle = function(impound, price, note, date, endpound)
         self.SetMetadata('pound', {
             price = price,
@@ -484,12 +506,25 @@ function Vehicles.GetVehicle(entity)
         self.mileage = math.floor(mileages * 100)
         State:set('mileage', Utils.Round(self.mileage), true)
         MySQL.update(Querys.saveLeftVehicle, { self.mileage, self.coords, json.encode(props), self.plate })
+        if WIP then
+            self.SetMetadata({
+                mileage = mileages,
+                coords = coords,
+                properties = props
+            })
+        end
     end
 
 
     self.CoordsAndProps = function(coords, props)
-        State:set('props', props, true)
+        --State:set('props', props, true)
         self.coords = coords
+        if WIP then
+            self.SetMetadata({
+                properties = props,
+                coords = coords,
+            })
+        end
         return MySQL.update.await(Querys.updateTrailer, { self.coords, json.encode(props), self.plate })
     end
 
@@ -703,13 +738,13 @@ function Vehicles.ItemCarKeys(src, action, plate)
     end
 end
 
-local VehicleProps = {}
+local Properties = {}
 
 RegisterNetEvent('mVehicle:ReceiveProps', function(id, data)
     local props = json.decode(data)
-    if VehicleProps[id] then
-        VehicleProps[id](props)
-        VehicleProps[id] = nil
+    if Properties[id] then
+        Properties[id](props)
+        Properties[id] = nil
     end
 end)
 
@@ -726,7 +761,7 @@ function Vehicles.GetClientProps(src, NetID)
 
     local promise = promise.new()
 
-    VehicleProps[entity] = function(props)
+    Properties[entity] = function(props)
         promise:resolve(props)
     end
 
@@ -734,25 +769,33 @@ function Vehicles.GetClientProps(src, NetID)
 
     local result = Citizen.Await(promise)
 
-    VehicleProps[entity] = nil
+    Properties[entity] = nil
 
     return result
 end
 
-AddEventHandler('onServerResourceStop', function(rsc)
-    if rsc == 'mVehicle' and Config.Persistent and Config.Debug then
-        for k, v in pairs(GetAllVehicles()) do
-            local plate = GetVehicleNumberPlateText(v)
-            local row = MySQL.single.await(
-                'SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) AND `coords` IS NOT NULL AND `coords` != ? LIMIT 1',
-                { plate, '[]' })
+AddEventHandler("onResourceStart", function(Resource)
+    if Resource == 'mVehicle' then
+        Citizen.Wait(2000)
+        if Config.Persistent then
+            Vehicles.SpawnVehicles()
+        else
+            MySQL.update('UPDATE owned_vehicles SET stored = 1 WHERE stored = 0 AND (pound IS NULL OR pound = 0)')
+        end
+    end
+end)
 
-            if row then
-                local coords = Utils.GetVector4(v, true)
-                MySQL.update.await('UPDATE owned_vehicles SET coords = ? WHERE TRIM(`plate`) = TRIM(?)',
-                    { coords, plate })
-                DeleteEntity(v)
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if resourceName == GetCurrentResourceName() and Config.Persistent then
+        for k, v in pairs(Vehicles.Vehicles) do
+            local coords = Utils.GetVector4(v.entity, true)
+
+            if Config.Debug then
+                DeleteEntity(v.entity)
             end
+
+            MySQL.update('UPDATE owned_vehicles SET coords = ? WHERE TRIM(`plate`) = TRIM(?)', { coords, v.plate })
         end
     end
 end)
@@ -761,6 +804,7 @@ exports('PlateExist', Vehicles.PlateExist)
 exports('GeneratePlate', Vehicles.GeneratePlate)
 exports('ItemCarKeys', Vehicles.ItemCarKeys)
 exports('GetClientProps', Vehicles.GetClientProps)
+
 lib.callback.register('mVehicle:GiveKey', Vehicles.ItemCarKeys)
 
 exports('vehicle', function()

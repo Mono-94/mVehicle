@@ -60,21 +60,18 @@ end)
 --- Give Car CallBack
 lib.callback.register('mVehicle:GivecarData', function()
     local options = {}
+    local disable = true
 
     local status, GarageZones = pcall(function()
         return exports.mGarage:GetGaragesData()
     end)
 
-    local disable = false
-
-
     if status then
+        disable = false
         for _, garage in ipairs(GarageZones.garage) do
             local label = garage.jobname or garage.name
             table.insert(options, { value = garage.name, label = label })
         end
-    else
-        disable = true
     end
 
     local input = lib.inputDialog('GiveCar', {
@@ -112,7 +109,7 @@ lib.callback.register('mVehicle:GivecarData', function()
 
     local isModelValid = IsModelValid(vehiclehash)
 
-    if not isModelValid then return false, lib.print.error('Vehicle model invalid') end
+    if not isModelValid then return false, print('Vehicle model invalid') end
 
     return GiveCar
 end)
@@ -148,9 +145,12 @@ lib.onCache('seat', function(value)
     local vehicle = cache.vehicle
     local oldPos = nil
     seat = value
-    if seat == -1 then
+    if seat == -1 and DoesEntityExist(vehicle) then
         local data = {}
+       -- local State = Entity(vehicle).state
+
         saveKHM = true
+
         data.plate = GetVehicleNumberPlateText(vehicle)
 
         local vehicleDb = lib.callback.await('mVehicle:VehicleState', false, 'getVeh', data.plate)
@@ -176,7 +176,7 @@ lib.onCache('seat', function(value)
                 else
                     data.coords = Utils.GetVector4(vehicle, true)
                     data.props = lib.getVehicleProperties(vehicle)
-              
+
                     saveKHM = false
                     seat = nil
                     if type(data.props) == 'table' then
@@ -192,15 +192,6 @@ lib.onCache('seat', function(value)
                             Trailer.props = lib.getVehicleProperties(trailerEntity)
                             if type(Trailer.props) == 'table' then
                                 local saved = lib.callback.await('mVehicle:VehicleState', false, 'savetrailer', Trailer)
-                                if saved then
-                                    Utils.Debug('info',
-                                        ('[ TRAILER ] - Trailer save, Plate: %s, Owner ID : %s'):format(Trailer.plate,
-                                            State.Owner))
-                                else
-                                    Utils.Debug('info',
-                                        ('[ TRAILER ] - Error to save trailer Plate: %s, Owner ID : %s'):format(
-                                            Trailer.plate, State.Owner))
-                                end
                             end
                         end
                     end
@@ -232,7 +223,6 @@ function SetFadeEntity(data)
     end
 end
 
-
 function ShowNui(action, shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
     SendNUIMessage({ action = action, data = shouldShow })
@@ -249,4 +239,3 @@ end)
 RegisterNuiCallback('ui:Lang', function(data, cb)
     cb(lib.getLocales())
 end)
-

@@ -1,3 +1,5 @@
+if not Config.PersonalVehicleMenu then return end
+
 local getVehicles = function()
     local cars = {}
 
@@ -35,14 +37,13 @@ local getVehicles = function()
         cars[row.plate] = row
     end
 
-    -- lib.setClipboard(json.encode(cars, { indent = true }))
 
     return cars
 end
 
 
 --- Personal vehicles menu
-local aPromise = nil
+local menuPromise = nil
 local keysmenu = false
 ---@param plate? string
 ---@param cb? function
@@ -59,8 +60,8 @@ function Vehicles.VehicleKeysMenu(plate, cb)
 
 
         if cb then
-            aPromise = promise:new()
-            Citizen.Await(aPromise)
+            menuPromise = promise:new()
+            Citizen.Await(menuPromise)
             cb()
         end
     else
@@ -76,8 +77,8 @@ RegisterNuiCallback('ui:Close', function(data, cb)
         keysmenu = false
     elseif data.name == 'setVisibleModal' then
         if keysmenu then Vehicles.VehicleKeysMenu() end
-        if aPromise then
-            aPromise:resolve()
+        if menuPromise then
+            menuPromise:resolve()
         end
     end
     cb(true)
@@ -95,16 +96,12 @@ end)
 
 RegisterNuiCallback('mVehicle:VehicleMenu_ui', function(data, cb)
     local ret = lib.callback.await('mVehicle:VehicleMenu', false, data.action, data.data, data.key)
-
     cb(ret)
 end)
 
 RegisterNuiCallback('mVehicle:VehicleMenu_ui:setGPS', function(plate, cb)
-    local ret = lib.callback.await('mVehicle:VehicleMenu', false, 'setBlip', { plate = plate })
-    if ret then
-        blipcar(ret, plate)
-        cb(ret)
-    end
+    local ret = Vehicles.BlipOwnerCar(plate)
+    cb(ret)
 end)
 
 
@@ -121,18 +118,23 @@ if Config.PersonalVehicleMenu then
     })
 end
 
-
 local blip = nil
 local timer
 
-function blipcar(coords, plate)
+function Vehicles.BlipOwnerCar(plate)
+    local vehicle = lib.callback.await('mVehicle:VehicleMenu', false, 'setBlip', { plate = plate })
+
+    if not vehicle then return false end
+
     if blip and DoesBlipExist(blip) then
         RemoveBlip(blip)
         SetBlipRoute(blip, false)
         timer:forceEnd(false)
     end
 
-    blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+    local vehLabel = Vehicles.GetVehicleLabel(vehicle.model)
+
+    blip = AddBlipForCoord(vehicle.coords.x, vehicle.coords.y, vehicle.coords.z)
 
     SetBlipSprite(blip, 523)
     SetBlipDisplay(blip, 2)
@@ -140,7 +142,7 @@ function blipcar(coords, plate)
     SetBlipColour(blip, 49)
     SetBlipAsShortRange(blip, false)
     BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString('Vehicle - ' .. plate)
+    AddTextComponentString(('%s - %s'):format(vehLabel, plate))
     EndTextCommandSetBlipName(blip)
     SetBlipRoute(blip, true)
 
@@ -151,8 +153,9 @@ function blipcar(coords, plate)
 
     if blip then
         Utils.Notification({
-            title = 'Garage',
+            title = 'Vehicles',
             description = locale('setBlip'),
+            type = 'success'
         })
         return true
     end

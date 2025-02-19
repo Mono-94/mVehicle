@@ -101,10 +101,10 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
 end)
 
 
-
 -- Close doors on entityCreated
 AddEventHandler('entityCreated', function(entity)
-    if Config.VehicleDensity.CloseAllVehicles and DoesEntityExist(entity) then
+    if not Config.VehicleDensity.CloseAllVehicles then return end
+    if DoesEntityExist(entity) then
         local entityType = GetEntityType(entity)
 
         if entityType == 2 then
@@ -113,22 +113,6 @@ AddEventHandler('entityCreated', function(entity)
     end
 end)
 
-AddEventHandler("onResourceStart", function(Resource)
-    if Resource == 'mVehicle' then
-        Citizen.Wait(2000)
-        if Config.Persistent then
-            Vehicles.SpawnVehicles()
-        else
-            MySQL.update('UPDATE owned_vehicles SET stored = 1 WHERE stored = 0 AND (pound IS NULL OR pound = 0)')
-        end
-    end
-end)
-
-AddEventHandler('onResourceStop', function(Resource)
-    if Resource == 'mVehicle' and Config.Persistent then
-        Vehicles.SaveAllVehicles()
-    end
-end)
 
 -- TxAdmin
 AddEventHandler("txAdmin:events:serverShuttingDown", function()

@@ -1,3 +1,6 @@
+if not Config.PersonalVehicleMenu then return end
+
+
 local function Update(keys, id)
     return MySQL.update.await('UPDATE `owned_vehicles` SET `keys` = ? WHERE id = ?', { json.encode(keys), id })
 end
@@ -58,7 +61,7 @@ lib.callback.register('mVehicle:VehicleMenu', function(source, action, data, tar
         return true
     elseif action == 'setBlip' then
         if Vehicle then
-            return Vehicle.GetCoords()
+            return { coords = Vehicle.GetCoords(), model = Vehicle.vehicle.model }
         end
     end
 

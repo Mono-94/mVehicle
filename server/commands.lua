@@ -13,9 +13,8 @@ lib.addCommand(Config.Commands.givecar, {
 
         local CreateData = {}
 
-
-    
         CreateData.coords = GetCoords(args.target)
+
         CreateData.vehicle = {
             plate = plate,
             fuelLevel = 100,
@@ -39,6 +38,7 @@ lib.addCommand(Config.Commands.givecar, {
             local time = date .. ' ' .. hour
             CreateData.temporary = time
         end
+
 
         if vehicleData.parking then
             CreateData.parking = vehicleData.parking
