@@ -3,7 +3,6 @@ if GetResourceState('xsound') ~= 'started' then return end
 local xSound = exports.xsound
 local radioOpen = false
 local Radio = {}
-local radios = {}
 
 AddEventHandler('onResourceStop', function(rsc)
     if rsc == GetCurrentResourceName() then
@@ -32,7 +31,7 @@ end
 
 RegisterNetEvent("mVehicle:VehicleRadio", function(action, data)
     local exist = xSound:soundExists(data.plate)
-    table.insert(radios, data.plate)
+
     if action == "play" then
         local Vehicle = NetToVeh(data.networkId)
         local coords = GetEntityCoords(Vehicle)
