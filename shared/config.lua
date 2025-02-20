@@ -67,8 +67,8 @@ Config.SeatShuffle         = true
 --- Vehicle Radio
 --- xSound Dependency | https://github.com/Xogy/xsound 
 Config.Radio               = {
-    command = false, -- false or string like key
-    KeyBind = false, -- false or string like key
+    command = false, -- false or string 
+    KeyBind = false, -- false or string
     radial = true,   -- true/false
     distance = 5,    -- distance sound
 }

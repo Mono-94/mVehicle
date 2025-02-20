@@ -1,7 +1,7 @@
 --- Set Engine Sound
 ---@param entity number | integer
 ---@param soundName string | integer
-function Vehicles.SetEnGineSound(entity, soundName)
+function Vehicles.SetEngineSound(entity, soundName)
     if not DoesEntityExist(entity) then return end
     TriggerServerEvent('mVehicle:SetEngineSound', VehToNet(entity), soundName)
 end
@@ -17,4 +17,4 @@ AddStateBagChangeHandler('engineSound', nil, function(bagName, key, value)
 end)
 
 
-exports('SetEngineSound', Vehicles.SetEnGineSound)
+exports('SetEngineSound', Vehicles.SetEngineSound)
