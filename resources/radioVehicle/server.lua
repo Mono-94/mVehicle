@@ -6,6 +6,7 @@ end)
 
 lib.callback.register('mVehicle:radio:PlayList', function(source, action, data)
     local entity = NetworkGetEntityFromNetworkId(data.networkId)
+
     local vehicle = Vehicles.GetVehicle(entity)
 
     if action == 'saveSong' then
@@ -31,6 +32,7 @@ lib.callback.register('mVehicle:radio:PlayList', function(source, action, data)
             vehicle = Vehicles.GetVehicleByPlate(data.plate, true)
 
             if vehicle then
+                local State = Entity(entity).state
                 local metadata = json.decode(vehicle.metadata)
                 if metadata and metadata.radio then
                     for _, song in ipairs(metadata.radio.playlist) do
@@ -39,6 +41,7 @@ lib.callback.register('mVehicle:radio:PlayList', function(source, action, data)
                         end
                     end
 
+                    State:set('metadata', metadata)
                     MySQL.update(Querys.saveMetadata, json.encode(metadata), data.plate)
 
                     return metadata.radio.playlist
@@ -63,6 +66,7 @@ lib.callback.register('mVehicle:radio:PlayList', function(source, action, data)
             vehicle = Vehicles.GetVehicleByPlate(data.plate, true)
 
             if vehicle then
+                local State = Entity(entity).state
                 local metadata = json.decode(vehicle.metadata)
                 if metadata and metadata.radio then
                     for i, song in ipairs(metadata.radio.playlist) do
@@ -73,6 +77,7 @@ lib.callback.register('mVehicle:radio:PlayList', function(source, action, data)
                     end
 
                     MySQL.update(Querys.saveMetadata, json.encode(metadata), data.plate)
+                    State:set('metadata', metadata)
 
                     return metadata.radio.playlist
                 end
@@ -96,6 +101,7 @@ lib.callback.register('mVehicle:radio:PlayList', function(source, action, data)
             vehicle = Vehicles.GetVehicleByPlate(data.plate, true)
 
             if vehicle then
+                local State = Entity(entity).state
                 local metadata = json.decode(vehicle.metadata)
                 if metadata and metadata.radio then
                     for i, song in ipairs(metadata.radio.playlist) do
@@ -107,6 +113,7 @@ lib.callback.register('mVehicle:radio:PlayList', function(source, action, data)
 
                     MySQL.update(Querys.saveMetadata, json.encode(metadata), data.plate)
 
+                    State:set('metadata', metadata)
                     return metadata.radio.playlist
                 end
             end
@@ -134,6 +141,7 @@ exports('mradio', function(event, item, inventory, slot, data)
             if metadata and metadata.install then return false end
 
             vehicle.SetMetadata('radio', { install = true, playlist = {} })
+
             exports.ox_inventory:RemoveItem(inventory.id, item.name, 1, nil, slot)
 
             return true
@@ -146,7 +154,10 @@ exports('mradio', function(event, item, inventory, slot, data)
                 if metadata.radio.install then return end
                 metadata.radio = { install = true, playlist = {} }
                 MySQL.update(Querys.saveMetadata, json.encode(metadata), plate)
+                local State = Entity(entity).state
+                State:set('metadata', metadata)
                 exports.ox_inventory:RemoveItem(inventory.id, item.name, 1, nil, slot)
+
                 return true
             end
         end
