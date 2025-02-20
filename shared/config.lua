@@ -7,7 +7,7 @@
 Config                     = {}
 
 --- Prints | Some extra dev tools
-Config.Debug               = true
+Config.Debug               = false
 
 --- ox_inventory = 'ox' | qs-inventory = 'qs' not sure if it works
 Config.Inventory           = 'ox'
@@ -15,7 +15,7 @@ Config.Inventory           = 'ox'
 --- Enable Bike Helmet
 Config.EnableBikeHelmet    = true
 
---- Personal Vehicle Menu | ❗ Is not finished ❗
+--- Personal Vehicle Menu 
 Config.PersonalVehicleMenu = true
 
 --- Vehicle Density | 0.0 min | 1.0 max
@@ -43,7 +43,7 @@ Config.TargetTrailer       = true
 
 ----------------------------------------------------------------------
 --- Carkeys
-Config.ItemKeys            = false    -- false = Vehicles DB
+Config.ItemKeys            = true    -- false = Vehicles DB
 
 Config.CarKeyItem          = 'carkey' -- item name
 
@@ -55,7 +55,7 @@ Config.KeyDistance         = 5
 
 --- Engine ignition need keys or hotwire
 Config.VehicleEngine       = {
-    ToggleEngine = false,
+    ToggleEngine = true,
     KeyBind = 'M',
     keepEngineOnWhenLeave = true, -- requires ToggleEngine
 }
@@ -67,7 +67,6 @@ Config.SeatShuffle         = true
 --- Vehicle Radio
 --- xSound Dependency | https://github.com/Xogy/xsound 
 Config.Radio               = {
-    item = 'mradio', -- To install on a vehicle
     command = false, -- false or string like key
     KeyBind = false, -- false or string like key
     radial = true,   -- true/false
