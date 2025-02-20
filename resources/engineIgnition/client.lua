@@ -48,9 +48,9 @@ lib.addKeybind({
         local vehicleClass = GetVehicleClass(vehicle)
 
         if vehicleClass ~= 8 then
-            TaskPlayAnim(cache.ped, 'veh@std@ds@fpsbase', 'start_engine', 8.0, 1.0, -1, 0, 0, 0, 0, 0)
+            TaskPlayAnim(cache.ped, 'veh@std@ds@fpsbase', 'start_engine', 8.0, 1.0, not engineStatus and 1500 or 1000, 49, 0, 0, 0, 0)
         end
-
+        
         Citizen.Wait(not engineStatus and 1500 or 1000)
 
         SetVehicleEngineOn(vehicle, not engineStatus, true, true)
