@@ -73,18 +73,26 @@ exports('fakeplate', function(event, item, inventory, slot, data)
                             })
                         SetVehicleNumberPlateText(vehicles, itemSlot.metadata.fakeplate)
                         vehicle.FakePlate(itemSlot.metadata.fakeplate)
+
+                        exports.ox_inventory:UpdateVehicle(vehicle.plate, itemSlot.metadata.fakeplate)
+
                         return false
                     end
                 elseif vehicle.plate == itemSlot.metadata.plate then
                     local anim = lib.callback.await('mVehicle:PlayerItems', inventory.id, 'changeplate')
                     if anim then
                         SetVehicleNumberPlateText(vehicles, vehicle.plate)
+
                         vehicle.FakePlate()
+                        
                         exports.ox_inventory:SetMetadata(inventory.id, slot,
                             {
                                 description = itemSlot.metadata.fakeplate,
                                 fakeplate = itemSlot.metadata.fakeplate
                             })
+
+                        exports.ox_inventory:UpdateVehicle(vehicle.plate, itemSlot.metadata.fakeplate)
+
                     end
                 end
             else
@@ -96,7 +104,6 @@ exports('fakeplate', function(event, item, inventory, slot, data)
             end
         else
             local plate = GetVehicleNumberPlateText(vehicles)
-
         end
 
         return
