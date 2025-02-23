@@ -5,12 +5,12 @@ local FrameWorks = {
 
 FrameWork = FrameWorks.esx or FrameWorks.ox or 'standalone'
 
-
 ESX, OX = nil, nil
 
 if FrameWork == "esx" then
     ESX = exports["es_extended"]:getSharedObject()
 end
+
 
 function Notification(src, data)
     TriggerClientEvent('mVehicle:Notification', src, {
@@ -68,40 +68,25 @@ local db = {
     ['esx'] = {
         getVehicleById = 'SELECT * FROM `owned_vehicles` WHERE `id` = ? LIMIT 1',
         getVehicleByPlate = 'SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) LIMIT 1',
-        getVehicleByPlateOrFakeplate =
-        "SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = TRIM(?) LIMIT 1",
-        setOwner =
-        'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        setOwnerParking =
-        'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, coords, metadata, parking) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        getVehicleByPlateOrFakeplate = "SELECT * FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = TRIM(?) LIMIT 1",
+        setOwner = 'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, metadata) VALUES (?, ?, ?, ?, ?, ?)',
+        setOwnerParking = 'INSERT INTO `owned_vehicles` (owner, plate, vehicle, type, job, metadata, parking) VALUES (?, ?, ?, ?, ?, ?, ?)',
         deleteByPlate = 'DELETE FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?)',
         deleteById = 'DELETE FROM `owned_vehicles` WHERE `id` = ?',
         saveMetadata = 'UPDATE `owned_vehicles` SET `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
         saveProps = 'UPDATE `owned_vehicles` SET `vehicle` = ? WHERE TRIM(`plate`) = TRIM(?)',
-        storeGarage =
-        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1, `coords` = NULL, `vehicle` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
-        storeGarageNoProps =
-        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1, `coords` = NULL, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
-        retryGarage =
-        'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0 WHERE TRIM(`plate`) = TRIM(?)',
-        setImpound =
-        'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1, `coords` = NULL, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
-        retryImpound =
-        'UPDATE `owned_vehicles` SET `lastparking` = ?, `coords` = ?, `stored` = 0, `parking` = ?, `pound` = NULL WHERE TRIM(`plate`) = TRIM(?)',
-        getMileage = 'SELECT `mileage` FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) LIMIT 1',
-        saveLeftVehicle =
-        'UPDATE `owned_vehicles` SET `mileage` = ?, `coords` = ?, `vehicle` = ? WHERE TRIM(`plate`) = TRIM(?)',
-        updateTrailer = 'UPDATE `owned_vehicles` SET `coords` = ?, `vehicle` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        storeGarage = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1, `vehicle` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        storeGarageNoProps = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        retryGarage = 'UPDATE `owned_vehicles` SET `stored` = 0 WHERE TRIM(`plate`) = TRIM(?)',
+        setImpound = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1 WHERE TRIM(`plate`) = TRIM(?)',
+        retryImpound = 'UPDATE `owned_vehicles` SET  `stored` = 0, `parking` = ?, `pound` = NULL WHERE TRIM(`plate`) = TRIM(?)',
+        saveLeftVehicle = 'UPDATE `owned_vehicles` SET `mileage` = ?, `vehicle` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        saveLeftVehicleMeta = 'UPDATE `owned_vehicles` SET `mileage` = ?, `vehicle` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
         plateExist = 'SELECT 1 FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?)',
-        saveAllPropsCoords =
-        'UPDATE `owned_vehicles` SET `coords` = ?, `vehicle` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
-        saveAllCoords = 'UPDATE `owned_vehicles` SET `coords` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
-        saveKeys = 'UPDATE `owned_vehicles` SET `keys` = ? WHERE TRIM(`plate`) = TRIM(?)',
+        saveAllPropsCoords = 'UPDATE `owned_vehicles` SET  `vehicle` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
         getVehiclesbyOwner = "SELECT * FROM `owned_vehicles` WHERE `owner` = ?",
-        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `owned_vehicles` WHERE `owner` = ? OR JSON_KEYS(`keys`) LIKE ?",
+        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `owned_vehicles` WHERE `owner` = ? OR JSON_KEYS(metadata, '$.keys') LIKE ?",
         selectAll = 'SELECT * FROM `owned_vehicles`',
-        getKeys = 'SELECT * FROM `owned_vehicles` WHERE `owner` = ?',
-        selectMetadataPlata = 'SELECT `metadata` FROM `owned_vehicles` WHERE TRIM(`plate`) = TRIM(?) LIMIT 1',
         setVehicleJob = 'UPDATE `owned_vehicles` SET `job` = ? WHERE TRIM(`plate`) = TRIM(?)',
     },
 }
