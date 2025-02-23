@@ -11,26 +11,23 @@ lib.addCommand(Config.Commands.givecar, {
 
         if not vehicleData then return lib.print.info('Command "givecar" action cancelled') end
 
-        local CreateData = {}
-
-        CreateData.coords = GetCoords(args.target)
-
-        CreateData.vehicle = {
+        local CreateData = {
             plate = plate,
-            fuelLevel = 100,
-            model = vehicleData.model,
+            source = args.target,
+            intocar = true,
+            setOwner = true,
+            coords = GetCoords(args.target),
+            vehicle = {
+                fuelLevel = 100,
+                model = vehicleData.model,
+            }
         }
-
-        CreateData.source = args.target
-        CreateData.intocar = true
-        CreateData.setOwner = true
 
         if vehicleData.job == '' then
             CreateData.job = nil
         else
             CreateData.job = vehicleData.job
         end
-
 
         if vehicleData.isTemporary then
             local date = os.date('%Y%m%d', math.floor(vehicleData.date / 1000))
@@ -46,7 +43,6 @@ lib.addCommand(Config.Commands.givecar, {
 
         Vehicles.CreateVehicle(CreateData, function(vehicle)
             if DoesEntityExist(vehicle.entity) then
-
                 if Config.ItemKeys then
                     Vehicles.ItemCarKeys(args.target, 'add', CreateData.plate)
                 end
@@ -77,7 +73,7 @@ lib.addCommand(Config.Commands.setcarowner, {
     },
     restricted = 'group.admin'
 }, function(source, args, raw)
-    Vehicles.SetCarOwner(args.target)
+    Vehicles.SetCurrentVehicleOwner(args.target)
 end)
 
 
