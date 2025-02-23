@@ -3,6 +3,12 @@ Vehicles.Config = Config
 
 --Vehicle Label
 function Vehicles.GetVehicleLabel(model)
+    if type(model) == 'string' then
+        model = model:match("^%s*(.-)%s*$")
+        model = model:gsub("%s+", " ")
+        model = GetHashKey(model)
+    end
+
     if not IsModelValid(model) then
         lib.print.warn(model .. ' - Model invalid')
         return 'Unknown'
