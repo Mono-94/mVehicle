@@ -22,6 +22,9 @@ lib.callback.register('mVehicle:VehicleDoors', function(source, data)
             vehicleKeys = vehicle.GetKeys
         elseif vehicledb then
             vehicleKeys = json.decode(vehicledb.metadata) or { keys = {} }
+            if not vehicleKeys.keys then
+                vehicleKeys.keys = {}
+            end
         else
             return false
         end

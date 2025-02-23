@@ -17,6 +17,9 @@ lib.callback.register('mVehicle:VehicleMenu', function(source, action, data, tar
         Vehicle = Vehicles.GetVehicleByID(data.id)
         if Vehicle then
             metadata = json.decode(Vehicle.metadata) or { keys = {} }
+            if not metadata.keys then
+                metadata.keys = {}
+            end
             spawned = false
         end
     end

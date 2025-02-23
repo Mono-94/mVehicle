@@ -13,6 +13,9 @@ lib.callback.register('mVehicle:VehicleEngine', function(source, data)
             vehicleKeys = vehicle.GetKeys
         elseif vehicledb then
             vehicleKeys = json.decode(vehicledb.metadata) or { keys = {} }
+            if not vehicleKeys.keys then
+                vehicleKeys.keys = {}
+            end
         else
             return false
         end
