@@ -1,44 +1,42 @@
 if not Config.PersonalVehicleMenu then return end
 
 
-local function Update(keys, id)
-    return MySQL.update.await('UPDATE `owned_vehicles` SET `keys` = ? WHERE id = ?', { json.encode(keys), id })
+local function Update(metadata, id)
+    return MySQL.update.await('UPDATE `owned_vehicles` SET `metadata` = ? WHERE id = ?', { json.encode(metadata), id })
 end
 
 
 
 lib.callback.register('mVehicle:VehicleMenu', function(source, action, data, targetPlayer)
     local Vehicle = Vehicles.GetVehicleByPlate(data.plate)
-
     local spawned = true
-    local keys = {}
+
+    local metadata = {}
 
     if not Vehicle then
         Vehicle = Vehicles.GetVehicleByID(data.id)
-        keys = Vehicle.keys
-        spawned = false
+        if Vehicle then
+            metadata = json.decode(Vehicle.metadata) or { keys = {} }
+            spawned = false
+        end
     end
+
 
     if not Vehicle then
         Utils.Debug('error', 'Vehicle not found')
         return false
     end
 
-    if type(keys) == "string" then
-        keys = json.decode(keys)
-    end
-
-
 
     if action == 'addkey' then
         local target = Identifier(targetPlayer)
         if target then
             if not spawned then
-                if keys[target] then
+                if metadata.keys[target] then
                     return false
                 end
-                keys[target] = GetName(targetPlayer)
-                Update(keys, data.id)
+                metadata.keys[target] = GetName(targetPlayer)
+                Update(metadata, data.id)
             else
                 local adeed = Vehicle.AddKey(targetPlayer)
                 return adeed
@@ -48,11 +46,11 @@ lib.callback.register('mVehicle:VehicleMenu', function(source, action, data, tar
         end
     elseif action == 'removekey' then
         if not spawned then
-            if not keys[targetPlayer] then
+            if not metadata.keys[targetPlayer] then
                 return false
             end
-            keys[targetPlayer] = nil
-            Update(keys, data.id)
+            metadata.keys[targetPlayer] = nil
+            Update(metadata, data.id)
         else
             local remove = Vehicle.RemoveKey(targetPlayer)
             return remove

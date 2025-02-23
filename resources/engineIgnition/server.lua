@@ -9,10 +9,10 @@ lib.callback.register('mVehicle:VehicleEngine', function(source, data)
         local vehicledb = MySQL.single.await(Querys.getVehicleByPlateOrFakeplate, { data.plate, data.plate })
 
         if not vehicledb and vehicle then
-            vehicledb = { keys = vehicle.GetKeys() }
-            vehicleKeys = vehicle.GetKeys()
+            vehicledb = { keys = vehicle.GetKeys }
+            vehicleKeys = vehicle.GetKeys
         elseif vehicledb then
-            vehicleKeys = json.decode(vehicledb.keys) or {}
+            vehicleKeys = json.decode(vehicledb.metadata) or { keys = {} }
         else
             return false
         end
@@ -21,7 +21,7 @@ lib.callback.register('mVehicle:VehicleEngine', function(source, data)
             return false
         end
 
-        hasKeys = (identifier == vehicledb.owner) or vehicleKeys[identifier] ~= nil
+        hasKeys = (identifier == vehicledb.owner) or vehicleKeys.keys[identifier] ~= nil
     else
         hasKeys = true
     end

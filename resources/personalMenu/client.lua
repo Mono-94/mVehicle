@@ -17,6 +17,7 @@ local getVehicles = function()
         local row = data[i]
         local props = json.decode(row.vehicle)
 
+        row.metadata = json.decode(row.metadata)
         row.vehlabel = Vehicles.GetVehicleLabel(props.model)
         row.model = GetDisplayNameFromVehicleModel(props.model)
 
@@ -30,13 +31,8 @@ local getVehicles = function()
             row.bodyHealth = 100
         end
 
-        local metadata = json.decode(row.metadata)
-
-        row.metadata = metadata
-
         cars[row.plate] = row
     end
-
 
     return cars
 end
