@@ -397,17 +397,10 @@ function Vehicles.GetVehicle(entity)
     ---@param props string|nil
     ---@return boolean
     self.StoreVehicle   = function(parking, props)
-        local query, params, store = "", {}, false
+        local store = false
 
-        if props then
-            query = Querys.storeGarage
-            params = { parking, props, json.encode(self.metadata), self.plate }
-        else
-            query = Querys.storeGarageNoProps
-            params = { parking, json.encode(self.metadata), self.plate }
-        end
-
-        local affectedRows = MySQL.update.await(query, params)
+        local affectedRows = MySQL.update.await(Querys.storeGarage,
+            { parking, props, json.encode(self.metadata), self.plate })
 
         if affectedRows > 0 then
             State:set('FadeEntity', { action = 'delete' }, true)
@@ -780,23 +773,21 @@ AddEventHandler("onResourceStart", function(Resource)
         if Config.Persistent then
             Wait(1000)
             Vehicles.SpawnVehicles()
-        else
-            MySQL.update('UPDATE owned_vehicles SET stored = 1 WHERE stored = 0 AND (pound IS NULL OR pound = 0)')
         end
     end
 end)
 AddEventHandler('onResourceStop', function(resourceName)
-    if resourceName == GetCurrentResourceName() and Config.Persistent then
+    if resourceName == GetCurrentResourceName()  then
         for k, v in pairs(Vehicles.Vehicles) do
-            local coords = GetEntityCoords(v.entity)
-            local w = GetEntityHeading(v.entity)
-
-            v.metadata.coords = { x = coords.x, y = coords.y, z = coords.z, w = w }
-
             DeleteEntity(v.entity)
 
-            MySQL.update('UPDATE owned_vehicles SET metadata = ? WHERE TRIM(`plate`) = TRIM(?)',
-                { json.encode(v.metadata), v.plate })
+            if Config.Persistent then
+                local coords = GetEntityCoords(v.entity)
+                local w = GetEntityHeading(v.entity)
+
+                v.metadata.coords = { x = coords.x, y = coords.y, z = coords.z, w = w }
+                MySQL.update(Querys.saveMetadata, { json.encode(v.metadata), v.plate })
+            end
         end
     end
 end)

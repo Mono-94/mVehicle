@@ -5,7 +5,7 @@ local FrameWorks = {
 
 FrameWork = FrameWorks.esx or FrameWorks.ox or 'standalone'
 
-ESX, OX = nil, nil
+ESX, Ox = nil, nil
 
 if FrameWork == "esx" then
     ESX = exports["es_extended"]:getSharedObject()
@@ -76,7 +76,6 @@ local db = {
         saveMetadata = 'UPDATE `owned_vehicles` SET `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
         saveProps = 'UPDATE `owned_vehicles` SET `vehicle` = ? WHERE TRIM(`plate`) = TRIM(?)',
         storeGarage = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1, `vehicle` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
-        storeGarageNoProps = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 1, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
         retryGarage = 'UPDATE `owned_vehicles` SET `stored` = 0 WHERE TRIM(`plate`) = TRIM(?)',
         setImpound = 'UPDATE `owned_vehicles` SET `parking` = ?, `stored` = 0, `pound` = 1 WHERE TRIM(`plate`) = TRIM(?)',
         retryImpound = 'UPDATE `owned_vehicles` SET  `stored` = 0, `parking` = ?, `pound` = NULL WHERE TRIM(`plate`) = TRIM(?)',
