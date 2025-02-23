@@ -153,9 +153,10 @@ lib.onCache('seat', function(value)
 
         data.plate = GetVehicleNumberPlateText(vehicle)
 
-        local vehicleDb = lib.callback.await('mVehicle:VehicleState', false, 'getVeh', data.plate)
+        local vehicleDb = lib.callback.await('mVehicle:VehicleState', false, 'getVeh', data)
 
         if vehicleDb and vehicleDb.vehicle then
+       
             data.mileage = vehicleDb.mileage / 100
             while true do
                 if seat == -1 and saveKHM then
