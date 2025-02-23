@@ -53,7 +53,8 @@ end
 
 lib.callback.register('mVehicle:VehicleState', function(source, action, data)
     local vehicle = nil
-    if data then
+
+    if data and data.plate then
         vehicle = Vehicles.GetVehicleByPlate(data.plate)
     end
 
@@ -61,8 +62,13 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         if vehicle then
             vehicle.SaveLeftVehicle(data.coords, data.props, data.mileage)
         else
-            MySQL.update(Querys.saveLeftVehicle,
-                { math.floor(data.mileage * 100), data.coords, json.encode(data.props), data.plate })
+            local current = Vehicles.GetVehicleByPlate(data.plate, true)
+
+            if not current then return end
+            local metdata = json.decode(current.metadata) or { keys = {} }
+
+            metdata.coords = json.decode(data.coords)
+            MySQL.update(Querys.saveLeftVehicleMeta,{ math.floor(data.mileage * 100), json.encode(data.props), json.encode(metdata), data.plate })
         end
     elseif action == 'savetrailer' then
         return vehicle and vehicle.CoordsAndProps(data.coords, data.props)
@@ -87,13 +93,16 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
             MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
         end
     elseif action == 'getkeys' then
-        local identifier = Identifier(source)
-        return MySQL.query.await(Querys.getKeys, { identifier })
+        return Vehicles.GetAllPlayerVehicles(source, false, false)
     elseif action == 'getVeh' then
-        local vehicle = Vehicles.GetVehicleByPlate(data, true)
+        local veh = Vehicles.GetVehicleByPlate(data.plate)
 
-        if vehicle then
-            return { vehicle = true, mileage = vehicle.mileage }
+        if not veh then
+            veh = Vehicles.GetVehicleByPlate(data.plate, true)
+        end
+
+        if veh then
+            return { vehicle = true, mileage = veh.mileage }
         else
             return false
         end
