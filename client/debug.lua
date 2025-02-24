@@ -46,13 +46,16 @@ exports.ox_target:addGlobalVehicle({
                 if VehicleState.engineSound then
                     print(("Engine Sound: %s"):format(VehicleState.engineSound))
                 end
-
                 if VehicleState.metadata then
                     print(("Metadata: %s"):format(json.encode(VehicleState.metadata, { indent = true })))
                 end
-                if VehicleState.keys then
-                    print(("Keys: %s"):format(json.encode(VehicleState.keys, { indent = true })))
-                end
+                print(VehicleState.metadata.properties)
+                print(VehicleState.metadata.parking)
+                print(VehicleState.metadata.keys)
+
+                --if VehicleState.keys then
+                --    print(("Keys: %s"):format(json.encode(VehicleState.keys, { indent = true })))
+                --end
             end
         end
     },

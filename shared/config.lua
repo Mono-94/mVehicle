@@ -28,7 +28,7 @@ Config.VehicleDensity      = {
 
 --- Persistent
 --- Vehicle persistents in world
-Config.Persistent          = true
+Config.Persistent          = false
 
 --- Commands
 Config.Commands            = {
@@ -43,7 +43,7 @@ Config.TargetTrailer       = true
 
 ----------------------------------------------------------------------
 --- Carkeys
-Config.ItemKeys            = true    -- false = Vehicles DB
+Config.ItemKeys            = false    -- false = Vehicles DB
 
 Config.CarKeyItem          = 'carkey' -- item name
 
@@ -55,7 +55,7 @@ Config.KeyDistance         = 5
 
 --- Engine ignition need keys or hotwire
 Config.VehicleEngine       = {
-    ToggleEngine = true,
+    ToggleEngine = false,
     KeyBind = 'M',
     keepEngineOnWhenLeave = true, -- requires ToggleEngine
 }
