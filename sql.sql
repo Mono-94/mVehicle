@@ -12,7 +12,7 @@ CREATE TABLE `owned_vehicles` (
   `parking` varchar(60) DEFAULT NULL,
   `pound` varchar(60) DEFAULT NULL,
   `mileage` int(11) DEFAULT 0,
-  `metadata` '{"keys":{}}' DEFAULT NULL,
+  `metadata` longtext DEFAULT '{"keys":{}}',
   `glovebox` longtext DEFAULT NULL,
   `trunk` longtext DEFAULT NULL,
   `carseller` int(11) DEFAULT 0,
