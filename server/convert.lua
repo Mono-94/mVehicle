@@ -1,3 +1,10 @@
+while not FrameWork do
+    Wait(100)
+end
+
+if FrameWork ~= 'esx' then return end
+
+
 local deleteColumnKeys = true
 local deleteColumnCoords = true
 

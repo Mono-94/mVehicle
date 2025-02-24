@@ -17,6 +17,12 @@ lib.callback.register('mVehicle:VehicleDoors', function(source, data)
     if not Config.ItemKeys then
         local vehicledb = MySQL.single.await(Querys.getVehicleByPlateOrFakeplate, { data.plate, data.plate })
 
+        if FrameWork == 'qbx' and vehicledb then
+            vehicledb.parking = vehicledb.garage
+            vehicledb.vehicle = vehicledb.mods
+            vehicledb.owner = vehicledb.license
+        end
+
         if not vehicledb and vehicle then
             vehicledb = { keys = vehicle.GetKeys }
             vehicleKeys = vehicle.GetKeys

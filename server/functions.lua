@@ -174,6 +174,11 @@ end
 ---@return table
 function Vehicles.GetVehicleByID(id)
     local vehicle = MySQL.single.await(Querys.getVehicleById, { id })
+    if FrameWork == 'qbx' and vehicle then
+        vehicle.parking = vehicle.garage
+        vehicle.vehicle = vehicle.mods
+        vehicle.owner = vehicle.license
+    end
     return vehicle
 end
 
@@ -337,7 +342,7 @@ function Vehicles.GetVehicle(entity)
     --- SetJob
     self.SetJob         = function(job)
         self.SetMetadata('job', job)
-        if Core.FrameWork == 'esx' then
+        if Framework == 'esx' or Framework == 'qbx' then
             MySQL.update(Querys.setVehicleJob, { job, self.plate })
         end
     end
@@ -546,13 +551,16 @@ function Vehicles.GetVehicleByPlate(plate, db)
             return false
         end
     else
-        return MySQL.single.await(Querys.getVehicleByPlate, { plate })
+        local vehicle = MySQL.single.await(Querys.getVehicleByPlate, { plate })
+        if FrameWork == 'qbx' and vehicle then
+            vehicle.parking = vehicle.garage
+            vehicle.vehicle = vehicle.mods
+            vehicle.owner = vehicle.license
+        end
+        return vehicle
     end
 end
 
-function Vehicles.GetVehiclePlate(plate)
-
-end
 
 ---GetAllPlayerVehicles
 ---@param PlayerSource number Player Source
@@ -577,11 +585,24 @@ function Vehicles.GetAllPlayerVehicles(PlayerSource, VehicleTable, haveKeys)
         return Vehicles.Vehicles
     else
         if identifier then
+            local AllVehicles = nil
             if haveKeys then
-                return MySQL.query.await(Querys.getVehiclesbyOwnerAndhaveKeys, { identifier, '%"' .. identifier .. '"%' })
+                AllVehicles = MySQL.query.await(Querys.getVehiclesbyOwnerAndhaveKeys,
+                    { identifier, '%"' .. identifier .. '"%' })
             else
-                return MySQL.query.await(Querys.getVehiclesbyOwner, { identifier, })
+                AllVehicles = MySQL.query.await(Querys.getVehiclesbyOwner, { identifier, })
             end
+
+
+            if FrameWork == 'qbx' and AllVehicles then
+                lib.array.forEach(AllVehicles, function(veh)
+                    veh.parking = veh.garage
+                    veh.vehicle = veh.mods
+                    veh.owner = veh.license
+                end)
+            end
+
+            return AllVehicles
         end
     end
 end
@@ -633,6 +654,11 @@ function Vehicles.SpawnVehicles()
     local dbvehicles = MySQL.query.await(Querys.selectAll)
     lib.array.forEach(dbvehicles, function(vehicle)
         if vehicle.stored == 0 and vehicle.pound == nil then
+            if FrameWork == 'qbx' and vehicle then
+                vehicle.parking = vehicle.garage
+                vehicle.vehicle = vehicle.mods
+                vehicle.owner = vehicle.license
+            end
             Vehicles.CreateVehicle(vehicle)
             Citizen.Wait(200)
         end
@@ -777,7 +803,7 @@ AddEventHandler("onResourceStart", function(Resource)
     end
 end)
 AddEventHandler('onResourceStop', function(resourceName)
-    if resourceName == GetCurrentResourceName()  then
+    if resourceName == GetCurrentResourceName() then
         for k, v in pairs(Vehicles.Vehicles) do
             DeleteEntity(v.entity)
 
