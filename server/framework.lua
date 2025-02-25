@@ -36,7 +36,7 @@ function Identifier(src)
     elseif FrameWork == "qbx" then
         local Player = exports.qbx_core:GetPlayer(src)
         if Player then
-            return Player.PlayerData.license
+            return Player.PlayerData.citizenid, Player.PlayerData.license
         end
     elseif FrameWork == "standalone" then
         return GetPlayerIdentifier(src, 'license')
@@ -98,8 +98,8 @@ local db = {
         getVehicleById = 'SELECT * FROM `player_vehicles` WHERE `id` = ? LIMIT 1',
         getVehicleByPlate = 'SELECT * FROM `player_vehicles` WHERE TRIM(`plate`) = TRIM(?) LIMIT 1',
         getVehicleByPlateOrFakeplate ="SELECT * FROM `player_vehicles` WHERE TRIM(`plate`) = TRIM(?) OR JSON_UNQUOTE(JSON_EXTRACT(`metadata`, '$.fakeplate')) = TRIM(?) LIMIT 1",
-        setOwner = 'INSERT INTO `player_vehicles` (license, plate, mods, type, job, metadata) VALUES (?, ?, ?, ?, ?, ?)',
-        setOwnerParking ='INSERT INTO `player_vehicles` (license, plate, mods, type, job, metadata, garage) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        setOwner = 'INSERT INTO `player_vehicles` (citizenid, plate, mods, type, job, metadata, license) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        setOwnerParking ='INSERT INTO `player_vehicles` (citizenid, plate, mods, type, job, metadata, garage, license) VALUES (?, ?, ?, ?, ?, ?, ?,?)',
         deleteByPlate = 'DELETE FROM `player_vehicles` WHERE TRIM(`plate`) = TRIM(?)',
         deleteById = 'DELETE FROM `player_vehicles` WHERE `id` = ?',
         saveMetadata = 'UPDATE `player_vehicles` SET `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
@@ -113,8 +113,8 @@ local db = {
         saveLeftVehicleMeta = 'UPDATE `player_vehicles` SET `mileage` = ?, `mods` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
         plateExist = 'SELECT 1 FROM `player_vehicles` WHERE TRIM(`plate`) = TRIM(?)',
         saveAllPropsCoords = 'UPDATE `player_vehicles` SET  `mods` = ?, `metadata` = ? WHERE TRIM(`plate`) = TRIM(?)',
-        getVehiclesbyOwner = "SELECT * FROM `player_vehicles` WHERE `license` = ?",
-        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `player_vehicles` WHERE `license` = ? OR JSON_KEYS(metadata, '$.keys') LIKE ?",
+        getVehiclesbyOwner = "SELECT * FROM `player_vehicles` WHERE `citizenid` = ?",
+        getVehiclesbyOwnerAndhaveKeys = "SELECT * FROM `player_vehicles` WHERE `citizenid` = ? OR JSON_KEYS(metadata, '$.keys') LIKE ?",
         selectAll = 'SELECT * FROM `player_vehicles`',
         setVehicleJob = 'UPDATE `player_vehicles` SET `job` = ? WHERE TRIM(`plate`) = TRIM(?)',
     },

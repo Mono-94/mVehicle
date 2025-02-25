@@ -29,6 +29,7 @@ end
 ---@param data table
 ---@param cb? function
 function Vehicles.CreateVehicle(data, cb)
+
     if type(data.vehicle) ~= 'table' then
         data.vehicle = json.decode(data.vehicle)
     end
@@ -128,13 +129,18 @@ function Vehicles.CreateVehicle(data, cb)
     end
 
     if data.setOwner then
-        data.owner = Identifier(data.source)
+       local identifier, qbxlicense Identifier(data.source)
+        data.owner = identifier
         if not data.owner then
             return false, Utils.Debug('error', 'Error CreateVehicle No Player Identifier by source!')
         end
 
         data.metadata.firstSpawn = os.date("%Y/%m/%d %H:%M:%S")
         data.metadata.fisrtOwner = GetName(data.source)
+
+        if FrameWork == 'qbx' then
+            data.license = qbxlicense
+        end
 
         data.id = Vehicles.SetVehicleOwner(data)
     end
@@ -227,7 +233,7 @@ function Vehicles.GetVehicleByID(id)
     if FrameWork == 'qbx' and vehicle then
         vehicle.parking = vehicle.garage
         vehicle.vehicle = vehicle.mods
-        vehicle.owner = vehicle.license
+        vehicle.owner = vehicle.citizenid
     end
     return vehicle
 end
@@ -282,13 +288,15 @@ function Vehicles.SetVehicleOwner(data)
         data.type,
         data.job,
         json.encode(data.metadata),
-        data.parking
+        data.parking,
+        data.license
     }
 
     local query = ''
 
     if not data.parking then
         query = Querys.setOwner
+        table.remove(insert, 8)
         table.remove(insert, 7)
     else
         query = Querys.setOwnerParking
@@ -607,7 +615,7 @@ function Vehicles.GetVehicleByPlate(plate, db)
         if FrameWork == 'qbx' and vehicle then
             vehicle.parking = vehicle.garage
             vehicle.vehicle = vehicle.mods
-            vehicle.owner = vehicle.license
+            vehicle.owner = vehicle.citizenid
         end
         return vehicle
     end
@@ -649,7 +657,7 @@ function Vehicles.GetAllPlayerVehicles(PlayerSource, VehicleTable, haveKeys)
                 lib.array.forEach(AllVehicles, function(veh)
                     veh.parking = veh.garage
                     veh.vehicle = veh.mods
-                    veh.owner = veh.license
+                    veh.owner = veh.citizenid
                 end)
             end
 
@@ -708,7 +716,7 @@ function Vehicles.SpawnVehicles()
             if FrameWork == 'qbx' and vehicle then
                 vehicle.parking = vehicle.garage
                 vehicle.vehicle = vehicle.mods
-                vehicle.owner = vehicle.license
+                vehicle.owner = vehicle.citizenid
             end
             Vehicles.CreateVehicle(vehicle)
             Citizen.Wait(200)
