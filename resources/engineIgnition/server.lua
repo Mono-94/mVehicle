@@ -15,8 +15,11 @@ lib.callback.register('mVehicle:VehicleEngine', function(source, data)
         end
         
         if not vehicledb and vehicle then
-            vehicledb = { keys = vehicle.GetKeys }
-            vehicleKeys = vehicle.GetKeys
+            vehicledb = {
+                keys = vehicle.GetKeys,
+                owner = vehicle.owner,
+             }
+             vehicleKeys = vehicle.GetKeys
         elseif vehicledb then
             vehicleKeys = json.decode(vehicledb.metadata) or { keys = {} }
             if not vehicleKeys.keys then
