@@ -29,7 +29,6 @@ end
 ---@param data table
 ---@param cb? function
 function Vehicles.CreateVehicle(data, cb)
-
     if type(data.vehicle) ~= 'table' then
         data.vehicle = json.decode(data.vehicle)
     end
@@ -129,7 +128,8 @@ function Vehicles.CreateVehicle(data, cb)
     end
 
     if data.setOwner then
-       local identifier, qbxlicense Identifier(data.source)
+        local identifier, qbxlicense
+        Identifier(data.source)
         data.owner = identifier
         if not data.owner then
             return false, Utils.Debug('error', 'Error CreateVehicle No Player Identifier by source!')
@@ -181,8 +181,8 @@ function Vehicles.CreateVehicle(data, cb)
 end
 
 --- Spawn specific id
---- @param data table | @{ id: number, coords: vector4, intocar?: boolean, source?: number|string } 
---- @param callback? function 
+--- @param data table | @{ id: number, coords: vector4, intocar?: boolean, source?: number|string }
+--- @param callback? function
 function Vehicles.CreateVehicleId(data, callback)
     if not data or not data.coords or not data.id then return end
 
@@ -281,29 +281,27 @@ end
 function Vehicles.SetVehicleOwner(data)
     if not data.job then data.job = nil end
 
-    local insert = {
+    local params = {
         data.owner,
         data.plate,
         json.encode(data.vehicle),
         data.type,
         data.job,
-        json.encode(data.metadata),
-        data.parking,
-        data.license
+        json.encode(data.metadata)
     }
 
-    local query = ''
-
-    if not data.parking then
-        query = Querys.setOwner
-        table.remove(insert, 8)
-        table.remove(insert, 7)
-    else
-        query = Querys.setOwnerParking
+    if data.parking then
+        table.insert(params, data.parking)
     end
 
-    return MySQL.insert.await(query, insert)
+    if FrameWork == 'qbx' then
+        table.insert(params, data.license)
+    end
+
+    local query = data.parking and Querys.setOwnerParking or Querys.setOwner
+    return MySQL.insert.await(query, params)
 end
+
 
 function Vehicles.GetVehicle(entity)
     if not Vehicles.Vehicles[entity] then
