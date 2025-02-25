@@ -41,15 +41,20 @@ function Vehicles.CreateVehicle(data, cb)
         data.coords = data.metadata.coords
     end
 
+    if data.model then
+        data.vehicle.model = data.model
+    end
+
+    if not data.plate and data.vehicle.plate then
+        data.plate = data.vehicle.plate
+    end
+
     if not data.vehicle or not data.plate or not data.coords then
         Utils.Debug('warn', 'CreateVehicle vehicle plate or coords are NIL value [ coords: %s , plate: %s,  ]',
             data.coords, data.plate, data.vehicle)
         return false
     end
 
-    if not data.plate then
-        data.plate = data.vehicle.plate
-    end
 
     if Vehicles.GetVehicleByPlate(data.plate) then
         Utils.Debug('warn', 'CreateVehicle plate duplicated [ "%s" ]', data.plate)
@@ -62,7 +67,7 @@ function Vehicles.CreateVehicle(data, cb)
 
 
     if not data.onlyData then
-        data.entity = Utils.CreateVehicleServer(data.type, data.vehicle.model or data.model, data.coords)
+        data.entity = Utils.CreateVehicleServer(data.type, data.vehicle.model, data.coords)
 
         if not data.entity then
             Utils.Debug("error", "CreateVehicleServer Entity is NIL")
@@ -169,6 +174,38 @@ function Vehicles.CreateVehicle(data, cb)
     end
 end
 
+--- Spawn specific id
+--- @param data table | @{ id: number, coords: vector4, intocar?: boolean, source?: number|string } 
+--- @param callback? function 
+function Vehicles.CreateVehicleId(data, callback)
+    if not data or not data.coords or not data.id then return end
+
+    local dbvehicles = Vehicles.GetVehicleByID(data.id)
+
+    if not dbvehicles then
+        if callback then
+            return callback(false, false)
+        else
+            return false, false
+        end
+    end
+
+    if data.intocar then
+        dbvehicles.intocar = data.intocar
+        dbvehicles.source = data.source
+    end
+
+    dbvehicles.coords = data.coords
+
+    local vehicleData, vehicle = Vehicles.CreateVehicle(dbvehicles)
+
+    if callback then
+        callback(vehicleData, vehicle)
+    else
+        return vehicleData, vehicle
+    end
+end
+
 function Vehicles.ControlVehicle(entity)
     local plate = GetVehicleNumberPlateText(entity)
     local vehicle = Vehicles.GetVehicleByPlate(plate, true)
@@ -181,7 +218,6 @@ function Vehicles.ControlVehicle(entity)
         print(('No Vehicle with plate: %s'):format(plate))
     end
 end
-
 
 ---Get Vehicle DB from ID
 ---@param id number
@@ -680,54 +716,28 @@ function Vehicles.SpawnVehicles()
     end)
 end
 
---- Spawn specific id
----@param callback? function
-function Vehicles.SpawnVehicleId(data, callback)
-    local dbvehicles = Vehicles.GetVehicleByID(data.id)
-
-    if not dbvehicles then
-        if callback then
-            callback(false, false)
-            return
-        else
-            return false, false
-        end
-    end
-
-    if dbvehicles.intocar then
-        dbvehicles.source = data.source
-    end
-
-    dbvehicles.coords = data.coords
-
-    local vehicleData, vehicle = Vehicles.CreateVehicle(dbvehicles)
-
-    if callback then
-        callback(vehicleData, vehicle)
-    else
-        return vehicleData, vehicle
-    end
-end
-
 ---SaveAllVehicles
 ---@param delete? boolean
 function Vehicles.SaveAllVehicles(delete)
     Vehicles.Save = true
 
     local savedCount = 0
+    local parameters = {}
 
     for entity, veh in pairs(Vehicles.Vehicles) do
         if DoesEntityExist(entity) and not veh.private then
             local coords = GetCoords(false, entity)
-
             local props = Vehicles.GetClientProps(veh.EntityOwner, veh.NetId)
-
             if not props then props = veh.vehicle end
 
             veh.metadata.DoorStatus = GetVehicleDoorLockStatus(entity)
             veh.metadata.coords = coords
 
-            MySQL.update(Querys.saveAllPropsCoords, { json.encode(props), json.encode(veh.metadata), veh.plate })
+            parameters[#parameters + 1] = {
+                json.encode(props),
+                json.encode(veh.metadata),
+                veh.plate
+            }
 
             savedCount = savedCount + 1
 
@@ -740,10 +750,17 @@ function Vehicles.SaveAllVehicles(delete)
         end
     end
 
-    Utils.Debug("info", "Total vehicles saved [ %s ]", savedCount)
+    if not next(parameters) then
+        Vehicles.Save = false
+        return
+    end
+
+    MySQL.prepare(Querys.saveAllPropsCoords, parameters, function(results)
+        if not results then return end
+        Utils.Debug("info", "Total vehicles saved [ %s ] ", savedCount)
+    end)
 
     Wait(500)
-
     Vehicles.Save = false
 end
 
@@ -817,15 +834,50 @@ AddEventHandler("onResourceStart", function(Resource)
         end
     end
 end)
+
+
+
+AddEventHandler("txAdmin:events:serverShuttingDown", function(delay, author, message)
+    local vehicles <const> = Vehicles.Vehicles
+    local parameters = {}
+
+    for _, veh in pairs(vehicles) do
+        local coords = GetEntityCoords(veh.entity)
+        local heading = GetEntityHeading(veh.entity)
+        veh.metadata.coords = { x = coords.x, y = coords.y, z = coords.z, w = heading }
+
+        parameters[#parameters + 1] = {
+            json.encode(veh.metadata),
+            veh.plate
+        }
+    end
+
+    if not next(parameters) then return end
+
+    MySQL.prepare(Querys.saveMetadata, parameters, function(results)
+        if not results then return end
+        Utils.Debug("info", "Total vehicles saved [ %s ] ", #parameters)
+    end)
+end)
+
+
+AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
+    if eventData.secondsRemaining == 60 and Config.Persistent then
+        Citizen.CreateThread(function()
+            Citizen.Wait(50000)
+            Vehicles.SaveAllVehicles(true)
+        end)
+    end
+end)
+
+
 AddEventHandler('onResourceStop', function(resourceName)
     if resourceName == GetCurrentResourceName() then
         for k, v in pairs(Vehicles.Vehicles) do
             DeleteEntity(v.entity)
-
             if Config.Persistent then
                 local coords = GetEntityCoords(v.entity)
                 local w = GetEntityHeading(v.entity)
-
                 v.metadata.coords = { x = coords.x, y = coords.y, z = coords.z, w = w }
                 MySQL.update(Querys.saveMetadata, { json.encode(v.metadata), v.plate })
             end

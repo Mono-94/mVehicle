@@ -145,6 +145,7 @@ lib.onCache('seat', function(value)
     local vehicle = cache.vehicle
     local oldPos = nil
     seat = value
+
     if seat == -1 and DoesEntityExist(vehicle) then
         local data = {}
        -- local State = Entity(vehicle).state

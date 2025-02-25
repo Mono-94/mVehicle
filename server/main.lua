@@ -72,26 +72,6 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         end
     elseif action == 'savetrailer' then
         return vehicle and vehicle.CoordsAndProps(data.coords, data.props)
-    -- elseif action == 'addkey' then
-    --     if data.serverid == source and not Config.Utils.Debug then return end
-    --     local target = Identifier(data.serverid)
-
-    --     if target then
-    --         if not data.keys then data.keys = {} end
-    --         if data.keys[target] then return end
-    --         data.keys[target] = GetName(data.serverid)
-    --         if vehicle then
-    --             vehicle.AddKey(data.serverid)
-    --         else
-    --             MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
-    --         end
-    --     end
-    -- elseif action == 'deletekey' then
-    --     if vehicle and data.identifier then
-    --         vehicle.RemoveKey(data.identifier)
-    --     else
-    --         MySQL.update(Querys.saveKeys, { json.encode(data.keys), data.plate })
-    --     end
     elseif action == 'getkeys' then
         return Vehicles.GetAllPlayerVehicles(source, false, false)
     elseif action == 'getVeh' then
@@ -122,17 +102,3 @@ AddEventHandler('entityCreated', function(entity)
     end
 end)
 
-
--- TxAdmin
-AddEventHandler("txAdmin:events:serverShuttingDown", function()
-    if Config.Persistent then Vehicles.SaveAllVehicles() end
-end)
-
-AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
-    if eventData.secondsRemaining == 60 and Config.Persistent then
-        Citizen.CreateThread(function()
-            Citizen.Wait(50000)
-            Vehicles.SaveAllVehicles(true)
-        end)
-    end
-end)
