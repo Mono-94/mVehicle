@@ -62,7 +62,7 @@ function Vehicles.CreateVehicle(data, cb)
 
 
     if not data.onlyData then
-        data.entity = Utils.CreateVehicleServer(data.type, data.vehicle.model, data.coords)
+        data.entity = Utils.CreateVehicleServer(data.type, data.vehicle.model or data.model, data.coords)
 
         if not data.entity then
             Utils.Debug("error", "CreateVehicleServer Entity is NIL")
@@ -168,6 +168,20 @@ function Vehicles.CreateVehicle(data, cb)
         return data, Vehicles.GetVehicle(data.entity)
     end
 end
+
+function Vehicles.ControlVehicle(entity)
+    local plate = GetVehicleNumberPlateText(entity)
+    local vehicle = Vehicles.GetVehicleByPlate(plate, true)
+    if vehicle then
+        vehicle.onlyData = true
+        vehicle.entity = entity
+        local data, vehicleAction = Vehicles.CreateVehicle(vehicle)
+        return vehicleAction
+    else
+        print(('No Vehicle with plate: %s'):format(plate))
+    end
+end
+
 
 ---Get Vehicle DB from ID
 ---@param id number
@@ -342,7 +356,7 @@ function Vehicles.GetVehicle(entity)
     --- SetJob
     self.SetJob         = function(job)
         self.SetMetadata('job', job)
-        if Framework == 'esx' or Framework == 'qbx' then
+        if FrameWork == 'esx' or FrameWork == 'qbx' then
             MySQL.update(Querys.setVehicleJob, { job, self.plate })
         end
     end
@@ -406,6 +420,8 @@ function Vehicles.GetVehicle(entity)
 
         local affectedRows = MySQL.update.await(Querys.storeGarage,
             { parking, props, json.encode(self.metadata), self.plate })
+
+        self.DeleteMetadata('coords')
 
         if affectedRows > 0 then
             State:set('FadeEntity', { action = 'delete' }, true)
@@ -478,15 +494,15 @@ function Vehicles.GetVehicle(entity)
     self.Private = function(bucket, coords, parking)
         if bucket then
             self.RoutingBucket(bucket)
-            self.SetMetadata({ RoutingBucket = bucket, private = true })
-            self.private = 1
-            MySQL.update('UPDATE owned_vehicles SET private = 1, coords = ?, parking = ?  WHERE plate = ?',
-                { json.encode(coords), parking, self.plate })
+            self.SetMetadata({
+                RoutingBucket = bucket,
+                parking = parking,
+                coords = coords,
+                private = true,
+            })
         else
             self.RoutingBucket(0)
             self.DeleteMetadata({ 'RoutingBucket', 'private' })
-            self.private = nil
-            MySQL.update('UPDATE owned_vehicles SET private = 0 WHERE plate = ?', { self.plate })
         end
     end
 
@@ -560,7 +576,6 @@ function Vehicles.GetVehicleByPlate(plate, db)
         return vehicle
     end
 end
-
 
 ---GetAllPlayerVehicles
 ---@param PlayerSource number Player Source
