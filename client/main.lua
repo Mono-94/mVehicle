@@ -176,7 +176,7 @@ lib.onCache('seat', function(value)
                     end
                     Citizen.Wait(100)
                 else
-                    data.coords = Utils.GetVector4(vehicle, true)
+                    data.coords = Utils.GetVector4(vehicle, false)
                     data.props = lib.getVehicleProperties(vehicle)
 
                     saveKHM = false
