@@ -8,7 +8,7 @@ description "Manage vehicles with ease functions | Vehicles persistent"
 author "aka_mono & .rawpaper"
 
 
-version "2.0.0"
+version "2.0.2"
 
 
 shared_scripts {
