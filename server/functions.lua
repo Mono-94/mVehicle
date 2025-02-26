@@ -128,19 +128,20 @@ function Vehicles.CreateVehicle(data, cb)
     end
 
     if data.setOwner then
-        local identifier, qbxlicense
-        Identifier(data.source)
+        local identifier, qbxlicense = Identifier(data.source)
+
+        if FrameWork == 'qbx' then
+            data.license = qbxlicense
+        end
+
         data.owner = identifier
+
         if not data.owner then
             return false, Utils.Debug('error', 'Error CreateVehicle No Player Identifier by source!')
         end
 
         data.metadata.firstSpawn = os.date("%Y/%m/%d %H:%M:%S")
         data.metadata.fisrtOwner = GetName(data.source)
-
-        if FrameWork == 'qbx' then
-            data.license = qbxlicense
-        end
 
         data.id = Vehicles.SetVehicleOwner(data)
     end
@@ -281,27 +282,30 @@ end
 function Vehicles.SetVehicleOwner(data)
     if not data.job then data.job = nil end
 
-    local params = {
+    local insert = {
         data.owner,
         data.plate,
         json.encode(data.vehicle),
         data.type,
         data.job,
-        json.encode(data.metadata)
+        json.encode(data.metadata),
+        data.parking
     }
 
-    if data.parking then
-        table.insert(params, data.parking)
+    local query = ''
+
+    if not data.parking then
+        query = Querys.setOwner
+        table.remove(insert, 7)
+    else
+        query = Querys.setOwnerParking
     end
 
     if FrameWork == 'qbx' then
-        table.insert(params, data.license)
+        table.insert(insert, data.license)
     end
-
-    local query = data.parking and Querys.setOwnerParking or Querys.setOwner
-    return MySQL.insert.await(query, params)
+    return MySQL.insert.await(query, insert)
 end
-
 
 function Vehicles.GetVehicle(entity)
     if not Vehicles.Vehicles[entity] then

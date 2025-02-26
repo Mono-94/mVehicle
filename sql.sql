@@ -29,6 +29,6 @@ ALTER TABLE `player_vehicles`
 ADD COLUMN `mileage` INT(11) DEFAULT 0,
 ADD COLUMN `metadata` JSON DEFAULT '{"keys":{}}',
 ADD COLUMN `pound` VARCHAR(60) DEFAULT NULL,
-ADD COLUMN `stored` TINYINT(4) DEFAULT 0
+ADD COLUMN `stored` TINYINT(4) DEFAULT 0,
 ADD COLUMN `type` varchar(20) DEFAULT 'automobile',
 ADD COLUMN `job` varchar(20) DEFAULT NULL;
