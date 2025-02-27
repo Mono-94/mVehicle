@@ -7,7 +7,7 @@
 Config                     = {}
 
 --- Prints | Some extra dev tools
-Config.Debug               = true
+Config.Debug               = false
 
 --- ox_inventory = 'ox' | qs-inventory = 'qs' not sure if it works
 Config.Inventory           = 'ox'
