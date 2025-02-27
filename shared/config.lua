@@ -7,7 +7,7 @@
 Config                     = {}
 
 --- Prints | Some extra dev tools
-Config.Debug               = false
+Config.Debug               = true
 
 --- ox_inventory = 'ox' | qs-inventory = 'qs' not sure if it works
 Config.Inventory           = 'ox'
@@ -28,7 +28,7 @@ Config.VehicleDensity      = {
 
 --- Persistent
 --- Vehicle persistents in world
-Config.Persistent          = false
+Config.Persistent          = true
 
 --- Commands
 Config.Commands            = {
@@ -55,9 +55,9 @@ Config.KeyDistance         = 5
 
 --- Engine ignition need keys or hotwire
 Config.VehicleEngine       = {
-    ToggleEngine = false,
+    ToggleEngine = true,
     KeyBind = 'M',
-    keepEngineOnWhenLeave = true, -- requires ToggleEngine
+    keepEngineOnWhenLeave = false, -- requires ToggleEngine
 }
 ----------------------------------------------------------------------
 -- Seat Shuffle front + back seats | SHIFT + E

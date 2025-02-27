@@ -1,0 +1,7066 @@
+{
+    "scrap": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "scrap",
+        "hashKey": -1700801569,
+        "type": "automobile",
+        "label": " Scrap"
+    },
+    "tornado5": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tornado5",
+        "hashKey": -1797613329,
+        "type": "automobile",
+        "label": "Declasse Tornado5"
+    },
+    "utillitruck3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "utillitruck3",
+        "hashKey": 2132890591,
+        "type": "automobile",
+        "label": " Utiltruc"
+    },
+    "buzzard": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "buzzard",
+        "hashKey": 788747387,
+        "type": "heli",
+        "label": " Buzzard"
+    },
+    "blazer4": {
+        "typeRaw": 3,
+        "price": 12000,
+        "model": "blazer4",
+        "hashKey": -440768424,
+        "type": "automobile",
+        "label": "Nagasaki Blazer4"
+    },
+    "surfer2": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "surfer2",
+        "hashKey": -1311240698,
+        "type": "automobile",
+        "label": "Bf Surfer2"
+    },
+    "fbi": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "fbi",
+        "hashKey": 1127131465,
+        "type": "automobile",
+        "label": " Fbi"
+    },
+    "f620": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "f620",
+        "hashKey": -591610296,
+        "type": "automobile",
+        "label": "Ocelot F620"
+    },
+    "previon": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "previon",
+        "hashKey": 1416471345,
+        "type": "automobile",
+        "label": "Karin Previon"
+    },
+    "gt500": {
+        "typeRaw": 0,
+        "price": 130000,
+        "model": "gt500",
+        "hashKey": -2079788230,
+        "type": "automobile",
+        "label": "Grotti Gt500"
+    },
+    "btype3": {
+        "typeRaw": 0,
+        "price": 70000,
+        "model": "btype3",
+        "hashKey": -602287871,
+        "type": "automobile",
+        "label": "Albany Roosevelt2"
+    },
+    "yosemite": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "yosemite",
+        "hashKey": 1871995513,
+        "type": "automobile",
+        "label": "Declasse Yosemite"
+    },
+    "police3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "police3",
+        "hashKey": 1912215274,
+        "type": "automobile",
+        "label": " Police"
+    },
+    "sheava": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "sheava",
+        "hashKey": 819197656,
+        "type": "automobile",
+        "label": "Emperor Sheava"
+    },
+    "hotknife": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "hotknife",
+        "hashKey": 37348240,
+        "type": "automobile",
+        "label": "Vapid Hotknife"
+    },
+    "valkyrie2": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "valkyrie2",
+        "hashKey": 1543134283,
+        "type": "heli",
+        "label": " Valkyri2"
+    },
+    "policet3": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "policet3",
+        "hashKey": -1444856003,
+        "type": "automobile",
+        "label": " Policet3"
+    },
+    "Dynasty": {
+        "typeRaw": 0,
+        "price": 70000,
+        "model": "Dynasty",
+        "hashKey": 310284501,
+        "type": "automobile",
+        "label": "Weeny Dynasty"
+    },
+    "felon2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "felon2",
+        "hashKey": -89291282,
+        "type": "automobile",
+        "label": "Lampada Felon2"
+    },
+    "driftremus": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "driftremus",
+        "hashKey": -1624083468,
+        "type": "automobile",
+        "label": "Annis Driftremus"
+    },
+    "le7b": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "le7b",
+        "hashKey": -1232836011,
+        "type": "automobile",
+        "label": "Annis Le7b"
+    },
+    "biff": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "biff",
+        "hashKey": 850991848,
+        "type": "automobile",
+        "label": "Hvy Biff"
+    },
+    "stromberg": {
+        "typeRaw": 5,
+        "price": 35000,
+        "model": "stromberg",
+        "hashKey": 886810209,
+        "type": "automobile",
+        "label": "Ocelot Stromberg"
+    },
+    "pipistrello": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "pipistrello",
+        "hashKey": -223461503,
+        "type": "automobile",
+        "label": "Overflod Pipistrello"
+    },
+    "impaler2": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "impaler2",
+        "hashKey": 1009171724,
+        "type": "automobile",
+        "label": "Declasse Impaler2"
+    },
+    "torero2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "torero2",
+        "hashKey": -165394758,
+        "type": "automobile",
+        "label": "Pegassi Torero2"
+    },
+    "veto": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "veto",
+        "hashKey": -857356038,
+        "type": "automobile",
+        "label": "Dinka Veto"
+    },
+    "double": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "double",
+        "hashKey": -1670998136,
+        "type": "bike",
+        "label": "Dinka Double"
+    },
+    "windsor2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "windsor2",
+        "hashKey": -1930048799,
+        "type": "automobile",
+        "label": "Enus Windsor2"
+    },
+    "tula": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "tula",
+        "hashKey": 1043222410,
+        "type": "plane",
+        "label": "Mammoth Tula"
+    },
+    "coquette3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "coquette3",
+        "hashKey": 784565758,
+        "type": "automobile",
+        "label": "Inverto Coquette3"
+    },
+    "baller": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "baller",
+        "hashKey": -808831384,
+        "type": "automobile",
+        "label": "Gallivan Baller"
+    },
+    "calico": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "calico",
+        "hashKey": -1193912403,
+        "type": "automobile",
+        "label": "Karin Calico"
+    },
+    "boxville3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "boxville3",
+        "hashKey": 121658888,
+        "type": "automobile",
+        "label": "Brute Boxville"
+    },
+    "police4": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "police4",
+        "hashKey": -1973172295,
+        "type": "automobile",
+        "label": "Vapid Police4"
+    },
+    "skylift": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "skylift",
+        "hashKey": 1044954915,
+        "type": "heli",
+        "label": " Skylift"
+    },
+    "caddy3": {
+        "typeRaw": 0,
+        "price": 10000,
+        "model": "caddy3",
+        "hashKey": -769147461,
+        "type": "automobile",
+        "label": " Caddy3"
+    },
+    "zentorno": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "zentorno",
+        "hashKey": -1403128555,
+        "type": "automobile",
+        "label": "Pegassi Zentorno"
+    },
+    "vagner": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "vagner",
+        "hashKey": 1939284556,
+        "type": "automobile",
+        "label": "Dewbauch Vagner"
+    },
+    "entity3": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "entity3",
+        "hashKey": 1748565021,
+        "type": "automobile",
+        "label": "Overflod Entity3"
+    },
+    "gresley": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "gresley",
+        "hashKey": -1543762099,
+        "type": "automobile",
+        "label": "Bravado Gresley"
+    },
+    "phantom3": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "phantom3",
+        "hashKey": 177270108,
+        "type": "automobile",
+        "label": "Jobuilt Phantom3"
+    },
+    "scarab3": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "scarab3",
+        "hashKey": -579747861,
+        "type": "automobile",
+        "label": "Hvy Scarab3"
+    },
+    "rhapsody": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "rhapsody",
+        "hashKey": 841808271,
+        "type": "automobile",
+        "label": "Declasse Rhapsody"
+    },
+    "cypher": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "cypher",
+        "hashKey": 1755697647,
+        "type": "automobile",
+        "label": "Ubermacht Cypher"
+    },
+    "cutter": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "cutter",
+        "hashKey": -1006919392,
+        "type": "automobile",
+        "label": "Hvy Cutter"
+    },
+    "stingergt": {
+        "typeRaw": 0,
+        "price": 130000,
+        "model": "stingergt",
+        "hashKey": -2098947590,
+        "type": "automobile",
+        "label": "Grotti Stingerg"
+    },
+    "rt3000": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "rt3000",
+        "hashKey": -452604007,
+        "type": "automobile",
+        "label": "Dinka Rt3000"
+    },
+    "tampa3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "tampa3",
+        "hashKey": -1210451983,
+        "type": "automobile",
+        "label": "Declasse Tampa3"
+    },
+    "pounder": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "pounder",
+        "hashKey": 2112052861,
+        "type": "automobile",
+        "label": "Mtl Pounder"
+    },
+    "zombieb": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "zombieb",
+        "hashKey": -570033273,
+        "type": "bike",
+        "label": "Western Zombieb"
+    },
+    "barracks": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "barracks",
+        "hashKey": -823509173,
+        "type": "automobile",
+        "label": " Barracks"
+    },
+    "specter2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "specter2",
+        "hashKey": 1074745671,
+        "type": "automobile",
+        "label": "Dewbauch Specter2"
+    },
+    "burrito4": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "burrito4",
+        "hashKey": 893081117,
+        "type": "automobile",
+        "label": "Declasse Burrito"
+    },
+    "l35": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "l35",
+        "hashKey": -1763675285,
+        "type": "automobile",
+        "label": "Declasse L35"
+    },
+    "tribike2": {
+        "typeRaw": 12,
+        "price": 12000,
+        "model": "tribike2",
+        "hashKey": -1233807380,
+        "type": "bike",
+        "label": " Tribike2"
+    },
+    "scorcher": {
+        "typeRaw": 12,
+        "price": 12000,
+        "model": "scorcher",
+        "hashKey": -186537451,
+        "type": "bike",
+        "label": " Scorcher"
+    },
+    "tanker": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "tanker",
+        "hashKey": -730904777,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "buffalo2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "buffalo2",
+        "hashKey": 736902334,
+        "type": "automobile",
+        "label": "Bravado Buffalo02"
+    },
+    "lguard": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "lguard",
+        "hashKey": 469291905,
+        "type": "automobile",
+        "label": "Declasse Lguard"
+    },
+    "ruiner": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "ruiner",
+        "hashKey": -227741703,
+        "type": "automobile",
+        "label": "Imponte Ruiner"
+    },
+    "cruiser": {
+        "typeRaw": 12,
+        "price": 12000,
+        "model": "cruiser",
+        "hashKey": 448402357,
+        "type": "bike",
+        "label": " Cruiser"
+    },
+    "bruiser": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "bruiser",
+        "hashKey": 668439077,
+        "type": "automobile",
+        "label": "Benefac Bruiser"
+    },
+    "tiptruck": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tiptruck",
+        "hashKey": 48339065,
+        "type": "automobile",
+        "label": "Brute Tiptruck"
+    },
+    "freightcar3": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "freightcar3",
+        "hashKey": -1874009509,
+        "type": "train",
+        "label": " Freight"
+    },
+    "z190": {
+        "typeRaw": 0,
+        "price": 130000,
+        "model": "z190",
+        "hashKey": 838982985,
+        "type": "automobile",
+        "label": "Karin Z190"
+    },
+    "boor": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "boor",
+        "hashKey": 996383885,
+        "type": "automobile",
+        "label": "Karin Boor"
+    },
+    "broadway": {
+        "typeRaw": 0,
+        "price": 70000,
+        "model": "broadway",
+        "hashKey": -1933242328,
+        "type": "automobile",
+        "label": "Classique Broadway"
+    },
+    "pony": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "pony",
+        "hashKey": -119658072,
+        "type": "automobile",
+        "label": "Brute Pony"
+    },
+    "Jackal": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "Jackal",
+        "hashKey": -624529134,
+        "type": "automobile",
+        "label": "Ocelot Jackal"
+    },
+    "boxville6": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "boxville6",
+        "hashKey": -842765535,
+        "type": "automobile",
+        "label": "Brute Boxville6"
+    },
+    "toros": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "toros",
+        "hashKey": -1168952148,
+        "type": "automobile",
+        "label": "Pegassi Toros"
+    },
+    "sheriff2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "sheriff2",
+        "hashKey": 1922257928,
+        "type": "automobile",
+        "label": " Sheriff2"
+    },
+    "bestiagts": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "bestiagts",
+        "hashKey": 1274868363,
+        "type": "automobile",
+        "label": "Grotti Bestiagts"
+    },
+    "dukes2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "dukes2",
+        "hashKey": -326143852,
+        "type": "automobile",
+        "label": "Imponte Dukes2"
+    },
+    "taxi": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "taxi",
+        "hashKey": -956048545,
+        "type": "automobile",
+        "label": " Taxi"
+    },
+    "duster": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "duster",
+        "hashKey": 970356638,
+        "type": "plane",
+        "label": " Duster"
+    },
+    "granger": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "granger",
+        "hashKey": -1775728740,
+        "type": "automobile",
+        "label": "Declasse Granger"
+    },
+    "retinue2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "retinue2",
+        "hashKey": 2031587082,
+        "type": "automobile",
+        "label": "Vapid Retinue2"
+    },
+    "jester5": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "jester5",
+        "hashKey": 1484920335,
+        "type": "automobile",
+        "label": "Dinka Jester5"
+    },
+    "warrener": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "warrener",
+        "hashKey": 1373123368,
+        "type": "automobile",
+        "label": "Vulcar Warrener"
+    },
+    "flatbed": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "flatbed",
+        "hashKey": 1353720154,
+        "type": "automobile",
+        "label": "Mtl Flatbed"
+    },
+    "journey2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "journey2",
+        "hashKey": -1627077503,
+        "type": "automobile",
+        "label": "Zirconiu Journey2"
+    },
+    "vorschlaghammer": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "vorschlaghammer",
+        "hashKey": -1240172147,
+        "type": "automobile",
+        "label": "Benefactor Vorschlag"
+    },
+    "mesa3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "mesa3",
+        "hashKey": -2064372143,
+        "type": "automobile",
+        "label": "Canis Mesa"
+    },
+    "riot": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "riot",
+        "hashKey": -1205689942,
+        "type": "automobile",
+        "label": " Riot"
+    },
+    "slamtruck": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "slamtruck",
+        "hashKey": -1045911276,
+        "type": "automobile",
+        "label": "Vapid Slamtruck"
+    },
+    "freightcont1": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "freightcont1",
+        "hashKey": 920453016,
+        "type": "train",
+        "label": " Freight"
+    },
+    "buffalo4": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "buffalo4",
+        "hashKey": -619930876,
+        "type": "automobile",
+        "label": "Bravado Buffalo4"
+    },
+    "tampa": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "tampa",
+        "hashKey": 972671128,
+        "type": "automobile",
+        "label": "Declasse Tampa"
+    },
+    "italigtb": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "italigtb",
+        "hashKey": -2048333973,
+        "type": "automobile",
+        "label": "Progen Italigtb"
+    },
+    "penumbra2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "penumbra2",
+        "hashKey": -631322662,
+        "type": "automobile",
+        "label": "Maibatsu Penumbra2"
+    },
+    "blista3": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "blista3",
+        "hashKey": -591651781,
+        "type": "automobile",
+        "label": "Dinka Blista3"
+    },
+    "surano": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "surano",
+        "hashKey": 384071873,
+        "type": "automobile",
+        "label": "Benefac Surano"
+    },
+    "pigalle": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "pigalle",
+        "hashKey": 1078682497,
+        "type": "automobile",
+        "label": "Lampada Pigalle"
+    },
+    "coquette6": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "coquette6",
+        "hashKey": 127317925,
+        "type": "automobile",
+        "label": "Inverto Coquette6"
+    },
+    "polgreenwood": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "polgreenwood",
+        "hashKey": 1737348074,
+        "type": "automobile",
+        "label": "Bravado Polgreenw"
+    },
+    "tankercar": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "tankercar",
+        "hashKey": 586013744,
+        "type": "train",
+        "label": " Freight"
+    },
+    "schafter4": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "schafter4",
+        "hashKey": 1489967196,
+        "type": "automobile",
+        "label": "Benefac Schafter4"
+    },
+    "autarch": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "autarch",
+        "hashKey": -313185164,
+        "type": "automobile",
+        "label": "Overflod Autarch"
+    },
+    "bati": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "bati",
+        "hashKey": -114291515,
+        "type": "bike",
+        "label": "Pegassi Bati"
+    },
+    "frogger2": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "frogger2",
+        "hashKey": 1949211328,
+        "type": "heli",
+        "label": " Frogger"
+    },
+    "crusader": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "crusader",
+        "hashKey": 321739290,
+        "type": "automobile",
+        "label": "Canis Crusader"
+    },
+    "patriot": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "patriot",
+        "hashKey": -808457413,
+        "type": "automobile",
+        "label": "Mammoth Patriot"
+    },
+    "cargobob4": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "cargobob4",
+        "hashKey": 2025593404,
+        "type": "heli",
+        "label": " Cargobob"
+    },
+    "eurosX32": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "eurosX32",
+        "hashKey": -999594302,
+        "type": "automobile",
+        "label": "Annis Eurosx32"
+    },
+    "emperor2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "emperor2",
+        "hashKey": -1883002148,
+        "type": "automobile",
+        "label": "Albany Emperor"
+    },
+    "dominator": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "dominator",
+        "hashKey": 80636076,
+        "type": "automobile",
+        "label": "Vapid Dominato"
+    },
+    "sabregt2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "sabregt2",
+        "hashKey": 223258115,
+        "type": "automobile",
+        "label": "Declasse Sabregt2"
+    },
+    "burrito": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "burrito",
+        "hashKey": -1346687836,
+        "type": "automobile",
+        "label": "Declasse Burrito"
+    },
+    "zr3802": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "zr3802",
+        "hashKey": -1106120762,
+        "type": "automobile",
+        "label": "Annis Zr3802"
+    },
+    "vectre": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "vectre",
+        "hashKey": -1540373595,
+        "type": "automobile",
+        "label": "Emperor Vectre"
+    },
+    "trophytruck": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "trophytruck",
+        "hashKey": 101905590,
+        "type": "automobile",
+        "label": "Vapid Trophy"
+    },
+    "dune2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "dune2",
+        "hashKey": 534258863,
+        "type": "automobile",
+        "label": " Dune2"
+    },
+    "tenf2": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "tenf2",
+        "hashKey": 274946574,
+        "type": "automobile",
+        "label": "Obey Tenf2"
+    },
+    "elegy2": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "elegy2",
+        "hashKey": -566387422,
+        "type": "automobile",
+        "label": "Annis Elegy2"
+    },
+    "drifttampa": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "drifttampa",
+        "hashKey": -1696319096,
+        "type": "automobile",
+        "label": "Declasse Drifttampa"
+    },
+    "barrage": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "barrage",
+        "hashKey": -212993243,
+        "type": "automobile",
+        "label": " Barrage"
+    },
+    "buccaneer": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "buccaneer",
+        "hashKey": -682211828,
+        "type": "automobile",
+        "label": "Albany Buccanee"
+    },
+    "pfister811": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "pfister811",
+        "hashKey": -1829802492,
+        "type": "automobile",
+        "label": "Pfister Pfister811"
+    },
+    "bodhi2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "bodhi2",
+        "hashKey": -1435919434,
+        "type": "automobile",
+        "label": "Canis Bodhi2"
+    },
+    "streamer216": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "streamer216",
+        "hashKey": 191916658,
+        "type": "plane",
+        "label": "Mammoth Streamer216"
+    },
+    "pizzaboy": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "pizzaboy",
+        "hashKey": 1968807591,
+        "type": "bike",
+        "label": "Pegassi Pizzaboy"
+    },
+    "infernus": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "infernus",
+        "hashKey": 418536135,
+        "type": "automobile",
+        "label": "Pegassi Infernus"
+    },
+    "trash": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "trash",
+        "hashKey": 1917016601,
+        "type": "automobile",
+        "label": " Trash"
+    },
+    "sheriff": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "sheriff",
+        "hashKey": -1683328900,
+        "type": "automobile",
+        "label": " Sheriff"
+    },
+    "issi5": {
+        "typeRaw": 0,
+        "price": 52000,
+        "model": "issi5",
+        "hashKey": 1537277726,
+        "type": "automobile",
+        "label": "Weeny Issi5"
+    },
+    "vamos": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "vamos",
+        "hashKey": -49115651,
+        "type": "automobile",
+        "label": "Declasse Vamos"
+    },
+    "police5": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "police5",
+        "hashKey": -1674384553,
+        "type": "automobile",
+        "label": "Vapid Police5"
+    },
+    "hakuchou2": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "hakuchou2",
+        "hashKey": -255678177,
+        "type": "bike",
+        "label": "Shitzu Hakuchou2"
+    },
+    "rebel2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "rebel2",
+        "hashKey": -2045594037,
+        "type": "automobile",
+        "label": "Karin Rebel02"
+    },
+    "bagger": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "bagger",
+        "hashKey": -2140431165,
+        "type": "bike",
+        "label": "Western Bagger"
+    },
+    "hermes": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "hermes",
+        "hashKey": 15219735,
+        "type": "automobile",
+        "label": "Albany Hermes"
+    },
+    "kuruma": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "kuruma",
+        "hashKey": -1372848492,
+        "type": "automobile",
+        "label": "Karin Kuruma"
+    },
+    "frogger": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "frogger",
+        "hashKey": 744705981,
+        "type": "heli",
+        "label": " Frogger"
+    },
+    "virgo": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "virgo",
+        "hashKey": -498054846,
+        "type": "automobile",
+        "label": "Albany Virgo"
+    },
+    "tribike3": {
+        "typeRaw": 12,
+        "price": 12000,
+        "model": "tribike3",
+        "hashKey": -400295096,
+        "type": "bike",
+        "label": " Tribike3"
+    },
+    "starling": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "starling",
+        "hashKey": -1700874274,
+        "type": "plane",
+        "label": " Starling"
+    },
+    "seasparrow3": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "seasparrow3",
+        "hashKey": 1593933419,
+        "type": "heli",
+        "label": " Sparrow3"
+    },
+    "besra": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "besra",
+        "hashKey": 1824333165,
+        "type": "plane",
+        "label": "Western Besra"
+    },
+    "docktug": {
+        "typeRaw": 0,
+        "price": 15000,
+        "model": "docktug",
+        "hashKey": -884690486,
+        "type": "automobile",
+        "label": " Docktug"
+    },
+    "taipan": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "taipan",
+        "hashKey": -1134706562,
+        "type": "automobile",
+        "label": "Cheval Taipan"
+    },
+    "cavalcade2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "cavalcade2",
+        "hashKey": -789894171,
+        "type": "automobile",
+        "label": "Albany Cavcade"
+    },
+    "bobcatxl": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "bobcatxl",
+        "hashKey": 1069929536,
+        "type": "automobile",
+        "label": "Vapid Bobcatxl"
+    },
+    "phantom2": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "phantom2",
+        "hashKey": -1649536104,
+        "type": "automobile",
+        "label": "Jobuilt Phantom2"
+    },
+    "tampa2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "tampa2",
+        "hashKey": -1071380347,
+        "type": "automobile",
+        "label": "Declasse Tampa2"
+    },
+    "polfaction2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "polfaction2",
+        "hashKey": 1891140410,
+        "type": "automobile",
+        "label": "Willard Polfction2"
+    },
+    "toro": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "toro",
+        "hashKey": 1070967343,
+        "type": "boat",
+        "label": "Lampada Toro"
+    },
+    "club": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "club",
+        "hashKey": -2098954619,
+        "type": "automobile",
+        "label": "Bf Club"
+    },
+    "buccaneer2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "buccaneer2",
+        "hashKey": -1013450936,
+        "type": "automobile",
+        "label": "Albany Buccanee2"
+    },
+    "titan2": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "titan2",
+        "hashKey": 858355070,
+        "type": "plane",
+        "label": "Eberhard Titan2"
+    },
+    "armytanker": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "armytanker",
+        "hashKey": -1207431159,
+        "type": "trailer",
+        "label": " Armytrailer"
+    },
+    "ruiner3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "ruiner3",
+        "hashKey": 777714999,
+        "type": "automobile",
+        "label": "Imponte Ruiner"
+    },
+    "tropic2": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "tropic2",
+        "hashKey": 1448677353,
+        "type": "boat",
+        "label": "Shitzu Tropic"
+    },
+    "barracks2": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "barracks2",
+        "hashKey": 1074326203,
+        "type": "automobile",
+        "label": "Hvy Barracks2"
+    },
+    "diablous": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "diablous",
+        "hashKey": -239841468,
+        "type": "bike",
+        "label": "Principl Diablous"
+    },
+    "lazer": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "lazer",
+        "hashKey": -1281684762,
+        "type": "plane",
+        "label": " Lazer"
+    },
+    "dune5": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "dune5",
+        "hashKey": -312295511,
+        "type": "automobile",
+        "label": " Dune5"
+    },
+    "freighttrailer": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "freighttrailer",
+        "hashKey": -777275802,
+        "type": "trailer",
+        "label": " Freighttrai"
+    },
+    "minivan": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "minivan",
+        "hashKey": -310465116,
+        "type": "automobile",
+        "label": "Vapid Minivan"
+    },
+    "streiter": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "streiter",
+        "hashKey": 1741861769,
+        "type": "automobile",
+        "label": "Benefactor Streiter"
+    },
+    "predator": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "predator",
+        "hashKey": -488123221,
+        "type": "boat",
+        "label": " Predator"
+    },
+    "hydra": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "hydra",
+        "hashKey": 970385471,
+        "type": "plane",
+        "label": "Mammoth Hydra"
+    },
+    "landstalker2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "landstalker2",
+        "hashKey": -838099166,
+        "type": "automobile",
+        "label": "Dundrear Landstlkr2"
+    },
+    "rhino": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "rhino",
+        "hashKey": 782665360,
+        "type": "automobile",
+        "label": " Rhino"
+    },
+    "towtruck2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "towtruck2",
+        "hashKey": -442313018,
+        "type": "automobile",
+        "label": " Towtruck"
+    },
+    "baller2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "baller2",
+        "hashKey": 142944341,
+        "type": "automobile",
+        "label": "Gallivan Baller2"
+    },
+    "tvtrailer2": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "tvtrailer2",
+        "hashKey": 471034616,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "burrito2": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "burrito2",
+        "hashKey": -907477130,
+        "type": "automobile",
+        "label": "Declasse Burrito2"
+    },
+    "forklift": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "forklift",
+        "hashKey": 1491375716,
+        "type": "automobile",
+        "label": "Hvy Fork"
+    },
+    "valkyrie": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "valkyrie",
+        "hashKey": -1600252419,
+        "type": "heli",
+        "label": " Valkyrie"
+    },
+    "vestra": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "vestra",
+        "hashKey": 1341619767,
+        "type": "plane",
+        "label": "Bucking Vestra"
+    },
+    "issi8": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "issi8",
+        "hashKey": 1550581940,
+        "type": "automobile",
+        "label": "Weeny Issi8"
+    },
+    "rapidgt2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "rapidgt2",
+        "hashKey": 1737773231,
+        "type": "automobile",
+        "label": "Dewbauch Rapidgt"
+    },
+    "tornado2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tornado2",
+        "hashKey": 1531094468,
+        "type": "automobile",
+        "label": "Declasse Tornado2"
+    },
+    "alkonost": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "alkonost",
+        "hashKey": -365873403,
+        "type": "plane",
+        "label": " Alkonost"
+    },
+    "rebel": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "rebel",
+        "hashKey": -1207771834,
+        "type": "automobile",
+        "label": "Karin Rebel01"
+    },
+    "cablecar": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "cablecar",
+        "hashKey": -960289747,
+        "type": "train",
+        "label": " Cablecar"
+    },
+    "velum": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "velum",
+        "hashKey": -1673356438,
+        "type": "plane",
+        "label": " Velum"
+    },
+    "poldorado": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "poldorado",
+        "hashKey": -1628000569,
+        "type": "automobile",
+        "label": "Bravado Poldorado"
+    },
+    "tornado3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tornado3",
+        "hashKey": 1762279763,
+        "type": "automobile",
+        "label": "Declasse Tornado3"
+    },
+    "suntrap": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "suntrap",
+        "hashKey": -282946103,
+        "type": "boat",
+        "label": "Shitzu Suntrap"
+    },
+    "zion": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "zion",
+        "hashKey": -1122289213,
+        "type": "automobile",
+        "label": "Ubermach Zion"
+    },
+    "defiler": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "defiler",
+        "hashKey": 822018448,
+        "type": "bike",
+        "label": "Shitzu Defiler"
+    },
+    "raiden": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "raiden",
+        "hashKey": -1529242755,
+        "type": "automobile",
+        "label": "Coil Raiden"
+    },
+    "marshall": {
+        "typeRaw": 0,
+        "price": 500000,
+        "model": "marshall",
+        "hashKey": 1233534620,
+        "type": "automobile",
+        "label": "Cheval Marshall"
+    },
+    "formula": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "formula",
+        "hashKey": 340154634,
+        "type": "automobile",
+        "label": "Progen Formula"
+    },
+    "sc1": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "sc1",
+        "hashKey": 1352136073,
+        "type": "automobile",
+        "label": "Ubermach Sc1"
+    },
+    "dodo": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "dodo",
+        "hashKey": -901163259,
+        "type": "plane",
+        "label": "Mammoth Dodo"
+    },
+    "ruston": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "ruston",
+        "hashKey": 719660200,
+        "type": "automobile",
+        "label": "Hijak Ruston"
+    },
+    "dominator2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "dominator2",
+        "hashKey": -915704871,
+        "type": "automobile",
+        "label": "Vapid Dominato2"
+    },
+    "dukes": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "dukes",
+        "hashKey": 723973206,
+        "type": "automobile",
+        "label": "Imponte Dukes"
+    },
+    "hotring": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "hotring",
+        "hashKey": 1115909093,
+        "type": "automobile",
+        "label": "Declasse Hotring"
+    },
+    "r300": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "r300",
+        "hashKey": 1076201208,
+        "type": "automobile",
+        "label": "Annis R300"
+    },
+    "seminole2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "seminole2",
+        "hashKey": -1810806490,
+        "type": "automobile",
+        "label": "Canis Seminole2"
+    },
+    "blazer5": {
+        "typeRaw": 7,
+        "price": 12000,
+        "model": "blazer5",
+        "hashKey": -1590337689,
+        "type": "automobile",
+        "label": "Nagasaki Blazer5"
+    },
+    "italirsx": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "italirsx",
+        "hashKey": -1149725334,
+        "type": "automobile",
+        "label": "Grotti Italirsx"
+    },
+    "viseris": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "viseris",
+        "hashKey": -391595372,
+        "type": "automobile",
+        "label": "Lampadati Viseris"
+    },
+    "duster2": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "duster2",
+        "hashKey": 84351789,
+        "type": "plane",
+        "label": "Western Duster2"
+    },
+    "chavosv6": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "chavosv6",
+        "hashKey": 1992041063,
+        "type": "automobile",
+        "label": "Dinka Chavosv6"
+    },
+    "chino": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "chino",
+        "hashKey": 349605904,
+        "type": "automobile",
+        "label": "Vapid Chino"
+    },
+    "firebolt": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "firebolt",
+        "hashKey": -973016778,
+        "type": "automobile",
+        "label": "Vapid Firebolt"
+    },
+    "driftvorschlag": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "driftvorschlag",
+        "hashKey": -143587026,
+        "type": "automobile",
+        "label": "Benefactor Driftvorsch"
+    },
+    "cog552": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "cog552",
+        "hashKey": 704435172,
+        "type": "automobile",
+        "label": "Enus Cog552"
+    },
+    "youga2": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "youga2",
+        "hashKey": 1026149675,
+        "type": "automobile",
+        "label": "Bravado Youga2"
+    },
+    "coquette5": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "coquette5",
+        "hashKey": -1958428933,
+        "type": "automobile",
+        "label": "Inverto Coquette5"
+    },
+    "Sugoi": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "Sugoi",
+        "hashKey": 987469656,
+        "type": "automobile",
+        "label": "Dinka Sugoi"
+    },
+    "mammatus": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "mammatus",
+        "hashKey": -1746576111,
+        "type": "plane",
+        "label": " Mammatus"
+    },
+    "minitank": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "minitank",
+        "hashKey": -1254331310,
+        "type": "automobile",
+        "label": " Minitank"
+    },
+    "burrito3": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "burrito3",
+        "hashKey": -1743316013,
+        "type": "automobile",
+        "label": "Declasse Burrito"
+    },
+    "sanctus": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "sanctus",
+        "hashKey": 1491277511,
+        "type": "bike",
+        "label": "Lcc Sanctus"
+    },
+    "baller4": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "baller4",
+        "hashKey": 634118882,
+        "type": "automobile",
+        "label": "Gallivan Baller4"
+    },
+    "fixter": {
+        "typeRaw": 12,
+        "price": 12000,
+        "model": "fixter",
+        "hashKey": -836512833,
+        "type": "bike",
+        "label": " Fixter"
+    },
+    "mule4": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "mule4",
+        "hashKey": 1945374990,
+        "type": "automobile",
+        "label": "Maibatsu Mule4"
+    },
+    "polimpaler5": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "polimpaler5",
+        "hashKey": 1249425552,
+        "type": "automobile",
+        "label": "Declasse Polimpaler5"
+    },
+    "dominator10": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "dominator10",
+        "hashKey": 1579902654,
+        "type": "automobile",
+        "label": "Vapid Dominator10"
+    },
+    "cinquemila": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "cinquemila",
+        "hashKey": -1527436269,
+        "type": "automobile",
+        "label": "Lampada Cinquemila"
+    },
+    "castigator": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "castigator",
+        "hashKey": 1307736079,
+        "type": "automobile",
+        "label": "Canis Castigator"
+    },
+    "dubsta3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "dubsta3",
+        "hashKey": -1237253773,
+        "type": "automobile",
+        "label": "Benefac Dubsta3"
+    },
+    "schafter5": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "schafter5",
+        "hashKey": -888242983,
+        "type": "automobile",
+        "label": "Benefac Schafter5"
+    },
+    "jetmax": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "jetmax",
+        "hashKey": 861409633,
+        "type": "boat",
+        "label": "Shitzu Jetmax"
+    },
+    "yosemite1500": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "yosemite1500",
+        "hashKey": -1896488056,
+        "type": "automobile",
+        "label": "Declasse Yosemite4"
+    },
+    "blista2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "blista2",
+        "hashKey": 1039032026,
+        "type": "automobile",
+        "label": "Dinka Blista2"
+    },
+    "boattrailer3": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "boattrailer3",
+        "hashKey": 1539159908,
+        "type": "trailer",
+        "label": " Boattrailer"
+    },
+    "boattrailer2": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "boattrailer2",
+        "hashKey": 1835260592,
+        "type": "trailer",
+        "label": " Boattrailer"
+    },
+    "bulldozer": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "bulldozer",
+        "hashKey": 1886712733,
+        "type": "automobile",
+        "label": "Hvy Bulldoze"
+    },
+    "polgauntlet": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "polgauntlet",
+        "hashKey": -1233767450,
+        "type": "automobile",
+        "label": "Bravado Polgauntlet"
+    },
+    "dorado": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "dorado",
+        "hashKey": -768044142,
+        "type": "automobile",
+        "label": "Bravado Dorado"
+    },
+    "conada2": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "conada2",
+        "hashKey": -1659004814,
+        "type": "heli",
+        "label": "Bucking Conada2"
+    },
+    "blimp2": {
+        "typeRaw": 9,
+        "price": 52000,
+        "model": "blimp2",
+        "hashKey": -613725916,
+        "type": "heli",
+        "label": " Blimp2"
+    },
+    "trailers5": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailers5",
+        "hashKey": -1334453816,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "fr36": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "fr36",
+        "hashKey": -465825307,
+        "type": "automobile",
+        "label": "Fathom Fr36"
+    },
+    "michelli": {
+        "typeRaw": 0,
+        "price": 130000,
+        "model": "michelli",
+        "hashKey": 1046206681,
+        "type": "automobile",
+        "label": "Lampada Michelli"
+    },
+    "baller8": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "baller8",
+        "hashKey": -863358884,
+        "type": "automobile",
+        "label": "Gallivan Baller8"
+    },
+    "faction": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "faction",
+        "hashKey": -2119578145,
+        "type": "automobile",
+        "label": "Willard Faction"
+    },
+    "aleutian": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "aleutian",
+        "hashKey": -38879449,
+        "type": "automobile",
+        "label": "Vapid Aleutian"
+    },
+    "driftzr350": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "driftzr350",
+        "hashKey": 1923534526,
+        "type": "automobile",
+        "label": "Annis Driftzr350"
+    },
+    "drifteuros": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "drifteuros",
+        "hashKey": 821121576,
+        "type": "automobile",
+        "label": "Annis Drifteuros"
+    },
+    "asea2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "asea2",
+        "hashKey": -1807623979,
+        "type": "automobile",
+        "label": "Declasse Asea"
+    },
+    "massacro": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "massacro",
+        "hashKey": -142942670,
+        "type": "automobile",
+        "label": "Dewbauch Massacro"
+    },
+    "dinghy3": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "dinghy3",
+        "hashKey": 509498602,
+        "type": "boat",
+        "label": "Nagasaki Dinghy"
+    },
+    "trailers3": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailers3",
+        "hashKey": -2058878099,
+        "type": "trailer",
+        "label": " Trailers3"
+    },
+    "technical3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "technical3",
+        "hashKey": 1356124575,
+        "type": "automobile",
+        "label": "Karin Technical3"
+    },
+    "envisage": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "envisage",
+        "hashKey": 1121330119,
+        "type": "automobile",
+        "label": "Bollokan Envisage"
+    },
+    "windsor": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "windsor",
+        "hashKey": 1581459400,
+        "type": "automobile",
+        "label": "Enus Windsor"
+    },
+    "maverick": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "maverick",
+        "hashKey": -1660661558,
+        "type": "heli",
+        "label": " Maverick"
+    },
+    "thruster": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "thruster",
+        "hashKey": 1489874736,
+        "type": "heli",
+        "label": "Mammoth Thruster"
+    },
+    "khamelion": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "khamelion",
+        "hashKey": 544021352,
+        "type": "automobile",
+        "label": "Hijak Khamel"
+    },
+    "tribike": {
+        "typeRaw": 12,
+        "price": 12000,
+        "model": "tribike",
+        "hashKey": 1127861609,
+        "type": "bike",
+        "label": " Tribike"
+    },
+    "sentinel": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "sentinel",
+        "hashKey": 1349725314,
+        "type": "automobile",
+        "label": "Ubermach Sentinel"
+    },
+    "carbonizzare": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "carbonizzare",
+        "hashKey": 2072687711,
+        "type": "automobile",
+        "label": "Grotti Carboniz"
+    },
+    "cheburek": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "cheburek",
+        "hashKey": -988501280,
+        "type": "automobile",
+        "label": "Rune Cheburek"
+    },
+    "panthere": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "panthere",
+        "hashKey": 2100457220,
+        "type": "automobile",
+        "label": "Toundra Panthere"
+    },
+    "huntley": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "huntley",
+        "hashKey": 486987393,
+        "type": "automobile",
+        "label": "Enus Huntley"
+    },
+    "Vigero3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "Vigero3",
+        "hashKey": 372621319,
+        "type": "automobile",
+        "label": "Declasse Vigero3"
+    },
+    "gauntlet2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "gauntlet2",
+        "hashKey": 349315417,
+        "type": "automobile",
+        "label": "Bravado Gauntlet2"
+    },
+    "towtruck4": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "towtruck4",
+        "hashKey": -902029319,
+        "type": "automobile",
+        "label": " Towtruck"
+    },
+    "youga4": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "youga4",
+        "hashKey": 1486521356,
+        "type": "automobile",
+        "label": "Vapid Youga4"
+    },
+    "gauntlet6": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "gauntlet6",
+        "hashKey": 1336514315,
+        "type": "automobile",
+        "label": "Bravado Gauntlet6"
+    },
+    "marquis": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "marquis",
+        "hashKey": -1043459709,
+        "type": "boat",
+        "label": "Dinka Marquis"
+    },
+    "vivanite": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "vivanite",
+        "hashKey": -1372798934,
+        "type": "automobile",
+        "label": "Karin Vivanite"
+    },
+    "jester2": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "jester2",
+        "hashKey": -1106353882,
+        "type": "automobile",
+        "label": "Dinka Jester2"
+    },
+    "deveste": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "deveste",
+        "hashKey": 1591739866,
+        "type": "automobile",
+        "label": "Principl Deveste"
+    },
+    "vindicator": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "vindicator",
+        "hashKey": -1353081087,
+        "type": "bike",
+        "label": "Dinka Vindicator"
+    },
+    "ripley": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "ripley",
+        "hashKey": -845979911,
+        "type": "automobile",
+        "label": " Ripley"
+    },
+    "romero": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "romero",
+        "hashKey": 627094268,
+        "type": "automobile",
+        "label": "Chariot Romero"
+    },
+    "avenger4": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "avenger4",
+        "hashKey": -69293006,
+        "type": "plane",
+        "label": "Mammoth Avenger3"
+    },
+    "avenger3": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "avenger3",
+        "hashKey": -426933872,
+        "type": "plane",
+        "label": "Mammoth Avenger3"
+    },
+    "policeb": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "policeb",
+        "hashKey": -34623805,
+        "type": "bike",
+        "label": " Policeb"
+    },
+    "cargoplane2": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "cargoplane2",
+        "hashKey": -1958189855,
+        "type": "plane",
+        "label": " Cargopl"
+    },
+    "clique2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "clique2",
+        "hashKey": -979292575,
+        "type": "automobile",
+        "label": "Vapid Clique2"
+    },
+    "monroe": {
+        "typeRaw": 0,
+        "price": 70000,
+        "model": "monroe",
+        "hashKey": -433375717,
+        "type": "automobile",
+        "label": "Pegassi Monroe"
+    },
+    "lectro": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "lectro",
+        "hashKey": 640818791,
+        "type": "bike",
+        "label": "Principl Lectro"
+    },
+    "diablous2": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "diablous2",
+        "hashKey": 1790834270,
+        "type": "bike",
+        "label": "Principl Diablous2"
+    },
+    "scramjet": {
+        "typeRaw": 0,
+        "price": 130000,
+        "model": "scramjet",
+        "hashKey": -638562243,
+        "type": "automobile",
+        "label": "Declasse Scramjet"
+    },
+    "akula": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "akula",
+        "hashKey": 1181327175,
+        "type": "heli",
+        "label": " Akula"
+    },
+    "mesa": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "mesa",
+        "hashKey": 914654722,
+        "type": "automobile",
+        "label": "Canis Mesa"
+    },
+    "trash2": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "trash2",
+        "hashKey": -1255698084,
+        "type": "automobile",
+        "label": " Trash"
+    },
+    "stingertt": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "stingertt",
+        "hashKey": 1447690049,
+        "type": "automobile",
+        "label": "Grotti Stingertt"
+    },
+    "raiju": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "raiju",
+        "hashKey": 239897677,
+        "type": "plane",
+        "label": " Raiju"
+    },
+    "inductor": {
+        "typeRaw": 12,
+        "price": 12000,
+        "model": "inductor",
+        "hashKey": -897824023,
+        "type": "bike",
+        "label": " Inductor"
+    },
+    "airtug": {
+        "typeRaw": 0,
+        "price": 15000,
+        "model": "airtug",
+        "hashKey": 1560980623,
+        "type": "automobile",
+        "label": " Airtug"
+    },
+    "terminus": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "terminus",
+        "hashKey": 167522317,
+        "type": "automobile",
+        "label": "Canis Terminus"
+    },
+    "dune": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "dune",
+        "hashKey": -1661854193,
+        "type": "automobile",
+        "label": "Bf Dune"
+    },
+    "esskey": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "esskey",
+        "hashKey": 2035069708,
+        "type": "bike",
+        "label": "Pegassi Esskey"
+    },
+    "inductor2": {
+        "typeRaw": 12,
+        "price": 12000,
+        "model": "inductor2",
+        "hashKey": -1983622024,
+        "type": "bike",
+        "label": " Inductor2"
+    },
+    "surfer3": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "surfer3",
+        "hashKey": -1035489563,
+        "type": "automobile",
+        "label": "Bf Surfer3"
+    },
+    "tulip2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tulip2",
+        "hashKey": 268758436,
+        "type": "automobile",
+        "label": "Declasse Tulip2"
+    },
+    "xls2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "xls2",
+        "hashKey": -432008408,
+        "type": "automobile",
+        "label": "Benefac Xls2"
+    },
+    "xls": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "xls",
+        "hashKey": 1203490606,
+        "type": "automobile",
+        "label": "Benefac Xls"
+    },
+    "manchez3": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "manchez3",
+        "hashKey": 1384502824,
+        "type": "bike",
+        "label": "Maibatsu Manchez3"
+    },
+    "powersurge": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "powersurge",
+        "hashKey": -1386336041,
+        "type": "bike",
+        "label": "Western Powersurge"
+    },
+    "comet2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "comet2",
+        "hashKey": -1045541610,
+        "type": "automobile",
+        "label": "Pfister Comet2"
+    },
+    "eudora": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "eudora",
+        "hashKey": -1249788006,
+        "type": "automobile",
+        "label": "Willard Eudora"
+    },
+    "virtue": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "virtue",
+        "hashKey": 669204833,
+        "type": "automobile",
+        "label": "Ocelot Virtue"
+    },
+    "monster": {
+        "typeRaw": 0,
+        "price": 500000,
+        "model": "monster",
+        "hashKey": -845961253,
+        "type": "automobile",
+        "label": "Vapid Monster"
+    },
+    "sultan": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "sultan",
+        "hashKey": 970598228,
+        "type": "automobile",
+        "label": "Karin Sultan"
+    },
+    "tahoma": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tahoma",
+        "hashKey": -461850249,
+        "type": "automobile",
+        "label": "Declasse Tahoma"
+    },
+    "molotok": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "molotok",
+        "hashKey": 1565978651,
+        "type": "plane",
+        "label": " Molotok"
+    },
+    "youga3": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "youga3",
+        "hashKey": 1802742206,
+        "type": "automobile",
+        "label": "Bravado Youga3"
+    },
+    "gburrito2": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "gburrito2",
+        "hashKey": 296357396,
+        "type": "automobile",
+        "label": "Declasse Gburrito2"
+    },
+    "camper": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "camper",
+        "hashKey": 1876516712,
+        "type": "automobile",
+        "label": "Brute Camper"
+    },
+    "greenwood": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "greenwood",
+        "hashKey": 40817712,
+        "type": "automobile",
+        "label": "Bravado Greenwood"
+    },
+    "towtruck": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "towtruck",
+        "hashKey": -1323100960,
+        "type": "automobile",
+        "label": " Towtruck"
+    },
+    "paragon3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "paragon3",
+        "hashKey": -946047670,
+        "type": "automobile",
+        "label": "Enus Paragon3"
+    },
+    "mamba": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "mamba",
+        "hashKey": -1660945322,
+        "type": "automobile",
+        "label": "Declasse Mamba"
+    },
+    "lm87": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "lm87",
+        "hashKey": -10917683,
+        "type": "automobile",
+        "label": "Benefac Lm87"
+    },
+    "postlude": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "postlude",
+        "hashKey": -294678663,
+        "type": "automobile",
+        "label": "Dinka Postlude"
+    },
+    "surfer": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "surfer",
+        "hashKey": 699456151,
+        "type": "automobile",
+        "label": "Bf Surfer"
+    },
+    "sentinel2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "sentinel2",
+        "hashKey": 873639469,
+        "type": "automobile",
+        "label": "Ubermach Sentinel2"
+    },
+    "pbus2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "pbus2",
+        "hashKey": 345756458,
+        "type": "automobile",
+        "label": " Pbus2"
+    },
+    "kanjosj": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "kanjosj",
+        "hashKey": -64075878,
+        "type": "automobile",
+        "label": "Dinka Kanjosj"
+    },
+    "rhinehart": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "rhinehart",
+        "hashKey": -1855505138,
+        "type": "automobile",
+        "label": "Ubermacht Rhinehart"
+    },
+    "brioso3": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "brioso3",
+        "hashKey": 15214558,
+        "type": "automobile",
+        "label": "Grotti Brioso3"
+    },
+    "tezeract": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "tezeract",
+        "hashKey": 1031562256,
+        "type": "automobile",
+        "label": "Pegassi Tezeract"
+    },
+    "granger2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "granger2",
+        "hashKey": -261346873,
+        "type": "automobile",
+        "label": "Declasse Granger2"
+    },
+    "thrax": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "thrax",
+        "hashKey": 1044193113,
+        "type": "automobile",
+        "label": "Truffade Thrax"
+    },
+    "volatol": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "volatol",
+        "hashKey": 447548909,
+        "type": "plane",
+        "label": " Volatol"
+    },
+    "sentinel4": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "sentinel4",
+        "hashKey": -1356880839,
+        "type": "automobile",
+        "label": "Ubermach Sentinel4"
+    },
+    "iwagen": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "iwagen",
+        "hashKey": 662793086,
+        "type": "automobile",
+        "label": "Obey Iwagen"
+    },
+    "entity2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "entity2",
+        "hashKey": -2120700196,
+        "type": "automobile",
+        "label": "Overflod Entity2"
+    },
+    "reever": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "reever",
+        "hashKey": 1993851908,
+        "type": "bike",
+        "label": "Western Reever"
+    },
+    "emperor": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "emperor",
+        "hashKey": -685276541,
+        "type": "automobile",
+        "label": "Albany Emperor"
+    },
+    "brutus3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "brutus3",
+        "hashKey": 2038858402,
+        "type": "automobile",
+        "label": "Declasse Brutus3"
+    },
+    "btype": {
+        "typeRaw": 0,
+        "price": 70000,
+        "model": "btype",
+        "hashKey": 117401876,
+        "type": "automobile",
+        "label": "Albany Roosevelt"
+    },
+    "banshee2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "banshee2",
+        "hashKey": 633712403,
+        "type": "automobile",
+        "label": "Bravado Banshee2"
+    },
+    "warrener2": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "warrener2",
+        "hashKey": 579912970,
+        "type": "automobile",
+        "label": "Vulcar Warrener2"
+    },
+    "driftjester3": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "driftjester3",
+        "hashKey": -362690998,
+        "type": "automobile",
+        "label": "Dinka Driftjstr3"
+    },
+    "zr350": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "zr350",
+        "hashKey": -1858654120,
+        "type": "automobile",
+        "label": "Annis Zr350"
+    },
+    "utillitruck2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "utillitruck2",
+        "hashKey": 887537515,
+        "type": "automobile",
+        "label": " Utiltruc"
+    },
+    "guardian": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "guardian",
+        "hashKey": -2107990196,
+        "type": "automobile",
+        "label": "Vapid Guardian"
+    },
+    "growler": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "growler",
+        "hashKey": 1304459735,
+        "type": "automobile",
+        "label": "Pfister Growler"
+    },
+    "cargobob2": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "cargobob2",
+        "hashKey": 1621617168,
+        "type": "heli",
+        "label": " Cargobob"
+    },
+    "imorgon": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "imorgon",
+        "hashKey": -1132721664,
+        "type": "automobile",
+        "label": "Overflod Imorgon"
+    },
+    "tailgater2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "tailgater2",
+        "hashKey": -1244461404,
+        "type": "automobile",
+        "label": "Obey Tailgater2"
+    },
+    "supervolito": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "supervolito",
+        "hashKey": 710198397,
+        "type": "heli",
+        "label": "Bucking Svolito"
+    },
+    "issi7": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "issi7",
+        "hashKey": 1854776567,
+        "type": "automobile",
+        "label": "Weeny Issi7"
+    },
+    "nemesis": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "nemesis",
+        "hashKey": -634879114,
+        "type": "bike",
+        "label": "Principl Nemesis"
+    },
+    "baller5": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "baller5",
+        "hashKey": 470404958,
+        "type": "automobile",
+        "label": "Gallivan Baller5"
+    },
+    "dominator8": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "dominator8",
+        "hashKey": 736672010,
+        "type": "automobile",
+        "label": "Vapid Dominator8"
+    },
+    "dominator7": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "dominator7",
+        "hashKey": 426742808,
+        "type": "automobile",
+        "label": "Vapid Dominator7"
+    },
+    "zr380": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "zr380",
+        "hashKey": 540101442,
+        "type": "automobile",
+        "label": "Annis Zr380"
+    },
+    "kosatka": {
+        "typeRaw": 15,
+        "price": 40000,
+        "model": "kosatka",
+        "hashKey": 1336872304,
+        "type": "submarine",
+        "label": "Rune Kosatka"
+    },
+    "oracle2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "oracle2",
+        "hashKey": -511601230,
+        "type": "automobile",
+        "label": "Ubermach Oracle"
+    },
+    "seasparrow2": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "seasparrow2",
+        "hashKey": 1229411063,
+        "type": "heli",
+        "label": " Sparrow2"
+    },
+    "caddy": {
+        "typeRaw": 0,
+        "price": 10000,
+        "model": "caddy",
+        "hashKey": 1147287684,
+        "type": "automobile",
+        "label": " Caddy"
+    },
+    "savestra": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "savestra",
+        "hashKey": 903794909,
+        "type": "automobile",
+        "label": "Annis Savestra"
+    },
+    "turismo3": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "turismo3",
+        "hashKey": -122993285,
+        "type": "automobile",
+        "label": "Grotti Turismo3"
+    },
+    "schafter2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "schafter2",
+        "hashKey": -1255452397,
+        "type": "automobile",
+        "label": "Benefac Schafter"
+    },
+    "wastelander": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "wastelander",
+        "hashKey": -1912017790,
+        "type": "automobile",
+        "label": "Mtl Wastlndr"
+    },
+    "penetrator": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "penetrator",
+        "hashKey": -1758137366,
+        "type": "automobile",
+        "label": "Ocelot Penetrator"
+    },
+    "t20": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "t20",
+        "hashKey": 1663218586,
+        "type": "automobile",
+        "label": "Progen T20"
+    },
+    "freecrawler": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "freecrawler",
+        "hashKey": -54332285,
+        "type": "automobile",
+        "label": "Canis Freecrawler"
+    },
+    "toreador": {
+        "typeRaw": 5,
+        "price": 35000,
+        "model": "toreador",
+        "hashKey": 1455990255,
+        "type": "automobile",
+        "label": "Pegassi Toreador"
+    },
+    "neo": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "neo",
+        "hashKey": -1620126302,
+        "type": "automobile",
+        "label": "Vysser Neo"
+    },
+    "impaler5": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "impaler5",
+        "hashKey": -478639183,
+        "type": "automobile",
+        "label": "Declasse Impaler5"
+    },
+    "rocoto": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "rocoto",
+        "hashKey": 2136773105,
+        "type": "automobile",
+        "label": "Obey Rocoto"
+    },
+    "chernobog": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "chernobog",
+        "hashKey": -692292317,
+        "type": "automobile",
+        "label": " Chernobog"
+    },
+    "casco": {
+        "typeRaw": 0,
+        "price": 130000,
+        "model": "casco",
+        "hashKey": 941800958,
+        "type": "automobile",
+        "label": "Lampada Casco"
+    },
+    "dukes3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "dukes3",
+        "hashKey": 2134119907,
+        "type": "automobile",
+        "label": "Imponte Dukes3"
+    },
+    "technical": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "technical",
+        "hashKey": -2096818938,
+        "type": "automobile",
+        "label": "Karin Technical"
+    },
+    "coquette4": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "coquette4",
+        "hashKey": -1728685474,
+        "type": "automobile",
+        "label": "Inverto Coquette4"
+    },
+    "barracks3": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "barracks3",
+        "hashKey": 630371791,
+        "type": "automobile",
+        "label": " Barracks"
+    },
+    "ratel": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "ratel",
+        "hashKey": -536105557,
+        "type": "automobile",
+        "label": "Vapid Ratel"
+    },
+    "ztype": {
+        "typeRaw": 0,
+        "price": 70000,
+        "model": "ztype",
+        "hashKey": 758895617,
+        "type": "automobile",
+        "label": "Truffade Ztype"
+    },
+    "kanjo": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "kanjo",
+        "hashKey": 409049982,
+        "type": "automobile",
+        "label": "Dinka Kanjo"
+    },
+    "visione": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "visione",
+        "hashKey": -998177792,
+        "type": "automobile",
+        "label": "Grotti Visione"
+    },
+    "cargobob": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "cargobob",
+        "hashKey": -50547061,
+        "type": "heli",
+        "label": " Cargobob"
+    },
+    "komoda": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "komoda",
+        "hashKey": -834353991,
+        "type": "automobile",
+        "label": "Lampadati Komoda"
+    },
+    "feltzer2": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "feltzer2",
+        "hashKey": -1995326987,
+        "type": "automobile",
+        "label": "Benefac Feltzer"
+    },
+    "impaler6": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "impaler6",
+        "hashKey": -178442374,
+        "type": "automobile",
+        "label": "Declasse Impaler6"
+    },
+    "vstr": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "vstr",
+        "hashKey": 1456336509,
+        "type": "automobile",
+        "label": "Albany Vstr"
+    },
+    "furia": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "furia",
+        "hashKey": 960812448,
+        "type": "automobile",
+        "label": "Grotti Furia"
+    },
+    "sultan2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "sultan2",
+        "hashKey": 872704284,
+        "type": "automobile",
+        "label": "Karin Sultan2"
+    },
+    "mixer": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "mixer",
+        "hashKey": -784816453,
+        "type": "automobile",
+        "label": "Hvy Mixer"
+    },
+    "jb7002": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "jb7002",
+        "hashKey": 394110044,
+        "type": "automobile",
+        "label": "Dewbauch Jb7002"
+    },
+    "Stryder": {
+        "typeRaw": 3,
+        "price": 12000,
+        "model": "Stryder",
+        "hashKey": 301304410,
+        "type": "automobile",
+        "label": "Nagasaki Stryder"
+    },
+    "driftyosemite": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "driftyosemite",
+        "hashKey": -1681653521,
+        "type": "automobile",
+        "label": "Declasse Driftyosem"
+    },
+    "gb200": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "gb200",
+        "hashKey": 1909189272,
+        "type": "automobile",
+        "label": "Vapid Gb200"
+    },
+    "ellie": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "ellie",
+        "hashKey": -1267543371,
+        "type": "automobile",
+        "label": "Vapid Ellie"
+    },
+    "trailersmall2": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailersmall2",
+        "hashKey": -1881846085,
+        "type": "trailer",
+        "label": "Vomfeuer Trsmall2"
+    },
+    "bruiser2": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "bruiser2",
+        "hashKey": -1694081890,
+        "type": "automobile",
+        "label": "Benefac Bruiser2"
+    },
+    "drafter": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "drafter",
+        "hashKey": 686471183,
+        "type": "automobile",
+        "label": "Obey Drafter"
+    },
+    "rancherxl": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "rancherxl",
+        "hashKey": 1645267888,
+        "type": "automobile",
+        "label": "Declasse Rancherx"
+    },
+    "zion3": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "zion3",
+        "hashKey": 1862507111,
+        "type": "automobile",
+        "label": "Ubermach Zion3"
+    },
+    "nebula": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "nebula",
+        "hashKey": -882629065,
+        "type": "automobile",
+        "label": "Vulcar Nebula"
+    },
+    "submersible": {
+        "typeRaw": 15,
+        "price": 40000,
+        "model": "submersible",
+        "hashKey": 771711535,
+        "type": "submarine",
+        "label": " Submers"
+    },
+    "emerus": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "emerus",
+        "hashKey": 1323778901,
+        "type": "automobile",
+        "label": "Progen Emerus"
+    },
+    "locust": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "locust",
+        "hashKey": -941272559,
+        "type": "automobile",
+        "label": "Ocelot Locust"
+    },
+    "glendale2": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "glendale2",
+        "hashKey": -913589546,
+        "type": "automobile",
+        "label": "Benefac Glendale2"
+    },
+    "cavalcade": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "cavalcade",
+        "hashKey": 2006918058,
+        "type": "automobile",
+        "label": "Albany Cavcade"
+    },
+    "vigero": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "vigero",
+        "hashKey": -825837129,
+        "type": "automobile",
+        "label": "Declasse Vigero"
+    },
+    "primo2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "primo2",
+        "hashKey": -2040426790,
+        "type": "automobile",
+        "label": "Albany Primo2"
+    },
+    "asterope2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "asterope2",
+        "hashKey": -741120335,
+        "type": "automobile",
+        "label": "Karin Asterope2"
+    },
+    "habanero": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "habanero",
+        "hashKey": 884422927,
+        "type": "automobile",
+        "label": "Emperor Habanero"
+    },
+    "weevil": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "weevil",
+        "hashKey": 1644055914,
+        "type": "automobile",
+        "label": "Bf Weevil"
+    },
+    "gauntlet4": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "gauntlet4",
+        "hashKey": 1934384720,
+        "type": "automobile",
+        "label": "Bravado Gauntlet4"
+    },
+    "bati2": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "bati2",
+        "hashKey": -891462355,
+        "type": "bike",
+        "label": "Pegassi Bati2"
+    },
+    "seashark2": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "seashark2",
+        "hashKey": -616331036,
+        "type": "boat",
+        "label": "Speedoph Seashark"
+    },
+    "schafter6": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "schafter6",
+        "hashKey": 1922255844,
+        "type": "automobile",
+        "label": "Benefac Schafter6"
+    },
+    "futo2": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "futo2",
+        "hashKey": -1507230520,
+        "type": "automobile",
+        "label": "Karin Futo2"
+    },
+    "freightcar": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "freightcar",
+        "hashKey": 184361638,
+        "type": "train",
+        "label": " Freight"
+    },
+    "driftfr36": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "driftfr36",
+        "hashKey": -1479935577,
+        "type": "automobile",
+        "label": "Fathom Driftfr36"
+    },
+    "rrocket": {
+        "typeRaw": 3,
+        "price": 12000,
+        "model": "rrocket",
+        "hashKey": 916547552,
+        "type": "automobile",
+        "label": "Western Rrocket"
+    },
+    "freight2": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "freight2",
+        "hashKey": -442229240,
+        "type": "train",
+        "label": " Freight2"
+    },
+    "jugular": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "jugular",
+        "hashKey": -208911803,
+        "type": "automobile",
+        "label": "Ocelot Jugular"
+    },
+    "dinghy4": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "dinghy4",
+        "hashKey": 867467158,
+        "type": "boat",
+        "label": "Nagasaki Dinghy"
+    },
+    "zhaba": {
+        "typeRaw": 6,
+        "price": 50000,
+        "model": "zhaba",
+        "hashKey": 1284356689,
+        "type": "automobile",
+        "label": "Rune Zhaba"
+    },
+    "impaler": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "impaler",
+        "hashKey": -2096690334,
+        "type": "automobile",
+        "label": "Declasse Impaler"
+    },
+    "speedo4": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "speedo4",
+        "hashKey": 219613597,
+        "type": "automobile",
+        "label": "Vapid Speedo4"
+    },
+    "insurgent": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "insurgent",
+        "hashKey": -1860900134,
+        "type": "automobile",
+        "label": "Hvy Insurgent"
+    },
+    "jester4": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "jester4",
+        "hashKey": -1582061455,
+        "type": "automobile",
+        "label": "Dinka Jester4"
+    },
+    "imperator3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "imperator3",
+        "hashKey": -755532233,
+        "type": "automobile",
+        "label": "Vapid Imperator3"
+    },
+    "imperator2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "imperator2",
+        "hashKey": 1637620610,
+        "type": "automobile",
+        "label": "Vapid Imperator2"
+    },
+    "ignus": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "ignus",
+        "hashKey": -1444114309,
+        "type": "automobile",
+        "label": "Pegassi Ignus"
+    },
+    "manana": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "manana",
+        "hashKey": -2124201592,
+        "type": "automobile",
+        "label": "Albany Manana"
+    },
+    "monster4": {
+        "typeRaw": 0,
+        "price": 500000,
+        "model": "monster4",
+        "hashKey": 840387324,
+        "type": "automobile",
+        "label": "Bravado Monster4"
+    },
+    "scarab": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "scarab",
+        "hashKey": -1146969353,
+        "type": "automobile",
+        "label": "Hvy Scarab"
+    },
+    "ratbike": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "ratbike",
+        "hashKey": 1873600305,
+        "type": "bike",
+        "label": "Western Ratbike"
+    },
+    "tulip": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "tulip",
+        "hashKey": 1456744817,
+        "type": "automobile",
+        "label": "Declasse Tulip"
+    },
+    "patriot2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "patriot2",
+        "hashKey": -420911112,
+        "type": "automobile",
+        "label": "Mammoth Patriot2"
+    },
+    "banshee3": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "banshee3",
+        "hashKey": -660007725,
+        "type": "automobile",
+        "label": "Bravado Banshee3"
+    },
+    "metrotrain": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "metrotrain",
+        "hashKey": 868868440,
+        "type": "train",
+        "label": " Freight"
+    },
+    "cerberus": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "cerberus",
+        "hashKey": -801550069,
+        "type": "automobile",
+        "label": "Mtl Cerberus"
+    },
+    "firetruk": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "firetruk",
+        "hashKey": 1938952078,
+        "type": "automobile",
+        "label": "Mtl Firetruk"
+    },
+    "washington": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "washington",
+        "hashKey": 1777363799,
+        "type": "automobile",
+        "label": "Albany Washingt"
+    },
+    "poldominator10": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "poldominator10",
+        "hashKey": -773802025,
+        "type": "automobile",
+        "label": "Vapid Poldom10"
+    },
+    "rcbandito": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "rcbandito",
+        "hashKey": -286046740,
+        "type": "automobile",
+        "label": " Rcbandito"
+    },
+    "brioso2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "brioso2",
+        "hashKey": 1429622905,
+        "type": "automobile",
+        "label": "Grotti Brioso2"
+    },
+    "mule5": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "mule5",
+        "hashKey": 1343932732,
+        "type": "automobile",
+        "label": "Maibatsu Mule5"
+    },
+    "dilettante2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "dilettante2",
+        "hashKey": 1682114128,
+        "type": "automobile",
+        "label": "Karin Dilettan"
+    },
+    "dominator5": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "dominator5",
+        "hashKey": -1375060657,
+        "type": "automobile",
+        "label": "Vapid Dominator5"
+    },
+    "volatus": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "volatus",
+        "hashKey": -1845487887,
+        "type": "heli",
+        "label": "Bucking Volatus"
+    },
+    "gargoyle": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "gargoyle",
+        "hashKey": 741090084,
+        "type": "bike",
+        "label": "Western Gargoyle"
+    },
+    "astron": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "astron",
+        "hashKey": 629969764,
+        "type": "automobile",
+        "label": "Pfister Astron"
+    },
+    "furoregt": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "furoregt",
+        "hashKey": -1089039904,
+        "type": "automobile",
+        "label": "Lampada Furore"
+    },
+    "submersible2": {
+        "typeRaw": 15,
+        "price": 40000,
+        "model": "submersible2",
+        "hashKey": -1066334226,
+        "type": "submarine",
+        "label": " Submers2"
+    },
+    "dominator4": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "dominator4",
+        "hashKey": -688189648,
+        "type": "automobile",
+        "label": "Vapid Dominator4"
+    },
+    "jester": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "jester",
+        "hashKey": -1297672541,
+        "type": "automobile",
+        "label": "Dinka Jester"
+    },
+    "deathbike": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "deathbike",
+        "hashKey": -27326686,
+        "type": "bike",
+        "label": "Western Deathbike"
+    },
+    "slamvan3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "slamvan3",
+        "hashKey": 1119641113,
+        "type": "automobile",
+        "label": "Vapid Slamvan3"
+    },
+    "trophytruck2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "trophytruck2",
+        "hashKey": -663299102,
+        "type": "automobile",
+        "label": "Vapid Trophy2"
+    },
+    "corsita": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "corsita",
+        "hashKey": -754687673,
+        "type": "automobile",
+        "label": "Lampada Corsita"
+    },
+    "brutus": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "brutus",
+        "hashKey": 2139203625,
+        "type": "automobile",
+        "label": "Declasse Brutus"
+    },
+    "pranger": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "pranger",
+        "hashKey": 741586030,
+        "type": "automobile",
+        "label": "Declasse Pranger"
+    },
+    "zion2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "zion2",
+        "hashKey": -1193103848,
+        "type": "automobile",
+        "label": "Ubermach Zion2"
+    },
+    "impaler4": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "impaler4",
+        "hashKey": -1744505657,
+        "type": "automobile",
+        "label": "Declasse Impaler4"
+    },
+    "deathbike2": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "deathbike2",
+        "hashKey": -1812949672,
+        "type": "bike",
+        "label": "Western Deathbike2"
+    },
+    "monster5": {
+        "typeRaw": 0,
+        "price": 500000,
+        "model": "monster5",
+        "hashKey": -715746948,
+        "type": "automobile",
+        "label": "Bravado Monster5"
+    },
+    "monster3": {
+        "typeRaw": 0,
+        "price": 500000,
+        "model": "monster3",
+        "hashKey": 1721676810,
+        "type": "automobile",
+        "label": "Bravado Monster3"
+    },
+    "euros": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "euros",
+        "hashKey": 2038480341,
+        "type": "automobile",
+        "label": "Annis Euros"
+    },
+    "swinger": {
+        "typeRaw": 0,
+        "price": 130000,
+        "model": "swinger",
+        "hashKey": 500482303,
+        "type": "automobile",
+        "label": "Ocelot Swinger"
+    },
+    "hakuchou": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "hakuchou",
+        "hashKey": 1265391242,
+        "type": "bike",
+        "label": "Shitzu Hakuchou"
+    },
+    "manana2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "manana2",
+        "hashKey": 1717532765,
+        "type": "automobile",
+        "label": "Albany Manana2"
+    },
+    "sadler2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "sadler2",
+        "hashKey": 734217681,
+        "type": "automobile",
+        "label": "Vapid Sadler"
+    },
+    "blimp3": {
+        "typeRaw": 9,
+        "price": 52000,
+        "model": "blimp3",
+        "hashKey": -307958377,
+        "type": "heli",
+        "label": " Blimp3"
+    },
+    "seashark3": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "seashark3",
+        "hashKey": -311022263,
+        "type": "boat",
+        "label": "Speedoph Seashark"
+    },
+    "jb700": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "jb700",
+        "hashKey": 1051415893,
+        "type": "automobile",
+        "label": "Dewbauch Jb700"
+    },
+    "voodoo": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "voodoo",
+        "hashKey": 2006667053,
+        "type": "automobile",
+        "label": "Declasse Voodoo2"
+    },
+    "driftnebula": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "driftnebula",
+        "hashKey": 1690421418,
+        "type": "automobile",
+        "label": "Vulcar Driftnebula"
+    },
+    "Novak": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "Novak",
+        "hashKey": -1829436850,
+        "type": "automobile",
+        "label": "Lampadati Novak"
+    },
+    "luxor": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "luxor",
+        "hashKey": 621481054,
+        "type": "plane",
+        "label": "Bucking Luxor"
+    },
+    "monstrociti": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "monstrociti",
+        "hashKey": 802856453,
+        "type": "automobile",
+        "label": "Maibatsu Monstrociti"
+    },
+    "comet7": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "comet7",
+        "hashKey": 1141395928,
+        "type": "automobile",
+        "label": "Pfister Comet7"
+    },
+    "zombiea": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "zombiea",
+        "hashKey": -1009268949,
+        "type": "bike",
+        "label": "Western Zombiea"
+    },
+    "towtruck3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "towtruck3",
+        "hashKey": -671564942,
+        "type": "automobile",
+        "label": " Towtruck"
+    },
+    "oppressor2": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "oppressor2",
+        "hashKey": 2069146067,
+        "type": "bike",
+        "label": "Pegassi Oppressor2"
+    },
+    "boxville": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "boxville",
+        "hashKey": -1987130134,
+        "type": "automobile",
+        "label": "Brute Boxville"
+    },
+    "polimpaler6": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "polimpaler6",
+        "hashKey": 1452003510,
+        "type": "automobile",
+        "label": "Declasse Polimpaler6"
+    },
+    "strikeforce": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "strikeforce",
+        "hashKey": 1692272545,
+        "type": "plane",
+        "label": " Strikeforce"
+    },
+    "chimera": {
+        "typeRaw": 3,
+        "price": 12000,
+        "model": "chimera",
+        "hashKey": 6774487,
+        "type": "automobile",
+        "label": "Nagasaki Chimera"
+    },
+    "stockade3": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "stockade3",
+        "hashKey": -214455498,
+        "type": "automobile",
+        "label": "Brute Stockade"
+    },
+    "ingot": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "ingot",
+        "hashKey": -1289722222,
+        "type": "automobile",
+        "label": "Vulcar Ingot"
+    },
+    "rubble": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "rubble",
+        "hashKey": -1705304628,
+        "type": "automobile",
+        "label": "Jobuilt Rubble"
+    },
+    "slamvan6": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "slamvan6",
+        "hashKey": 1742022738,
+        "type": "automobile",
+        "label": "Vapid Slamvan6"
+    },
+    "ninef2": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "ninef2",
+        "hashKey": -1461482751,
+        "type": "automobile",
+        "label": "Obey Ninef2"
+    },
+    "freightcont2": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "freightcont2",
+        "hashKey": 240201337,
+        "type": "train",
+        "label": " Freight"
+    },
+    "deity": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "deity",
+        "hashKey": 1532171089,
+        "type": "automobile",
+        "label": "Enus Deity"
+    },
+    "insurgent3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "insurgent3",
+        "hashKey": -1924433270,
+        "type": "automobile",
+        "label": "Hvy Insurgent3"
+    },
+    "driftjester": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "driftjester",
+        "hashKey": -1763273939,
+        "type": "automobile",
+        "label": "Dinka Driftjester"
+    },
+    "wolfsbane": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "wolfsbane",
+        "hashKey": -618617997,
+        "type": "bike",
+        "label": "Western Wolfsbane"
+    },
+    "ruiner4": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "ruiner4",
+        "hashKey": 1706945532,
+        "type": "automobile",
+        "label": "Imponte Ruiner4"
+    },
+    "caracara2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "caracara2",
+        "hashKey": -1349095620,
+        "type": "automobile",
+        "label": "Vapid Caracara2"
+    },
+    "conada": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "conada",
+        "hashKey": -477831899,
+        "type": "heli",
+        "label": "Bucking Conada"
+    },
+    "faggio3": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "faggio3",
+        "hashKey": -1289178744,
+        "type": "bike",
+        "label": "Pegassi Faggio3"
+    },
+    "riot2": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "riot2",
+        "hashKey": -1693015116,
+        "type": "automobile",
+        "label": " Riot2"
+    },
+    "cuban800": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "cuban800",
+        "hashKey": -644710429,
+        "type": "plane",
+        "label": " Cuban800"
+    },
+    "cheetah": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "cheetah",
+        "hashKey": -1311154784,
+        "type": "automobile",
+        "label": "Grotti Cheetah"
+    },
+    "tractor": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "tractor",
+        "hashKey": 1641462412,
+        "type": "automobile",
+        "label": " Tractor"
+    },
+    "seasparrow": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "seasparrow",
+        "hashKey": -726768679,
+        "type": "heli",
+        "label": " Sparrow"
+    },
+    "ratloader": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "ratloader",
+        "hashKey": -667151410,
+        "type": "automobile",
+        "label": " Rloader"
+    },
+    "tvtrailer": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "tvtrailer",
+        "hashKey": -1770643266,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "verus": {
+        "typeRaw": 3,
+        "price": 12000,
+        "model": "verus",
+        "hashKey": 298565713,
+        "type": "automobile",
+        "label": "Dinka Verus"
+    },
+    "retinue": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "retinue",
+        "hashKey": 1841130506,
+        "type": "automobile",
+        "label": "Vapid Retinue"
+    },
+    "voodoo2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "voodoo2",
+        "hashKey": 523724515,
+        "type": "automobile",
+        "label": "Declasse Voodoo"
+    },
+    "freightcar2": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "freightcar2",
+        "hashKey": -1108591207,
+        "type": "train",
+        "label": " Freight"
+    },
+    "limo2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "limo2",
+        "hashKey": -114627507,
+        "type": "automobile",
+        "label": "Benefac Limo2"
+    },
+    "futo": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "futo",
+        "hashKey": 2016857647,
+        "type": "automobile",
+        "label": "Karin Futo"
+    },
+    "vacca": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "vacca",
+        "hashKey": 338562499,
+        "type": "automobile",
+        "label": "Pegassi Vacca"
+    },
+    "sanchez2": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "sanchez2",
+        "hashKey": -1453280962,
+        "type": "bike",
+        "label": "Maibatsu Sanchez02"
+    },
+    "jubilee": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "jubilee",
+        "hashKey": 461465043,
+        "type": "automobile",
+        "label": "Enus Jubilee"
+    },
+    "kamacho": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "kamacho",
+        "hashKey": -121446169,
+        "type": "automobile",
+        "label": "Canis Kamacho"
+    },
+    "pariah": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "pariah",
+        "hashKey": 867799010,
+        "type": "automobile",
+        "label": "Ocelot Pariah"
+    },
+    "phoenix": {
+        "typeRaw": 0,
+        "price": 20000,
+        "model": "phoenix",
+        "hashKey": -2095439403,
+        "type": "automobile",
+        "label": "Imponte Phoenix"
+    },
+    "mesa2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "mesa2",
+        "hashKey": -748008636,
+        "type": "automobile",
+        "label": "Canis Mesa"
+    },
+    "freightgrain": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "freightgrain",
+        "hashKey": 642617954,
+        "type": "train",
+        "label": " Freight"
+    },
+    "deathbike3": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "deathbike3",
+        "hashKey": -1374500452,
+        "type": "bike",
+        "label": "Western Deathbike3"
+    },
+    "cavalcade3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "cavalcade3",
+        "hashKey": -1029730482,
+        "type": "automobile",
+        "label": "Albany Cavalcade3"
+    },
+    "fbi2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "fbi2",
+        "hashKey": -1647941228,
+        "type": "automobile",
+        "label": " Fbi2"
+    },
+    "avenger2": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "avenger2",
+        "hashKey": 408970549,
+        "type": "plane",
+        "label": "Mammoth Avenger"
+    },
+    "hexer": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "hexer",
+        "hashKey": 301427732,
+        "type": "bike",
+        "label": "Lcc Hexer"
+    },
+    "tailgater": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "tailgater",
+        "hashKey": -1008861746,
+        "type": "automobile",
+        "label": "Obey Tailgate"
+    },
+    "yosemite2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "yosemite2",
+        "hashKey": 1693751655,
+        "type": "automobile",
+        "label": "Declasse Yosemite2"
+    },
+    "landstalker": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "landstalker",
+        "hashKey": 1269098716,
+        "type": "automobile",
+        "label": "Dundrear Landstal"
+    },
+    "dominator3": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "dominator3",
+        "hashKey": -986944621,
+        "type": "automobile",
+        "label": "Vapid Dominator3"
+    },
+    "premier": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "premier",
+        "hashKey": -1883869285,
+        "type": "automobile",
+        "label": "Declasse Premier"
+    },
+    "intruder": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "intruder",
+        "hashKey": 886934177,
+        "type": "automobile",
+        "label": "Karin Intruder"
+    },
+    "baller7": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "baller7",
+        "hashKey": 359875117,
+        "type": "automobile",
+        "label": "Gallivan Baller7"
+    },
+    "deluxo": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "deluxo",
+        "hashKey": 1483171323,
+        "type": "automobile",
+        "label": "Imponte Deluxo"
+    },
+    "khanjali": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "khanjali",
+        "hashKey": -1435527158,
+        "type": "automobile",
+        "label": " Khanjali"
+    },
+    "penumbra": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "penumbra",
+        "hashKey": -377465520,
+        "type": "automobile",
+        "label": "Maibatsu Penumbra"
+    },
+    "shamal": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "shamal",
+        "hashKey": -1214505995,
+        "type": "plane",
+        "label": "Bucking Shamal"
+    },
+    "paradise": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "paradise",
+        "hashKey": 1488164764,
+        "type": "automobile",
+        "label": "Bravado Paradise"
+    },
+    "manchez": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "manchez",
+        "hashKey": -1523428744,
+        "type": "bike",
+        "label": "Maibatsu Manchez"
+    },
+    "innovation": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "innovation",
+        "hashKey": -159126838,
+        "type": "bike",
+        "label": "Lcc Innovation"
+    },
+    "flashgt": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "flashgt",
+        "hashKey": -1259134696,
+        "type": "automobile",
+        "label": "Vapid Flashgt"
+    },
+    "issi6": {
+        "typeRaw": 0,
+        "price": 52000,
+        "model": "issi6",
+        "hashKey": 1239571361,
+        "type": "automobile",
+        "label": "Weeny Issi6"
+    },
+    "terbyte": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "terbyte",
+        "hashKey": -1988428699,
+        "type": "automobile",
+        "label": "Benefactor Terbyte"
+    },
+    "dinghy2": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "dinghy2",
+        "hashKey": 276773164,
+        "type": "boat",
+        "label": "Nagasaki Dinghy"
+    },
+    "sanchez": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "sanchez",
+        "hashKey": 788045382,
+        "type": "bike",
+        "label": "Maibatsu Sanchez01"
+    },
+    "gauntlet": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "gauntlet",
+        "hashKey": -1800170043,
+        "type": "automobile",
+        "label": "Bravado Gauntlet"
+    },
+    "seashark": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "seashark",
+        "hashKey": -1030275036,
+        "type": "boat",
+        "label": "Speedoph Seashark"
+    },
+    "speedo5": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "speedo5",
+        "hashKey": -44799464,
+        "type": "automobile",
+        "label": "Vapid Speedo4"
+    },
+    "policet": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "policet",
+        "hashKey": 456714581,
+        "type": "automobile",
+        "label": " Policet"
+    },
+    "baller6": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "baller6",
+        "hashKey": 666166960,
+        "type": "automobile",
+        "label": "Gallivan Baller6"
+    },
+    "halftrack": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "halftrack",
+        "hashKey": -32236122,
+        "type": "automobile",
+        "label": "Bravado Halftrack"
+    },
+    "police": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "police",
+        "hashKey": 2046537925,
+        "type": "automobile",
+        "label": " Police"
+    },
+    "cognoscenti": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "cognoscenti",
+        "hashKey": -2030171296,
+        "type": "automobile",
+        "label": "Enus Cognosc"
+    },
+    "tornado": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tornado",
+        "hashKey": 464687292,
+        "type": "automobile",
+        "label": "Declasse Tornado"
+    },
+    "polcoquette4": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "polcoquette4",
+        "hashKey": 2042703219,
+        "type": "automobile",
+        "label": "Inverto Polcoqutt4"
+    },
+    "bfinjection": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "bfinjection",
+        "hashKey": 1126868326,
+        "type": "automobile",
+        "label": "Bf Bfinject"
+    },
+    "issi4": {
+        "typeRaw": 0,
+        "price": 52000,
+        "model": "issi4",
+        "hashKey": 628003514,
+        "type": "automobile",
+        "label": "Weeny Issi4"
+    },
+    "stafford": {
+        "typeRaw": 0,
+        "price": 70000,
+        "model": "stafford",
+        "hashKey": 321186144,
+        "type": "automobile",
+        "label": "Enus Stafford"
+    },
+    "jet": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "jet",
+        "hashKey": 1058115860,
+        "type": "plane",
+        "label": " Jet"
+    },
+    "pbus": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "pbus",
+        "hashKey": -2007026063,
+        "type": "automobile",
+        "label": " Pbus"
+    },
+    "cyclone": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "cyclone",
+        "hashKey": 1392481335,
+        "type": "automobile",
+        "label": "Coil Cyclone"
+    },
+    "dilettante": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "dilettante",
+        "hashKey": -1130810103,
+        "type": "automobile",
+        "label": "Karin Dilettan"
+    },
+    "draugur": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "draugur",
+        "hashKey": -768236378,
+        "type": "automobile",
+        "label": "Declasse Draugur"
+    },
+    "caracara": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "caracara",
+        "hashKey": 1254014755,
+        "type": "automobile",
+        "label": "Vapid Caracara"
+    },
+    "sm722": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "sm722",
+        "hashKey": 775514032,
+        "type": "automobile",
+        "label": "Benefac Sm722"
+    },
+    "nokota": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "nokota",
+        "hashKey": 1036591958,
+        "type": "plane",
+        "label": " Nokota"
+    },
+    "everon": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "everon",
+        "hashKey": -1756021720,
+        "type": "automobile",
+        "label": "Karin Everon"
+    },
+    "mogul": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "mogul",
+        "hashKey": -749299473,
+        "type": "plane",
+        "label": "Mammoth Mogul"
+    },
+    "brawler": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "brawler",
+        "hashKey": -1479664699,
+        "type": "automobile",
+        "label": "Coil Brawler"
+    },
+    "boxville4": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "boxville4",
+        "hashKey": 444171386,
+        "type": "automobile",
+        "label": "Brute Boxville"
+    },
+    "policeold2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "policeold2",
+        "hashKey": -1779120616,
+        "type": "automobile",
+        "label": " Policeo2"
+    },
+    "vagrant": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "vagrant",
+        "hashKey": 740289177,
+        "type": "automobile",
+        "label": "Maxwell Vagrant"
+    },
+    "howard": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "howard",
+        "hashKey": -1007528109,
+        "type": "plane",
+        "label": "Bucking Howard"
+    },
+    "blade": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "blade",
+        "hashKey": -1205801634,
+        "type": "automobile",
+        "label": "Vapid Blade"
+    },
+    "tempesta": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "tempesta",
+        "hashKey": 272929391,
+        "type": "automobile",
+        "label": "Pegassi Tempesta"
+    },
+    "vetir": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "vetir",
+        "hashKey": 2014313426,
+        "type": "automobile",
+        "label": " Vetir"
+    },
+    "rogue": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "rogue",
+        "hashKey": -975345305,
+        "type": "plane",
+        "label": "Western Rogue"
+    },
+    "polcaracara": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "polcaracara",
+        "hashKey": -1948949064,
+        "type": "automobile",
+        "label": "Vapid Polcaracar"
+    },
+    "stretch": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "stretch",
+        "hashKey": -1961627517,
+        "type": "automobile",
+        "label": "Dundrear Stretch"
+    },
+    "schwarzer": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "schwarzer",
+        "hashKey": -746882698,
+        "type": "automobile",
+        "label": "Benefac Schwarze"
+    },
+    "contender": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "contender",
+        "hashKey": 683047626,
+        "type": "automobile",
+        "label": "Vapid Contender"
+    },
+    "peyote": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "peyote",
+        "hashKey": 1830407356,
+        "type": "automobile",
+        "label": "Vapid Peyote"
+    },
+    "hunter": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "hunter",
+        "hashKey": -42959138,
+        "type": "heli",
+        "label": " Hunter"
+    },
+    "havok": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "havok",
+        "hashKey": -1984275979,
+        "type": "heli",
+        "label": "Nagasaki Havok"
+    },
+    "seabreeze": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "seabreeze",
+        "hashKey": -392675425,
+        "type": "plane",
+        "label": "Western Seabreeze"
+    },
+    "docktrailer": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "docktrailer",
+        "hashKey": -2140210194,
+        "type": "trailer",
+        "label": " Docktrailer"
+    },
+    "velum2": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "velum2",
+        "hashKey": 1077420264,
+        "type": "plane",
+        "label": " Velum2"
+    },
+    "ardent": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "ardent",
+        "hashKey": 159274291,
+        "type": "automobile",
+        "label": "Ocelot Ardent"
+    },
+    "everon2": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "everon2",
+        "hashKey": -131348178,
+        "type": "automobile",
+        "label": "Karin Everon2"
+    },
+    "apc": {
+        "typeRaw": 6,
+        "price": 50000,
+        "model": "apc",
+        "hashKey": 562680400,
+        "type": "automobile",
+        "label": "Hvy Apc"
+    },
+    "mixer2": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "mixer2",
+        "hashKey": 475220373,
+        "type": "automobile",
+        "label": "Hvy Mixer2"
+    },
+    "niobe": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "niobe",
+        "hashKey": 1881415402,
+        "type": "automobile",
+        "label": "Ubermacht Niobe"
+    },
+    "issi3": {
+        "typeRaw": 0,
+        "price": 52000,
+        "model": "issi3",
+        "hashKey": 931280609,
+        "type": "automobile",
+        "label": "Weeny Issi3"
+    },
+    "fcr2": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "fcr2",
+        "hashKey": -757735410,
+        "type": "bike",
+        "label": "Pegassi Fcr2"
+    },
+    "weevil2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "weevil2",
+        "hashKey": -994371320,
+        "type": "automobile",
+        "label": "Bf Weevil2"
+    },
+    "faction3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "faction3",
+        "hashKey": -2039755226,
+        "type": "automobile",
+        "label": "Willard Faction3"
+    },
+    "rallytruck": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "rallytruck",
+        "hashKey": -2103821244,
+        "type": "automobile",
+        "label": "Mtl Rallytruck"
+    },
+    "avisa": {
+        "typeRaw": 15,
+        "price": 40000,
+        "model": "avisa",
+        "hashKey": -1706603682,
+        "type": "submarine",
+        "label": "Kraken Avisa"
+    },
+    "driftfuto": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "driftfuto",
+        "hashKey": -181562642,
+        "type": "automobile",
+        "label": "Karin Driftfuto"
+    },
+    "veto2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "veto2",
+        "hashKey": -1492917079,
+        "type": "automobile",
+        "label": "Dinka Veto2"
+    },
+    "specter": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "specter",
+        "hashKey": 1886268224,
+        "type": "automobile",
+        "label": "Dewbauch Specter"
+    },
+    "sultanrs": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "sultanrs",
+        "hashKey": -295689028,
+        "type": "automobile",
+        "label": "Karin Sultanrs"
+    },
+    "sultan3": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "sultan3",
+        "hashKey": -291021213,
+        "type": "automobile",
+        "label": "Karin Sultan3"
+    },
+    "polmav": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "polmav",
+        "hashKey": 353883353,
+        "type": "heli",
+        "label": " Polmav"
+    },
+    "turismo2": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "turismo2",
+        "hashKey": -982130927,
+        "type": "automobile",
+        "label": "Grotti Turismo2"
+    },
+    "coach": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "coach",
+        "hashKey": -2072933068,
+        "type": "automobile",
+        "label": " Coach"
+    },
+    "nero2": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "nero2",
+        "hashKey": 1093792632,
+        "type": "automobile",
+        "label": "Truffade Nero2"
+    },
+    "pyro": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "pyro",
+        "hashKey": -1386191424,
+        "type": "plane",
+        "label": "Bucking Pyro"
+    },
+    "dinghy5": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "dinghy5",
+        "hashKey": -980573366,
+        "type": "boat",
+        "label": "Nagasaki Dinghy5"
+    },
+    "shotaro": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "shotaro",
+        "hashKey": -405626514,
+        "type": "bike",
+        "label": "Nagasaki Shotaro"
+    },
+    "serrano": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "serrano",
+        "hashKey": 1337041428,
+        "type": "automobile",
+        "label": "Benefac Serrano"
+    },
+    "BMX": {
+        "typeRaw": 12,
+        "price": 12000,
+        "model": "BMX",
+        "hashKey": 1131912276,
+        "type": "bike",
+        "label": " Bmx"
+    },
+    "picador": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "picador",
+        "hashKey": 1507916787,
+        "type": "automobile",
+        "label": "Cheval Picador"
+    },
+    "nightblade": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "nightblade",
+        "hashKey": -1606187161,
+        "type": "bike",
+        "label": "Western Nightblade"
+    },
+    "tug": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "tug",
+        "hashKey": -2100640717,
+        "type": "boat",
+        "label": " Tug"
+    },
+    "driftsentinel": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "driftsentinel",
+        "hashKey": -986656474,
+        "type": "automobile",
+        "label": "Ubermach Driftsent"
+    },
+    "chino2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "chino2",
+        "hashKey": -1361687965,
+        "type": "automobile",
+        "label": "Vapid Chino2"
+    },
+    "tiptruck2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tiptruck2",
+        "hashKey": -947761570,
+        "type": "automobile",
+        "label": " Tiptruck2"
+    },
+    "omnis": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "omnis",
+        "hashKey": -777172681,
+        "type": "automobile",
+        "label": "Obey Omnis"
+    },
+    "vortex": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "vortex",
+        "hashKey": -609625092,
+        "type": "bike",
+        "label": "Pegassi Vortex"
+    },
+    "btype2": {
+        "typeRaw": 0,
+        "price": 70000,
+        "model": "btype2",
+        "hashKey": -831834716,
+        "type": "automobile",
+        "label": "Albany Btype2"
+    },
+    "scarab2": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "scarab2",
+        "hashKey": 1542143200,
+        "type": "automobile",
+        "label": "Hvy Scarab2"
+    },
+    "zr3803": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "zr3803",
+        "hashKey": -1478704292,
+        "type": "automobile",
+        "label": "Annis Zr3803"
+    },
+    "avenger": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "avenger",
+        "hashKey": -2118308144,
+        "type": "plane",
+        "label": "Mammoth Avenger"
+    },
+    "clique": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "clique",
+        "hashKey": -1566607184,
+        "type": "automobile",
+        "label": "Vapid Clique"
+    },
+    "remus": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "remus",
+        "hashKey": 1377217886,
+        "type": "automobile",
+        "label": "Annis Remus"
+    },
+    "cliffhanger": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "cliffhanger",
+        "hashKey": 390201602,
+        "type": "bike",
+        "label": "Western Cliffhanger"
+    },
+    "trailers4": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailers4",
+        "hashKey": -1100548694,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "swift": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "swift",
+        "hashKey": -339587598,
+        "type": "heli",
+        "label": "Bucking Swift"
+    },
+    "rapidgt3": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "rapidgt3",
+        "hashKey": 2049897956,
+        "type": "automobile",
+        "label": "Dewbauch Rapidgt3"
+    },
+    "slamvan5": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "slamvan5",
+        "hashKey": 373261600,
+        "type": "automobile",
+        "label": "Vapid Slamvan5"
+    },
+    "youga5": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "youga5",
+        "hashKey": -2028904199,
+        "type": "automobile",
+        "label": "Vapid Youga4"
+    },
+    "reaper": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "reaper",
+        "hashKey": 234062309,
+        "type": "automobile",
+        "label": "Pegassi Reaper"
+    },
+    "coquette2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "coquette2",
+        "hashKey": 1011753235,
+        "type": "automobile",
+        "label": "Inverto Coquette2"
+    },
+    "fcr": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "fcr",
+        "hashKey": 627535535,
+        "type": "bike",
+        "label": "Pegassi Fcr"
+    },
+    "rumpo3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "rumpo3",
+        "hashKey": 1475773103,
+        "type": "automobile",
+        "label": "Bravado Rumpo3"
+    },
+    "fmj": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "fmj",
+        "hashKey": 1426219628,
+        "type": "automobile",
+        "label": "Vapid Fmj"
+    },
+    "virgo2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "virgo2",
+        "hashKey": -899509638,
+        "type": "automobile",
+        "label": "Dundrear Virgo2"
+    },
+    "minivan2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "minivan2",
+        "hashKey": -1126264336,
+        "type": "automobile",
+        "label": "Vapid Minivan2"
+    },
+    "enduro": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "enduro",
+        "hashKey": 1753414259,
+        "type": "bike",
+        "label": "Dinka Enduro"
+    },
+    "xa21": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "xa21",
+        "hashKey": 917809321,
+        "type": "automobile",
+        "label": "Ocelot Xa21"
+    },
+    "supervolito2": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "supervolito2",
+        "hashKey": -1671539132,
+        "type": "heli",
+        "label": "Bucking Svolito2"
+    },
+    "paragon": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "paragon",
+        "hashKey": -447711397,
+        "type": "automobile",
+        "label": "Enus Paragon"
+    },
+    "bus": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "bus",
+        "hashKey": -713569950,
+        "type": "automobile",
+        "label": " Bus"
+    },
+    "jester3": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "jester3",
+        "hashKey": -214906006,
+        "type": "automobile",
+        "label": "Dinka Jester3"
+    },
+    "alpha": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "alpha",
+        "hashKey": 767087018,
+        "type": "automobile",
+        "label": "Albany Alpha"
+    },
+    "bombushka": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "bombushka",
+        "hashKey": -32878452,
+        "type": "plane",
+        "label": " Bombushka"
+    },
+    "squalo": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "squalo",
+        "hashKey": 400514754,
+        "type": "boat",
+        "label": "Shitzu Squalo"
+    },
+    "squaddie": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "squaddie",
+        "hashKey": -102335483,
+        "type": "automobile",
+        "label": "Mammoth Squaddie"
+    },
+    "taco": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "taco",
+        "hashKey": 1951180813,
+        "type": "automobile",
+        "label": " Taco"
+    },
+    "superd": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "superd",
+        "hashKey": 1123216662,
+        "type": "automobile",
+        "label": "Enus Superd"
+    },
+    "miljet": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "miljet",
+        "hashKey": 165154707,
+        "type": "plane",
+        "label": "Bucking Miljet"
+    },
+    "cheetah2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "cheetah2",
+        "hashKey": 223240013,
+        "type": "automobile",
+        "label": "Grotti Cheetah2"
+    },
+    "mule3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "mule3",
+        "hashKey": -2052737935,
+        "type": "automobile",
+        "label": "Maibatsu Mule"
+    },
+    "baller3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "baller3",
+        "hashKey": 1878062887,
+        "type": "automobile",
+        "label": "Gallivan Baller3"
+    },
+    "bruiser3": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "bruiser3",
+        "hashKey": -2042350822,
+        "type": "automobile",
+        "label": "Benefac Bruiser3"
+    },
+    "gauntlet5": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "gauntlet5",
+        "hashKey": -2122646867,
+        "type": "automobile",
+        "label": "Bravado Gauntlet5"
+    },
+    "brickade": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "brickade",
+        "hashKey": -305727417,
+        "type": "automobile",
+        "label": "Mtl Brickade"
+    },
+    "cargobob5": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "cargobob5",
+        "hashKey": -352682313,
+        "type": "heli",
+        "label": "Bucking Cargobob5"
+    },
+    "asbo": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "asbo",
+        "hashKey": 1118611807,
+        "type": "automobile",
+        "label": "Maxwell Asbo"
+    },
+    "schafter3": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "schafter3",
+        "hashKey": -1485523546,
+        "type": "automobile",
+        "label": "Benefac Schafter3"
+    },
+    "tenf": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "tenf",
+        "hashKey": -893984159,
+        "type": "automobile",
+        "label": "Obey Tenf"
+    },
+    "seven70": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "seven70",
+        "hashKey": -1757836725,
+        "type": "automobile",
+        "label": "Dewbauch Seven70"
+    },
+    "nightshade": {
+        "typeRaw": 0,
+        "price": 130000,
+        "model": "nightshade",
+        "hashKey": -1943285540,
+        "type": "automobile",
+        "label": "Imponte Niteshad"
+    },
+    "technical2": {
+        "typeRaw": 6,
+        "price": 50000,
+        "model": "technical2",
+        "hashKey": 1180875963,
+        "type": "automobile",
+        "label": "Karin Technical2"
+    },
+    "phantom4": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "phantom4",
+        "hashKey": -129283887,
+        "type": "automobile",
+        "label": "Jobuilt Phantom"
+    },
+    "vader": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "vader",
+        "hashKey": -140902153,
+        "type": "bike",
+        "label": "Shitzu Vader"
+    },
+    "cog55": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "cog55",
+        "hashKey": 906642318,
+        "type": "automobile",
+        "label": "Enus Cog55"
+    },
+    "longfin": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "longfin",
+        "hashKey": 1861786828,
+        "type": "boat",
+        "label": "Shitzu Longfin"
+    },
+    "raptor": {
+        "typeRaw": 0,
+        "price": 12000,
+        "model": "raptor",
+        "hashKey": -674927303,
+        "type": "automobile",
+        "label": "Bf Raptor"
+    },
+    "policeold1": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "policeold1",
+        "hashKey": -1536924937,
+        "type": "automobile",
+        "label": " Policeo1"
+    },
+    "menacer": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "menacer",
+        "hashKey": 2044532910,
+        "type": "automobile",
+        "label": "Hvy Menacer"
+    },
+    "peyote2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "peyote2",
+        "hashKey": -1804415708,
+        "type": "automobile",
+        "label": "Vapid Peyote2"
+    },
+    "sandking2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "sandking2",
+        "hashKey": 989381445,
+        "type": "automobile",
+        "label": "Vapid Sandkin2"
+    },
+    "gburrito": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "gburrito",
+        "hashKey": -1745203402,
+        "type": "automobile",
+        "label": "Declasse Gburrito"
+    },
+    "comet3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "comet3",
+        "hashKey": -2022483795,
+        "type": "automobile",
+        "label": "Pfister Comet3"
+    },
+    "prototipo": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "prototipo",
+        "hashKey": 2123327359,
+        "type": "automobile",
+        "label": "Grotti Prototipo"
+    },
+    "bifta": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "bifta",
+        "hashKey": -349601129,
+        "type": "automobile",
+        "label": "Bf Bifta"
+    },
+    "rapidgt": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "rapidgt",
+        "hashKey": -1934452204,
+        "type": "automobile",
+        "label": "Dewbauch Rapidgt"
+    },
+    "driftcheburek": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "driftcheburek",
+        "hashKey": -1466692365,
+        "type": "automobile",
+        "label": "Rune Driftchebu"
+    },
+    "avarus": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "avarus",
+        "hashKey": -2115793025,
+        "type": "bike",
+        "label": "Lcc Avarus"
+    },
+    "moonbeam2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "moonbeam2",
+        "hashKey": 1896491931,
+        "type": "automobile",
+        "label": "Declasse Moonbeam2"
+    },
+    "moonbeam": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "moonbeam",
+        "hashKey": 525509695,
+        "type": "automobile",
+        "label": "Declasse Moonbeam"
+    },
+    "faction2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "faction2",
+        "hashKey": -1790546981,
+        "type": "automobile",
+        "label": "Willard Faction2"
+    },
+    "patriot3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "patriot3",
+        "hashKey": -670086588,
+        "type": "automobile",
+        "label": "Mammoth Patriot3"
+    },
+    "outlaw": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "outlaw",
+        "hashKey": 408825843,
+        "type": "automobile",
+        "label": "Nagasaki Outlaw"
+    },
+    "stalion2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "stalion2",
+        "hashKey": -401643538,
+        "type": "automobile",
+        "label": "Declasse Stalion2"
+    },
+    "cargoplane": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "cargoplane",
+        "hashKey": 368211810,
+        "type": "plane",
+        "label": " Cargopl"
+    },
+    "caddy2": {
+        "typeRaw": 0,
+        "price": 10000,
+        "model": "caddy2",
+        "hashKey": -537896628,
+        "type": "automobile",
+        "label": " Caddy"
+    },
+    "bf400": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "bf400",
+        "hashKey": 86520421,
+        "type": "bike",
+        "label": "Nagasaki Bf400"
+    },
+    "trailercamp": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailercamp",
+        "hashKey": 781410074,
+        "type": "trailer",
+        "label": "Brute Trailercamp"
+    },
+    "nimbus": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "nimbus",
+        "hashKey": -1295027632,
+        "type": "plane",
+        "label": "Bucking Nimbus"
+    },
+    "sabregt": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "sabregt",
+        "hashKey": -1685021548,
+        "type": "automobile",
+        "label": "Declasse Sabregt"
+    },
+    "comet5": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "comet5",
+        "hashKey": 661493923,
+        "type": "automobile",
+        "label": "Pfister Comet5"
+    },
+    "bison": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "bison",
+        "hashKey": -16948145,
+        "type": "automobile",
+        "label": "Bravado Bison"
+    },
+    "driftfuto2": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "driftfuto2",
+        "hashKey": -1289225626,
+        "type": "automobile",
+        "label": "Karin Driftfuto2"
+    },
+    "brigham": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "brigham",
+        "hashKey": -654498607,
+        "type": "automobile",
+        "label": "Albany Brigham"
+    },
+    "dinghy": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "dinghy",
+        "hashKey": 1033245328,
+        "type": "boat",
+        "label": "Nagasaki Dinghy"
+    },
+    "buffalo5": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "buffalo5",
+        "hashKey": 165968051,
+        "type": "automobile",
+        "label": "Bravado Buffalo5"
+    },
+    "boxville5": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "boxville5",
+        "hashKey": 682434785,
+        "type": "automobile",
+        "label": " Boxville5"
+    },
+    "vigilante": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "vigilante",
+        "hashKey": -1242608589,
+        "type": "automobile",
+        "label": " Vigilante"
+    },
+    "feltzer3": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "feltzer3",
+        "hashKey": -1566741232,
+        "type": "automobile",
+        "label": "Benefac Feltzer3"
+    },
+    "tr2": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "tr2",
+        "hashKey": 2078290630,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "baletrailer": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "baletrailer",
+        "hashKey": -399841706,
+        "type": "trailer",
+        "label": " Baletrailer"
+    },
+    "neon": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "neon",
+        "hashKey": -1848994066,
+        "type": "automobile",
+        "label": "Pfister Neon"
+    },
+    "trailerlogs": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailerlogs",
+        "hashKey": 2016027501,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "vigero2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "vigero2",
+        "hashKey": -1758379524,
+        "type": "automobile",
+        "label": "Declasse Vigero2"
+    },
+    "tornado6": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tornado6",
+        "hashKey": -1558399629,
+        "type": "automobile",
+        "label": "Declasse Tornado6"
+    },
+    "carbonrs": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "carbonrs",
+        "hashKey": 11251904,
+        "type": "bike",
+        "label": "Nagasaki Carbon"
+    },
+    "dominator6": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "dominator6",
+        "hashKey": -1293924613,
+        "type": "automobile",
+        "label": "Vapid Dominator6"
+    },
+    "kuruma2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "kuruma2",
+        "hashKey": 410882957,
+        "type": "automobile",
+        "label": "Karin Kuruma2"
+    },
+    "krieger": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "krieger",
+        "hashKey": -664141241,
+        "type": "automobile",
+        "label": "Benefactor Krieger"
+    },
+    "rumpo": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "rumpo",
+        "hashKey": 1162065741,
+        "type": "automobile",
+        "label": "Bravado Rumpo"
+    },
+    "boxville2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "boxville2",
+        "hashKey": -233098306,
+        "type": "automobile",
+        "label": " Boxville"
+    },
+    "champion": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "champion",
+        "hashKey": -915234475,
+        "type": "automobile",
+        "label": "Dewbauch Champion"
+    },
+    "felon": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "felon",
+        "hashKey": -391594584,
+        "type": "automobile",
+        "label": "Lampada Felon"
+    },
+    "surge": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "surge",
+        "hashKey": -1894894188,
+        "type": "automobile",
+        "label": "Cheval Surge"
+    },
+    "trailers": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailers",
+        "hashKey": -877478386,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "ambulance": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "ambulance",
+        "hashKey": 1171614426,
+        "type": "automobile",
+        "label": " Ambulan"
+    },
+    "voltic2": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "voltic2",
+        "hashKey": 989294410,
+        "type": "automobile",
+        "label": "Coil Voltic2"
+    },
+    "fugitive": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "fugitive",
+        "hashKey": 1909141499,
+        "type": "automobile",
+        "label": "Cheval Fugitive"
+    },
+    "rumpo2": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "rumpo2",
+        "hashKey": -1776615689,
+        "type": "automobile",
+        "label": "Bravado Rumpo"
+    },
+    "shinobi": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "shinobi",
+        "hashKey": 1353120668,
+        "type": "bike",
+        "label": "Nagasaki Shinobi"
+    },
+    "Lurcher": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "Lurcher",
+        "hashKey": 2068293287,
+        "type": "automobile",
+        "label": "Albany Lurcher"
+    },
+    "torero": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "torero",
+        "hashKey": 1504306544,
+        "type": "automobile",
+        "label": "Pegassi Torero"
+    },
+    "winky": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "winky",
+        "hashKey": -210308634,
+        "type": "automobile",
+        "label": "Vapid Winky"
+    },
+    "boattrailer": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "boattrailer",
+        "hashKey": 524108981,
+        "type": "trailer",
+        "label": " Boattrailer"
+    },
+    "s80": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "s80",
+        "hashKey": -324618589,
+        "type": "automobile",
+        "label": "Annis S80"
+    },
+    "buzzard2": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "buzzard2",
+        "hashKey": 745926877,
+        "type": "heli",
+        "label": " Buzzard2"
+    },
+    "voltic": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "voltic",
+        "hashKey": -1622444098,
+        "type": "automobile",
+        "label": "Coil Voltic"
+    },
+    "banshee": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "banshee",
+        "hashKey": -1041692462,
+        "type": "automobile",
+        "label": "Bravado Banshee"
+    },
+    "slamvan2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "slamvan2",
+        "hashKey": 833469436,
+        "type": "automobile",
+        "label": "Vapid Slamvan2"
+    },
+    "benson2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "benson2",
+        "hashKey": 728350375,
+        "type": "automobile",
+        "label": "Vapid Benson2"
+    },
+    "daemon2": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "daemon2",
+        "hashKey": -1404136503,
+        "type": "bike",
+        "label": "Western Daemon2"
+    },
+    "mule2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "mule2",
+        "hashKey": -1050465301,
+        "type": "automobile",
+        "label": "Maibatsu Mule"
+    },
+    "tigon": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "tigon",
+        "hashKey": -1358197432,
+        "type": "automobile",
+        "label": "Lampadati Tigon"
+    },
+    "hauler2": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "hauler2",
+        "hashKey": 387748548,
+        "type": "automobile",
+        "label": "Jobuilt Hauler2"
+    },
+    "annihilator": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "annihilator",
+        "hashKey": 837858166,
+        "type": "heli",
+        "label": " Annihl"
+    },
+    "buffalo": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "buffalo",
+        "hashKey": -304802106,
+        "type": "automobile",
+        "label": "Bravado Buffalo"
+    },
+    "benson": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "benson",
+        "hashKey": 2053223216,
+        "type": "automobile",
+        "label": "Vapid Benson"
+    },
+    "openwheel1": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "openwheel1",
+        "hashKey": 1492612435,
+        "type": "automobile",
+        "label": "Benefac Openwheel1"
+    },
+    "emperor3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "emperor3",
+        "hashKey": -1241712818,
+        "type": "automobile",
+        "label": "Albany Emperor"
+    },
+    "coquette": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "coquette",
+        "hashKey": 108773431,
+        "type": "automobile",
+        "label": "Inverto Coquette"
+    },
+    "packer": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "packer",
+        "hashKey": 569305213,
+        "type": "automobile",
+        "label": "Mtl Packer"
+    },
+    "pony2": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "pony2",
+        "hashKey": 943752001,
+        "type": "automobile",
+        "label": "Brute Pony"
+    },
+    "schlagen": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "schlagen",
+        "hashKey": -507495760,
+        "type": "automobile",
+        "label": "Benefactor Schlagen"
+    },
+    "nero": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "nero",
+        "hashKey": 1034187331,
+        "type": "automobile",
+        "label": "Truffade Nero"
+    },
+    "swift2": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "swift2",
+        "hashKey": 1075432268,
+        "type": "heli",
+        "label": "Bucking Swift2"
+    },
+    "journey": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "journey",
+        "hashKey": -120287622,
+        "type": "automobile",
+        "label": "Zirconiu Journey"
+    },
+    "bison3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "bison3",
+        "hashKey": 1739845664,
+        "type": "automobile",
+        "label": "Bravado Bison"
+    },
+    "dloader": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "dloader",
+        "hashKey": 1770332643,
+        "type": "automobile",
+        "label": "Bravado Dloader"
+    },
+    "hustler": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "hustler",
+        "hashKey": 600450546,
+        "type": "automobile",
+        "label": "Vapid Hustler"
+    },
+    "trailerlarge": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailerlarge",
+        "hashKey": 1502869817,
+        "type": "trailer",
+        "label": " Trlarge"
+    },
+    "fq2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "fq2",
+        "hashKey": -1137532101,
+        "type": "automobile",
+        "label": "Fathom Fq2"
+    },
+    "dune3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "dune3",
+        "hashKey": 1897744184,
+        "type": "automobile",
+        "label": "Bf Dune3"
+    },
+    "sandking": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "sandking",
+        "hashKey": -1189015600,
+        "type": "automobile",
+        "label": "Vapid Sandking"
+    },
+    "ruiner2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "ruiner2",
+        "hashKey": 941494461,
+        "type": "automobile",
+        "label": "Imponte Ruiner2"
+    },
+    "fagaloa": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "fagaloa",
+        "hashKey": 1617472902,
+        "type": "automobile",
+        "label": "Vulcar Fagaloa"
+    },
+    "tornado4": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "tornado4",
+        "hashKey": -2033222435,
+        "type": "automobile",
+        "label": "Declasse Tornado"
+    },
+    "ninef": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "ninef",
+        "hashKey": 1032823388,
+        "type": "automobile",
+        "label": "Obey Ninef"
+    },
+    "pounder2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "pounder2",
+        "hashKey": 1653666139,
+        "type": "automobile",
+        "label": "Mtl Pounder2"
+    },
+    "patrolboat": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "patrolboat",
+        "hashKey": -276744698,
+        "type": "boat",
+        "label": " Patrolboat"
+    },
+    "exemplar": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "exemplar",
+        "hashKey": -5153954,
+        "type": "automobile",
+        "label": "Dewbauch Exemplar"
+    },
+    "stunt": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "stunt",
+        "hashKey": -2122757008,
+        "type": "plane",
+        "label": " Stunt"
+    },
+    "police2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "police2",
+        "hashKey": -1627000575,
+        "type": "automobile",
+        "label": " Police2"
+    },
+    "blista": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "blista",
+        "hashKey": -344943009,
+        "type": "automobile",
+        "label": "Dinka Blista"
+    },
+    "tyrant": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "tyrant",
+        "hashKey": -376434238,
+        "type": "automobile",
+        "label": "Overflod Tyrant"
+    },
+    "yosemite3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "yosemite3",
+        "hashKey": 67753863,
+        "type": "automobile",
+        "label": "Declasse Yosemite3"
+    },
+    "ruffian": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "ruffian",
+        "hashKey": -893578776,
+        "type": "bike",
+        "label": "Pegassi Ruffian"
+    },
+    "graintrailer": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "graintrailer",
+        "hashKey": 1019737494,
+        "type": "trailer",
+        "label": " Graintraile"
+    },
+    "tractor3": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "tractor3",
+        "hashKey": 1445631933,
+        "type": "automobile",
+        "label": "Stanley Tractor2"
+    },
+    "trailers2": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailers2",
+        "hashKey": -1579533167,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "blimp": {
+        "typeRaw": 9,
+        "price": 52000,
+        "model": "blimp",
+        "hashKey": -150975354,
+        "type": "heli",
+        "label": " Blimp"
+    },
+    "thrust": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "thrust",
+        "hashKey": 1836027715,
+        "type": "bike",
+        "label": "Dinka Thrust"
+    },
+    "massacro2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "massacro2",
+        "hashKey": -631760477,
+        "type": "automobile",
+        "label": "Dewbauch Massacro2"
+    },
+    "seminole": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "seminole",
+        "hashKey": 1221512915,
+        "type": "automobile",
+        "label": "Canis Seminole"
+    },
+    "buffalo3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "buffalo3",
+        "hashKey": 237764926,
+        "type": "automobile",
+        "label": "Bravado Buffalo3"
+    },
+    "bison2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "bison2",
+        "hashKey": 2072156101,
+        "type": "automobile",
+        "label": "Bravado Bison"
+    },
+    "dump": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "dump",
+        "hashKey": -2130482718,
+        "type": "automobile",
+        "label": "Hvy Dump"
+    },
+    "stanier": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "stanier",
+        "hashKey": -1477580979,
+        "type": "automobile",
+        "label": "Vapid Stanier"
+    },
+    "bullet": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "bullet",
+        "hashKey": -1696146015,
+        "type": "automobile",
+        "label": "Vapid Bullet"
+    },
+    "alphaz1": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "alphaz1",
+        "hashKey": -1523619738,
+        "type": "plane",
+        "label": "Bucking Alphaz1"
+    },
+    "zorrusso": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "zorrusso",
+        "hashKey": -682108547,
+        "type": "automobile",
+        "label": "Pegassi Zorrusso"
+    },
+    "airbus": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "airbus",
+        "hashKey": 1283517198,
+        "type": "automobile",
+        "label": " Airbus"
+    },
+    "tr4": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "tr4",
+        "hashKey": 2091594960,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "tropic": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "tropic",
+        "hashKey": 290013743,
+        "type": "boat",
+        "label": "Shitzu Tropic"
+    },
+    "adder": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "adder",
+        "hashKey": -1216765807,
+        "type": "automobile",
+        "label": "Truffade Adder"
+    },
+    "revolter": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "revolter",
+        "hashKey": -410205223,
+        "type": "automobile",
+        "label": "Ubermach Revolter"
+    },
+    "cargobob3": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "cargobob3",
+        "hashKey": 1394036463,
+        "type": "heli",
+        "label": " Cargobob"
+    },
+    "asea": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "asea",
+        "hashKey": -1809822327,
+        "type": "automobile",
+        "label": "Declasse Asea"
+    },
+    "uranus": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "uranus",
+        "hashKey": 1534326199,
+        "type": "automobile",
+        "label": "Vapid Uranus"
+    },
+    "blazer": {
+        "typeRaw": 3,
+        "price": 12000,
+        "model": "blazer",
+        "hashKey": -2128233223,
+        "type": "automobile",
+        "label": "Nagasaki Blazer"
+    },
+    "asterope": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "asterope",
+        "hashKey": -1903012613,
+        "type": "automobile",
+        "label": "Karin Astrope"
+    },
+    "sovereign": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "sovereign",
+        "hashKey": 743478836,
+        "type": "bike",
+        "label": "Western Sovereign"
+    },
+    "cerberus2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "cerberus2",
+        "hashKey": 679453769,
+        "type": "automobile",
+        "label": "Mtl Cerberus2"
+    },
+    "glendale": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "glendale",
+        "hashKey": 75131841,
+        "type": "automobile",
+        "label": "Benefac Glendale"
+    },
+    "brioso": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "brioso",
+        "hashKey": 1549126457,
+        "type": "automobile",
+        "label": "Grotti Brioso"
+    },
+    "oppressor": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "oppressor",
+        "hashKey": 884483972,
+        "type": "bike",
+        "label": "Pegassi Oppressor"
+    },
+    "gauntlet3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "gauntlet3",
+        "hashKey": 722226637,
+        "type": "automobile",
+        "label": "Bravado Gauntlet3"
+    },
+    "entityxf": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "entityxf",
+        "hashKey": -1291952903,
+        "type": "automobile",
+        "label": "Overflod Entityxf"
+    },
+    "lynx": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "lynx",
+        "hashKey": 482197771,
+        "type": "automobile",
+        "label": "Ocelot Lynx"
+    },
+    "blazer3": {
+        "typeRaw": 3,
+        "price": 12000,
+        "model": "blazer3",
+        "hashKey": -1269889662,
+        "type": "automobile",
+        "label": "Nagasaki Blazer03"
+    },
+    "radi": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "radi",
+        "hashKey": -1651067813,
+        "type": "automobile",
+        "label": "Vapid Radi"
+    },
+    "italigto": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "italigto",
+        "hashKey": -331467772,
+        "type": "automobile",
+        "label": "Grotti Italigto"
+    },
+    "polterminus": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "polterminus",
+        "hashKey": -1321131184,
+        "type": "automobile",
+        "label": "Canis Polterminu"
+    },
+    "hauler": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "hauler",
+        "hashKey": 1518533038,
+        "type": "automobile",
+        "label": "Jobuilt Hauler"
+    },
+    "utillitruck": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "utillitruck",
+        "hashKey": 516990260,
+        "type": "automobile",
+        "label": " Utiltruc"
+    },
+    "trflat": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trflat",
+        "hashKey": -1352468814,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "blazer2": {
+        "typeRaw": 3,
+        "price": 12000,
+        "model": "blazer2",
+        "hashKey": -48031959,
+        "type": "automobile",
+        "label": "Nagasaki Blazer2"
+    },
+    "speedo2": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "speedo2",
+        "hashKey": 728614474,
+        "type": "automobile",
+        "label": "Vapid Speedo2"
+    },
+    "formula2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "formula2",
+        "hashKey": -1960756985,
+        "type": "automobile",
+        "label": "Ocelot Formula2"
+    },
+    "slamvan4": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "slamvan4",
+        "hashKey": -2061049099,
+        "type": "automobile",
+        "label": "Vapid Slamvan4"
+    },
+    "virgo3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "virgo3",
+        "hashKey": 16646064,
+        "type": "automobile",
+        "label": "Dundrear Virgo3"
+    },
+    "italigtb2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "italigtb2",
+        "hashKey": -482719877,
+        "type": "automobile",
+        "label": "Progen Italigtb2"
+    },
+    "prairie": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "prairie",
+        "hashKey": -1450650718,
+        "type": "automobile",
+        "label": "Bollokan Prairie"
+    },
+    "rancherxl2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "rancherxl2",
+        "hashKey": 1933662059,
+        "type": "automobile",
+        "label": "Declasse Rancherx"
+    },
+    "turismor": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "turismor",
+        "hashKey": 408192225,
+        "type": "automobile",
+        "label": "Grotti Turismor"
+    },
+    "issi2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "issi2",
+        "hashKey": -1177863319,
+        "type": "automobile",
+        "label": "Weeny Issi2"
+    },
+    "primo": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "primo",
+        "hashKey": -1150599089,
+        "type": "automobile",
+        "label": "Albany Primo"
+    },
+    "regina": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "regina",
+        "hashKey": -14495224,
+        "type": "automobile",
+        "label": "Dundrear Regina"
+    },
+    "impaler3": {
+        "typeRaw": 0,
+        "price": 30000,
+        "model": "impaler3",
+        "hashKey": -1924800695,
+        "type": "automobile",
+        "label": "Declasse Impaler3"
+    },
+    "hellion": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "hellion",
+        "hashKey": -362150785,
+        "type": "automobile",
+        "label": "Annis Hellion"
+    },
+    "bjxl": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "bjxl",
+        "hashKey": 850565707,
+        "type": "automobile",
+        "label": "Karin Bjxl"
+    },
+    "speeder": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "speeder",
+        "hashKey": 231083307,
+        "type": "boat",
+        "label": "Pegassi Speeder"
+    },
+    "speeder2": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "speeder2",
+        "hashKey": 437538602,
+        "type": "boat",
+        "label": "Pegassi Speeder"
+    },
+    "tr3": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "tr3",
+        "hashKey": 1784254509,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "rentalbus": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "rentalbus",
+        "hashKey": -1098802077,
+        "type": "automobile",
+        "label": " Rentbus"
+    },
+    "peyote3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "peyote3",
+        "hashKey": 1107404867,
+        "type": "automobile",
+        "label": "Vapid Peyote3"
+    },
+    "omnisegt": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "omnisegt",
+        "hashKey": -505223465,
+        "type": "automobile",
+        "label": "Obey Omnisegt"
+    },
+    "youga": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "youga",
+        "hashKey": 65402552,
+        "type": "automobile",
+        "label": "Bravado Youga"
+    },
+    "driftcypher": {
+        "typeRaw": 0,
+        "price": 80000,
+        "model": "driftcypher",
+        "hashKey": 258105345,
+        "type": "automobile",
+        "label": "Ubermacht Driftcypher"
+    },
+    "cogcabrio": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "cogcabrio",
+        "hashKey": 330661258,
+        "type": "automobile",
+        "label": "Enus Cogcabri"
+    },
+    "proptrailer": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "proptrailer",
+        "hashKey": 356391690,
+        "type": "trailer",
+        "label": " Proptrailer"
+    },
+    "cerberus3": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "cerberus3",
+        "hashKey": 1909700336,
+        "type": "automobile",
+        "label": "Mtl Cerberus3"
+    },
+    "brickade2": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "brickade2",
+        "hashKey": -1576586413,
+        "type": "automobile",
+        "label": "Mtl Brickade2"
+    },
+    "oracle": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "oracle",
+        "hashKey": 1348744438,
+        "type": "automobile",
+        "label": "Ubermach Oracle2"
+    },
+    "titan": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "titan",
+        "hashKey": 1981688531,
+        "type": "plane",
+        "label": " Titan"
+    },
+    "elegy": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "elegy",
+        "hashKey": 196747873,
+        "type": "automobile",
+        "label": "Annis Elegy"
+    },
+    "stalion": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "stalion",
+        "hashKey": 1923400478,
+        "type": "automobile",
+        "label": "Declasse Stalion"
+    },
+    "tractor2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "tractor2",
+        "hashKey": -2076478498,
+        "type": "automobile",
+        "label": "Stanley Tractor2"
+    },
+    "annihilator2": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "annihilator2",
+        "hashKey": 295054921,
+        "type": "heli",
+        "label": " Annihlator2"
+    },
+    "kalahari": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "kalahari",
+        "hashKey": 92612664,
+        "type": "automobile",
+        "label": "Canis Kalahari"
+    },
+    "speedo": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "speedo",
+        "hashKey": -810318068,
+        "type": "automobile",
+        "label": "Vapid Speedo"
+    },
+    "dune4": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "dune4",
+        "hashKey": -827162039,
+        "type": "automobile",
+        "label": " Dune4"
+    },
+    "paragon2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "paragon2",
+        "hashKey": 1416466158,
+        "type": "automobile",
+        "label": "Enus Paragon2"
+    },
+    "fusilade": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "fusilade",
+        "hashKey": 499169875,
+        "type": "automobile",
+        "label": "Schyster Fusilade"
+    },
+    "rebla": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "rebla",
+        "hashKey": 83136452,
+        "type": "automobile",
+        "label": "Ubermacht Rebla"
+    },
+    "stockade": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "stockade",
+        "hashKey": 1747439474,
+        "type": "automobile",
+        "label": "Brute Stockade"
+    },
+    "stratum": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "stratum",
+        "hashKey": 1723137093,
+        "type": "automobile",
+        "label": "Zirconiu Stratum"
+    },
+    "dubsta2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "dubsta2",
+        "hashKey": -394074634,
+        "type": "automobile",
+        "label": "Benefac Dubsta"
+    },
+    "faggio": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "faggio",
+        "hashKey": -1842748181,
+        "type": "bike",
+        "label": "Pegassi Faggion"
+    },
+    "nightshark": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "nightshark",
+        "hashKey": 433954513,
+        "type": "automobile",
+        "label": "Hvy Nightshark"
+    },
+    "manchez2": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "manchez2",
+        "hashKey": 1086534307,
+        "type": "bike",
+        "label": "Maibatsu Manchez2"
+    },
+    "ratloader2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "ratloader2",
+        "hashKey": -589178377,
+        "type": "automobile",
+        "label": "Bravado Rloader2"
+    },
+    "sentinel3": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "sentinel3",
+        "hashKey": 1104234922,
+        "type": "automobile",
+        "label": "Ubermach Sentinel3"
+    },
+    "akuma": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "akuma",
+        "hashKey": 1672195559,
+        "type": "bike",
+        "label": "Dinka Akuma"
+    },
+    "tyrus": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "tyrus",
+        "hashKey": 2067820283,
+        "type": "automobile",
+        "label": "Progen Tyrus"
+    },
+    "burrito5": {
+        "typeRaw": 0,
+        "price": 22000,
+        "model": "burrito5",
+        "hashKey": 1132262048,
+        "type": "automobile",
+        "label": "Declasse Burrito"
+    },
+    "phantom": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "phantom",
+        "hashKey": -2137348917,
+        "type": "automobile",
+        "label": "Jobuilt Phantom"
+    },
+    "tourbus": {
+        "typeRaw": 0,
+        "price": 40000,
+        "model": "tourbus",
+        "hashKey": 1941029835,
+        "type": "automobile",
+        "label": " Tourbus"
+    },
+    "zeno": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "zeno",
+        "hashKey": 655665811,
+        "type": "automobile",
+        "label": "Overflod Zeno"
+    },
+    "slamvan": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "slamvan",
+        "hashKey": 729783779,
+        "type": "automobile",
+        "label": "Vapid Slamvan"
+    },
+    "handler": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "handler",
+        "hashKey": 444583674,
+        "type": "automobile",
+        "label": " Handler"
+    },
+    "comet6": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "comet6",
+        "hashKey": -1726022652,
+        "type": "automobile",
+        "label": "Pfister Comet6"
+    },
+    "cognoscenti2": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "cognoscenti2",
+        "hashKey": -604842630,
+        "type": "automobile",
+        "label": "Enus Cognosc2"
+    },
+    "comet4": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "comet4",
+        "hashKey": 1561920505,
+        "type": "automobile",
+        "label": "Pfister Comet4"
+    },
+    "mule": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "mule",
+        "hashKey": 904750859,
+        "type": "automobile",
+        "label": "Maibatsu Mule"
+    },
+    "panto": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "panto",
+        "hashKey": -431692672,
+        "type": "automobile",
+        "label": "Benefac Panto"
+    },
+    "insurgent2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "insurgent2",
+        "hashKey": 2071877360,
+        "type": "automobile",
+        "label": "Hvy Insurgent2"
+    },
+    "armytrailer": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "armytrailer",
+        "hashKey": -1476447243,
+        "type": "trailer",
+        "label": " Armytrailer"
+    },
+    "tropos": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "tropos",
+        "hashKey": 1887331236,
+        "type": "automobile",
+        "label": "Lampada Tropos"
+    },
+    "coureur": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "coureur",
+        "hashKey": 610429990,
+        "type": "automobile",
+        "label": "Penaud Coureur"
+    },
+    "dominator9": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "dominator9",
+        "hashKey": -441209695,
+        "type": "automobile",
+        "label": "Vapid Dominator9"
+    },
+    "freight": {
+        "typeRaw": 14,
+        "price": 110000,
+        "model": "freight",
+        "hashKey": 1030400667,
+        "type": "train",
+        "label": " Freight"
+    },
+    "microlight": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "microlight",
+        "hashKey": -1763555241,
+        "type": "plane",
+        "label": "Nagasaki Microlight"
+    },
+    "luxor2": {
+        "typeRaw": 1,
+        "price": 45000,
+        "model": "luxor2",
+        "hashKey": -1214293858,
+        "type": "plane",
+        "label": "Bucking Luxor2"
+    },
+    "daemon": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "daemon",
+        "hashKey": 2006142190,
+        "type": "bike",
+        "label": "Western Daemon"
+    },
+    "savage": {
+        "typeRaw": 8,
+        "price": 52000,
+        "model": "savage",
+        "hashKey": -82626025,
+        "type": "heli",
+        "label": " Savage"
+    },
+    "faggio2": {
+        "typeRaw": 11,
+        "price": 12000,
+        "model": "faggio2",
+        "hashKey": 55628203,
+        "type": "bike",
+        "label": "Pegassi Faggio"
+    },
+    "trailersmall": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "trailersmall",
+        "hashKey": 712162987,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "pcj": {
+        "typeRaw": 11,
+        "price": 20000,
+        "model": "pcj",
+        "hashKey": -909201658,
+        "type": "bike",
+        "label": "Shitzu Pcj"
+    },
+    "mower": {
+        "typeRaw": 0,
+        "price": 15000,
+        "model": "mower",
+        "hashKey": 1783355638,
+        "type": "automobile",
+        "label": " Mower"
+    },
+    "verlierer2": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "verlierer2",
+        "hashKey": 1102544804,
+        "type": "automobile",
+        "label": "Bravado Verlier"
+    },
+    "imperator": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "imperator",
+        "hashKey": 444994115,
+        "type": "automobile",
+        "label": "Vapid Imperator"
+    },
+    "gp1": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "gp1",
+        "hashKey": 1234311532,
+        "type": "automobile",
+        "label": "Progen Gp1"
+    },
+    "tanker2": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "tanker2",
+        "hashKey": 1956216962,
+        "type": "trailer",
+        "label": " Tanker"
+    },
+    "armytrailer2": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "armytrailer2",
+        "hashKey": -1637149482,
+        "type": "trailer",
+        "label": " Armytrailer"
+    },
+    "infernus2": {
+        "typeRaw": 0,
+        "price": 100000,
+        "model": "infernus2",
+        "hashKey": -1405937764,
+        "type": "automobile",
+        "label": "Pegassi Infernus2"
+    },
+    "raketrailer": {
+        "typeRaw": 2,
+        "price": 40000,
+        "model": "raketrailer",
+        "hashKey": 390902130,
+        "type": "trailer",
+        "label": " Trailer"
+    },
+    "osiris": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "osiris",
+        "hashKey": 1987142870,
+        "type": "automobile",
+        "label": "Pegassi Osiris"
+    },
+    "brutus2": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "brutus2",
+        "hashKey": -1890996696,
+        "type": "automobile",
+        "label": "Declasse Brutus2"
+    },
+    "riata": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "riata",
+        "hashKey": -1532697517,
+        "type": "automobile",
+        "label": "Vapid Riata"
+    },
+    "dubsta": {
+        "typeRaw": 0,
+        "price": 50000,
+        "model": "dubsta",
+        "hashKey": 1177543287,
+        "type": "automobile",
+        "label": "Benefac Dubsta"
+    },
+    "stinger": {
+        "typeRaw": 0,
+        "price": 130000,
+        "model": "stinger",
+        "hashKey": 1545842587,
+        "type": "automobile",
+        "label": "Grotti Stinger"
+    },
+    "toro2": {
+        "typeRaw": 13,
+        "price": 40000,
+        "model": "toro2",
+        "hashKey": 908897389,
+        "type": "boat",
+        "label": "Lampada Toro"
+    },
+    "deviant": {
+        "typeRaw": 0,
+        "price": 150000,
+        "model": "deviant",
+        "hashKey": 1279262537,
+        "type": "automobile",
+        "label": "Schyster Deviant"
+    },
+    "sadler": {
+        "typeRaw": 0,
+        "price": 25000,
+        "model": "sadler",
+        "hashKey": -599568815,
+        "type": "automobile",
+        "label": "Vapid Sadler"
+    },
+    "openwheel2": {
+        "typeRaw": 0,
+        "price": 35000,
+        "model": "openwheel2",
+        "hashKey": 1181339704,
+        "type": "automobile",
+        "label": "Declasse Openwheel2"
+    }
+}

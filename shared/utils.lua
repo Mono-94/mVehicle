@@ -40,7 +40,7 @@ function Utils.CreateVehicleServer(type, model, coords)
     if not IsDuplicityVersion() then
         return Utils.Debug('error', 'This function only works on server side')
     end
-
+    
     local entity = CreateVehicleServerSetter(model, type, coords.x, coords.y, coords.z, coords.w)
 
     local startTime = GetGameTimer()
@@ -58,10 +58,10 @@ end
 
 ---Get Vehicle Type
 function Utils.VehicleType(value)
+  
     if not IsDuplicityVersion() then
         return Utils.Debug('error', 'This function only works on server side')
     end
-
     if DoesEntityExist(value) then
         return GetVehicleType(value)
     end
@@ -118,3 +118,11 @@ function Utils.Round(value)
     local mult = 10 ^ (2 or 0)
     return math.floor(value * mult + 0.5) / mult
 end
+---@param eventName string
+---@param funct function
+function RegisterSafeEvent(eventName, funct)
+    RegisterNetEvent(eventName, function(...)
+      if GetInvokingResource() ~= nil then return end
+      funct(...)
+    end)
+  end

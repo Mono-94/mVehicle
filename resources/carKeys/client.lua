@@ -11,8 +11,33 @@ function Vehicles.ItemCarKeysClient(action, plate)
     return lib.callback.await('mVehicle:GiveKey', false, action, plate)
 end
 
-exports('ItemCarKeysClient', Vehicles.ItemCarKeysClient)
-
+function Vehicles.HasKeyClient(entity)
+    if not DoesEntityExist(entity) then return false end
+    if Config.ItemKeys then
+        local havekey = false
+        local plate = GetVehicleNumberPlateText(entity):gsub("%s+", "")
+        if Config.Inventory == 'ox' then
+            local item = exports.ox_inventory:Search('slots', Config.CarKeyItem)
+            for _, v in pairs(item) do
+                if v.metadata and v.metadata.plate and v.metadata.plate:gsub("%s+", "") == plate then
+                    havekey = true
+                    break
+                end
+            end
+        elseif Config.Inventory == 'qs' then
+            local items = exports['qs-inventory']:getUserInventory()
+            for _, v in pairs(items) do
+                if v.info and v.info.plate and v.info.plate:gsub("%s+", "") == plate then
+                    havekey = true
+                    break
+                end
+            end
+        end
+        return havekey
+    else
+        return lib.callback.await('mVehicle:HasKeys', Config.KeyDelay, VehToNet(entity))
+    end
+end
 
 local ToggleVehicleDoors = function()
     local data = {}
@@ -22,18 +47,21 @@ local ToggleVehicleDoors = function()
 
     if not DoesEntityExist(data.entity) then return end
 
-    data.modelName = Vehicles.GetVehicleLabel(GetEntityModel(data.entity))
     data.Status = GetVehicleDoorLockStatus(data.entity)
-    data.NetId = VehToNet(data.entity)
-    data.plate = GetVehicleNumberPlateText(data.entity)
 
-    local HaveKey = Utils.KeyItem(data.plate)
+    local HaveKey = Vehicles.HasKeyClient(data.entity)
+
     local inCar = IsPedInAnyVehicle(ped, false)
 
-    if data.entity and HaveKey or not Config.ItemKeys then
-        local owner = lib.callback.await('mVehicle:VehicleDoors', Config.KeyDelay, data)
+    if HaveKey then
+        TriggerServerEvent('mVehicle:VehicleDoors', VehToNet(data.entity))
 
-        if not owner then return end
+        Utils.Notification({
+            title = Vehicles.GetVehicleLabel(GetEntityModel(data.entity)),
+            description = (data.Status == 2 and locale('open_door') or locale('close_door')),
+            icon = (data.Status == 2 and 'lock-open' or 'lock'),
+            iconColor = (data.Status == 2 and '#77e362' or '#e36462'),
+        })
 
         PlayVehicleDoorCloseSound(data.entity, 1)
 
@@ -67,4 +95,10 @@ lib.addKeybind({
     onPressed = ToggleVehicleDoors,
 })
 
+
+
 lib.requestAnimDict(KeyAnim.dict)
+
+
+exports('ItemCarKeysClient', Vehicles.ItemCarKeysClient)
+exports('HasKeyClient', Vehicles.HasKeyClient)

@@ -3,6 +3,8 @@ Vehicles.Vehicles = {}
 Vehicles.Save = false
 Vehicles.Config = Config
 
+local vehicleTypes =  lib.loadJson('vehicles')
+
 function Vehicles.save()
     return Vehicles.Save
 end
@@ -49,7 +51,7 @@ function Vehicles.CreateVehicle(data, cb)
         data.plate = data.vehicle.plate
     end
 
-    if not data.vehicle or not data.plate or not data.coords then
+    if not data.onlyData and (not data.vehicle or not data.plate or not data.coords) then
         Utils.Debug('warn', 'CreateVehicle vehicle plate or coords are NIL value [ coords: %s , plate: %s,  ]',
             data.coords, data.plate, data.vehicle)
         return false
@@ -141,7 +143,7 @@ function Vehicles.CreateVehicle(data, cb)
         end
 
         data.metadata.firstSpawn = os.date("%Y/%m/%d %H:%M:%S")
-        data.metadata.fisrtOwner = GetName(data.source)
+        data.metadata.firstOwner = GetName(data.source)
 
         data.id = Vehicles.SetVehicleOwner(data)
     end
@@ -169,6 +171,11 @@ function Vehicles.CreateVehicle(data, cb)
         end
     end
 
+
+    -- https://docs.fivem.net/natives/?_0x489E9162
+    SetEntityOrphanMode(data.entity, 2)
+
+    ---https://docs.fivem.net/natives/?_0xD3A183A3
     SetEntityDistanceCullingRadius(data.entity, 99999.0)
 
     SetVehicleNumberPlateText(data.entity, data.plate)
@@ -214,6 +221,7 @@ function Vehicles.CreateVehicleId(data, callback)
 end
 
 function Vehicles.ControlVehicle(entity)
+    if Vehicles.Vehicles[entity] then return false end
     local plate = GetVehicleNumberPlateText(entity)
     local vehicle = Vehicles.GetVehicleByPlate(plate, true)
     if vehicle then
@@ -222,7 +230,7 @@ function Vehicles.ControlVehicle(entity)
         local data, vehicleAction = Vehicles.CreateVehicle(vehicle)
         return vehicleAction
     else
-        print(('No Vehicle with plate: %s'):format(plate))
+        return false
     end
 end
 
@@ -613,7 +621,7 @@ function Vehicles.GetVehicleByPlate(plate, db)
             return false
         end
     else
-        local vehicle = MySQL.single.await(Querys.getVehicleByPlate, { plate })
+        local vehicle = MySQL.single.await(Querys.getVehicleByPlateOrFakeplate, { plate, plate })
         if FrameWork == 'qbx' and vehicle then
             vehicle.parking = vehicle.garage
             vehicle.vehicle = vehicle.mods
@@ -800,6 +808,14 @@ function Vehicles.ItemCarKeys(src, action, plate)
     end
 end
 
+function Vehicles.HaveKeys(src, entity)
+    local identifier = Identifier(src)
+    local vehicle = Vehicles.GetVehicle(entity)
+    if not vehicle then vehicle = Vehicles.ControlVehicle(entity) end
+    if not vehicle then return false end
+    return (identifier == vehicle.owner) or vehicle.metadata.keys[identifier] ~= nil
+end
+
 local Properties = {}
 
 RegisterNetEvent('mVehicle:ReceiveProps', function(id, data)
@@ -870,7 +886,6 @@ AddEventHandler("txAdmin:events:serverShuttingDown", function(delay, author, mes
     end)
 end)
 
-
 AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
     if eventData.secondsRemaining == 60 and Config.Persistent then
         Citizen.CreateThread(function()
@@ -879,7 +894,6 @@ AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
         end)
     end
 end)
-
 
 AddEventHandler('onResourceStop', function(resourceName)
     if resourceName == GetCurrentResourceName() then
@@ -896,12 +910,26 @@ AddEventHandler('onResourceStop', function(resourceName)
 end)
 
 
+RegisterSafeEvent('mVehicle:VehicleDoors', function(netid)
+    local entity = NetworkGetEntityFromNetworkId(netid)
+    local vehicle = Vehicles.GetVehicle(entity)
+    if not vehicle then vehicle = Vehicles.ControlVehicle(entity) end
+    local status = GetVehicleDoorLockStatus(entity) == 0 and 2 or 0
+    SetVehicleDoorsLocked(entity, status)
+    if vehicle then vehicle.SetMetadata('DoorStatus', status) end
+end)
+
+
 exports('PlateExist', Vehicles.PlateExist)
 exports('GeneratePlate', Vehicles.GeneratePlate)
 exports('ItemCarKeys', Vehicles.ItemCarKeys)
 exports('GetClientProps', Vehicles.GetClientProps)
 
 lib.callback.register('mVehicle:GiveKey', Vehicles.ItemCarKeys)
+lib.callback.register('mVehicle:HasKeys', function(src, netid)
+    local entity = NetworkGetEntityFromNetworkId(netid)
+    return Vehicles.HaveKeys(src, entity)
+end)
 
 exports('vehicle', function()
     return Vehicles
