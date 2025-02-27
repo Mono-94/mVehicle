@@ -813,7 +813,7 @@ function Vehicles.HaveKeys(src, entity)
     local vehicle = Vehicles.GetVehicle(entity)
     if not vehicle then vehicle = Vehicles.ControlVehicle(entity) end
     if not vehicle then return false end
-    return (identifier == vehicle.owner) or vehicle.metadata.keys[identifier] ~= nil
+    return (identifier == vehicle.owner) or vehicle.metadata.keys and vehicle.metadata.keys[identifier] ~= nil or false
 end
 
 local Properties = {}
