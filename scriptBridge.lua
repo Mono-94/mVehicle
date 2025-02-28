@@ -21,12 +21,18 @@ and execute the provided callback instead.
 
 --- HandleFunctionResource
 --- Registers a handler for an exported function from another resource.
+--- This function listens for exported function calls and safely executes a callback,
+--- ensuring that errors do not crash the script.
+---
 --- @param resourceName string The name of the resource exporting the function.
 --- @param functionName string The name of the exported function.
 --- @param callBack function The function that will handle calls to the exported function.
 local function HandleFunctionResource(resourceName, functionName, callBack)
     AddEventHandler(('__cfx_export_%s_%s'):format(resourceName, functionName), function(...)
-        callBack(...)
+        local success, result = pcall(callBack, ...)
+        if not success then
+            print(("[ERROR] HandleFunctionResource: Failed to execute callback for %s:%s - %s"):format(resourceName, functionName, result))
+        end
     end)
 end
 
