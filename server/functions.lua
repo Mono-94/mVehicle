@@ -3,8 +3,6 @@ Vehicles.Vehicles = {}
 Vehicles.Save = false
 Vehicles.Config = Config
 
-local vehicleTypes =  lib.loadJson('vehicles')
-
 function Vehicles.save()
     return Vehicles.Save
 end
@@ -115,7 +113,8 @@ function Vehicles.CreateVehicle(data, cb)
 
     State:set('plate', data.plate, true)
 
-    State:set('fuel', data.vehicle.fuelLevel or 100, true)
+    local fuel = data.vehicle and data.vehicle.fuelLevel or 100
+    State:set('fuel', fuel, true)
 
     State:set('type', data.type, true)
 
@@ -808,13 +807,57 @@ function Vehicles.ItemCarKeys(src, action, plate)
     end
 end
 
-function Vehicles.HaveKeys(src, entity)
+function Vehicles.HasKey(src, entity)
     local identifier = Identifier(src)
     local vehicle = Vehicles.GetVehicle(entity)
     if not vehicle then vehicle = Vehicles.ControlVehicle(entity) end
     if not vehicle then return false end
     return (identifier == vehicle.owner) or vehicle.metadata.keys and vehicle.metadata.keys[identifier] ~= nil or false
 end
+
+---@param src number
+---@param entity number
+---@param data? table
+function Vehicles.AddTemporalVehicle(src, entity, data)
+    if Vehicles.Vehicles[entity] or not DoesEntityExist(entity) then return false end
+    local identifier = Identifier(src)
+    if not identifier then return false end
+    local PlayerName = GetName(src)
+    local plate = GetVehicleNumberPlateText(entity)
+    local vehicleData = {
+        onlyData = true,
+        plate = plate,
+        owner = identifier,
+        type = GetVehicleType(entity),
+        entity = entity,
+        metadata = {
+            controledBy = { name = PlayerName, identifier = identifier },
+            temporalControl = true,
+        },
+        vehicle = {
+            fuelLevel = 100,
+        }
+    }
+
+    if data then
+        for k, v in pairs(data) do
+            if vehicleData[k] == nil then
+                vehicleData[k] = v
+            end
+        end
+    end
+
+    Vehicles.CreateVehicle(vehicleData)
+    return true
+end
+
+-- if the temporary control vehicle is deleted, we remove it from the table
+AddEventHandler('entityRemoved', function(entity)
+    if Vehicles.Vehicles[entity]?.metadata?.temporalControl then
+        Vehicles.DeleteFromTable(entity)
+    end
+end)
+
 
 local Properties = {}
 
@@ -865,24 +908,24 @@ end)
 
 AddEventHandler("txAdmin:events:serverShuttingDown", function(delay, author, message)
     local vehicles <const> = Vehicles.Vehicles
-    local parameters = {}
+    local params = {}
 
     for _, veh in pairs(vehicles) do
         local coords = GetEntityCoords(veh.entity)
         local heading = GetEntityHeading(veh.entity)
         veh.metadata.coords = { x = coords.x, y = coords.y, z = coords.z, w = heading }
 
-        parameters[#parameters + 1] = {
+        params[#params + 1] = {
             json.encode(veh.metadata),
             veh.plate
         }
     end
 
-    if not next(parameters) then return end
+    if not next(params) then return end
 
-    MySQL.prepare(Querys.saveMetadata, parameters, function(results)
+    MySQL.prepare(Querys.saveMetadata, params, function(results)
         if not results then return end
-        Utils.Debug("info", "Total vehicles saved [ %s ] ", #parameters)
+        Utils.Debug("info", "Total vehicles saved [ %s ] ", #params)
     end)
 end)
 
@@ -899,7 +942,7 @@ AddEventHandler('onResourceStop', function(resourceName)
     if resourceName == GetCurrentResourceName() then
         for k, v in pairs(Vehicles.Vehicles) do
             DeleteEntity(v.entity)
-            if Config.Persistent then
+            if Config.Persistent and not v.metadata.temporalControl then
                 local coords = GetEntityCoords(v.entity)
                 local w = GetEntityHeading(v.entity)
                 v.metadata.coords = { x = coords.x, y = coords.y, z = coords.z, w = w }
@@ -924,13 +967,14 @@ exports('PlateExist', Vehicles.PlateExist)
 exports('GeneratePlate', Vehicles.GeneratePlate)
 exports('ItemCarKeys', Vehicles.ItemCarKeys)
 exports('GetClientProps', Vehicles.GetClientProps)
+exports('AddTemporalVehicle', Vehicles.AddTemporalVehicle)
 
 lib.callback.register('mVehicle:GiveKey', Vehicles.ItemCarKeys)
 lib.callback.register('mVehicle:HasKeys', function(src, netid)
-    local entity = NetworkGetEntityFromNetworkId(netid)
-    return Vehicles.HaveKeys(src, entity)
+    return Vehicles.HasKey(src, NetworkGetEntityFromNetworkId(netid))
+end)
+lib.callback.register('mVehicle:ControlTemporal', function(src, netid, data)
+    return Vehicles.AddTemporalVehicle(src, NetworkGetEntityFromNetworkId(netid), data)
 end)
 
-exports('vehicle', function()
-    return Vehicles
-end)
+exports('vehicle', function() return Vehicles end)
