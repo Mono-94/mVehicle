@@ -29,6 +29,12 @@ function Vehicles.GetVehicleLabel(model)
     return makeName .. ' ' .. displayName
 end
 
+function Vehicles.AddTemporalVehicleClient(entity)
+    return lib.callback.await('mVehicle:ControlTemporal', 1000, VehToNet(entity))
+end
+
+
+
 --Exports
 
 exports('vehicle', function()
