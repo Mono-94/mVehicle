@@ -23,7 +23,7 @@ and execute the provided callback instead.
 --- Registers a handler for an exported function from another resource.
 --- This function listens for exported function calls and safely executes a callback,
 --- ensuring that errors do not crash the script.
----
+
 --- @param resourceName string The name of the resource exporting the function.
 --- @param functionName string The name of the exported function.
 --- @param callBack function The function that will handle calls to the exported function.
@@ -35,7 +35,6 @@ local function HandleFunctionResource(resourceName, functionName, callBack)
         end
     end)
 end
-
 
 --------------------------------------------------------------------------------------------
 
@@ -56,5 +55,6 @@ else
         HandleFunctionResource('qbx_vehiclekeys', 'GiveKeys', function(src, entity)
             Vehicles.AddTemporalVehicle(src, entity)
         end)
+
     end
 end

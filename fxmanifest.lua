@@ -8,14 +8,14 @@ description "Manage vehicles with ease functions | Vehicles persistent"
 author "aka_mono & .rawpaper"
 
 
-version "2.0.3"
+version "2.0.4"
 
 
 shared_scripts {
     'shared/*',
     'resources/**/config.lua',
+    'resources/scriptBridge/scriptBridge.lua',
     '@ox_lib/init.lua',
-	'scriptBridge.lua',
 }
 
 client_scripts {
