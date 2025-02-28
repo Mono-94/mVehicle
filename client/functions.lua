@@ -33,7 +33,7 @@ function Vehicles.AddTemporalVehicleClient(entity)
     return lib.callback.await('mVehicle:ControlTemporal', 1000, VehToNet(entity))
 end
 
-
+exports('AddTemporalVehicleClient', Vehicles.AddTemporalVehicleClient)
 
 --Exports
 

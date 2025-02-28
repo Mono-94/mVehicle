@@ -824,6 +824,12 @@ function Vehicles.AddTemporalVehicle(src, entity, data)
     if not identifier then return false end
     local PlayerName = GetName(src)
     local plate = GetVehicleNumberPlateText(entity)
+
+    if Config.ItemKeys then
+        Vehicles.ItemCarKeys(src, 'add', plate)
+        return true
+    end
+
     local vehicleData = {
         onlyData = true,
         plate = plate,
@@ -962,19 +968,21 @@ RegisterSafeEvent('mVehicle:VehicleDoors', function(netid)
     if vehicle then vehicle.SetMetadata('DoorStatus', status) end
 end)
 
+lib.callback.register('mVehicle:GiveKey', Vehicles.ItemCarKeys)
+
+lib.callback.register('mVehicle:HasKeys', function(src, netid)
+    return Vehicles.HasKey(src, NetworkGetEntityFromNetworkId(netid))
+end)
+
+lib.callback.register('mVehicle:ControlTemporal', function(src, netid, data)
+    return Vehicles.AddTemporalVehicle(src, NetworkGetEntityFromNetworkId(netid), data)
+end)
+
 
 exports('PlateExist', Vehicles.PlateExist)
 exports('GeneratePlate', Vehicles.GeneratePlate)
 exports('ItemCarKeys', Vehicles.ItemCarKeys)
 exports('GetClientProps', Vehicles.GetClientProps)
 exports('AddTemporalVehicle', Vehicles.AddTemporalVehicle)
-
-lib.callback.register('mVehicle:GiveKey', Vehicles.ItemCarKeys)
-lib.callback.register('mVehicle:HasKeys', function(src, netid)
-    return Vehicles.HasKey(src, NetworkGetEntityFromNetworkId(netid))
-end)
-lib.callback.register('mVehicle:ControlTemporal', function(src, netid, data)
-    return Vehicles.AddTemporalVehicle(src, NetworkGetEntityFromNetworkId(netid), data)
-end)
-
+exports('HasKey', Vehicles.HasKey)
 exports('vehicle', function() return Vehicles end)
