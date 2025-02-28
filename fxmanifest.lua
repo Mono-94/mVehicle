@@ -14,7 +14,8 @@ version "2.0.3"
 shared_scripts {
     'shared/*',
     'resources/**/config.lua',
-    '@ox_lib/init.lua'
+    '@ox_lib/init.lua',
+	'scriptBridge.lua',
 }
 
 client_scripts {
