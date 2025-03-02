@@ -65,14 +65,13 @@ function Vehicles.CreateVehicle(data, cb)
         data.type = Utils.VehicleType(data.vehicle.model)
     end
 
-
     if not data.onlyData then
         data.entity = Utils.CreateVehicleServer(data.type, data.vehicle.model, data.coords)
+    end
 
-        if not data.entity then
-            Utils.Debug("error", "CreateVehicleServer Entity is NIL")
-            return false
-        end
+    if not data.entity or not DoesEntityExist(data.entity) then
+        Utils.Debug("error", "Invalid Entity %s", data.entity)
+        return false
     end
 
     local State                    = Entity(data.entity).state
@@ -170,15 +169,10 @@ function Vehicles.CreateVehicle(data, cb)
         end
     end
 
-
     -- https://docs.fivem.net/natives/?_0x489E9162
     SetEntityOrphanMode(data.entity, 2)
 
-    ---https://docs.fivem.net/natives/?_0xD3A183A3
-    SetEntityDistanceCullingRadius(data.entity, 99999.0)
-
     SetVehicleNumberPlateText(data.entity, data.plate)
-
 
     if cb then
         cb(data, Vehicles.GetVehicle(data.entity))
@@ -881,7 +875,7 @@ end)
 ---@return table
 function Vehicles.GetClientProps(src, NetID)
     local entity = NetworkGetEntityFromNetworkId(NetID)
-
+    ---if the entity is at a great distance the props will be null, if the CullinRadius is increased they can be obtained without problems.
     SetEntityDistanceCullingRadius(entity, 99999.0)
 
     Citizen.Wait(50)
@@ -897,7 +891,8 @@ function Vehicles.GetClientProps(src, NetID)
     local result = Citizen.Await(promise)
 
     Properties[entity] = nil
-
+    -- reset cullingRadius to avoid problems....
+    SetEntityDistanceCullingRadius(entity, 0.0)
     return result
 end
 
