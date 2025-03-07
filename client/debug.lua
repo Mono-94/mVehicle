@@ -1,5 +1,33 @@
 if not Config.Debug then return end
 
+local RadiusVehicleCoordsAwaitingClient = {}
+
+RegisterNetEvent('mvehicle:persistent:area:debug', function(id, coords, dist, action, bucket)
+    if action == 'add' then
+        if RadiusVehicleCoordsAwaitingClient[id] then return end
+        RadiusVehicleCoordsAwaitingClient[id] = {}
+        RadiusVehicleCoordsAwaitingClient[id].radius = AddBlipForRadius(coords.x, coords.y, coords.z, dist)
+        SetBlipAlpha(RadiusVehicleCoordsAwaitingClient[id].radius, 50)
+        SetBlipColour(RadiusVehicleCoordsAwaitingClient[id].radius, bucket == 0 and 11 or 14)
+        RadiusVehicleCoordsAwaitingClient[id].blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+        SetBlipSprite(RadiusVehicleCoordsAwaitingClient[id].blip, 11)
+        SetBlipDisplay(RadiusVehicleCoordsAwaitingClient[id].blip, 4)
+        SetBlipScale(RadiusVehicleCoordsAwaitingClient[id].blip, 1.0)
+        SetBlipColour(RadiusVehicleCoordsAwaitingClient[id].blip, bucket == 0 and 11 or 14)
+        SetBlipAsShortRange(RadiusVehicleCoordsAwaitingClient[id].blip, true)
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString(('Vehicle ID [ %s ] | Bucket [ %s ] - Awaiting client in Scope'):format(id, bucket))
+        EndTextCommandSetBlipName(RadiusVehicleCoordsAwaitingClient[id].blip)
+    else
+        if RadiusVehicleCoordsAwaitingClient[id] then
+            RemoveBlip(RadiusVehicleCoordsAwaitingClient[id].blip)
+            RemoveBlip(RadiusVehicleCoordsAwaitingClient[id].radius)
+            RadiusVehicleCoordsAwaitingClient[id] = nil
+        end
+    end
+end)
+
+
 
 exports.ox_target:addGlobalVehicle({
     {
@@ -13,6 +41,13 @@ exports.ox_target:addGlobalVehicle({
             if not input then return end
 
             Vehicles.SetEnGineSound(data.entity, input[1])
+        end
+    },
+    {
+        distance = 10.0,
+        label = 'type',
+        onSelect = function(data)
+           print(GetVehicleType(data.entity))
         end
     },
     {
