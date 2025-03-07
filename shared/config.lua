@@ -7,7 +7,7 @@
 Config                     = {}
 
 --- Prints | Some extra dev tools
-Config.Debug               = false
+Config.Debug               = true
 
 --- ox_inventory = 'ox' | qs-inventory = 'qs' not sure if it works
 Config.Inventory           = 'ox'
@@ -18,9 +18,10 @@ Config.EnableBikeHelmet    = true
 --- Personal Vehicle Menu 
 Config.PersonalVehicleMenu = true
 
---- Vehicle Density | 0.0 min | 1.0 max
+--- Vehicle Density | 0.0 min | 1.0 max - Increases CPU script to 0.01 / 0.02
 Config.VehicleDensity      = {
-    CloseAllVehicles = true,
+    CloseAllVehicles = false,
+    density = false,
     VehicleDensity = 1.0,
     RandomVehicleDensity = 1.0,
     ParkedVehicleDensity = 1.0
@@ -53,9 +54,9 @@ Config.KeyDelay            = 500
 
 Config.KeyDistance         = 5
 
---- Engine ignition need keys or hotwire
+--- Engine ignition need keys or hotwire 
 Config.VehicleEngine       = {
-    ToggleEngine = true,
+    ToggleEngine = false,
     KeyBind = 'M',
     keepEngineOnWhenLeave = false, -- requires ToggleEngine
 }
@@ -66,6 +67,7 @@ Config.SeatShuffle         = true
 ----------------------------------------------------------------------
 --- Vehicle Radio
 --- xSound Dependency | https://github.com/Xogy/xsound 
+--- Increases CPU script to 0.04 / 0.06 in use
 Config.Radio               = {
     command = false, -- false or string 
     KeyBind = false, -- false or string

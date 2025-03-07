@@ -21,6 +21,12 @@ CREATE TABLE `owned_vehicles` (
   UNIQUE KEY `unique_plate` (`plate`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+-- uptade `metadata` in `owned_vehicles`
+ALTER TABLE `owned_vehicles`
+ALTER COLUMN `metadata` SET DEFAULT '{"keys":{}}';
+
+
+
 
 
 
@@ -32,3 +38,7 @@ ADD COLUMN `pound` VARCHAR(60) DEFAULT NULL,
 ADD COLUMN `stored` TINYINT(4) DEFAULT 0,
 ADD COLUMN `type` varchar(20) DEFAULT 'automobile',
 ADD COLUMN `job` varchar(20) DEFAULT NULL;
+
+-- uptade `metadata` in `player_vehicles`
+ALTER TABLE `player_vehicles`
+ALTER COLUMN `metadata` SET DEFAULT '{"keys":{}}';
