@@ -42,5 +42,9 @@ files {
     'web/build/**/*',
 }
 
+provides {
+    'qbx_vehiclekeys',
+}
+
 
 ui_page 'web/build/index.html'
