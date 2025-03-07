@@ -1,9 +1,9 @@
 --[[
 
 Handle Resource Events
-This utility function is designed to manage and intercept exported functions 
-from other resources in a FiveM server. It listens for events triggered by 
-exported functions and redirects their execution to a custom callback, allowing 
+This utility function is designed to manage and intercept exported functions
+from other resources in a FiveM server. It listens for events triggered by
+exported functions and redirects their execution to a custom callback, allowing
 developers to override or extend the behavior of existing functions from other resources.
 
 Example Usage:
@@ -31,7 +31,8 @@ local function HandleFunctionResource(resourceName, functionName, callBack)
     AddEventHandler(('__cfx_export_%s_%s'):format(resourceName, functionName), function(...)
         local success, result = pcall(callBack, ...)
         if not success then
-            print(("[ERROR] HandleFunctionResource: Failed to execute callback for %s:%s - %s"):format(resourceName, functionName, result))
+            print(("[ERROR] HandleFunctionResource: Failed to execute callback for %s:%s - %s"):format(resourceName,
+                functionName, result))
         end
     end)
 end
@@ -42,19 +43,19 @@ if not IsDuplicityVersion() then
     if FrameWork == 'qbx' then
         -- qbx_vehiclekeys has keys Client
         HandleFunctionResource('qbx_vehiclekeys', 'HasKeys', function(entity)
-            Vehicles.HasKeyClient(entity)
+            return Vehicles.HasKeyClient(entity)
         end)
     end
 else
     if FrameWork == 'qbx' then
         -- qbx_vehiclekeys has keys Server
         HandleFunctionResource('qbx_vehiclekeys', 'HasKeys', function(src, entity)
-            Vehicles.HasKey(src, entity)
-        end)
-        -- qbx_vehiclekeys give keys? best thing to do is to give temporary access
-        HandleFunctionResource('qbx_vehiclekeys', 'GiveKeys', function(src, entity)
-            Vehicles.AddTemporalVehicle(src, entity)
+            return Vehicles.HasKey(src, entity)
         end)
 
+        -- qbx_vehiclekeys give keys? best thing to do is to give temporary access
+        HandleFunctionResource('qbx_vehiclekeys', 'GiveKeys', function(src, entity)
+            return Vehicles.AddTemporalVehicle(src, entity)
+        end)
     end
 end
