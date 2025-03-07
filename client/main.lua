@@ -24,7 +24,7 @@ end)
 
 --- Vehicle density loop
 Citizen.CreateThread(function()
-    while true do
+    while Config.VehicleDensity.density do
         SetVehicleDensityMultiplierThisFrame(Config.VehicleDensity.VehicleDensity)
         SetRandomVehicleDensityMultiplierThisFrame(Config.VehicleDensity.RandomVehicleDensity)
         SetParkedVehicleDensityMultiplierThisFrame(Config.VehicleDensity.ParkedVehicleDensity)
@@ -84,6 +84,11 @@ lib.callback.register('mVehicle:GivecarData', function()
 
     if not input then return false end
 
+    local vehiclehash = GetHashKey(input[1])
+
+    local isModelValid = IsModelValid(vehiclehash)
+
+    if not isModelValid then return false, print('Vehicle model invalid') end
 
     input[9] = GetVehicleClassFromName(input[1])
 
@@ -97,19 +102,16 @@ lib.callback.register('mVehicle:GivecarData', function()
 
     if input[4] then
         local date = lib.inputDialog(locale('givecar_menu11'), {
-            { type = 'date', label = locale('givecar_menu4'), icon = { 'far', 'calendar' }, format = "DD/MM/YYYY" },
-            { type = 'time', label = locale('givecar_menu5'), icon = { 'far', 'calendar' }, format = "24" },
+            { type = 'date', label = locale('givecar_menu4'), icon = { 'far', 'calendar' }, format = "DD/MM/YYYY", required = true },
+            { type = 'time', label = locale('givecar_menu5'), icon = { 'far', 'calendar' }, format = "24",         required = true },
         })
+        if not date then return false, print('Invalid') end
+
         GiveCar.date = date[1]
         GiveCar.hour = date[2]
     end
 
 
-    local vehiclehash = GetHashKey(input[1])
-
-    local isModelValid = IsModelValid(vehiclehash)
-
-    if not isModelValid then return false, print('Vehicle model invalid') end
 
     return GiveCar
 end)
@@ -126,15 +128,16 @@ end
 
 
 
-AddStateBagChangeHandler('FadeEntity', nil, function(bagName, key, value)
-    if not value then return end
-    local entity = GetEntityFromStateBagName(bagName)
-    if NetworkGetEntityOwner(entity) ~= PlayerId() then return end
-    value.entity = entity
-    SetFadeEntity(value)
-    Entity(entity).state:set('FadeEntity', nil, true)
+RegisterSafeEvent('mVehicle:FadeEntity', function(netId, action)
+    local entity = NetToVeh(netId)
+    if action == 'spawn' then
+        NetworkFadeInEntity(entity, true)
+    elseif action == 'delete' then
+        NetworkFadeOutEntity(entity, true, true)
+        Citizen.Wait(1500)
+        DeleteEntity(entity)
+    end
 end)
-
 
 --- Save Vehicle Coords And Props
 local playerPos
@@ -148,7 +151,8 @@ lib.onCache('seat', function(value)
 
     if seat == -1 and DoesEntityExist(vehicle) then
         local data = {}
-       -- local State = Entity(vehicle).state
+
+        -- local State = Entity(vehicle).state
 
         saveKHM = true
 
@@ -157,7 +161,6 @@ lib.onCache('seat', function(value)
         local vehicleDb = lib.callback.await('mVehicle:VehicleState', false, 'getVeh', data)
 
         if vehicleDb and vehicleDb.vehicle then
-       
             data.mileage = vehicleDb.mileage / 100
             while true do
                 if seat == -1 and saveKHM then
@@ -205,25 +208,6 @@ lib.onCache('seat', function(value)
 end)
 
 
-
-
-function SetFadeEntity(data)
-    if data.action == 'spawn' then
-        NetworkFadeInEntity(data.entity, true)
-        local seats = GetVehicleMaxNumberOfPassengers(data.entity)
-        for i = -1, seats do
-            local ped = GetPedInVehicleSeat(data.entity, i)
-            local isPlayer = IsPedAPlayer(ped)
-            if not isPlayer and ped > 0 then
-                DeleteEntity(ped)
-            end
-        end
-    elseif data.action == 'delete' then
-        NetworkFadeOutEntity(data.entity, true, true)
-        Citizen.Wait(1500)
-        DeleteEntity(data.entity)
-    end
-end
 
 function ShowNui(action, shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
