@@ -68,7 +68,8 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
             local metdata = json.decode(current.metadata) or { keys = {} }
 
             metdata.coords = json.decode(data.coords)
-            MySQL.update(Querys.saveLeftVehicleMeta,{ math.floor(data.mileage * 100), json.encode(data.props), json.encode(metdata), data.plate })
+            metdata.mileage = math.floor(data.mileage * 100)
+            MySQL.update(Querys.saveLeftVehicleMeta, { json.encode(data.props), json.encode(metdata), data.plate })
         end
     elseif action == 'savetrailer' then
         return vehicle and vehicle.CoordsAndProps(data.coords, data.props)
@@ -82,7 +83,10 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
         end
 
         if veh then
-            return { vehicle = true, mileage = veh.mileage }
+            if type(veh.metadata) ~= "table" then
+                veh.metadata = json.decode(veh.metadata)
+            end
+            return { vehicle = true, mileage = veh.metadata.mileage or 0 }
         else
             return false
         end
@@ -101,4 +105,3 @@ AddEventHandler('entityCreated', function(entity)
         end
     end
 end)
-
