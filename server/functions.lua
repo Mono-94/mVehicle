@@ -3,6 +3,8 @@ Vehicles.Vehicles = {}
 Vehicles.Save = false
 Vehicles.Config = Config
 
+local ClientEvent = TriggerClientEvent
+
 function Vehicles.save()
     return Vehicles.Save
 end
@@ -80,13 +82,17 @@ function Vehicles.CreateVehicle(data, cb)
 
     data.EntityOwner               = NetworkGetEntityOwner(data.entity)
 
-    data.NetId                     = NetworkGetNetworkIdFromEntity(data.entity)
+    while data.EntityOwner == -1 do
+        data.EntityOwner = NetworkGetEntityOwner(data.entity)
+        Wait(0)
+    end
 
-    data.mileage                   = data.mileage or 0
+    data.NetId = NetworkGetNetworkIdFromEntity(data.entity)
 
     if data.temporary then
         data.metadata.temporary = data.temporary
     end
+
 
     if CheckTemporary(data) then
         return false
@@ -108,23 +114,25 @@ function Vehicles.CreateVehicle(data, cb)
         State:set('engineSound', data.metadata.engineSound, true)
     end
 
-    lib.setVehicleProperties(data.entity, data.vehicle)
+    ClientEvent('ox_lib:setVehicleProperties', data.EntityOwner, data.NetId, data.vehicle)
+    ClientEvent('mVehicle:FadeEntity', data.EntityOwner, data.NetId, 'spawn')
 
     State:set('plate', data.plate, true)
 
     local fuel = data.vehicle and data.vehicle.fuelLevel or 100
+
     State:set('fuel', fuel, true)
 
     State:set('type', data.type, true)
 
     State:set('Spawned', true, true)
 
-    if data.job then
-        State:set('job', data.job, true)
+    if data.metadata.mileage then
+        State:set('mileage', data.metadata.mileage)
     end
 
-    if data.mileage then
-        State:set('mileage', data.mileage, true)
+    if data.job then
+        State:set('job', data.job, true)
     end
 
     if data.setOwner then
@@ -213,7 +221,9 @@ function Vehicles.CreateVehicleId(data, callback)
     end
 end
 
+local randomEntity = {}
 function Vehicles.ControlVehicle(entity)
+    if randomEntity[entity] then return false end
     if Vehicles.Vehicles[entity] then return false end
     local plate = GetVehicleNumberPlateText(entity)
     local vehicle = Vehicles.GetVehicleByPlate(plate, true)
@@ -223,6 +233,7 @@ function Vehicles.ControlVehicle(entity)
         local data, vehicleAction = Vehicles.CreateVehicle(vehicle)
         return vehicleAction
     else
+        randomEntity[entity] = {}
         return false
     end
 end
@@ -240,6 +251,35 @@ function Vehicles.GetVehicleByID(id)
     return vehicle
 end
 
+---Get Vehicle metadata DB from Plate
+---@param plate string
+---@param metadata table
+function Vehicles.UpdateMetadataPlate(plate, metadata)
+    return MySQL.update(Querys.saveMetadata, { json.encode(metadata), plate })
+end
+
+function Vehicles.GetMetadataPlate(plate)
+    local row = MySQL.single.await(Querys.selectMetadata, { plate })
+    if row then
+        local metadata = json.decode(row.metadata)
+        if not metadata then
+            metadata = {}
+        end
+        return metadata
+    end
+    return false
+end
+
+---TransferVehicle
+---@param src number
+---@param vehicleid number
+---@param newowner string
+---@return boolean
+function Vehicles.TransfreVehicle(src, vehicleid, newowner)
+    local transfer = false
+    return transfer
+end
+
 ---Set Car owner
 ---@param PlayerId integer
 ---@param entity? integer
@@ -247,7 +287,6 @@ function Vehicles.SetCurrentVehicleOwner(PlayerId, entity)
     local data       = {}
     local playerped  = GetPlayerPed(PlayerId)
     local identifier = Identifier(PlayerId)
-
 
     if not entity then
         data.entity = GetVehiclePedIsIn(playerped, false)
@@ -321,6 +360,8 @@ function Vehicles.GetVehicle(entity)
     local State       = Entity(entity).state
 
     local self        = Vehicles.Vehicles[entity]
+
+    self.EntityOwner  = NetworkGetEntityOwner(entity)
 
     self.GetCoords    = function()
         local c, h = GetEntityCoords(self.entity), GetEntityHeading(self.entity)
@@ -446,7 +487,7 @@ function Vehicles.GetVehicle(entity)
 
     self.DeleteVehicle  = function(fromDatabase)
         if DoesEntityExist(entity) then
-            State:set('FadeEntity', { action = 'delete' }, true)
+            ClientEvent('mVehicle:FadeEntity', self.EntityOwner, self.NetId, 'delete')
             State:set('Spawned', false, true)
         end
 
@@ -471,7 +512,7 @@ function Vehicles.GetVehicle(entity)
         self.DeleteMetadata('coords')
 
         if affectedRows > 0 then
-            State:set('FadeEntity', { action = 'delete' }, true)
+           ClientEvent('mVehicle:FadeEntity', self.EntityOwner, self.NetId, 'delete')
             Vehicles.Vehicles[entity] = nil
             self = nil
             store = true
@@ -504,7 +545,7 @@ function Vehicles.GetVehicle(entity)
         MySQL.update(Querys.setImpound, { impound, self.plate })
 
         if DoesEntityExist(entity) then
-            State:set('FadeEntity', { action = 'delete' }, true)
+            ClientEvent('mVehicle:FadeEntity', self.EntityOwner, self.NetId, 'delete')
         end
 
         Vehicles.Vehicles[entity] = nil
@@ -560,14 +601,12 @@ function Vehicles.GetVehicle(entity)
         if inBucket then return end
         self.coords = coords
         self.mileage = math.floor(mileages * 100)
+        
         State:set('mileage', Utils.Round(self.mileage), true)
 
         MySQL.update(Querys.saveProps, { json.encode(props), self.plate })
 
-        self.SetMetadata({
-            mileages = self.mileage,
-            coords = coords
-        })
+        self.SetMetadata({ mileage = self.mileage, coords = coords })
     end
 
 
@@ -721,7 +760,12 @@ function Vehicles.SpawnVehicles()
                 vehicle.vehicle = vehicle.mods
                 vehicle.owner = vehicle.citizenid
             end
-            Vehicles.CreateVehicle(vehicle)
+            if type(vehicle.metadata) ~= 'table' then
+                vehicle.metadata = json.decode(vehicle.metadata)
+            end
+
+            Persistent:Set(vehicle.metadata.coords, vehicle.id, vehicle.metadata.RoutingBucket or 0)
+
             Citizen.Wait(200)
         end
     end)
@@ -762,6 +806,7 @@ function Vehicles.SaveAllVehicles(delete)
     end
 
     if not next(parameters) then
+        Wait(500)
         Vehicles.Save = false
         return
     end
@@ -856,6 +901,9 @@ AddEventHandler('entityRemoved', function(entity)
     if Vehicles.Vehicles[entity]?.metadata?.temporalControl then
         Vehicles.DeleteFromTable(entity)
     end
+    if randomEntity[entity] then
+        randomEntity[entity] = nil
+    end
 end)
 
 
@@ -886,11 +934,12 @@ function Vehicles.GetClientProps(src, NetID)
         promise:resolve(props)
     end
 
-    TriggerClientEvent('mVehicles:RequestProps', src, entity, NetID)
+    ClientEvent('mVehicles:RequestProps', src, entity, NetID)
 
     local result = Citizen.Await(promise)
 
     Properties[entity] = nil
+
     -- reset cullingRadius to avoid problems....
     SetEntityDistanceCullingRadius(entity, 0.0)
     return result
@@ -942,12 +991,14 @@ end)
 AddEventHandler('onResourceStop', function(resourceName)
     if resourceName == GetCurrentResourceName() then
         for k, v in pairs(Vehicles.Vehicles) do
-            DeleteEntity(v.entity)
-            if Config.Persistent and not v.metadata.temporalControl then
-                local coords = GetEntityCoords(v.entity)
-                local w = GetEntityHeading(v.entity)
-                v.metadata.coords = { x = coords.x, y = coords.y, z = coords.z, w = w }
-                MySQL.update(Querys.saveMetadata, { json.encode(v.metadata), v.plate })
+            if DoesEntityExist(v.entity) then
+                if Config.Persistent and not v.metadata.temporalControl then
+                    local coords = GetEntityCoords(v.entity)
+                    local w = GetEntityHeading(v.entity)
+                    v.metadata.coords = { x = coords.x, y = coords.y, z = coords.z, w = w }
+                    MySQL.update(Querys.saveMetadata, { json.encode(v.metadata), v.plate })
+                end
+                DeleteEntity(v.entity)
             end
         end
     end
