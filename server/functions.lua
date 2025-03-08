@@ -762,11 +762,14 @@ function Vehicles.SpawnVehicles()
                 vehicle.vehicle = vehicle.mods
                 vehicle.owner = vehicle.citizenid
             end
+
             if type(vehicle.metadata) ~= 'table' then
                 vehicle.metadata = json.decode(vehicle.metadata)
             end
 
-            Persistent:Set(vehicle.metadata.coords, vehicle.id, vehicle.metadata.RoutingBucket or 0)
+            if vehicle.metadata.private or Config.Persistent then
+                Persistent:Set(vehicle.metadata.coords, vehicle.id, vehicle.metadata.RoutingBucket or 0)
+            end
 
             Citizen.Wait(200)
         end
@@ -949,10 +952,8 @@ end
 
 AddEventHandler("onResourceStart", function(Resource)
     if Resource == 'mVehicle' then
-        if Config.Persistent then
-            Wait(1000)
-            Vehicles.SpawnVehicles()
-        end
+        Wait(1000)
+        Vehicles.SpawnVehicles()
     end
 end)
 

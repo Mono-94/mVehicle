@@ -1,10 +1,7 @@
 local is_ox_fuel = GetResourceState('ox_fuel') == 'started'
 
---- Set some flags on playerSpawned
-AddEventHandler('playerSpawned', function()
-    local ped = PlayerPedId()
-
-    -- CPED_CONFIG_FLAG_DisableAutoEquipHelmetsInBikes | 380
+--- Set some flags on PlayerPedId Change
+lib.onCache('ped', function (ped)
     SetPedConfigFlag(ped, 380, Config.EnableBikeHelmet)
 
     -- CPED_CONFIG_FLAG_DisableStartEngine | 429
@@ -12,7 +9,6 @@ AddEventHandler('playerSpawned', function()
 
     -- CPED_CONFIG_FLAG_LeaveEngineOnWhenExitingVehicles | 241
     SetPedConfigFlag(ped, 241, Config.VehicleEngine.keepEngineOnWhenLeave)
-
 end)
 
 
@@ -94,7 +90,7 @@ lib.callback.register('mVehicle:GivecarData', function()
 
     if not input then return false end
 
-    local vehiclehash = GetHashKey(input[1])
+    local vehiclehash = joaat(input[1])
 
     local isModelValid = IsModelValid(vehiclehash)
 
