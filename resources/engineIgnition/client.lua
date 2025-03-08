@@ -1,10 +1,4 @@
-Citizen.CreateThread(function()
-    -- CPED_CONFIG_FLAG_DisableStartEngine | 429
-    SetPedConfigFlag(cache.ped, 429, Config.VehicleEngine.ToggleEngine)
 
-    -- CPED_CONFIG_FLAG_LeaveEngineOnWhenExitingVehicles | 241
-    SetPedConfigFlag(cache.ped, 241, Config.VehicleEngine.keepEngineOnWhenLeave)
-end)
 
 if not Config.VehicleEngine.ToggleEngine then return end
 

@@ -1,8 +1,18 @@
 local is_ox_fuel = GetResourceState('ox_fuel') == 'started'
 
---- Ped Helmet disable/enable on spawn ped
+--- Set some flags on playerSpawned
 AddEventHandler('playerSpawned', function()
-    SetPedHelmet(PlayerPedId(), Config.EnableBikeHelmet)
+    local ped = PlayerPedId()
+
+    -- CPED_CONFIG_FLAG_DisableAutoEquipHelmetsInBikes | 380
+    SetPedConfigFlag(ped, 380, Config.EnableBikeHelmet)
+
+    -- CPED_CONFIG_FLAG_DisableStartEngine | 429
+    SetPedConfigFlag(ped, 429, Config.VehicleEngine.ToggleEngine)
+
+    -- CPED_CONFIG_FLAG_LeaveEngineOnWhenExitingVehicles | 241
+    SetPedConfigFlag(ped, 241, Config.VehicleEngine.keepEngineOnWhenLeave)
+
 end)
 
 
