@@ -129,13 +129,15 @@ end
 
 
 RegisterSafeEvent('mVehicle:FadeEntity', function(netId, action)
-    local entity = NetToVeh(netId)
-    if action == 'spawn' then
-        NetworkFadeInEntity(entity, true)
-    elseif action == 'delete' then
-        NetworkFadeOutEntity(entity, true, true)
-        Citizen.Wait(1500)
-        DeleteEntity(entity)
+    if NetworkDoesEntityExistWithNetworkId(netId) then
+        local entity = NetToVeh(netId)
+        if action == 'spawn' then
+            NetworkFadeInEntity(entity, true)
+        elseif action == 'delete' then
+            NetworkFadeOutEntity(entity, true, true)
+            Citizen.Wait(1500)
+            DeleteEntity(entity)
+        end
     end
 end)
 
