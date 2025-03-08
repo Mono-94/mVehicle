@@ -1,28 +1,12 @@
-if not Config.VehicleEngine.ToggleEngine then return end
+Citizen.CreateThread(function()
+    -- CPED_CONFIG_FLAG_DisableStartEngine | 429
+    SetPedConfigFlag(cache.ped, 429, Config.VehicleEngine.ToggleEngine)
 
-local vehicle = nil
-local engineStatus = false
-
-lib.onCache('vehicle', function(value)
-    vehicle = value
-
-    if vehicle and Config.VehicleEngine.keepEngineOnWhenLeave then
-        SetVehicleKeepEngineOnWhenAbandoned(vehicle, true)
-    end
-
-    while vehicle do
-        if not vehicle then break end
-
-        engineStatus = GetIsVehicleEngineRunning(vehicle)
-
-        if not engineStatus then
-            SetVehicleEngineOn(vehicle, false, true, true)
-            DisableControlAction(0, 71, true)
-        end
-
-        Citizen.Wait(10)
-    end
+    -- CPED_CONFIG_FLAG_LeaveEngineOnWhenExitingVehicles | 241
+    SetPedConfigFlag(cache.ped, 241, Config.VehicleEngine.keepEngineOnWhenLeave)
 end)
+
+if not Config.VehicleEngine.ToggleEngine then return end
 
 
 lib.addKeybind({
@@ -30,13 +14,16 @@ lib.addKeybind({
     description = 'Keybin engine',
     defaultKey = Config.VehicleEngine.KeyBind,
     onPressed = function()
+        local vehicle = cache.vehicle
+
         if not vehicle then return end
-        local isDriver = (GetPedInVehicleSeat(vehicle, -1) == cache.ped)
+
+        local isDriver = GetPedInVehicleSeat(cache.vehicle, -1) == cache.ped
 
         if not isDriver then return end
 
         local key = Vehicles.HasKeyClient(vehicle)
-        
+
         if not key then return end
 
         local vehicleClass = GetVehicleClass(vehicle)
@@ -45,6 +32,7 @@ lib.addKeybind({
             TaskPlayAnim(cache.ped, 'veh@std@ds@fpsbase', 'start_engine', 8.0, 1.0, not engineStatus and 1500 or 1000, 49,
                 0, 0, 0, 0)
         end
+        local engineStatus = GetIsVehicleEngineRunning(vehicle)
 
         Citizen.Wait(not engineStatus and 1500 or 1000)
 
