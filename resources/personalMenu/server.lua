@@ -14,7 +14,7 @@ lib.callback.register('mVehicle:VehicleMenu', function(source, action, data, tar
     local metadata = {}
 
     if not Vehicle then
-        Vehicle = Vehicles.GetVehicleByID(data.id)
+        Vehicle = data.id and Vehicles.GetVehicleByID(data.id) or Vehicles.GetVehicleByPlate(data.plate, true)
         if Vehicle then
             metadata = json.decode(Vehicle.metadata) or { keys = {} }
             if not metadata.keys then
@@ -61,7 +61,10 @@ lib.callback.register('mVehicle:VehicleMenu', function(source, action, data, tar
 
         return true
     elseif action == 'setBlip' then
-        if Vehicle then
+        if not spawned then
+            local props = json.decode(Vehicle.vehicle)
+            return { coords = metadata.coords, model =  props.model}
+        else
             return { coords = Vehicle.GetCoords(), model = Vehicle.vehicle.model }
         end
     end
