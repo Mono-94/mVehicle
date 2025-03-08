@@ -40,58 +40,46 @@ function Utils.CreateVehicleServer(type, model, coords)
     if not IsDuplicityVersion() then
         return Utils.Debug('error', 'This function only works on server side')
     end
-    
+
     local entity = CreateVehicleServerSetter(model, type, coords.x, coords.y, coords.z, coords.w)
 
-    local startTime = GetGameTimer()
-    local endTime = 5000
-
-    while not DoesEntityExist(entity) do
-        Citizen.Wait(0)
-        if GetGameTimer() - startTime > endTime then
-            return false
+    local validEntity = lib.waitFor(function()
+        if DoesEntityExist(entity) then
+            return entity
         end
-    end
+    end, 'Invalid entity', 5000)
 
-    return entity
+    return validEntity
 end
 
 ---Get Vehicle Type
 function Utils.VehicleType(value)
-  
     if not IsDuplicityVersion() then
         return Utils.Debug('error', 'This function only works on server side')
     end
+
     if DoesEntityExist(value) then
         return GetVehicleType(value)
     end
 
     local tempVehicle = CreateVehicle(value, 0, 0, 0, 0, true, true)
 
-    local gametime = GetGameTimer()
-    local timeout = 10000
+    local validEntity = lib.waitFor(function()
+        if DoesEntityExist(tempVehicle) then return tempVehicle end
+    end, 'Invalid entity', 5000)
 
-    while not DoesEntityExist(tempVehicle) do
-        Citizen.Wait(0)
-        if GetGameTimer() - gametime > timeout then
-            break
-        end
-    end
+    local vehicleType = GetVehicleType(validEntity)
 
-    local vehicleType = GetVehicleType(tempVehicle)
-
-    DeleteEntity(tempVehicle)
+    DeleteEntity(validEntity)
 
     return vehicleType
 end
 
-
 --Get Player keys
 function Utils.KeyItem(plate)
-
     local havekey = false
 
-    plate = plate:gsub("%s+", "") 
+    plate = plate:gsub("%s+", "")
 
     if Config.Inventory == 'ox' then
         local item = exports.ox_inventory:Search('slots', Config.CarKeyItem)
@@ -118,11 +106,12 @@ function Utils.Round(value)
     local mult = 10 ^ (2 or 0)
     return math.floor(value * mult + 0.5) / mult
 end
+
 ---@param eventName string
 ---@param funct function
 function RegisterSafeEvent(eventName, funct)
     RegisterNetEvent(eventName, function(...)
-      if GetInvokingResource() ~= nil then return end
-      funct(...)
+        if GetInvokingResource() ~= nil then return end
+        funct(...)
     end)
-  end
+end
