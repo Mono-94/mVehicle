@@ -76,6 +76,10 @@ function Vehicles.CreateVehicle(data, cb)
         return false
     end
 
+    if data.metadata.RoutingBucket then
+        SetEntityRoutingBucket(data.entity, data.metadata.RoutingBucket)
+    end
+
     local State                    = Entity(data.entity).state
 
     Vehicles.Vehicles[data.entity] = {}
@@ -106,9 +110,7 @@ function Vehicles.CreateVehicle(data, cb)
         data.vehicle.plate = data.metadata.fakeplate
     end
 
-    if data.metadata.RoutingBucket then
-        SetEntityRoutingBucket(data.entity, data.metadata.RoutingBucket)
-    end
+
 
     if data.metadata.engineSound then
         State:set('engineSound', data.metadata.engineSound, true)
@@ -512,7 +514,7 @@ function Vehicles.GetVehicle(entity)
         self.DeleteMetadata('coords')
 
         if affectedRows > 0 then
-           ClientEvent('mVehicle:FadeEntity', self.EntityOwner, self.NetId, 'delete')
+            ClientEvent('mVehicle:FadeEntity', self.EntityOwner, self.NetId, 'delete')
             Vehicles.Vehicles[entity] = nil
             self = nil
             store = true
@@ -601,7 +603,7 @@ function Vehicles.GetVehicle(entity)
         if inBucket then return end
         self.coords = coords
         self.mileage = math.floor(mileages * 100)
-        
+
         State:set('mileage', Utils.Round(self.mileage), true)
 
         MySQL.update(Querys.saveProps, { json.encode(props), self.plate })
