@@ -600,8 +600,9 @@ function Vehicles.GetVehicle(entity)
     -- Save Coords
     self.SaveLeftVehicle = function(coords, props, mileages)
         local inBucket = self.GetMetadata('RoutingBucket')
-        if inBucket then return end
-        self.coords = coords
+
+        self.coords = inBucket and self.coords or coords
+
         self.mileage = math.floor(mileages * 100)
 
         State:set('mileage', Utils.Round(self.mileage), true)
