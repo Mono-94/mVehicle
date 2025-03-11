@@ -17,19 +17,20 @@ Config.EnableBikeHelmet    = true
 
 --- Personal Vehicle Menu
 Config.PersonalVehicleMenu = true
+Config.OpenPersonalMenu = {'keybind', 'F1'} -- 'radialmenu' | {'keybind', 'E'}
 
 --- Vehicle Density | 0.0 min | 1.0 max - Increases CPU script to 0.01 / 0.02
 Config.VehicleDensity      = {
-    CloseAllVehicles = false,
+    CloseAllVehicles = true,
     density = false,
-    VehicleDensity = 1.0,
-    RandomVehicleDensity = 1.0,
-    ParkedVehicleDensity = 1.0
+    VehicleDensity = 0.0,
+    RandomVehicleDensity = 0.0,
+    ParkedVehicleDensity = 0.0
 }
 
 --- Persistent
 --- Vehicle persistents in world
-Config.Persistent          = false
+Config.Persistent          = true
 
 --- Commands
 Config.Commands            = {
@@ -40,7 +41,7 @@ Config.Commands            = {
 }
 
 --- Manage tr2 trailer
-Config.TargetTrailer       = true
+Config.TargetTrailer       = false
 
 ----------------------------------------------------------------------
 --- Carkeys
@@ -56,9 +57,9 @@ Config.KeyDistance         = 5
 
 --- Engine ignition need keys or hotwire
 Config.VehicleEngine       = {
-    ToggleEngine = true,
+    ToggleEngine = false,
     KeyBind = 'M',
-    keepEngineOnWhenLeave = true,
+    keepEngineOnWhenLeave = false,
 }
 ----------------------------------------------------------------------
 -- Seat Shuffle front + back seats | SHIFT + E
