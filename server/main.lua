@@ -65,11 +65,11 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
             local current = Vehicles.GetVehicleByPlate(data.plate, true)
 
             if not current then return end
-            local metdata = json.decode(current.metadata) or { keys = {} }
+            local metadata = json.decode(current.metadata) or { keys = {} }
 
-            metdata.coords = json.decode(data.coords)
-            metdata.mileage = math.floor(data.mileage * 100)
-            MySQL.update(Querys.saveLeftVehicleMeta, { json.encode(data.props), json.encode(metdata), data.plate })
+            metadata.coords = json.decode(data.coords)
+            metadata.mileage = math.floor(data.mileage * 100)
+            MySQL.update(Querys.saveLeftVehicleMeta, { json.encode(data.props), json.encode(metadata), data.plate })
         end
     elseif action == 'savetrailer' then
         return vehicle and vehicle.CoordsAndProps(data.coords, data.props)
@@ -105,3 +105,5 @@ AddEventHandler('entityCreated', function(entity)
         end
     end
 end)
+
+lib.versionCheck('Mono-94/mVehicle')
