@@ -47,7 +47,17 @@ exports.ox_target:addGlobalVehicle({
         distance = 10.0,
         label = 'type',
         onSelect = function(data)
-           print(GetVehicleType(data.entity))
+            print(GetVehicleType(data.entity))
+        end
+    },
+    {
+        distance = 4,
+        label = 'Set on Ground',
+        icon = 'fa-solid fa-car',
+        onSelect = function(data)
+            local carCoords = GetEntityRotation(data.entity, 2)
+            SetEntityRotation(data.entity, carCoords[1], 0, carCoords[3], 2, true)
+            SetVehicleOnGroundProperly(data.entity)
         end
     },
     {
