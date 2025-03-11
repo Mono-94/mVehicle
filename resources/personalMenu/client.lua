@@ -1,5 +1,3 @@
-if not Config.PersonalVehicleMenu then return end
-
 local getVehicles = function()
     local cars = {}
 
@@ -104,14 +102,26 @@ end)
 exports('VehicleKeysMenu', Vehicles.VehicleKeysMenu)
 
 if Config.PersonalVehicleMenu then
-    lib.addRadialItem({
-        {
-            id = 'vehicle_keys_menu',
-            label = 'Your Vehicles',
-            icon = 'car',
-            onSelect = Vehicles.VehicleKeysMenu
-        }
-    })
+    if Config.OpenPersonalMenu == 'radialmenu' then
+        lib.addRadialItem({
+            {
+                id = 'vehicle_keys_menu',
+                label = 'Your Vehicles',
+                icon = 'car',
+                onSelect = Vehicles.VehicleKeysMenu
+            }
+        })
+    elseif Config.OpenPersonalMenu[1] == 'keybind' then
+        lib.addKeybind({
+            name = 'mVehiclePersonalMenu',
+            description = ('To see your vehicles.'):format(Config.OpenPersonalMenu[2]),
+            defaultKey = Config.OpenPersonalMenu[2],
+            onPressed = function ()
+                Vehicles.VehicleKeysMenu()
+            end,
+
+        })
+    end
 end
 
 local blip = nil
