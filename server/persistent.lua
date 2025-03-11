@@ -1,6 +1,7 @@
 local GetPlayers = GetPlayers
 
 Persistent = {
+    Debug = true,
     -- Refresh CoordsAvailable
     WaitRefresh = 10000,
     --- Player ped/vehicle culling. No entities will be created on
@@ -14,11 +15,11 @@ Persistent = {
 }
 
 local msg = function(msg, ...)
-    return Config.Debug and print((msg):format(...))
+    return Persistent.Debug and print((msg):format(...))
 end
 
 local blip = function(id, coords, action, bucket)
-    return Config.Debug and
+    return Persistent.Debug and
         TriggerClientEvent('mvehicle:persistent:area:debug', -1, id, coords, Persistent.DistanceCooords, action, bucket)
 end
 
@@ -52,7 +53,6 @@ end
 function Persistent:Refresh()
     local allPlayers = GetPlayers()
     local newCoordsAvaible = {}
-
     for _, src in ipairs(allPlayers) do
         local coords = GetEntityCoords(GetPlayerPed(src))
         local bucket = GetPlayerRoutingBucket(src)
@@ -86,6 +86,9 @@ end
 
 function Persistent:Set(coords, id, bucket)
     local tooClose = false
+    if not coords then
+        msg('[ERROR] Vehicle ID:%s, invalid COORDS', id)
+    end
 
     if next(Persistent.CoordsAvaible) then
         for _, data in pairs(Persistent.CoordsAvaible) do
@@ -120,6 +123,13 @@ function Persistent:VehiclesAwaiting()
         end
     end
 end
+
+exports('RefreshAwait', function()
+    Citizen.CreateThread(function(threadId)
+        Wait(2000)
+        Persistent:Refresh()
+    end)
+end)
 
 Citizen.CreateThread(function()
     while true do
