@@ -40,22 +40,18 @@ end
 --------------------------------------------------------------------------------------------
 
 if not IsDuplicityVersion() then
-    if FrameWork == 'qbx' then
-        -- qbx_vehiclekeys has keys Client
-        HandleFunctionResource('qbx_vehiclekeys', 'HasKeys', function(entity)
-            return Vehicles.HasKeyClient(entity)
-        end)
-    end
+    -- qbx_vehiclekeys has keys Client
+    HandleFunctionResource('qbx_vehiclekeys', 'HasKeys', function(entity)
+        return Vehicles.HasKeyClient(entity)
+    end)
 else
-    if FrameWork == 'qbx' then
-        -- qbx_vehiclekeys has keys Server
-        HandleFunctionResource('qbx_vehiclekeys', 'HasKeys', function(src, entity)
-            return Vehicles.HasKey(src, entity)
-        end)
+    -- qbx_vehiclekeys has keys Server
+    HandleFunctionResource('qbx_vehiclekeys', 'HasKeys', function(src, entity)
+        return Vehicles.HasKey(src, entity)
+    end)
 
-        -- qbx_vehiclekeys give keys? best thing to do is to give temporary access
-        HandleFunctionResource('qbx_vehiclekeys', 'GiveKeys', function(src, entity)
-            return Vehicles.AddTemporalVehicle(src, entity)
-        end)
-    end
+    -- qbx_vehiclekeys give keys? best thing to do is to give temporary access
+    HandleFunctionResource('qbx_vehiclekeys', 'GiveKeys', function(src, entity)
+        return Vehicles.AddTemporalVehicle(src, entity)
+    end)
 end
