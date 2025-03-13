@@ -1,16 +1,18 @@
 local is_ox_fuel = GetResourceState('ox_fuel') == 'started'
 
---- Set some flags on PlayerPedId Change
-lib.onCache('ped', function (ped)
+
+--- Set some flags on Player Ped
+local setPedFlags = function(ped)
     SetPedConfigFlag(ped, 380, Config.EnableBikeHelmet)
-
-    -- CPED_CONFIG_FLAG_DisableStartEngine | 429
     SetPedConfigFlag(ped, 429, Config.VehicleEngine.ToggleEngine)
-
-    -- CPED_CONFIG_FLAG_LeaveEngineOnWhenExitingVehicles | 241
     SetPedConfigFlag(ped, 241, Config.VehicleEngine.keepEngineOnWhenLeave)
+end
+
+lib.onCache('ped', function(ped)
+    setPedFlags(ped)
 end)
 
+setPedFlags(PlayerPedId())
 
 Citizen.CreateThread(function()
     local lastVehicle = nil
@@ -26,7 +28,6 @@ Citizen.CreateThread(function()
         Citizen.Wait(200)
     end
 end)
-
 
 --- Vehicle density loop
 Citizen.CreateThread(function()
