@@ -93,17 +93,18 @@ lib.callback.register('mVehicle:VehicleState', function(source, action, data)
     end
 end)
 
+lib.versionCheck('Mono-94/mVehicle')
 
+if not Config.VehicleDensity.CloseAllVehicles then return end
 -- Close doors on entityCreated
 AddEventHandler('entityCreated', function(entity)
-    if not Config.VehicleDensity.CloseAllVehicles then return end
     if DoesEntityExist(entity) then
         local entityType = GetEntityType(entity)
-
         if entityType == 2 then
-            SetVehicleDoorsLocked(entity, 2)
+            local engine = GetIsVehicleEngineRunning(entity)
+            if not engine then
+                SetVehicleDoorsLocked(entity, 2)
+            end
         end
     end
 end)
-
-lib.versionCheck('Mono-94/mVehicle')
