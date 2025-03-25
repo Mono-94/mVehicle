@@ -47,16 +47,17 @@ function Vehicles.CreateVehicle(data, cb)
         data.vehicle.model = data.model
     end
 
-    if not data.plate and data.vehicle.plate then
-        data.plate = data.vehicle.plate
+    if not data.plate or not data.vehicle.plate and data.setOwner then
+        data.plate = Vehicles.GeneratePlate()
     end
+
+    data.vehicle.plate = data.plate
 
     if not data.onlyData and (not data.vehicle or not data.plate or not data.coords) then
         Utils.Debug('warn', 'CreateVehicle vehicle plate or coords are NIL value [ coords: %s , plate: %s,  ]',
             data.coords, data.plate, data.vehicle)
         return false
     end
-
 
     if Vehicles.GetVehicleByPlate(data.plate) then
         Utils.Debug('warn', 'CreateVehicle plate duplicated [ "%s" ]', data.plate)
@@ -80,23 +81,20 @@ function Vehicles.CreateVehicle(data, cb)
         SetEntityRoutingBucket(data.entity, data.metadata.RoutingBucket)
     end
 
-    local State                    = Entity(data.entity).state
-
-    Vehicles.Vehicles[data.entity] = {}
-
-    data.EntityOwner               = NetworkGetEntityOwner(data.entity)
+    data.EntityOwner = NetworkGetEntityOwner(data.entity)
 
     while data.EntityOwner == -1 do
         data.EntityOwner = NetworkGetEntityOwner(data.entity)
         Wait(0)
     end
 
-    data.NetId = NetworkGetNetworkIdFromEntity(data.entity)
+    local State = Entity(data.entity).state
+
+    data.NetId  = NetworkGetNetworkIdFromEntity(data.entity)
 
     if data.temporary then
         data.metadata.temporary = data.temporary
     end
-
 
     if CheckTemporary(data) then
         return false
@@ -110,22 +108,13 @@ function Vehicles.CreateVehicle(data, cb)
         data.vehicle.plate = data.metadata.fakeplate
     end
 
-
-
     if data.metadata.engineSound then
         State:set('engineSound', data.metadata.engineSound, true)
     end
 
-    ClientEvent('ox_lib:setVehicleProperties', data.EntityOwner, data.NetId, data.vehicle)
-    ClientEvent('mVehicle:FadeEntity', data.EntityOwner, data.NetId, 'spawn')
-
-    State:set('plate', data.plate, true)
-
     local fuel = data.vehicle and data.vehicle.fuelLevel or 100
 
     State:set('fuel', fuel, true)
-
-    State:set('type', data.type, true)
 
     State:set('Spawned', true, true)
 
@@ -170,6 +159,16 @@ function Vehicles.CreateVehicle(data, cb)
 
     Vehicles.Vehicles[data.entity] = data
 
+    if Config.VehicleProperties.stateBag then
+        State:set(Config.VehicleProperties.StateBagName, data.vehicle, true)
+    elseif Config.VehicleProperties.event then
+        ClientEvent('ox_lib:setVehicleProperties', data.EntityOwner, data.NetId, data.vehicle, data.EntityOwner)
+    else
+        lib.setVehicleProperties(data.entity, data.vehicle)
+    end
+
+    ClientEvent('mVehicle:FadeEntity', data.EntityOwner, data.NetId, 'spawn', data.vehicle.fuelLevel)
+
     if data.intocar then
         local plyPed = GetPlayerPed(data.source)
 
@@ -178,9 +177,6 @@ function Vehicles.CreateVehicle(data, cb)
             Citizen.Wait(0)
         end
     end
-
-    -- https://docs.fivem.net/natives/?_0x489E9162
-    SetEntityOrphanMode(data.entity, 2)
 
     SetVehicleNumberPlateText(data.entity, data.plate)
 
@@ -346,6 +342,7 @@ function Vehicles.SetVehicleOwner(data)
     if FrameWork == 'qbx' then
         table.insert(insert, data.license)
     end
+
     return MySQL.insert.await(query, insert)
 end
 
@@ -431,8 +428,6 @@ function Vehicles.GetVehicle(entity)
 
         return self.metadata
     end
-
-
     --- GetMetadata
     ---@param key? string
     self.GetMetadata    = function(key)
@@ -442,7 +437,6 @@ function Vehicles.GetVehicle(entity)
             return self.metadata[key]
         end
     end
-
     --- SetJob
     self.SetJob         = function(job)
         self.SetMetadata('job', job)
@@ -450,7 +444,6 @@ function Vehicles.GetVehicle(entity)
             MySQL.update(Querys.setVehicleJob, { job, self.plate })
         end
     end
-
     ---AddKeys
     ---@param src number
     self.AddKey         = function(src)
@@ -465,7 +458,6 @@ function Vehicles.GetVehicle(entity)
         end
         return false
     end
-
     ---RemoveKey
     self.RemoveKey      = function(identifier)
         if self.metadata.keys[identifier] then
@@ -758,6 +750,7 @@ function Vehicles.SpawnVehicles()
     local dbvehicles = MySQL.query.await(Querys.selectAll)
     lib.array.forEach(dbvehicles, function(vehicle)
         if vehicle.stored == 0 and vehicle.pound == nil then
+
             if FrameWork == 'qbx' and vehicle then
                 vehicle.parking = vehicle.garage
                 vehicle.vehicle = vehicle.mods
@@ -904,7 +897,8 @@ end
 
 -- if the temporary control vehicle is deleted, we remove it from the table
 AddEventHandler('entityRemoved', function(entity)
-    if Vehicles.Vehicles[entity]?.metadata?.temporalControl then
+    local veh = Vehicles.Vehicles[entity]
+    if veh and veh.metadata.temporalControl then
         Vehicles.DeleteFromTable(entity)
     end
     if randomEntity[entity] then
@@ -948,6 +942,7 @@ function Vehicles.GetClientProps(src, NetID)
 
     -- reset cullingRadius to avoid problems....
     SetEntityDistanceCullingRadius(entity, 0.0)
+
     return result
 end
 
@@ -1028,7 +1023,7 @@ lib.callback.register('mVehicle:ControlTemporal', function(src, netid, data)
     return Vehicles.AddTemporalVehicle(src, NetworkGetEntityFromNetworkId(netid), data)
 end)
 
-
+exports('CreateVehicle', Vehicles.CreateVehicle)
 exports('PlateExist', Vehicles.PlateExist)
 exports('GeneratePlate', Vehicles.GeneratePlate)
 exports('ItemCarKeys', Vehicles.ItemCarKeys)
