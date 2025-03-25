@@ -14,7 +14,7 @@ lib.onCache('seat', function(seat)
 		else
 			SetPedConfigFlag(cache.ped, 184, false)
 		end
-		
+
 		while true do
 			if not PlayerSeat then break end
 			if IsControlPressed(0, 21) and IsControlJustPressed(0, 38) then
@@ -31,6 +31,7 @@ lib.onCache('seat', function(seat)
 	end
 end)
 
+
 lib.onCache('TryEnterVehicle', function(veh)
 	-- Prevents a player from entering a locked vehicle
 	local lock = GetVehicleDoorLockStatus(veh)
@@ -39,10 +40,15 @@ lib.onCache('TryEnterVehicle', function(veh)
 		return
 	end
 
+	if Config.TyrEnter.closeEnter then return end
+
+	if lib.table.contains(Config.TyrEnter.blackListClass, GetVehicleClass(veh)) then
+		return
+	end
+
 	local PlayerPed = cache.ped
 	local coords = GetEntityCoords(PlayerPed)
 	local doorIndex = nil
-
 
 	for i = 0, GetNumberOfVehicleDoors(veh) do
 		local doorCoords = GetEntryPositionOfDoor(veh, i)

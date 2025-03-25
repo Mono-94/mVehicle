@@ -14,17 +14,7 @@ end
 
 
 function Notification(src, data)
-    TriggerClientEvent('mVehicle:Notification', src, {
-        title = data.title,
-        description = data.description,
-        position = data.position or 'center-left',
-        icon = data.icon or 'ban',
-        type = data.type or 'warning',
-        iconAnimation = data.iconAnimation or 'beat',
-        iconColor = data.iconColor or '#C53030',
-        duration = data.duration or 2000,
-        showDuration = true,
-    })
+    TriggerClientEvent('mVehicle:Notification', src, data)
 end
 
 

@@ -35,8 +35,6 @@ end
 
 exports('AddTemporalVehicleClient', Vehicles.AddTemporalVehicleClient)
 
---Exports
-
 exports('vehicle', function()
     return Vehicles
 end)

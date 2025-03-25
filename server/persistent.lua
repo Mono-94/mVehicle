@@ -1,7 +1,7 @@
 local GetPlayers = GetPlayers
 
 Persistent = {
-    Debug = true,
+    Debug = false,
     -- Refresh CoordsAvailable
     WaitRefresh = 10000,
     --- Player ped/vehicle culling. No entities will be created on
@@ -29,7 +29,7 @@ end
 
 function Persistent:SetNew(coords, id, bucket)
     Persistent.VehicleAwaiting[id] = { coords = coords, bucket = bucket }
-    msg('Vehicle id [%s] waiting for client available ', id)
+    msg('Vehicle id [%s] wait', id)
     blip(id, coords, 'add', bucket)
 end
 
@@ -45,7 +45,7 @@ end
 
 function Persistent:CreateVehicle(id, coords)
     Vehicles.CreateVehicleId({ id = id, coords = coords })
-    msg('Vehicle id [%s] spawning correct', id)
+    msg('Vehicle id [%s] spawn correct', id)
     blip(id)
     Persistent:DeletVehicle(id)
 end
