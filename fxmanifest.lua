@@ -8,12 +8,11 @@ description "Manage vehicles with ease functions | Vehicles persistent"
 author "aka_mono & .rawpaper"
 
 
-version "2.0.6"
+version "2.0.7"
 
 
 shared_scripts {
     'shared/*',
-    'resources/**/config.lua',
     'resources/scriptBridge/scriptBridge.lua',
     '@ox_lib/init.lua',
 }
@@ -42,9 +41,8 @@ files {
     'web/build/**/*',
 }
 
-provides {
-    'qbx_vehiclekeys',
-}
+provide  'qbx_vehiclekeys'
+
 
 
 ui_page 'web/build/index.html'
