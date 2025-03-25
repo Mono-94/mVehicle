@@ -42,6 +42,8 @@ function Utils.CreateVehicleServer(type, model, coords)
     end
 
     local entity = CreateVehicleServerSetter(model, type, coords.x, coords.y, coords.z, coords.w)
+    -- https://docs.fivem.net/natives/?_0x489E9162
+    SetEntityOrphanMode(entity, 2)
 
     local validEntity = lib.waitFor(function()
         if DoesEntityExist(entity) then
