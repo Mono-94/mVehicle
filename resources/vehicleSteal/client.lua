@@ -35,8 +35,9 @@ lib.callback.register('mVehicle:PlayerItems', function(action, entity)
         local pedInVehicle = IsPedInVehicle(ped, vehicle)
         if pedInVehicle then return end
         local coords = GetEntityCoords(vehicle)
+        local class = GetVehicleClass(vehicle)
 
-        local skillCheck = Config.LockPickItem.skillCheck()
+        local skillCheck = Config.LockPickItem.skillCheck(vehicle, class)
 
         if skillCheck then
             Config.LockPickItem.dispatch(cache.serverId, vehicle, coords)
@@ -51,10 +52,11 @@ lib.callback.register('mVehicle:PlayerItems', function(action, entity)
 
         local pedInVehicle = IsPedInVehicle(ped, vehicle, -1)
         if not pedInVehicle then return false end
+        local class = GetVehicleClass(vehicle)
 
 
         local coords = GetEntityCoords(vehicle)
-        local skillCheck = Config.HotWireItem.skillCheck()
+        local skillCheck = Config.HotWireItem.skillCheck(vehicle, class)
 
         if skillCheck then
             Config.HotWireItem.dispatch(cache.serverId, vehicle, coords)

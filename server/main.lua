@@ -1,3 +1,7 @@
+local GetEntityType = GetEntityType
+local GetIsVehicleEngineRunning = GetIsVehicleEngineRunning
+local DoesEntityExist = DoesEntityExist
+
 local PlateCron = {}
 
 function DeleteTemporary(plate, hour, min)
@@ -96,15 +100,10 @@ end)
 lib.versionCheck('Mono-94/mVehicle')
 
 if not Config.VehicleDensity.CloseAllVehicles then return end
+
 -- Close doors on entityCreated
 AddEventHandler('entityCreated', function(entity)
-    if DoesEntityExist(entity) then
-        local entityType = GetEntityType(entity)
-        if entityType == 2 then
-            local engine = GetIsVehicleEngineRunning(entity)
-            if not engine then
-                SetVehicleDoorsLocked(entity, 2)
-            end
-        end
+    if DoesEntityExist(entity) and GetEntityType(entity) == 2 and not GetIsVehicleEngineRunning(entity) then
+        SetVehicleDoorsLocked(entity, 2)
     end
 end)

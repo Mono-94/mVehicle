@@ -1,43 +1,35 @@
---Lock Pick
+-- Optimized Lockpick
 exports('lockpick', function(event, item, inventory, slot, data)
-    if event == 'usingItem' then
-        local player = GetPlayerPed(inventory.id)
-        local coords = GetEntityCoords(player)
-        local vehicles = lib.getClosestVehicle(coords, 5.0, true)
-        local vehicle = Vehicles.GetVehicle(vehicles)
-        local doorStatus = GetVehicleDoorLockStatus(vehicles)
-        local Noty = function()
-            Notification(source, {
-                title = 'Vehiculo',
-                description = (doorStatus == 2 and locale('open_door') or locale('close_door')),
-                icon = (doorStatus == 2 and 'lock-open' or 'lock'),
-                iconColor = (doorStatus == 2 and '#77e362' or '#e36462'),
-            })
-        end
-        local skillCheck = lib.callback.await('mVehicle:PlayerItems', inventory.id, 'lockpick',
-            NetworkGetNetworkIdFromEntity(vehicles))
-        if skillCheck then
-            if doorStatus == 2 then
-                if vehicle then
-                    vehicle.SetMetadata('DoorStatus', 0)
-                end
-                SetVehicleDoorsLocked(vehicles, 0)
-                Noty()
-                return false
-            else
-                if vehicle then
-                    vehicle.SetMetadata('DoorStatus', 2)
-                end
-                SetVehicleDoorsLocked(vehicles, 2)
-                Noty()
-                return false
-            end
-        else
+    if event ~= 'usingItem' then return end
 
-        end
-        return false
+    local player = GetPlayerPed(inventory.id)
+    local coords = GetEntityCoords(player)
+    local vehicleEntity = lib.getClosestVehicle(coords, 5.0, true)
+    if not vehicleEntity then return end
+
+    local vehicle = Vehicles.GetVehicle(vehicleEntity)
+    local doorStatus = GetVehicleDoorLockStatus(vehicleEntity)
+
+    local newStatus = (doorStatus == 2) and 0 or 2
+    local icon, color = (newStatus == 0) and 'lock-open' or 'lock', (newStatus == 0) and '#77e362' or '#e36462'
+
+    local skillCheck = lib.callback.await('mVehicle:PlayerItems', inventory.id, 'lockpick', NetworkGetNetworkIdFromEntity(vehicleEntity))
+    if not skillCheck then return false end
+
+    if vehicle then
+        vehicle.SetMetadata('DoorStatus', newStatus)
     end
+
+    SetVehicleDoorsLocked(vehicleEntity, newStatus)
+
+    TriggerClientEvent('mVehicle:Notification', source, {
+        title = 'Vehiculo',
+        description = locale(newStatus == 0 and 'open_door' or 'close_door'),
+        icon = icon,
+        iconColor = color
+    })
 end)
+
 
 --HotWire
 exports('hotwire', function(event, item, inventory, slot, data)
@@ -84,7 +76,7 @@ exports('fakeplate', function(event, item, inventory, slot, data)
                         SetVehicleNumberPlateText(vehicles, vehicle.plate)
 
                         vehicle.FakePlate()
-                        
+
                         exports.ox_inventory:SetMetadata(inventory.id, slot,
                             {
                                 description = itemSlot.metadata.fakeplate,
@@ -92,7 +84,6 @@ exports('fakeplate', function(event, item, inventory, slot, data)
                             })
 
                         exports.ox_inventory:UpdateVehicle(vehicle.plate, itemSlot.metadata.fakeplate)
-
                     end
                 end
             else
@@ -110,7 +101,7 @@ exports('fakeplate', function(event, item, inventory, slot, data)
     end
 end)
 
-if Config.Inventory == 'ox' and GetResourceState('ox_inventory') == 'started' then
+if GetResourceState('ox_inventory') == 'started' then
     exports.ox_inventory:registerHook('createItem', function(payload)
         local plate = Vehicles.GeneratePlate()
         local metadata = payload.metadata

@@ -1,6 +1,5 @@
 local is_ox_fuel = GetResourceState('ox_fuel') == 'started'
 
-
 --- Set some flags on Player Ped
 local setPedFlags = function(ped)
     SetPedConfigFlag(ped, 380, Config.EnableBikeHelmet)
@@ -124,22 +123,14 @@ lib.callback.register('mVehicle:GivecarData', function()
 end)
 
 
-if not is_ox_fuel then
-    AddStateBagChangeHandler('fuel', nil, function(bagName, key, value)
-        if not value then return end
-        local entity = GetEntityFromStateBagName(bagName)
-        if NetworkGetEntityOwner(entity) ~= PlayerId() then return end
-        Config.SetFuel(entity, value)
-    end)
-end
-
-
-
-RegisterSafeEvent('mVehicle:FadeEntity', function(netId, action)
+RegisterSafeEvent('mVehicle:FadeEntity', function(netId, action, fuelLevel)
     if NetworkDoesEntityExistWithNetworkId(netId) then
         local entity = NetToVeh(netId)
         if action == 'spawn' then
             NetworkFadeInEntity(entity, true)
+            if not is_ox_fuel then
+                Config.SetFuel(entity, fuelLevel)
+            end
         elseif action == 'delete' then
             NetworkFadeOutEntity(entity, true, true)
             Citizen.Wait(1500)
@@ -160,8 +151,6 @@ lib.onCache('seat', function(value)
 
     if seat == -1 and DoesEntityExist(vehicle) then
         local data = {}
-
-        -- local State = Entity(vehicle).state
 
         saveKHM = true
 
@@ -205,7 +194,7 @@ lib.onCache('seat', function(value)
                             Trailer.coords = Utils.GetVector4(trailerEntity, true)
                             Trailer.props = lib.getVehicleProperties(trailerEntity)
                             if type(Trailer.props) == 'table' then
-                                local saved = lib.callback.await('mVehicle:VehicleState', false, 'savetrailer', Trailer)
+                                lib.callback.await('mVehicle:VehicleState', false, 'savetrailer', Trailer)
                             end
                         end
                     end
