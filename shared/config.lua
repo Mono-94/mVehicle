@@ -4,12 +4,27 @@
 --- Documents :  https://mono-94.github.io/mDocuments/
 ----------------------------------------------------------------------
 --- Config -----------------------------------------------------------
-Config                     = {}
-
+Config       = {}
 --- Prints | Some extra dev tools
-Config.Debug               = false
+Config.Debug = false
+
+
+--- Since many people have issues with vehicle properties,
+--- I decided to add the following configuration to give better control over how properties are applied.
+Config.VehicleProperties   = {
+    stateBag = true,                              -- Enables the use of a stateBag for applying properties.
+    StateBagName = 'ox_lib:setVehicleProperties', -- ox_lib = ox_lib:setVehicleProperties | ESX = VehicleProperties
+    event = false,                                -- Enables the use of a custom event for applying properties.
+    eventname = 'ox_lib:setVehicleProperties'     -- Default event name (uses ox_lib by default).
+    --- Example of a Custom Event:
+    --- RegisterNetEvent('myEventToSetProperties', function(VehicleNetworkId, VehicleProperties, EntityOwner)
+    ---     local entity = VehToNet(VehicleNetworkId)
+    ---     myFunctionToSetProperties(entity, VehicleProperties)
+    --- end)
+}
 
 --- ox_inventory = 'ox' | qs-inventory = 'qs' not sure if it works
+--- check vehicle keys item metadata
 Config.Inventory           = 'ox'
 
 --- Enable Bike Helmet
@@ -17,15 +32,15 @@ Config.EnableBikeHelmet    = true
 
 --- Personal Vehicle Menu
 Config.PersonalVehicleMenu = true
-Config.OpenPersonalMenu = {'keybind', 'F1'} -- 'radialmenu' | {'keybind', 'E'}
+Config.OpenPersonalMenu    = { 'keybind', 'F1' } -- 'radialmenu' | {'keybind', 'E'}
 
 --- Vehicle Density | 0.0 min | 1.0 max - Increases CPU script to 0.01 / 0.02
 Config.VehicleDensity      = {
     CloseAllVehicles = true,
-    density = false,
-    VehicleDensity = 0.0,
-    RandomVehicleDensity = 0.0,
-    ParkedVehicleDensity = 0.0
+    density = true,
+    VehicleDensity = 0,
+    RandomVehicleDensity = 0,
+    ParkedVehicleDensity = 0
 }
 
 --- Persistent
@@ -64,7 +79,12 @@ Config.VehicleEngine       = {
 ----------------------------------------------------------------------
 -- Seat Shuffle front + back seats | SHIFT + E
 Config.SeatShuffle         = true
-
+----------------------------------------------------------------------
+-- Try Enter vehicle | Enter closet door
+Config.TyrEnter            = {
+    closeEnter = true,
+    blackListClass = { 14, 15, 16 }
+}
 ----------------------------------------------------------------------
 --- Vehicle Radio
 --- xSound Dependency | https://github.com/Xogy/xsound
@@ -99,28 +119,31 @@ Config.SetFuel = function(vehicleEntity, fuelLevel)
     -- exports.LegacyFuel:SetFuel(vehicleEntity, fuelLevel)
 
     -- Native
-    SetVehicleFuelLevel(vehicleEntity, fuelLevel)
+    -- SetVehicleFuelLevel(vehicleEntity, fuelLevel)
 end
+
 
 Config.LockPickItem = {
     item = 'lockpick',
-    skillCheck = function()
-        local success = lib.skillCheck({ 'easy', 'easy' })
+    skillCheck = function(VehicleEntity, Class)
+        local dificult = VehicleClass[Class].lockpickDificult
+        local success = lib.skillCheck(dificult)
         return success
     end,
     dispatch = function(plyServerId, vehicleEntity, coords)
-        print(plyServerId, vehicleEntity, coords)
+     --   print(plyServerId, vehicleEntity, coords)
     end
 }
 
 Config.HotWireItem = {
     item = 'wirecutt',
-    skillCheck = function()
-        local success = lib.skillCheck({ 'easy', 'easy' })
+    skillCheck = function(VehicleEntity, Class)
+        local dificult = VehicleClass[Class].hotWireDificult
+        local success = lib.skillCheck(dificult)
         return success
     end,
     dispatch = function(plyServerId, vehicleEntity, coords)
-        print(plyServerId, vehicleEntity, coords)
+      --  print(plyServerId, vehicleEntity, coords)
     end
 }
 
