@@ -1,3 +1,4 @@
+
 local RadiusVehicleCoordsAwaitingClient = {}
 
 RegisterNetEvent('mvehicle:persistent:area:debug', function(id, coords, dist, action, bucket)
@@ -31,7 +32,7 @@ local EngineSound = {
 
     --- Vehicle engine sounds from https://www.gta5-mods.com/vehicles/brabus-inspired-custom-engine-sound-add-on-sound
     --- only for debugging
-
+    
     Engines = {
         { value = 'brabus850',  label = 'Brabus 850 6.0L V8-TT v1.3 (brabus850)' },
         { value = 'toysupmk4',  label = 'Toyota 2JZ-GTE 3.0L I6-T v1.3 (toysupmk4)' },
@@ -48,15 +49,7 @@ local EngineSound = {
 
 }
 
-
 exports.ox_target:addGlobalVehicle({
-    {
-        distance = 10.0,
-        label = 'Vehicle type',
-        onSelect = function(data)
-            print(GetVehicleType(data.entity))
-        end
-    },
     {
         distance = 10.0,
         label = 'Change Sound',
@@ -72,9 +65,16 @@ exports.ox_target:addGlobalVehicle({
     },
     {
         distance = 10.0,
-        label = 'Toggle Doords',
+        label = 'type',
         onSelect = function(data)
-            TriggerServerEvent('mVehicle:VehicleDoors', VehToNet(data.entity))
+            print(GetVehicleType(data.entity))
+        end
+    },
+    {
+        distance = 10.0,
+        label = 'dooors',
+        onSelect = function(data)
+            print(GetVehicleDoorLockStatus(data.entity))
         end
     },
     {
@@ -96,24 +96,38 @@ exports.ox_target:addGlobalVehicle({
                 if VehicleState.id then
                     print(("ID: %s"):format(VehicleState.id))
                 end
-                print(("Type: %s"):format(VehicleState.type))
+
                 print(("Plate: %s"):format(VehicleState.plate))
-                print(("Fuel Level: %s"):format(VehicleState.fuel))
-                if VehicleState.mileage then
-                    print(("Mileage: %s"):format(VehicleState.mileage))
-                end
 
                 if VehicleState.owner then
                     print(("Owner: %s"):format(VehicleState.owner))
                 end
 
+                print(("Type: %s"):format(VehicleState.type))
+
                 if VehicleState.job then
                     print(("Job: %s"):format(VehicleState.job))
                 end
 
+                print(("Fuel Level: %s"):format(VehicleState.fuel))
+
+                if VehicleState.mileage then
+                    print(("Mileage: %s"):format(VehicleState.mileage))
+                end
+
+                if VehicleState.engineSound then
+                    print(("Engine Sound: %s"):format(VehicleState.engineSound))
+                end
                 if VehicleState.metadata then
                     print(("Metadata: %s"):format(json.encode(VehicleState.metadata, { indent = true })))
                 end
+                print(VehicleState.metadata.properties)
+                print(VehicleState.metadata.parking)
+                print(VehicleState.metadata.keys)
+
+                --if VehicleState.keys then
+                --    print(("Keys: %s"):format(json.encode(VehicleState.keys, { indent = true })))
+                --end
             end
         end
     },
