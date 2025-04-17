@@ -1,8 +1,8 @@
 {
     "Trailer Target": "",
     "flip_trailer": "Anhänger umdrehen",
-    "up_dow_ramp": "Raise/Lower Ramp",
-    "up_dow_platform": "Raise/Lower Platform",
+    "up_dow_ramp": "Auf/ab Ramp",
+    "up_dow_platform": "Auf/ab Platform",
     "attach_vehicle": "Hänger An-Kuppeln",
     "dettach_vehicle": "Hänger Ab-Kuppeln",
 
@@ -12,7 +12,7 @@
 
     "Keys": "",
     "key_string": "Kennzeichen: %s",
-    "key_targetdoors": "Auf/Ab Kuppeln",
+    "key_targetdoors": "Türen öffnen/schließen",
 
     "GiveCar Command": "",
     "givecar_noty": "Sie sind jetzt Eigentümer dieses Fahrzeugs %s",
@@ -24,12 +24,13 @@
     "givecar_menu2": "Garage",
     "givecar_menu3": "Temporäre Fahrzeuge?",
     "givecar_menu4": "Datum",
-    "givecar_menu5": "Uhrzeit",
+    "givecar_menu5": "Stunden",
     "givecar_menu6": "Minuten",
     "givecar_menu7": "Fahrzeug Farbe 1",
     "givecar_menu8": "Fahrzeug Farbe 2",
     "givecar_menu9": "Fahrzeug Job",
-    "givecar_menu810": "Leer lassen für kein Job",
+    "givecar_menu10": "Leer lassen für kein Job",
+    "givecar_menu11": "temporär",
 
     "carkeyMenu": "",
     "carkey_menu1": "Perönliches Fahrzeug",
@@ -38,12 +39,15 @@
     "carkey_menu4": "Schlüssel einem Spieler anhand seiner ID hinzufügen.",
     "carkey_menu5": "Keiner hat einen Schlüssel zu diesem Fahrzeug 😪",
     "carkey_menu6": "Löschen",
-
+    "carkey_menu7": "Name Ändern",
+    "carkey_menu8": "GPS markieren",
 
 
     "Fake Plate": "",
-    "fakeplate1": "Falsche Kennzeichen",
+    "fakeplate1": "Falsches Kennzeichen",
     "fakeplate2": "dieses Fahrzeug gehört dir Nicht...",
     "fakeplate3": "Orginales Kennzeichen",
-    "fakeplate4": "Ändere Kennzeichen"
+    "fakeplate4": "Änderes Kennzeichen"
+
+    "setBlip": "Vehicle marked on the map"
 }
